@@ -278,7 +278,7 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
         anchor = anchor_id(guild_name)
         cards.append(
             f"""
-            <a class="guild-card" href="#{escape(anchor)}">
+            <div class="guild-card" data-modal="{escape(anchor)}">
               <div class="guild-card-top">
                 <div>
                   <p class="eyebrow">{escape(str(guild_row['server_display']))}</p>
@@ -295,7 +295,7 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
               </dl>
               <p class="guild-note">{escape(str(guild_row['guild_notice']))}</p>
               <span class="card-jump">길드 상세 보기 ↘</span>
-            </a>
+            </div>
             """
         )
     return "".join(cards)
@@ -348,7 +348,7 @@ def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_b
                   <p class="eyebrow">{escape(str(guild_row['server_display']))}</p>
                   <h3>{escape(guild_name)}</h3>
                 </div>
-                <a class="mini-link" href="#{escape(anchor)}">상세 섹션으로</a>
+                <a class="mini-link" data-modal="{escape(anchor)}" href="#">상세 보기</a>
               </div>
               <div class="detail-compare-meta">
                 <span>길드원 {len(members)}명</span>
@@ -364,77 +364,86 @@ def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_b
     return f'<section class="detail-compare-wrap">{"".join(columns)}</section>'
 
 
-def render_guild_sections(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
-    sections: list[str] = []
+def render_guild_modals(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
+    modals: list[str] = []
     for guild_row in guild_rows:
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
         summary = build_guild_summary(guild_row, members)
         anchor = anchor_id(guild_name)
-        sections.append(
+        modals.append(
             f"""
-            <section class="guild-section" id="{escape(anchor)}">
-              <div class="section-head">
-                <div>
-                  <p class="eyebrow">{escape(str(guild_row['server_display']))} · 기준일 {escape(str(guild_row['data_date']))}</p>
-                  <h2>{escape(guild_name)}</h2>
-                </div>
-                <a class="detail-link" href="{escape(str(guild_row['guild_url']))}" target="_blank" rel="noreferrer">원본 길드 페이지 보기</a>
-              </div>
-              <div class="section-grid">
-                <article class="info-panel">
-                  <h3>길드 정보</h3>
-                  <dl>
-                    <div><dt>길드 마스터</dt><dd>{escape(str(guild_row['guild_master_name']))}</dd></div>
-                    <div><dt>길드 레벨</dt><dd>{escape(str(guild_row['guild_level']))}</dd></div>
-                    <div><dt>길드원 수</dt><dd>{summary['member_count_int']}명</dd></div>
-                    <div><dt>길드 전투력</dt><dd>{escape(str(guild_row['guild_power']))}</dd></div>
-                    <div><dt>전체 / 서버 순위</dt><dd>{escape(str(guild_row['global_rank']))} / {escape(str(guild_row['server_rank']))}</dd></div>
-                    <div><dt>평균 레벨</dt><dd>Lv.{summary['avg_level']}</dd></div>
-                  </dl>
-                </article>
-                <article class="info-panel emphasis">
-                  <h3>핵심 포인트</h3>
-                  <ul class="highlights">
-                    <li><span>TOP 멤버</span><strong>{escape(str(summary['top_member_name']))}</strong><em>{escape(str(summary['top_member_power']))}</em></li>
-                    <li><span>TOP 멤버 직업</span><strong>{escape(str(summary['top_member_job']))}</strong></li>
-                    <li><span>마스터 전투력</span><strong>{escape(str(summary['master_member_power']))}</strong></li>
-                    <li><span>길드 공지</span><strong>{escape(str(guild_row['guild_notice']))}</strong></li>
-                  </ul>
-                </article>
-              </div>
-              <div class="table-wrap">
-                <div class="table-toolbar">
-                  <h3>길드원 목록</h3>
-                  <div class="toolbar-actions">
-                    <input class="member-search" type="search" placeholder="닉네임 / 직업 검색" data-target="table-{escape(anchor)}" />
-                    <span class="hint">열 제목 클릭 시 정렬</span>
+            <div class="modal-backdrop" id="modal-{escape(anchor)}" role="dialog" aria-modal="true" aria-label="{escape(guild_name)}">
+              <div class="modal-box">
+                <button class="modal-close" aria-label="닫기">×</button>
+                <div class="section-head">
+                  <div>
+                    <p class="eyebrow">{escape(str(guild_row['server_display']))} · 기준일 {escape(str(guild_row['data_date']))}</p>
+                    <h2>{escape(guild_name)}</h2>
                   </div>
+                  <a class="detail-link" href="{escape(str(guild_row['guild_url']))}" target="_blank" rel="noreferrer">원본 길드 페이지 보기</a>
                 </div>
-                <table class="member-table" id="table-{escape(anchor)}">
-                  <thead>
-                    <tr>
-                      <th data-sort="rank">순위</th>
-                      <th data-sort="name">닉네임</th>
-                      <th data-sort="job">직업</th>
-                      <th data-sort="level">레벨</th>
-                      <th data-sort="power">전투력</th>
-                    </tr>
-                  </thead>
-                  <tbody>{render_member_rows(members)}</tbody>
-                </table>
+                <div class="section-grid">
+                  <article class="info-panel">
+                    <h3>길드 정보</h3>
+                    <dl>
+                      <div><dt>길드 마스터</dt><dd>{escape(str(guild_row['guild_master_name']))}</dd></div>
+                      <div><dt>길드 레벨</dt><dd>{escape(str(guild_row['guild_level']))}</dd></div>
+                      <div><dt>길드원 수</dt><dd>{summary['member_count_int']}명</dd></div>
+                      <div><dt>길드 전투력</dt><dd>{escape(str(guild_row['guild_power']))}</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>{escape(str(guild_row['global_rank']))} / {escape(str(guild_row['server_rank']))}</dd></div>
+                      <div><dt>평균 레벨</dt><dd>Lv.{summary['avg_level']}</dd></div>
+                    </dl>
+                  </article>
+                  <article class="info-panel emphasis">
+                    <h3>핵심 포인트</h3>
+                    <ul class="highlights">
+                      <li><span>TOP 멤버</span><strong>{escape(str(summary['top_member_name']))}</strong><em>{escape(str(summary['top_member_power']))}</em></li>
+                      <li><span>TOP 멤버 직업</span><strong>{escape(str(summary['top_member_job']))}</strong></li>
+                      <li><span>마스터 전투력</span><strong>{escape(str(summary['master_member_power']))}</strong></li>
+                      <li><span>길드 공지</span><strong>{escape(str(guild_row['guild_notice']))}</strong></li>
+                    </ul>
+                  </article>
+                </div>
+                <div class="table-wrap">
+                  <div class="table-toolbar">
+                    <h3>길드원 목록</h3>
+                    <div class="toolbar-actions">
+                      <input class="member-search" type="search" placeholder="닉네임 / 직업 검색" data-target="table-{escape(anchor)}" />
+                      <span class="hint">열 제목 클릭 시 정렬</span>
+                    </div>
+                  </div>
+                  <table class="member-table" id="table-{escape(anchor)}">
+                    <thead>
+                      <tr>
+                        <th data-sort="rank">순위</th>
+                        <th data-sort="name">닉네임</th>
+                        <th data-sort="job">직업</th>
+                        <th data-sort="level">레벨</th>
+                        <th data-sort="power">전투력</th>
+                      </tr>
+                    </thead>
+                    <tbody>{render_member_rows(members)}</tbody>
+                  </table>
+                </div>
               </div>
-            </section>
+            </div>
             """
         )
-    return "".join(sections)
+    return "".join(modals)
 
 
 def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> Path:
+    # #1 fix: build nav_links outside the f-string to avoid double-brace escaping
     nav_links = "".join(
-        f'<a href="#{{escape(anchor_id(str(row["guild_name"])))}}">{{escape(str(row["guild_name"]))}}</a>'
+        '<a data-modal="' + anchor_id(str(row["guild_name"])) + '" href="#">' + escape(str(row["guild_name"])) + "</a>"
         for row in guild_rows
     )
+    summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
+    compare_cards_html = render_compare_cards(guild_rows, members_by_guild)
+    detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild)
+    guild_modals_html = render_guild_modals(guild_rows, members_by_guild)
+
     html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -512,10 +521,10 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
       color: var(--text);
       font-size: 14px;
       transition: all 0.18s ease;
+      cursor: pointer;
     }}
     .hero-nav a:hover {{ background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }}
-    .summary-grid, .compare-grid {{ display: grid; gap: 16px; margin-top: 22px; }}
-    .summary-grid {{ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 28px; }}
+    .summary-grid {{ display: grid; gap: 16px; margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }}
     .summary-card, .guild-card, .info-panel, .detail-compare-card {{
       background: var(--panel);
       border: 1px solid var(--line);
@@ -528,39 +537,125 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .summary-value {{ display: block; margin-top: 14px; font-size: 28px; line-height: 1.15; }}
     .summary-help {{ margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }}
     .section-title {{ margin: 44px 0 16px; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }}
-    .compare-grid {{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }}
-    .guild-card {{ padding: 22px; display: block; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }}
+    /* #2: Guild Comparison — 가로 스크롤 한 열 레이아웃 */
+    .compare-scroll-wrap {{
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scroll-snap-type: x proximity;
+    }}
+    .compare-scroll-wrap::-webkit-scrollbar {{ height: 6px; }}
+    .compare-scroll-wrap::-webkit-scrollbar-track {{ background: rgba(110,84,60,0.06); border-radius: 999px; }}
+    .compare-scroll-wrap::-webkit-scrollbar-thumb {{ background: rgba(173,101,64,0.28); border-radius: 999px; }}
+    .guild-card {{
+      padding: 22px;
+      display: block;
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }}
     .guild-card:hover {{ transform: translateY(-3px); border-color: rgba(173,101,64,0.24); box-shadow: 0 24px 44px rgba(78, 58, 42, 0.16); }}
     .guild-card-top {{ display: flex; justify-content: space-between; gap: 16px; align-items: start; }}
-    .guild-card h3, .section-head h2 {{ margin: 6px 0 0; font-size: 28px; }}
+    .guild-card h3 {{ margin: 6px 0 0; font-size: 28px; }}
     .rank-pill {{ padding: 8px 12px; border-radius: 999px; background: rgba(212,125,90,0.12); color: var(--accent-3); font-size: 12px; white-space: nowrap; font-weight: 700; }}
     .power-meter {{ height: 10px; border-radius: 999px; background: rgba(110,84,60,0.08); overflow: hidden; margin: 18px 0; }}
     .power-meter span {{ display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }}
     .guild-metrics {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }}
-    .guild-metrics div, .info-panel dl div {{ padding: 12px 0; border-top: 1px solid rgba(110,84,60,0.08); }}
-    .guild-metrics dt, .info-panel dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
-    .guild-metrics dd, .info-panel dd {{ margin: 0; font-size: 15px; font-weight: 700; }}
+    .guild-metrics div {{ padding: 12px 0; border-top: 1px solid rgba(110,84,60,0.08); }}
+    .guild-metrics dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
+    .guild-metrics dd {{ margin: 0; font-size: 15px; font-weight: 700; }}
     .guild-note {{ margin: 16px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }}
     .card-jump {{ display: inline-flex; margin-top: 16px; color: var(--accent-3); font-size: 13px; font-weight: 700; }}
-    .detail-compare-wrap {{ display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr); gap: 16px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; }}
-    .detail-compare-card {{ padding: 18px; scroll-snap-align: start; background: linear-gradient(180deg, rgba(255,252,247,0.98), rgba(247,239,229,0.94)); }}
-    .detail-compare-head {{ display: flex; justify-content: space-between; gap: 12px; align-items: start; }}
-    .detail-compare-head h3 {{ margin: 4px 0 0; font-size: 24px; }}
-    .mini-link {{ padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-size: 12px; font-weight: 700; }}
+    /* #3: Guild Detail Comparison — 고정폭 카드, 내부 overflow */
+    .detail-compare-wrap {{
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scroll-snap-type: x proximity;
+      align-items: start;
+    }}
+    .detail-compare-wrap::-webkit-scrollbar {{ height: 6px; }}
+    .detail-compare-wrap::-webkit-scrollbar-track {{ background: rgba(110,84,60,0.06); border-radius: 999px; }}
+    .detail-compare-wrap::-webkit-scrollbar-thumb {{ background: rgba(173,101,64,0.28); border-radius: 999px; }}
+    .detail-compare-card {{
+      flex: 0 0 220px;
+      min-width: 0;
+      padding: 18px;
+      scroll-snap-align: start;
+      background: linear-gradient(180deg, rgba(255,252,247,0.98), rgba(247,239,229,0.94));
+      overflow: hidden;
+    }}
+    .detail-compare-head {{ display: flex; justify-content: space-between; gap: 8px; align-items: start; }}
+    .detail-compare-head h3 {{ margin: 4px 0 0; font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+    .mini-link {{ flex-shrink: 0; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-size: 11px; font-weight: 700; }}
     .detail-compare-meta {{ display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(110,84,60,0.08); color: var(--muted); font-size: 12px; }}
-    .detail-compare-table {{ width: 100%; border-collapse: collapse; margin-top: 14px; }}
-    .detail-compare-table th {{ text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; }}
-    .detail-compare-table td {{ padding: 9px 10px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 14px; white-space: nowrap; }}
+    .detail-compare-table {{ width: 100%; border-collapse: collapse; margin-top: 14px; table-layout: fixed; }}
+    .detail-compare-table th {{ text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 7px 6px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; overflow: hidden; }}
+    .detail-compare-table th:first-child {{ width: 56%; }}
+    .detail-compare-table th:last-child {{ width: 44%; text-align: right; }}
+    .detail-compare-table td {{ padding: 8px 6px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .detail-compare-table td:first-child {{ font-weight: 700; }}
     .detail-compare-table td:first-child a {{ color: var(--text); font-weight: 700; }}
     .detail-compare-table td:last-child {{ color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }}
     .detail-compare-table tr:hover td {{ background: rgba(255,255,255,0.35); }}
-    .guild-section {{ margin-top: 28px; padding: 26px; border-radius: 30px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,251,246,0.96), rgba(249,242,234,0.95)); box-shadow: var(--shadow); }}
+    /* #4: Modal system */
+    .modal-backdrop {{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 20, 12, 0.54);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }}
+    .modal-backdrop.open {{ display: flex; }}
+    .modal-box {{
+      background: linear-gradient(180deg, rgba(255,251,246,0.99), rgba(249,242,234,0.98));
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: 0 32px 80px rgba(60, 42, 28, 0.28);
+      width: min(900px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      position: relative;
+      animation: modal-in .22s cubic-bezier(.22,1,.36,1);
+    }}
+    @keyframes modal-in {{ from {{ opacity: 0; transform: scale(.95) translateY(12px); }} to {{ opacity: 1; transform: none; }} }}
+    .modal-close {{
+      position: sticky;
+      top: 0;
+      float: right;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(110,84,60,0.12);
+      font-size: 20px;
+      color: var(--muted);
+      cursor: pointer;
+      z-index: 10;
+      line-height: 1;
+      transition: background .15s;
+    }}
+    .modal-close:hover {{ background: rgba(212,125,90,0.15); color: var(--accent-3); }}
     .section-head {{ display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 18px; }}
+    .section-head h2 {{ margin: 6px 0 0; font-size: 28px; }}
     .detail-link {{ padding: 11px 16px; border-radius: 999px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-weight: 700; }}
     .section-grid {{ display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }}
     .info-panel {{ padding: 20px; }}
     .info-panel h3 {{ margin: 0 0 14px; font-size: 18px; }}
+    .info-panel dl div {{ padding: 12px 0; border-top: 1px solid rgba(110,84,60,0.08); }}
+    .info-panel dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
+    .info-panel dd {{ margin: 0; font-size: 15px; font-weight: 700; }}
     .info-panel.emphasis {{ background: linear-gradient(160deg, rgba(255,245,235,0.98), rgba(247,235,220,0.96)); }}
     .highlights {{ list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }}
     .highlights li {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.58); border: 1px solid rgba(110,84,60,0.06); display: grid; gap: 4px; }}
@@ -584,8 +679,8 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .badge-master {{ background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }}
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
-    @media (max-width: 980px) {{ .section-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} .detail-compare-wrap {{ grid-auto-columns: minmax(280px, 86vw); }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero, .guild-section {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .hero h1 {{ max-width: 9.5ch; }} }}
+    @media (max-width: 980px) {{ .section-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .modal-box {{ padding: 20px; }} }}
   </style>
 </head>
 <body>
@@ -594,24 +689,62 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
       <div class="hero-copy">
         <p class="eyebrow">MGF League Match Report</p>
         <h1>매칭된 5개 길드를 한 번에 보는 리포트</h1>
-        <p class="lead">너무 무거운 남색 분위기는 걷어내고, 밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 다시 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
+        <p class="lead">밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
       </div>
       <nav class="hero-nav">{nav_links}</nav>
-      <section class="summary-grid">{render_summary_cards(guild_rows, members_by_guild)}</section>
+      <section class="summary-grid">{summary_cards_html}</section>
     </header>
 
     <h2 class="section-title">Guild Comparison</h2>
-    <section class="compare-grid">{render_compare_cards(guild_rows, members_by_guild)}</section>
+    <div class="compare-scroll-wrap">{compare_cards_html}</div>
 
     <h2 class="section-title">Guild Detail Comparison</h2>
-    {render_detail_comparison_section(guild_rows, members_by_guild)}
+    {detail_comparison_html}
 
-    <h2 class="section-title">Guild Details</h2>
-    {render_guild_sections(guild_rows, members_by_guild)}
-
-    <p class="footer">Generated from public MGF guild pages · Open locally in any modern browser</p>
+    <p class="footer">Generated from public MGF guild pages · 길드 카드 클릭 시 상세 정보 팝업</p>
   </div>
+
+  {guild_modals_html}
+
   <script>
+    // modal open
+    document.querySelectorAll('.guild-card[data-modal]').forEach((card) => {{
+      card.addEventListener('click', () => {{
+        const id = card.dataset.modal;
+        const backdrop = document.getElementById('modal-' + id);
+        if (backdrop) backdrop.classList.add('open');
+      }});
+    }});
+    // modal close — backdrop click or close button
+    document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {{
+      backdrop.addEventListener('click', (e) => {{
+        if (e.target === backdrop) backdrop.classList.remove('open');
+      }});
+      backdrop.querySelector('.modal-close')?.addEventListener('click', () => {{
+        backdrop.classList.remove('open');
+      }});
+    }});
+    // ESC key
+    document.addEventListener('keydown', (e) => {{
+      if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach((b) => b.classList.remove('open'));
+    }});
+    // nav links — open modal instead of scroll
+    document.querySelectorAll('.hero-nav a[data-modal]').forEach((a) => {{
+      a.addEventListener('click', (e) => {{
+        e.preventDefault();
+        const backdrop = document.getElementById('modal-' + a.dataset.modal);
+        if (backdrop) backdrop.classList.add('open');
+      }});
+    }});
+    // detail compare "상세 섹션으로" links
+    document.querySelectorAll('.mini-link[data-modal]').forEach((btn) => {{
+      btn.addEventListener('click', (e) => {{
+        e.preventDefault();
+        const backdrop = document.getElementById('modal-' + btn.dataset.modal);
+        if (backdrop) backdrop.classList.add('open');
+      }});
+    }});
+
     document.querySelectorAll('.member-search').forEach((input) => {{
       input.addEventListener('input', () => {{
         const table = document.getElementById(input.dataset.target);
