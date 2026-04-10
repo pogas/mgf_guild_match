@@ -505,7 +505,7 @@ def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_b
     return f'<section class="detail-compare-wrap">{"".join(columns)}</section>'
 
 
-def render_guild_war_simulation_section(simulation: dict[str, Any]) -> str:
+def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
     guild_cards = "".join(
         f"""
         <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
@@ -545,36 +545,41 @@ def render_guild_war_simulation_section(simulation: dict[str, Any]) -> str:
         for member in simulation["ranked_members"]
     )
     return f"""
-    <section class="simulation-section">
-      <div class="simulation-overview">
-        <div>
-          <p class="eyebrow">Guild War Projection</p>
-          <h3>매칭 길드 5개 전원을 합산한 대항전 예상 시뮬레이션</h3>
-          <p class="simulation-copy">모든 길드원을 전투력 순으로 다시 정렬한 뒤, 제공된 순위별 점수표를 적용해 길드별 총합 점수를 계산했다.</p>
-        </div>
-        <div class="score-rule-grid">{preview_cards}</div>
+    <div class="modal-backdrop" id="modal-guild-war-simulation" role="dialog" aria-modal="true" aria-label="대항전 예상 시뮬레이션">
+      <div class="modal-box simulation-modal-box">
+        <button class="modal-close" aria-label="닫기">×</button>
+        <section class="simulation-section">
+          <div class="simulation-overview">
+            <div>
+              <p class="eyebrow">Guild War Projection</p>
+              <h3>매칭 길드 5개 전원을 합산한 대항전 예상 시뮬레이션</h3>
+              <p class="simulation-copy">모든 길드원을 전투력 순으로 다시 정렬한 뒤, 제공된 순위별 점수표를 적용해 길드별 총합 점수를 계산했다.</p>
+            </div>
+            <div class="score-rule-grid">{preview_cards}</div>
+          </div>
+          <div class="simulation-rank-grid">{guild_cards}</div>
+          <div class="table-wrap simulation-table-wrap">
+            <div class="table-toolbar">
+              <h3>대항전 예상 개인 순위</h3>
+              <div class="toolbar-actions"><span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span></div>
+            </div>
+            <table class="member-table simulation-table">
+              <thead>
+                <tr>
+                  <th>순위</th>
+                  <th>길드</th>
+                  <th>닉네임</th>
+                  <th>직업</th>
+                  <th>전투력</th>
+                  <th>예상 점수</th>
+                </tr>
+              </thead>
+              <tbody>{ranked_rows}</tbody>
+            </table>
+          </div>
+        </section>
       </div>
-      <div class="simulation-rank-grid">{guild_cards}</div>
-      <div class="table-wrap simulation-table-wrap">
-        <div class="table-toolbar">
-          <h3>대항전 예상 개인 순위</h3>
-          <div class="toolbar-actions"><span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span></div>
-        </div>
-        <table class="member-table simulation-table">
-          <thead>
-            <tr>
-              <th>순위</th>
-              <th>길드</th>
-              <th>닉네임</th>
-              <th>직업</th>
-              <th>전투력</th>
-              <th>예상 점수</th>
-            </tr>
-          </thead>
-          <tbody>{ranked_rows}</tbody>
-        </table>
-      </div>
-    </section>
+    </div>
     """
 
 
@@ -657,7 +662,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     compare_cards_html = render_compare_cards(guild_rows, members_by_guild)
     score_table = parse_score_table(SCORE_TABLE_PATH)
     simulation = build_guild_war_simulation(members_by_guild, score_table)
-    simulation_html = render_guild_war_simulation_section(simulation)
+    simulation_modal_html = render_guild_war_simulation_modal(simulation)
     detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild)
     guild_modals_html = render_guild_modals(guild_rows, members_by_guild)
 
@@ -829,7 +834,8 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .detail-compare-table td:first-child a {{ color: var(--text); font-weight: 700; }}
     .detail-compare-table td:last-child {{ color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }}
     .detail-compare-table tr:hover td {{ background: rgba(255,255,255,0.35); }}
-    .simulation-section {{ margin-top: 26px; padding: 24px; border-radius: 30px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,251,246,0.96), rgba(249,242,234,0.95)); box-shadow: var(--shadow); }}
+    .simulation-modal-box {{ width: min(1180px, 100%); }}
+    .simulation-section {{ padding: 4px 0 0; }}
     .simulation-overview {{ display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; }}
     .simulation-overview h3 {{ margin: 6px 0 0; font-size: 28px; }}
     .simulation-copy {{ margin: 14px 0 0; color: var(--muted); line-height: 1.7; }}
@@ -931,7 +937,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
     @media (max-width: 980px) {{ .section-grid, .simulation-overview {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-section {{ padding: 20px; }} .modal-box {{ padding: 20px; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} }}
   </style>
 </head>
 <body>
@@ -947,16 +953,11 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     </header>
 
     <nav class="section-tabs">
-      <a href="#guild-comparison">Guild Comparison</a>
-      <a href="#guild-war-simulation">대항전 예상 시뮬레이션</a>
-      <a href="#guild-detail-comparison">Guild Detail Comparison</a>
+      <a data-modal="guild-war-simulation" href="#">대항전 예상 시뮬레이션</a>
     </nav>
 
     <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
     <div class="compare-scroll-wrap">{compare_cards_html}</div>
-
-    <h2 class="section-title" id="guild-war-simulation">대항전 예상 시뮬레이션</h2>
-    {simulation_html}
 
     <h2 class="section-title" id="guild-detail-comparison">Guild Detail Comparison</h2>
     {detail_comparison_html}
@@ -965,6 +966,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
   </div>
 
   {guild_modals_html}
+  {simulation_modal_html}
 
   <script>
     // modal open
@@ -989,7 +991,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
       if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach((b) => b.classList.remove('open'));
     }});
     // nav links — open modal instead of scroll
-    document.querySelectorAll('.hero-nav a[data-modal]').forEach((a) => {{
+    document.querySelectorAll('.hero-nav a[data-modal], .section-tabs a[data-modal]').forEach((a) => {{
       a.addEventListener('click', (e) => {{
         e.preventDefault();
         const backdrop = document.getElementById('modal-' + a.dataset.modal);
