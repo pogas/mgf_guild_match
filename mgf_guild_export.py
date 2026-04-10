@@ -1,6 +1,7 @@
 import argparse
 import re
 from collections import OrderedDict
+from datetime import datetime, timedelta
 from html import escape
 from pathlib import Path
 from typing import Any
@@ -78,13 +79,54 @@ def build_league_url(guild_name: str) -> str:
     return f"{BASE_URL}/contents/guild.php?mode=league&stx={quote(guild_name)}"
 
 
-def build_output_paths(guild_name: str) -> tuple[Path, Path]:
+def resolve_snapshot_date(snapshot_date: str | None) -> str:
+    if snapshot_date:
+        datetime.strptime(snapshot_date, "%Y-%m-%d")
+        return snapshot_date
+    return datetime.now().strftime("%Y-%m-%d")
+
+
+def build_output_paths(guild_name: str, snapshot_mode: str, snapshot_date: str | None) -> tuple[Path, Path]:
     file_stem = safe_file_stem(guild_name)
     guild_dir = _HERE / "reports" / file_stem
-    guild_dir.mkdir(parents=True, exist_ok=True)
-    output_path = guild_dir / f"{file_stem}_mgf_matched_5_guilds.xlsx"
-    html_output_path = guild_dir / "index.html"
+    if snapshot_mode == "history":
+        dated_dir = guild_dir / "history" / resolve_snapshot_date(snapshot_date)
+        dated_dir.mkdir(parents=True, exist_ok=True)
+        output_path = dated_dir / f"{file_stem}_mgf_matched_5_guilds.xlsx"
+        html_output_path = dated_dir / "index.html"
+    else:
+        guild_dir.mkdir(parents=True, exist_ok=True)
+        output_path = guild_dir / f"{file_stem}_mgf_matched_5_guilds.xlsx"
+        html_output_path = guild_dir / "index.html"
     return output_path, html_output_path
+
+
+def cleanup_old_history(guild_name: str, retain_days: int) -> list[Path]:
+    if retain_days <= 0:
+        return []
+
+    history_dir = _HERE / "reports" / safe_file_stem(guild_name) / "history"
+    if not history_dir.exists():
+        return []
+
+    cutoff = datetime.now().date() - timedelta(days=retain_days - 1)
+    deleted_paths: list[Path] = []
+    for entry in history_dir.iterdir():
+        if not entry.is_dir():
+            continue
+        try:
+            entry_date = datetime.strptime(entry.name, "%Y-%m-%d").date()
+        except ValueError:
+            continue
+        if entry_date < cutoff:
+            for child in sorted(entry.rglob("*"), reverse=True):
+                if child.is_file():
+                    child.unlink()
+                elif child.is_dir():
+                    child.rmdir()
+            entry.rmdir()
+            deleted_paths.append(entry)
+    return deleted_paths
 
 
 def format_score(value: int) -> str:
@@ -1240,6 +1282,22 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_GUILD_NAME,
         help="대항전 최신화 기준 길드명 (기본값: 빅딜)",
     )
+    parser.add_argument(
+        "--snapshot-mode",
+        choices=["latest", "history"],
+        default="latest",
+        help="산출물 저장 방식 (latest 또는 history)",
+    )
+    parser.add_argument(
+        "--snapshot-date",
+        help="history 저장 날짜 (YYYY-MM-DD). 미입력 시 오늘 날짜 사용",
+    )
+    parser.add_argument(
+        "--retain-history-days",
+        type=int,
+        default=0,
+        help="history 폴더에서 유지할 최근 일수. 0이면 정리 안 함",
+    )
     return parser.parse_args()
 
 
@@ -1247,7 +1305,7 @@ def main() -> None:
     args = parse_args()
     guild_name = clean_text(args.guild_name)
     league_url = build_league_url(guild_name)
-    output_path, html_output_path = build_output_paths(guild_name)
+    output_path, html_output_path = build_output_paths(guild_name, args.snapshot_mode, args.snapshot_date)
 
     session = requests.Session()
     session.headers.update(
@@ -1273,13 +1331,19 @@ def main() -> None:
     html_report_path = build_html_report(guild_rows, members_by_guild, html_output_path)
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
+    deleted_history_paths = cleanup_old_history(guild_name, args.retain_history_days)
     print(f"Guild seed: {guild_name}")
     print(f"League URL: {league_url}")
+    print(f"Snapshot mode: {args.snapshot_mode}")
     print(f"Created: {workbook_path}")
     print(f"Created: {html_report_path}")
     print(f"Guild sheets: {1 + len(members_by_guild)}")
     print(f"Guild count: {len(guild_rows)}")
     print(f"Member count: {total_members}")
+    if deleted_history_paths:
+        print("Deleted old history:")
+        for path in deleted_history_paths:
+            print(f"- {path}")
     for guild_name, rows in members_by_guild.items():
         print(f"- {guild_name}: {len(rows)} members")
 
