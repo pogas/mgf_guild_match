@@ -1,4 +1,5 @@
 import argparse
+import json
 import re
 from collections import OrderedDict
 from datetime import datetime, timedelta
@@ -163,6 +164,23 @@ def describe_concentration(top3_share_pct: float, top5_share_pct: float) -> str:
     return "분산형"
 
 
+def format_delta(value: int, suffix: str = "") -> str:
+    sign = "+" if value > 0 else ""
+    return f"{sign}{value:,}{suffix}"
+
+
+def format_percent_delta(value: float) -> str:
+    sign = "+" if value > 0 else ""
+    return f"{sign}{value:.1f}%"
+
+
+def build_member_key(member: dict[str, Any]) -> str:
+    character_key = clean_text(str(member.get("character_key", "")))
+    if character_key:
+        return character_key
+    return clean_text(str(member.get("nickname", "")))
+
+
 def next_available_path(path: Path) -> Path:
     if not path.exists():
         return path
@@ -313,6 +331,198 @@ def build_guild_war_simulation(
         "guild_rankings": guild_rankings,
         "score_table": score_table,
         "score_table_preview": score_table_preview,
+    }
+
+
+def build_snapshot_data(
+    guild_seed_name: str,
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    simulation: dict[str, Any],
+    snapshot_date: str,
+) -> dict[str, Any]:
+    simulation_by_guild = {
+        str(row["guild_name"]): {
+            "simulation_rank": int(row["simulation_rank"]),
+            "total_score": int(row["total_score"]),
+        }
+        for row in simulation["guild_rankings"]
+    }
+    guilds: dict[str, Any] = {}
+    for guild_row in guild_rows:
+        guild_name = str(guild_row["guild_name"])
+        members = members_by_guild[guild_name]
+        summary = build_guild_summary(guild_row, members)
+        member_map: dict[str, Any] = {}
+        top10_keys: list[str] = []
+        sorted_members = sorted(
+            members,
+            key=lambda member: -power_to_man_units(str(member.get("combat_power", ""))),
+        )
+        for index, member in enumerate(sorted_members):
+            member_key = build_member_key(member)
+            member_map[member_key] = {
+                "nickname": str(member.get("nickname", "")),
+                "job_name": str(member.get("job_name", "")),
+                "combat_power": str(member.get("combat_power", "")),
+                "combat_power_value": power_to_man_units(str(member.get("combat_power", ""))),
+                "rank_in_guild": parse_rank_number(str(member.get("member_rank_in_guild", ""))) or 0,
+            }
+            if index < 10:
+                top10_keys.append(member_key)
+        job_counts: dict[str, int] = {}
+        for member in members:
+            job_name = str(member.get("job_name", "")) or "미확인"
+            job_counts[job_name] = job_counts.get(job_name, 0) + 1
+        guilds[guild_name] = {
+            "guild_name": guild_name,
+            "guild_power_value": int(summary["guild_power_value"]),
+            "member_count": int(summary["member_count_int"]),
+            "avg_level": float(summary["avg_level"]),
+            "global_rank": str(guild_row.get("global_rank", "")),
+            "server_rank": str(guild_row.get("server_rank", "")),
+            "simulation_rank": int(simulation_by_guild.get(guild_name, {}).get("simulation_rank", 0)),
+            "simulation_score": int(simulation_by_guild.get(guild_name, {}).get("total_score", 0)),
+            "members": member_map,
+            "top10_keys": top10_keys,
+            "job_counts": job_counts,
+        }
+    return {
+        "guild_seed_name": guild_seed_name,
+        "snapshot_date": snapshot_date,
+        "guilds": guilds,
+    }
+
+
+def write_snapshot_json(snapshot_data: dict[str, Any], output_dir: Path) -> Path:
+    snapshot_path = output_dir / "snapshot.json"
+    snapshot_path.write_text(json.dumps(snapshot_data, ensure_ascii=False, indent=2), encoding="utf-8")
+    return snapshot_path
+
+
+def load_history_snapshots(guild_name: str) -> list[dict[str, Any]]:
+    history_dir = _HERE / "reports" / safe_file_stem(guild_name) / "history"
+    if not history_dir.exists():
+        return []
+    snapshots: list[dict[str, Any]] = []
+    for snapshot_file in sorted(history_dir.glob("*/snapshot.json")):
+        try:
+            snapshots.append(json.loads(snapshot_file.read_text(encoding="utf-8")))
+        except Exception:
+            continue
+    return snapshots
+
+
+def build_sparkline(values: list[int], width: int = 120, height: int = 36) -> str:
+    if not values:
+        return ""
+    if len(values) == 1:
+        values = [values[0], values[0]]
+    min_value = min(values)
+    max_value = max(values)
+    spread = max(max_value - min_value, 1)
+    points: list[str] = []
+    for index, value in enumerate(values):
+        x = round(index * (width / (len(values) - 1)), 2)
+        normalized = (value - min_value) / spread
+        y = round(height - (normalized * (height - 4)) - 2, 2)
+        points.append(f"{x},{y}")
+    return f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="{" ".join(points)}" /></svg>'
+
+
+def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: list[dict[str, Any]]) -> dict[str, Any]:
+    previous_snapshot = history_snapshots[-1] if history_snapshots else None
+    trend_snapshots = history_snapshots[-6:] + [current_snapshot]
+    guild_analysis: dict[str, Any] = {}
+    for guild_name, current_guild in current_snapshot["guilds"].items():
+        previous_guild = previous_snapshot["guilds"].get(guild_name) if previous_snapshot else None
+        current_members = current_guild["members"]
+        previous_members = previous_guild["members"] if previous_guild else {}
+
+        joined_keys = [key for key in current_members if key not in previous_members]
+        departed_keys = [key for key in previous_members if key not in current_members]
+
+        power_changes: list[dict[str, Any]] = []
+        rank_changes: list[dict[str, Any]] = []
+        for key, current_member in current_members.items():
+            previous_member = previous_members.get(key)
+            if not previous_member:
+                continue
+            power_delta = int(current_member["combat_power_value"]) - int(previous_member["combat_power_value"])
+            if power_delta != 0:
+                power_changes.append({
+                    "nickname": current_member["nickname"],
+                    "delta_value": power_delta,
+                    "delta_text": format_man_units(abs(power_delta)),
+                    "delta_sign": "+" if power_delta > 0 else "-",
+                })
+            rank_delta = int(previous_member.get("rank_in_guild", 0)) - int(current_member.get("rank_in_guild", 0))
+            if rank_delta != 0:
+                rank_changes.append({
+                    "nickname": current_member["nickname"],
+                    "delta": rank_delta,
+                    "current_rank": int(current_member.get("rank_in_guild", 0)),
+                    "previous_rank": int(previous_member.get("rank_in_guild", 0)),
+                })
+
+        power_changes.sort(key=lambda item: item["delta_value"], reverse=True)
+        rank_changes.sort(key=lambda item: item["delta"], reverse=True)
+
+        job_delta_counts: dict[str, int] = {}
+        previous_job_counts = previous_guild.get("job_counts", {}) if previous_guild else {}
+        for job_name in set(current_guild["job_counts"]) | set(previous_job_counts):
+            delta = int(current_guild["job_counts"].get(job_name, 0)) - int(previous_job_counts.get(job_name, 0))
+            if delta != 0:
+                job_delta_counts[job_name] = delta
+
+        retained_top10_count = len(set(current_guild["top10_keys"]) & set(previous_guild.get("top10_keys", []))) if previous_guild else 0
+
+        power_values_trend = [int(snapshot["guilds"][guild_name]["guild_power_value"]) for snapshot in trend_snapshots if guild_name in snapshot.get("guilds", {})]
+        simulation_values_trend = [int(snapshot["guilds"][guild_name].get("simulation_score", 0)) for snapshot in trend_snapshots if guild_name in snapshot.get("guilds", {})]
+
+        guild_power_delta = int(current_guild["guild_power_value"]) - int(previous_guild.get("guild_power_value", 0)) if previous_guild else 0
+        previous_power_value = int(previous_guild.get("guild_power_value", 0)) if previous_guild else 0
+        guild_power_delta_pct = round((guild_power_delta / previous_power_value) * 100, 1) if previous_power_value else 0
+        simulation_score_delta = int(current_guild.get("simulation_score", 0)) - int(previous_guild.get("simulation_score", 0)) if previous_guild else 0
+        simulation_rank_delta = int(previous_guild.get("simulation_rank", 0)) - int(current_guild.get("simulation_rank", 0)) if previous_guild else 0
+
+        guild_analysis[guild_name] = {
+            "joined_members": [current_members[key]["nickname"] for key in joined_keys[:5]],
+            "departed_members": [previous_members[key]["nickname"] for key in departed_keys[:5]],
+            "member_count_delta": len(joined_keys) - len(departed_keys),
+            "guild_power_delta": guild_power_delta,
+            "guild_power_delta_pct": guild_power_delta_pct,
+            "simulation_score_delta": simulation_score_delta,
+            "simulation_rank_delta": simulation_rank_delta,
+            "power_risers": power_changes[:5],
+            "rank_movers": rank_changes[:5],
+            "job_deltas": sorted(job_delta_counts.items(), key=lambda item: abs(item[1]), reverse=True)[:3],
+            "retained_top10_count": retained_top10_count,
+            "retained_top10_pct": round((retained_top10_count / 10) * 100, 1) if previous_guild else 0,
+            "power_trend_svg": build_sparkline(power_values_trend),
+            "simulation_trend_svg": build_sparkline(simulation_values_trend),
+        }
+
+    total_joined = sum(len(value["joined_members"]) for value in guild_analysis.values())
+    total_departed = sum(len(value["departed_members"]) for value in guild_analysis.values())
+    best_power_guild = max(guild_analysis.items(), key=lambda item: item[1]["guild_power_delta"], default=("", {"guild_power_delta": 0}))
+    best_sim_guild = max(guild_analysis.items(), key=lambda item: item[1]["simulation_score_delta"], default=("", {"simulation_score_delta": 0}))
+    stable_guild = max(guild_analysis.items(), key=lambda item: item[1]["retained_top10_count"], default=("", {"retained_top10_count": 0}))
+
+    return {
+        "has_previous": previous_snapshot is not None,
+        "previous_date": previous_snapshot.get("snapshot_date") if previous_snapshot else "",
+        "guilds": guild_analysis,
+        "summary": {
+            "total_joined": total_joined,
+            "total_departed": total_departed,
+            "best_power_guild": best_power_guild[0],
+            "best_power_delta": int(best_power_guild[1].get("guild_power_delta", 0)),
+            "best_sim_guild": best_sim_guild[0],
+            "best_sim_delta": int(best_sim_guild[1].get("simulation_score_delta", 0)),
+            "stable_guild": stable_guild[0],
+            "stable_retained": int(stable_guild[1].get("retained_top10_count", 0)),
+        },
     }
 
 
@@ -489,7 +699,38 @@ def render_summary_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
     )
 
 
-def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
+def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
+    if not history_analysis.get("has_previous"):
+        return """
+        <section class="auto-summary-grid">
+          <article class="auto-summary-card auto-summary-card-empty">
+            <p class="summary-label">히스토리 비교 준비 중</p>
+            <strong class="summary-value">스냅샷 2회 이상 필요</strong>
+            <p class="summary-help">내일부터 길드원 증감, 전투력 변화, 시뮬레이션 변화 요약이 자동으로 표시된다.</p>
+          </article>
+        </section>
+        """
+
+    summary = history_analysis["summary"]
+    cards = [
+        ("길드원 증감", f"+{summary['total_joined']} / -{summary['total_departed']}", f"비교 기준일 {history_analysis['previous_date']} 대비"),
+        ("총 전투력 최대 상승", summary["best_power_guild"] or "-", format_man_units(abs(summary["best_power_delta"])) if summary["best_power_guild"] else "변화 없음"),
+        ("대항전 점수 최대 상승", summary["best_sim_guild"] or "-", format_score(abs(summary["best_sim_delta"])) if summary["best_sim_guild"] else "변화 없음"),
+        ("상위권 고정도 최고", summary["stable_guild"] or "-", f"TOP10 유지 {summary['stable_retained']}명" if summary["stable_guild"] else "데이터 없음"),
+    ]
+    return '<section class="auto-summary-grid">' + ''.join(
+        f"""
+        <article class="auto-summary-card">
+          <p class="summary-label">{escape(label)}</p>
+          <strong class="summary-value">{escape(str(value))}</strong>
+          <p class="summary-help">{escape(str(help_text))}</p>
+        </article>
+        """
+        for label, value, help_text in cards
+    ) + '</section>'
+
+
+def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]], history_analysis: dict[str, Any]) -> str:
     max_power = max(power_to_man_units(str(row.get("guild_power", ""))) for row in guild_rows) if guild_rows else 1
     cards: list[str] = []
 
@@ -497,6 +738,7 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
         summary = build_guild_summary(guild_row, members)
+        guild_history = history_analysis.get("guilds", {}).get(guild_name, {})
         width_pct = round(summary["guild_power_value"] / max_power * 100, 1) if max_power else 0
         anchor = anchor_id(guild_name)
         cards.append(
@@ -512,6 +754,11 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
               <div class="rank-badge-row">
                 <span class="rank-badge rank-badge-global">{escape(describe_rank_tier(str(guild_row['global_rank']), '전체'))}</span>
                 <span class="rank-badge rank-badge-server">{escape(describe_rank_tier(str(guild_row['server_rank']), '서버'))}</span>
+              </div>
+              <div class="trend-pill-row">
+                <span class="trend-pill {'positive' if guild_history.get('guild_power_delta', 0) >= 0 else 'negative'}">총전투력 {format_percent_delta(float(guild_history.get('guild_power_delta_pct', 0)))} </span>
+                <span class="trend-pill {'positive' if guild_history.get('simulation_score_delta', 0) >= 0 else 'negative'}">대항점수 {format_delta(int(guild_history.get('simulation_score_delta', 0)), '점')}</span>
+                <span class="trend-pill neutral">TOP10 유지 {int(guild_history.get('retained_top10_count', 0))}명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>{width_pct}%</strong></div>
               <div class="power-meter"><span style="width:{width_pct}%"></span></div>
@@ -694,12 +941,17 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
     """
 
 
-def render_guild_modals(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
+def render_guild_modals(
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    history_analysis: dict[str, Any],
+) -> str:
     modals: list[str] = []
     for guild_row in guild_rows:
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
         summary = build_guild_summary(guild_row, members)
+        guild_history = history_analysis.get("guilds", {}).get(guild_name, {})
         anchor = anchor_id(guild_name)
         modals.append(
             f"""
@@ -757,6 +1009,43 @@ def render_guild_modals(guild_rows: list[dict[str, Any]], members_by_guild: dict
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
                   </article>
                 </div>
+                <div class="modal-history-grid">
+                  <article class="history-panel">
+                    <h3>일간 변화 요약</h3>
+                    <ul class="history-list">
+                      <li><span>길드원 증감</span><strong>{format_delta(int(guild_history.get('member_count_delta', 0)), '명')}</strong></li>
+                      <li><span>총 전투력 변화</span><strong>{format_percent_delta(float(guild_history.get('guild_power_delta_pct', 0)))}</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>{format_delta(int(guild_history.get('simulation_score_delta', 0)), '점')}</strong></li>
+                      <li><span>길드 내부 TOP10 고정도</span><strong>{int(guild_history.get('retained_top10_count', 0))} / 10</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>길드원 출입 / 직업 변화</h3>
+                    <ul class="history-list">
+                      <li><span>신규 길드원</span><strong>{', '.join(guild_history.get('joined_members', [])[:3]) or '변동 없음'}</strong></li>
+                      <li><span>이탈 길드원</span><strong>{', '.join(guild_history.get('departed_members', [])[:3]) or '변동 없음'}</strong></li>
+                      <li><span>직업 분포 변화</span><strong>{', '.join(f'{job} {format_delta(delta)}' for job, delta in guild_history.get('job_deltas', [])) or '변동 없음'}</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>급상승 / 순위 변화</h3>
+                    <ul class="history-list history-list-compact">
+                      {''.join(f'<li><span>{escape(str(item["nickname"]))}</span><strong>{item["delta_sign"]}{escape(str(item["delta_text"]))}</strong></li>' for item in guild_history.get('power_risers', [])[:3]) or '<li><span>전투력 변화</span><strong>변동 없음</strong></li>'}
+                      {''.join(f'<li><span>{escape(str(item["nickname"]))}</span><strong>{format_delta(int(item["delta"]), "계단")}</strong></li>' for item in guild_history.get('rank_movers', [])[:2]) or '<li><span>길드 내부 순위</span><strong>변동 없음</strong></li>'}
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>7일 추세</h3>
+                    <div class="trend-chart-card">
+                      <span>총 전투력</span>
+                      <div class="trend-chart">{guild_history.get('power_trend_svg', '')}</div>
+                    </div>
+                    <div class="trend-chart-card">
+                      <span>대항전 점수</span>
+                      <div class="trend-chart trend-chart-secondary">{guild_history.get('simulation_trend_svg', '')}</div>
+                    </div>
+                  </article>
+                </div>
                 <div class="table-wrap">
                   <div class="table-toolbar">
                     <h3>길드원 목록</h3>
@@ -788,6 +1077,7 @@ def render_guild_modals(guild_rows: list[dict[str, Any]], members_by_guild: dict
 def build_html_report(
     guild_rows: list[dict[str, Any]],
     members_by_guild: dict[str, list[dict[str, Any]]],
+    history_analysis: dict[str, Any],
     html_output_path: Path,
 ) -> Path:
     # #1 fix: build nav_links outside the f-string to avoid double-brace escaping
@@ -796,12 +1086,13 @@ def build_html_report(
         for row in guild_rows
     )
     summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
-    compare_cards_html = render_compare_cards(guild_rows, members_by_guild)
+    auto_summary_html = render_auto_summary_section(history_analysis)
+    compare_cards_html = render_compare_cards(guild_rows, members_by_guild, history_analysis)
     score_table = parse_score_table(SCORE_TABLE_PATH)
     simulation = build_guild_war_simulation(members_by_guild, score_table)
     simulation_modal_html = render_guild_war_simulation_modal(simulation)
     detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild)
-    guild_modals_html = render_guild_modals(guild_rows, members_by_guild)
+    guild_modals_html = render_guild_modals(guild_rows, members_by_guild, history_analysis)
 
     html = f"""<!DOCTYPE html>
 <html lang="ko">
@@ -887,6 +1178,9 @@ def build_html_report(
     .section-tabs a {{ padding: 12px 16px; border-radius: 999px; background: rgba(255,255,255,0.68); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); font-size: 13px; font-weight: 700; }}
     .section-tabs a:hover {{ background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }}
     .summary-grid {{ display: grid; gap: 16px; margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }}
+    .auto-summary-grid {{ display: grid; gap: 16px; margin-top: 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }}
+    .auto-summary-card {{ padding: 20px 22px; background: rgba(255,252,247,0.78); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }}
+    .auto-summary-card-empty {{ grid-column: 1 / -1; }}
     .summary-card, .guild-card, .info-panel, .detail-compare-card {{
       background: var(--panel);
       border: 1px solid var(--line);
@@ -926,6 +1220,11 @@ def build_html_report(
     .rank-badge {{ display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; border: 1px solid rgba(110,84,60,0.08); }}
     .rank-badge-global {{ background: rgba(212,125,90,0.14); color: var(--accent-3); }}
     .rank-badge-server {{ background: rgba(136,177,124,0.14); color: #55734f; }}
+    .trend-pill-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }}
+    .trend-pill {{ display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid rgba(110,84,60,0.08); }}
+    .trend-pill.positive {{ background: rgba(136,177,124,0.14); color: #55734f; }}
+    .trend-pill.negative {{ background: rgba(212,125,90,0.14); color: var(--accent-3); }}
+    .trend-pill.neutral {{ background: rgba(255,255,255,0.72); color: var(--text); }}
     .bar-label-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 700; }}
     .bar-label-row strong {{ color: var(--text); font-size: 12px; }}
     .bar-label-row-secondary {{ margin-top: 14px; }}
@@ -1073,6 +1372,20 @@ def build_html_report(
     .comparison-callout-focus {{ background: linear-gradient(160deg, rgba(247,250,241,0.96), rgba(233,244,227,0.94)); }}
     .comparison-callout-gap {{ background: linear-gradient(160deg, rgba(255,251,244,0.96), rgba(245,238,228,0.94)); }}
     .comparison-callout-core {{ background: linear-gradient(160deg, rgba(252,246,241,0.96), rgba(247,239,229,0.94)); }}
+    .modal-history-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }}
+    .history-panel {{ padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.08); }}
+    .history-panel h3 {{ margin: 0 0 12px; font-size: 16px; }}
+    .history-list {{ list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }}
+    .history-list li {{ display: grid; gap: 4px; padding-top: 10px; border-top: 1px solid rgba(110,84,60,0.08); }}
+    .history-list li:first-child {{ padding-top: 0; border-top: 0; }}
+    .history-list span {{ color: var(--muted); font-size: 12px; }}
+    .history-list strong {{ font-size: 14px; line-height: 1.5; }}
+    .history-list-compact strong {{ font-size: 13px; }}
+    .trend-chart-card {{ margin-top: 10px; }}
+    .trend-chart-card span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
+    .trend-chart {{ height: 40px; color: var(--accent-3); background: rgba(255,248,243,0.7); border-radius: 14px; padding: 6px; }}
+    .trend-chart svg {{ width: 100%; height: 100%; display: block; }}
+    .trend-chart-secondary {{ color: #55734f; }}
     .table-wrap {{ margin-top: 18px; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; background: rgba(255, 252, 247, 0.8); }}
     .table-toolbar {{ display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 18px 20px; border-bottom: 1px solid rgba(110,84,60,0.08); }}
     .table-toolbar h3 {{ margin: 0; font-size: 18px; }}
@@ -1090,7 +1403,7 @@ def build_html_report(
     .badge-master {{ background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }}
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
-    @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
+    @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
     @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} }}
   </style>
 </head>
@@ -1104,6 +1417,7 @@ def build_html_report(
       </div>
       <nav class="hero-nav">{nav_links}</nav>
       <section class="summary-grid">{summary_cards_html}</section>
+      {auto_summary_html}
     </header>
 
     <nav class="section-tabs">
@@ -1327,8 +1641,16 @@ def main() -> None:
         guild_rows.append(guild_row)
         members_by_guild[guild_row["guild_name"]] = member_rows
 
+    score_table = parse_score_table(SCORE_TABLE_PATH)
+    simulation = build_guild_war_simulation(members_by_guild, score_table)
+    snapshot_date = resolve_snapshot_date(args.snapshot_date) if args.snapshot_mode == "history" else datetime.now().strftime("%Y-%m-%d")
+    snapshot_data = build_snapshot_data(guild_name, guild_rows, members_by_guild, simulation, snapshot_date)
+    history_snapshots = load_history_snapshots(guild_name)
+    history_analysis = build_history_analysis(snapshot_data, history_snapshots)
+
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
-    html_report_path = build_html_report(guild_rows, members_by_guild, html_output_path)
+    html_report_path = build_html_report(guild_rows, members_by_guild, history_analysis, html_output_path)
+    snapshot_path = write_snapshot_json(snapshot_data, html_output_path.parent)
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
     deleted_history_paths = cleanup_old_history(guild_name, args.retain_history_days)
@@ -1337,6 +1659,7 @@ def main() -> None:
     print(f"Snapshot mode: {args.snapshot_mode}")
     print(f"Created: {workbook_path}")
     print(f"Created: {html_report_path}")
+    print(f"Created: {snapshot_path}")
     print(f"Guild sheets: {1 + len(members_by_guild)}")
     print(f"Guild count: {len(guild_rows)}")
     print(f"Member count: {total_members}")
