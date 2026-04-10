@@ -82,6 +82,9 @@
     .section-tabs a { padding: 12px 16px; border-radius: 999px; background: rgba(255,255,255,0.68); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); font-size: 13px; font-weight: 700; }
     .section-tabs a:hover { background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }
     .summary-grid { display: grid; gap: 16px; margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .auto-summary-grid { display: grid; gap: 16px; margin-top: 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .auto-summary-card { padding: 20px 22px; background: rgba(255,252,247,0.78); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .auto-summary-card-empty { grid-column: 1 / -1; }
     .summary-card, .guild-card, .info-panel, .detail-compare-card {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -121,6 +124,11 @@
     .rank-badge { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; border: 1px solid rgba(110,84,60,0.08); }
     .rank-badge-global { background: rgba(212,125,90,0.14); color: var(--accent-3); }
     .rank-badge-server { background: rgba(136,177,124,0.14); color: #55734f; }
+    .trend-pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .trend-pill { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid rgba(110,84,60,0.08); }
+    .trend-pill.positive { background: rgba(136,177,124,0.14); color: #55734f; }
+    .trend-pill.negative { background: rgba(212,125,90,0.14); color: var(--accent-3); }
+    .trend-pill.neutral { background: rgba(255,255,255,0.72); color: var(--text); }
     .bar-label-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 700; }
     .bar-label-row strong { color: var(--text); font-size: 12px; }
     .bar-label-row-secondary { margin-top: 14px; }
@@ -268,6 +276,20 @@
     .comparison-callout-focus { background: linear-gradient(160deg, rgba(247,250,241,0.96), rgba(233,244,227,0.94)); }
     .comparison-callout-gap { background: linear-gradient(160deg, rgba(255,251,244,0.96), rgba(245,238,228,0.94)); }
     .comparison-callout-core { background: linear-gradient(160deg, rgba(252,246,241,0.96), rgba(247,239,229,0.94)); }
+    .modal-history-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+    .history-panel { padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.08); }
+    .history-panel h3 { margin: 0 0 12px; font-size: 16px; }
+    .history-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .history-list li { display: grid; gap: 4px; padding-top: 10px; border-top: 1px solid rgba(110,84,60,0.08); }
+    .history-list li:first-child { padding-top: 0; border-top: 0; }
+    .history-list span { color: var(--muted); font-size: 12px; }
+    .history-list strong { font-size: 14px; line-height: 1.5; }
+    .history-list-compact strong { font-size: 13px; }
+    .trend-chart-card { margin-top: 10px; }
+    .trend-chart-card span { display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+    .trend-chart { height: 40px; color: var(--accent-3); background: rgba(255,248,243,0.7); border-radius: 14px; padding: 6px; }
+    .trend-chart svg { width: 100%; height: 100%; display: block; }
+    .trend-chart-secondary { color: #55734f; }
     .table-wrap { margin-top: 18px; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; background: rgba(255, 252, 247, 0.8); }
     .table-toolbar { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 18px 20px; border-bottom: 1px solid rgba(110,84,60,0.08); }
     .table-toolbar h3 { margin: 0; font-size: 18px; }
@@ -285,7 +307,7 @@
     .badge-master { background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }
     .power-col { font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }
     .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }
-    @media (max-width: 980px) { .section-grid, .simulation-overview, .modal-comparison-grid { grid-template-columns: 1fr; } .section-head, .table-toolbar { flex-direction: column; align-items: start; } }
+    @media (max-width: 980px) { .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid { grid-template-columns: 1fr; } .section-head, .table-toolbar { flex-direction: column; align-items: start; } }
     @media (max-width: 720px) { .page { width: min(100% - 20px, 1320px); } .hero { padding: 20px; } .guild-metrics { grid-template-columns: 1fr; } th, td { padding: 12px; font-size: 13px; } .member-search { min-width: 0; width: 100%; } .guild-card { flex: 0 0 260px; } .detail-compare-card { flex: 0 0 250px; } .hero h1 { font-size: clamp(18px, 4.8vw, 26px); } .simulation-modal-box, .modal-box { padding: 20px; } }
   </style>
 </head>
@@ -335,6 +357,15 @@
           <p class="summary-help">페이지 노출 기준 데이터</p>
         </article>
         </section>
+      
+        <section class="auto-summary-grid">
+          <article class="auto-summary-card auto-summary-card-empty">
+            <p class="summary-label">히스토리 비교 준비 중</p>
+            <strong class="summary-value">스냅샷 2회 이상 필요</strong>
+            <p class="summary-help">내일부터 길드원 증감, 전투력 변화, 시뮬레이션 변화 요약이 자동으로 표시된다.</p>
+          </article>
+        </section>
+        
     </header>
 
     <nav class="section-tabs">
@@ -354,6 +385,11 @@
               <div class="rank-badge-row">
                 <span class="rank-badge rank-badge-global">전체 TOP30</span>
                 <span class="rank-badge rank-badge-server">서버 1위</span>
+              </div>
+              <div class="trend-pill-row">
+                <span class="trend-pill positive">총전투력 0.0% </span>
+                <span class="trend-pill positive">대항점수 0점</span>
+                <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>100.0%</strong></div>
               <div class="power-meter"><span style="width:100.0%"></span></div>
@@ -403,6 +439,11 @@
                 <span class="rank-badge rank-badge-global">전체 TOP30</span>
                 <span class="rank-badge rank-badge-server">서버 1위</span>
               </div>
+              <div class="trend-pill-row">
+                <span class="trend-pill positive">총전투력 0.0% </span>
+                <span class="trend-pill positive">대항점수 0점</span>
+                <span class="trend-pill neutral">TOP10 유지 0명</span>
+              </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>78.3%</strong></div>
               <div class="power-meter"><span style="width:78.3%"></span></div>
               <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 53.5% · TOP3 74.6%</strong></div>
@@ -450,6 +491,11 @@
               <div class="rank-badge-row">
                 <span class="rank-badge rank-badge-global">전체 TOP30</span>
                 <span class="rank-badge rank-badge-server">서버 1위</span>
+              </div>
+              <div class="trend-pill-row">
+                <span class="trend-pill positive">총전투력 0.0% </span>
+                <span class="trend-pill positive">대항점수 0점</span>
+                <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>86.7%</strong></div>
               <div class="power-meter"><span style="width:86.7%"></span></div>
@@ -499,6 +545,11 @@
                 <span class="rank-badge rank-badge-global">전체 TOP30</span>
                 <span class="rank-badge rank-badge-server">서버 1위</span>
               </div>
+              <div class="trend-pill-row">
+                <span class="trend-pill positive">총전투력 0.0% </span>
+                <span class="trend-pill positive">대항점수 0점</span>
+                <span class="trend-pill neutral">TOP10 유지 0명</span>
+              </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>84.4%</strong></div>
               <div class="power-meter"><span style="width:84.4%"></span></div>
               <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 62.1% · TOP3 87.4%</strong></div>
@@ -546,6 +597,11 @@
               <div class="rank-badge-row">
                 <span class="rank-badge rank-badge-global">전체 31위</span>
                 <span class="rank-badge rank-badge-server">서버 TOP10</span>
+              </div>
+              <div class="trend-pill-row">
+                <span class="trend-pill positive">총전투력 0.0% </span>
+                <span class="trend-pill positive">대항점수 0점</span>
+                <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>74.8%</strong></div>
               <div class="power-meter"><span style="width:74.8%"></span></div>
@@ -1475,6 +1531,43 @@
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
                   </article>
                 </div>
+                <div class="modal-history-grid">
+                  <article class="history-panel">
+                    <h3>일간 변화 요약</h3>
+                    <ul class="history-list">
+                      <li><span>길드원 증감</span><strong>+30명</strong></li>
+                      <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>0점</strong></li>
+                      <li><span>길드 내부 TOP10 고정도</span><strong>0 / 10</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>길드원 출입 / 직업 변화</h3>
+                    <ul class="history-list">
+                      <li><span>신규 길드원</span><strong>냐락불곰, 냐락오리, 썬콜법사님</strong></li>
+                      <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
+                      <li><span>직업 분포 변화</span><strong>히어로 +7, 다크나이트 +5, 섀도어 +4</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>급상승 / 순위 변화</h3>
+                    <ul class="history-list history-list-compact">
+                      <li><span>전투력 변화</span><strong>변동 없음</strong></li>
+                      <li><span>길드 내부 순위</span><strong>변동 없음</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>7일 추세</h3>
+                    <div class="trend-chart-card">
+                      <span>총 전투력</span>
+                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
+                    <div class="trend-chart-card">
+                      <span>대항전 점수</span>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
+                  </article>
+                </div>
                 <div class="table-wrap">
                   <div class="table-toolbar">
                     <h3>길드원 목록</h3>
@@ -1941,6 +2034,43 @@
                     <span>핵심 전력 범위</span>
                     <strong>TOP10 93.2%</strong>
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
+                  </article>
+                </div>
+                <div class="modal-history-grid">
+                  <article class="history-panel">
+                    <h3>일간 변화 요약</h3>
+                    <ul class="history-list">
+                      <li><span>길드원 증감</span><strong>+30명</strong></li>
+                      <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>0점</strong></li>
+                      <li><span>길드 내부 TOP10 고정도</span><strong>0 / 10</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>길드원 출입 / 직업 변화</h3>
+                    <ul class="history-list">
+                      <li><span>신규 길드원</span><strong>스타냥이, 돈스, 진자이</strong></li>
+                      <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +9, 아크메이지(썬,콜) +6, 다크나이트 +4</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>급상승 / 순위 변화</h3>
+                    <ul class="history-list history-list-compact">
+                      <li><span>전투력 변화</span><strong>변동 없음</strong></li>
+                      <li><span>길드 내부 순위</span><strong>변동 없음</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>7일 추세</h3>
+                    <div class="trend-chart-card">
+                      <span>총 전투력</span>
+                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
+                    <div class="trend-chart-card">
+                      <span>대항전 점수</span>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
                   </article>
                 </div>
                 <div class="table-wrap">
@@ -2411,6 +2541,43 @@
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
                   </article>
                 </div>
+                <div class="modal-history-grid">
+                  <article class="history-panel">
+                    <h3>일간 변화 요약</h3>
+                    <ul class="history-list">
+                      <li><span>길드원 증감</span><strong>+29명</strong></li>
+                      <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>0점</strong></li>
+                      <li><span>길드 내부 TOP10 고정도</span><strong>0 / 10</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>길드원 출입 / 직업 변화</h3>
+                    <ul class="history-list">
+                      <li><span>신규 길드원</span><strong>26샤넬, 살뽀시, 26상탗</strong></li>
+                      <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
+                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +7, 비숍 +3</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>급상승 / 순위 변화</h3>
+                    <ul class="history-list history-list-compact">
+                      <li><span>전투력 변화</span><strong>변동 없음</strong></li>
+                      <li><span>길드 내부 순위</span><strong>변동 없음</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>7일 추세</h3>
+                    <div class="trend-chart-card">
+                      <span>총 전투력</span>
+                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
+                    <div class="trend-chart-card">
+                      <span>대항전 점수</span>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
+                  </article>
+                </div>
                 <div class="table-wrap">
                   <div class="table-toolbar">
                     <h3>길드원 목록</h3>
@@ -2864,6 +3031,43 @@
                     <span>핵심 전력 범위</span>
                     <strong>TOP10 99.0%</strong>
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
+                  </article>
+                </div>
+                <div class="modal-history-grid">
+                  <article class="history-panel">
+                    <h3>일간 변화 요약</h3>
+                    <ul class="history-list">
+                      <li><span>길드원 증감</span><strong>+30명</strong></li>
+                      <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>0점</strong></li>
+                      <li><span>길드 내부 TOP10 고정도</span><strong>0 / 10</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>길드원 출입 / 직업 변화</h3>
+                    <ul class="history-list">
+                      <li><span>신규 길드원</span><strong>애기요밋, 일월마녀, 난풍</strong></li>
+                      <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
+                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +8, 섀도어 +7, 신궁 +6</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>급상승 / 순위 변화</h3>
+                    <ul class="history-list history-list-compact">
+                      <li><span>전투력 변화</span><strong>변동 없음</strong></li>
+                      <li><span>길드 내부 순위</span><strong>변동 없음</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>7일 추세</h3>
+                    <div class="trend-chart-card">
+                      <span>총 전투력</span>
+                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
+                    <div class="trend-chart-card">
+                      <span>대항전 점수</span>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
                   </article>
                 </div>
                 <div class="table-wrap">
@@ -3332,6 +3536,43 @@
                     <span>핵심 전력 범위</span>
                     <strong>TOP10 98.3%</strong>
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
+                  </article>
+                </div>
+                <div class="modal-history-grid">
+                  <article class="history-panel">
+                    <h3>일간 변화 요약</h3>
+                    <ul class="history-list">
+                      <li><span>길드원 증감</span><strong>+29명</strong></li>
+                      <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>0점</strong></li>
+                      <li><span>길드 내부 TOP10 고정도</span><strong>0 / 10</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>길드원 출입 / 직업 변화</h3>
+                    <ul class="history-list">
+                      <li><span>신규 길드원</span><strong>신궁쨩, 싸뤽, 실민</strong></li>
+                      <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
+                      <li><span>직업 분포 변화</span><strong>비숍 +7, 다크나이트 +6, 신궁 +5</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>급상승 / 순위 변화</h3>
+                    <ul class="history-list history-list-compact">
+                      <li><span>전투력 변화</span><strong>변동 없음</strong></li>
+                      <li><span>길드 내부 순위</span><strong>변동 없음</strong></li>
+                    </ul>
+                  </article>
+                  <article class="history-panel">
+                    <h3>7일 추세</h3>
+                    <div class="trend-chart-card">
+                      <span>총 전투력</span>
+                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
+                    <div class="trend-chart-card">
+                      <span>대항전 점수</span>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 120.0,34.0" /></svg></div>
+                    </div>
                   </article>
                 </div>
                 <div class="table-wrap">
