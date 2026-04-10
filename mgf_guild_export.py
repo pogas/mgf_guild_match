@@ -80,16 +80,38 @@ def build_guild_summary(guild_row: dict[str, Any], members: list[dict[str, Any]]
     levels = [int(member["level"]) for member in members if str(member.get("level", "")).isdigit()]
     member_powers = [power_to_man_units(str(member.get("combat_power", ""))) for member in members]
     top_member = max(members, key=lambda item: power_to_man_units(str(item.get("combat_power", "")))) if members else None
+    guild_power_value = power_to_man_units(str(guild_row.get("guild_power", "")))
+    sorted_member_powers = sorted(member_powers, reverse=True)
+    avg_power_per_member_value = round(sum(member_powers) / len(member_powers)) if member_powers else 0
+    if member_powers:
+        sorted_member_powers_asc = sorted(member_powers)
+        middle_index = len(sorted_member_powers_asc) // 2
+        if len(sorted_member_powers_asc) % 2 == 0:
+            median_power_value = round((sorted_member_powers_asc[middle_index - 1] + sorted_member_powers_asc[middle_index]) / 2)
+        else:
+            median_power_value = sorted_member_powers_asc[middle_index]
+    else:
+        median_power_value = 0
+    top1_power_value = sorted_member_powers[0] if sorted_member_powers else 0
+    top3_power_value = sum(sorted_member_powers[:3]) if sorted_member_powers else 0
+    top1_share_pct = round((top1_power_value / guild_power_value) * 100, 1) if guild_power_value else 0
+    top3_share_pct = round((top3_power_value / guild_power_value) * 100, 1) if guild_power_value else 0
     return {
         "guild_name": guild_row["guild_name"],
         "member_count_int": len(members),
-        "guild_power_value": power_to_man_units(str(guild_row.get("guild_power", ""))),
+        "guild_power_value": guild_power_value,
         "avg_level": round(sum(levels) / len(levels), 1) if levels else 0,
         "top_member_name": top_member["nickname"] if top_member else "",
         "top_member_power": top_member["combat_power"] if top_member else "",
         "top_member_job": top_member["job_name"] if top_member else "",
         "master_member_power": next((member["combat_power"] for member in members if member["is_master"] == "Y"), ""),
         "member_power_values": member_powers,
+        "avg_power_per_member_value": avg_power_per_member_value,
+        "avg_power_per_member_text": format_man_units(avg_power_per_member_value),
+        "median_power_value": median_power_value,
+        "median_power_text": format_man_units(median_power_value),
+        "top1_share_pct": top1_share_pct,
+        "top3_share_pct": top3_share_pct,
     }
 
 
@@ -287,6 +309,25 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
                 <span class="rank-pill">전체 {escape(str(guild_row['global_rank']))} · 서버 {escape(str(guild_row['server_rank']))}</span>
               </div>
               <div class="power-meter"><span style="width:{width_pct}%"></span></div>
+              <div class="share-visual" aria-label="상위 전투력 비중">
+                <span class="share-top1" style="width:{summary['top1_share_pct']}%"></span>
+                <span class="share-top3" style="width:{max(summary['top3_share_pct'] - summary['top1_share_pct'], 0)}%"></span>
+              </div>
+              <div class="share-caption">TOP1 {summary['top1_share_pct']}% · TOP3 {summary['top3_share_pct']}%</div>
+              <div class="guild-analysis-grid">
+                <article class="analysis-chip">
+                  <span>TOP1 / TOP3</span>
+                  <strong>{summary['top1_share_pct']}% / {summary['top3_share_pct']}%</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>1인당 평균 전투력</span>
+                  <strong>{escape(str(summary['avg_power_per_member_text']))}</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>중앙값 전투력</span>
+                  <strong>{escape(str(summary['median_power_text']))}</strong>
+                </article>
+              </div>
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>{escape(str(guild_row['guild_power']))}</dd></div>
                 <div><dt>길드원 수</dt><dd>{summary['member_count_int']}명</dd></div>
@@ -566,6 +607,14 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .guild-metrics div {{ padding: 12px 0; border-top: 1px solid rgba(110,84,60,0.08); }}
     .guild-metrics dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
     .guild-metrics dd {{ margin: 0; font-size: 15px; font-weight: 700; }}
+    .share-visual {{ display: flex; height: 10px; margin-top: 12px; border-radius: 999px; overflow: hidden; background: rgba(110,84,60,0.08); }}
+    .share-top1 {{ background: linear-gradient(90deg, rgba(212,125,90,0.95), rgba(212,125,90,0.78)); }}
+    .share-top3 {{ background: linear-gradient(90deg, rgba(136,177,124,0.9), rgba(136,177,124,0.68)); }}
+    .share-caption {{ margin-top: 8px; color: var(--muted); font-size: 12px; font-weight: 700; }}
+    .guild-analysis-grid {{ display: grid; gap: 10px; margin-top: 14px; }}
+    .analysis-chip {{ padding: 12px 14px; border-radius: 16px; background: rgba(255,255,255,0.6); border: 1px solid rgba(110,84,60,0.08); }}
+    .analysis-chip span {{ display: block; color: var(--muted); font-size: 11px; margin-bottom: 6px; letter-spacing: .04em; }}
+    .analysis-chip strong {{ display: block; font-size: 15px; line-height: 1.35; }}
     .guild-note {{ margin: 16px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }}
     .card-jump {{ display: inline-flex; margin-top: 16px; color: var(--accent-3); font-size: 13px; font-weight: 700; }}
     /* #3: Guild Detail Comparison — 고정폭 카드, 내부 overflow */
@@ -593,10 +642,10 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .mini-link {{ flex-shrink: 0; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-size: 11px; font-weight: 700; }}
     .detail-compare-meta {{ display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(110,84,60,0.08); color: var(--muted); font-size: 12px; }}
     .detail-compare-table {{ width: 100%; border-collapse: collapse; margin-top: 14px; table-layout: fixed; }}
-    .detail-compare-table th {{ text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 7px 6px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; overflow: hidden; }}
+    .detail-compare-table th {{ text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 7px 4px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; overflow: hidden; }}
     .detail-compare-table th:first-child {{ width: 48%; }}
     .detail-compare-table th:last-child {{ width: 52%; text-align: right; }}
-    .detail-compare-table td {{ padding: 8px 8px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+    .detail-compare-table td {{ padding: 8px 4px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .detail-compare-table td:first-child {{ font-weight: 700; }}
     .detail-compare-table td:first-child a {{ color: var(--text); font-weight: 700; }}
     .detail-compare-table td:last-child {{ color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }}
