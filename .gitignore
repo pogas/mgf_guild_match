@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 로컬 실행 시 생성되는 중복 파일
+mgf_matched_5_guilds_*.xlsx
