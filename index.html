@@ -120,6 +120,14 @@
     .guild-metrics div { padding: 12px 0; border-top: 1px solid rgba(110,84,60,0.08); }
     .guild-metrics dt { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
     .guild-metrics dd { margin: 0; font-size: 15px; font-weight: 700; }
+    .share-visual { display: flex; height: 10px; margin-top: 12px; border-radius: 999px; overflow: hidden; background: rgba(110,84,60,0.08); }
+    .share-top1 { background: linear-gradient(90deg, rgba(212,125,90,0.95), rgba(212,125,90,0.78)); }
+    .share-top3 { background: linear-gradient(90deg, rgba(136,177,124,0.9), rgba(136,177,124,0.68)); }
+    .share-caption { margin-top: 8px; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .guild-analysis-grid { display: grid; gap: 10px; margin-top: 14px; }
+    .analysis-chip { padding: 12px 14px; border-radius: 16px; background: rgba(255,255,255,0.6); border: 1px solid rgba(110,84,60,0.08); }
+    .analysis-chip span { display: block; color: var(--muted); font-size: 11px; margin-bottom: 6px; letter-spacing: .04em; }
+    .analysis-chip strong { display: block; font-size: 15px; line-height: 1.35; }
     .guild-note { margin: 16px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
     .card-jump { display: inline-flex; margin-top: 16px; color: var(--accent-3); font-size: 13px; font-weight: 700; }
     /* #3: Guild Detail Comparison — 고정폭 카드, 내부 overflow */
@@ -147,10 +155,10 @@
     .mini-link { flex-shrink: 0; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-size: 11px; font-weight: 700; }
     .detail-compare-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(110,84,60,0.08); color: var(--muted); font-size: 12px; }
     .detail-compare-table { width: 100%; border-collapse: collapse; margin-top: 14px; table-layout: fixed; }
-    .detail-compare-table th { text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 7px 6px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; overflow: hidden; }
+    .detail-compare-table th { text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 7px 4px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; overflow: hidden; }
     .detail-compare-table th:first-child { width: 48%; }
     .detail-compare-table th:last-child { width: 52%; text-align: right; }
-    .detail-compare-table td { padding: 8px 8px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .detail-compare-table td { padding: 8px 4px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .detail-compare-table td:first-child { font-weight: 700; }
     .detail-compare-table td:first-child a { color: var(--text); font-weight: 700; }
     .detail-compare-table td:last-child { color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }
@@ -296,6 +304,25 @@
                 <span class="rank-pill">전체 376 · 서버 13위</span>
               </div>
               <div class="power-meter"><span style="width:73.2%"></span></div>
+              <div class="share-visual" aria-label="상위 전투력 비중">
+                <span class="share-top1" style="width:12.0%"></span>
+                <span class="share-top3" style="width:21.299999999999997%"></span>
+              </div>
+              <div class="share-caption">TOP1 12.0% · TOP3 33.3%</div>
+              <div class="guild-analysis-grid">
+                <article class="analysis-chip">
+                  <span>TOP1 / TOP3</span>
+                  <strong>12.0% / 33.3%</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>1인당 평균 전투력</span>
+                  <strong>4조 3,296억 7,839만</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>중앙값 전투력</span>
+                  <strong>2조 4,418억 6,776만</strong>
+                </article>
+              </div>
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>125조 5532억 9483만</dd></div>
                 <div><dt>길드원 수</dt><dd>29명</dd></div>
@@ -315,6 +342,25 @@
                 <span class="rank-pill">전체 362 · 서버 17위</span>
               </div>
               <div class="power-meter"><span style="width:80.1%"></span></div>
+              <div class="share-visual" aria-label="상위 전투력 비중">
+                <span class="share-top1" style="width:20.1%"></span>
+                <span class="share-top3" style="width:27.5%"></span>
+              </div>
+              <div class="share-caption">TOP1 20.1% · TOP3 47.6%</div>
+              <div class="guild-analysis-grid">
+                <article class="analysis-chip">
+                  <span>TOP1 / TOP3</span>
+                  <strong>20.1% / 47.6%</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>1인당 평균 전투력</span>
+                  <strong>4조 5,810억 4,913만</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>중앙값 전투력</span>
+                  <strong>1조 6,670억 6,236만</strong>
+                </article>
+              </div>
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>137조 4077억 2612만</dd></div>
                 <div><dt>길드원 수</dt><dd>30명</dd></div>
@@ -334,6 +380,25 @@
                 <span class="rank-pill">전체 364 · 서버 30위</span>
               </div>
               <div class="power-meter"><span style="width:79.0%"></span></div>
+              <div class="share-visual" aria-label="상위 전투력 비중">
+                <span class="share-top1" style="width:29.4%"></span>
+                <span class="share-top3" style="width:31.9%"></span>
+              </div>
+              <div class="share-caption">TOP1 29.4% · TOP3 61.3%</div>
+              <div class="guild-analysis-grid">
+                <article class="analysis-chip">
+                  <span>TOP1 / TOP3</span>
+                  <strong>29.4% / 61.3%</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>1인당 평균 전투력</span>
+                  <strong>4조 5,026억 4,545만</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>중앙값 전투력</span>
+                  <strong>8,592억 7,766만</strong>
+                </article>
+              </div>
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>135조 5251억 2923만</dd></div>
                 <div><dt>길드원 수</dt><dd>30명</dd></div>
@@ -353,6 +418,25 @@
                 <span class="rank-pill">전체 378 · 서버 10위</span>
               </div>
               <div class="power-meter"><span style="width:72.5%"></span></div>
+              <div class="share-visual" aria-label="상위 전투력 비중">
+                <span class="share-top1" style="width:13.7%"></span>
+                <span class="share-top3" style="width:22.500000000000004%"></span>
+              </div>
+              <div class="share-caption">TOP1 13.7% · TOP3 36.2%</div>
+              <div class="guild-analysis-grid">
+                <article class="analysis-chip">
+                  <span>TOP1 / TOP3</span>
+                  <strong>13.7% / 36.2%</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>1인당 평균 전투력</span>
+                  <strong>4조 3,193억 3,518만</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>중앙값 전투력</span>
+                  <strong>2조 1,861억 3,135만</strong>
+                </article>
+              </div>
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>124조 4701억 3596만</dd></div>
                 <div><dt>길드원 수</dt><dd>29명</dd></div>
@@ -372,6 +456,25 @@
                 <span class="rank-pill">전체 324 · 서버 13위</span>
               </div>
               <div class="power-meter"><span style="width:100.0%"></span></div>
+              <div class="share-visual" aria-label="상위 전투력 비중">
+                <span class="share-top1" style="width:49.1%"></span>
+                <span class="share-top3" style="width:34.6%"></span>
+              </div>
+              <div class="share-caption">TOP1 49.1% · TOP3 83.7%</div>
+              <div class="guild-analysis-grid">
+                <article class="analysis-chip">
+                  <span>TOP1 / TOP3</span>
+                  <strong>49.1% / 83.7%</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>1인당 평균 전투력</span>
+                  <strong>6조 1,399억 7,213만</strong>
+                </article>
+                <article class="analysis-chip">
+                  <span>중앙값 전투력</span>
+                  <strong>6,615억 9,223만</strong>
+                </article>
+              </div>
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>171조 6333억 5023만</dd></div>
                 <div><dt>길드원 수</dt><dd>28명</dd></div>
@@ -442,7 +545,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0" target="_blank" rel="noreferrer">포스코퓨처엠</a></td>
-              <td>4조 8502억 4550만</td>
+              <td>4조 8514억 8991만</td>
             </tr>
             
             <tr>
@@ -452,7 +555,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%9A%B0%ED%9B%84" target="_blank" rel="noreferrer">우후</a></td>
-              <td>3조 4856억 5370만</td>
+              <td>3조 4930억 3221만</td>
             </tr>
             
             <tr>
@@ -1069,12 +1172,12 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%A4%EB%AF%B8%ED%98%95" target="_blank" rel="noreferrer">매미형</a></td>
-              <td>47조 8744억 1142만</td>
+              <td>47조 8894억 2761만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%AF%BC%ED%97%A4" target="_blank" rel="noreferrer">민헤</a></td>
-              <td>11조 2585억 1755만</td>
+              <td>11조 5168억 7356만</td>
             </tr>
             
             <tr>
@@ -1094,7 +1197,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EA%B1%B4%EC%95%BC%EC%9B%85" target="_blank" rel="noreferrer">건야웅</a></td>
-              <td>1조 9107억 1607만</td>
+              <td>1조 9230억 4486만</td>
             </tr>
             
             <tr>
@@ -1199,7 +1302,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%8C%EB%85%84%EC%84%A4%EB%94%B8%EA%B8%B0" target="_blank" rel="noreferrer">만년설딸기</a></td>
-              <td>128억 9781만</td>
+              <td>131억 9115만</td>
             </tr>
             </tbody>
               </table>
@@ -1365,7 +1468,7 @@
               <td class="power-col">4조 8908억 6341만</td>
             </tr>
             
-            <tr data-power="485024550" data-level="99" data-rank="9">
+            <tr data-power="485148991" data-level="99" data-rank="9">
               <td>9</td>
               <td>
                 <div class="member-name-cell">
@@ -1375,7 +1478,7 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.99</td>
-              <td class="power-col">4조 8502억 4550만</td>
+              <td class="power-col">4조 8514억 8991만</td>
             </tr>
             
             <tr data-power="376237295" data-level="99" data-rank="10">
@@ -1391,7 +1494,7 @@
               <td class="power-col">3조 7623억 7295만</td>
             </tr>
             
-            <tr data-power="348565370" data-level="99" data-rank="11">
+            <tr data-power="349303221" data-level="99" data-rank="11">
               <td>11</td>
               <td>
                 <div class="member-name-cell">
@@ -1401,7 +1504,7 @@
               </td>
               <td><span class="badge">히어로</span></td>
               <td>Lv.99</td>
-              <td class="power-col">3조 4856억 5370만</td>
+              <td class="power-col">3조 4930억 3221만</td>
             </tr>
             
             <tr data-power="338465890" data-level="99" data-rank="12">
@@ -2995,7 +3098,7 @@
                     <ul class="highlights">
                       <li><span>TOP 멤버</span><strong>MAKTO</strong><em>84조 1898억 3942만</em></li>
                       <li><span>TOP 멤버 직업</span><strong>섀도어</strong></li>
-                      <li><span>마스터 전투력</span><strong>47조 8744억 1142만</strong></li>
+                      <li><span>마스터 전투력</span><strong>47조 8894억 2761만</strong></li>
                       <li><span>길드 공지</span><strong>자유가입 길드입니다 1d 길컨 미참 스펙상승에 따른 길컨 점수 미상향 추방컷 관리로 이루어지고 있습니다</strong></li>
                     </ul>
                   </article>
@@ -3032,7 +3135,7 @@
               <td class="power-col">84조 1898억 3942만</td>
             </tr>
             
-            <tr data-power="4787441142" data-level="103" data-rank="2">
+            <tr data-power="4788942761" data-level="103" data-rank="2">
               <td>2</td>
               <td>
                 <div class="member-name-cell">
@@ -3042,10 +3145,10 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.103</td>
-              <td class="power-col">47조 8744억 1142만</td>
+              <td class="power-col">47조 8894억 2761만</td>
             </tr>
             
-            <tr data-power="1125851755" data-level="101" data-rank="3">
+            <tr data-power="1151687356" data-level="101" data-rank="3">
               <td>3</td>
               <td>
                 <div class="member-name-cell">
@@ -3055,7 +3158,7 @@
               </td>
               <td><span class="badge">신궁</span></td>
               <td>Lv.101</td>
-              <td class="power-col">11조 2585억 1755만</td>
+              <td class="power-col">11조 5168억 7356만</td>
             </tr>
             
             <tr data-power="940570930" data-level="100" data-rank="4">
@@ -3097,7 +3200,7 @@
               <td class="power-col">2조 1046억 8811만</td>
             </tr>
             
-            <tr data-power="191071607" data-level="97" data-rank="7">
+            <tr data-power="192304486" data-level="97" data-rank="7">
               <td>7</td>
               <td>
                 <div class="member-name-cell">
@@ -3107,7 +3210,7 @@
               </td>
               <td><span class="badge">비숍</span></td>
               <td>Lv.97</td>
-              <td class="power-col">1조 9107억 1607만</td>
+              <td class="power-col">1조 9230억 4486만</td>
             </tr>
             
             <tr data-power="172522671" data-level="98" data-rank="8">
@@ -3370,7 +3473,7 @@
               <td class="power-col">647억 8326만</td>
             </tr>
             
-            <tr data-power="1289781" data-level="83" data-rank="28">
+            <tr data-power="1319115" data-level="83" data-rank="28">
               <td>28</td>
               <td>
                 <div class="member-name-cell">
@@ -3380,7 +3483,7 @@
               </td>
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.83</td>
-              <td class="power-col">128억 9781만</td>
+              <td class="power-col">131억 9115만</td>
             </tr>
             </tbody>
                   </table>
