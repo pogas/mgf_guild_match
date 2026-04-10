@@ -62,9 +62,9 @@
       background: radial-gradient(circle, rgba(212, 125, 90, 0.18), transparent 68%);
       filter: blur(12px);
     }
-    .hero-copy { max-width: 560px; }
+    .hero-copy { max-width: 100%; }
     .eyebrow { margin: 0 0 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 700; }
-    .hero h1 { margin: 0; font-size: clamp(26px, 3.6vw, 42px); line-height: 1.15; max-width: 18ch; word-break: keep-all; }
+    .hero h1 { margin: 0; font-size: clamp(22px, 2.8vw, 38px); line-height: 1.15; max-width: none; white-space: nowrap; word-break: keep-all; }
     .hero p.lead { max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 16px 0 0; }
     .hero-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
     .hero-nav a {
@@ -143,7 +143,7 @@
     .detail-compare-wrap::-webkit-scrollbar-track { background: rgba(110,84,60,0.06); border-radius: 999px; }
     .detail-compare-wrap::-webkit-scrollbar-thumb { background: rgba(173,101,64,0.28); border-radius: 999px; }
     .detail-compare-card {
-      flex: 0 0 320px;
+      flex: 0 0 300px;
       min-width: 0;
       padding: 18px;
       scroll-snap-align: start;
@@ -155,10 +155,10 @@
     .mini-link { flex-shrink: 0; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-size: 11px; font-weight: 700; }
     .detail-compare-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(110,84,60,0.08); color: var(--muted); font-size: 12px; }
     .detail-compare-table { width: 100%; border-collapse: collapse; margin-top: 14px; table-layout: fixed; }
-    .detail-compare-table th { text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 7px 4px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; overflow: hidden; }
+    .detail-compare-table th { text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 7px 2px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; overflow: hidden; }
     .detail-compare-table th:first-child { width: 48%; }
     .detail-compare-table th:last-child { width: 52%; text-align: right; }
-    .detail-compare-table td { padding: 8px 4px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .detail-compare-table td { padding: 8px 2px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .detail-compare-table td:first-child { font-weight: 700; }
     .detail-compare-table td:first-child a { color: var(--text); font-weight: 700; }
     .detail-compare-table td:last-child { color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }
@@ -242,7 +242,7 @@
     .power-col { font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }
     .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }
     @media (max-width: 980px) { .section-grid { grid-template-columns: 1fr; } .section-head, .table-toolbar { flex-direction: column; align-items: start; } }
-    @media (max-width: 720px) { .page { width: min(100% - 20px, 1320px); } .hero { padding: 20px; } .guild-metrics { grid-template-columns: 1fr; } th, td { padding: 12px; font-size: 13px; } .member-search { min-width: 0; width: 100%; } .guild-card { flex: 0 0 260px; } .detail-compare-card { flex: 0 0 280px; } .modal-box { padding: 20px; } }
+    @media (max-width: 720px) { .page { width: min(100% - 20px, 1320px); } .hero { padding: 20px; } .guild-metrics { grid-template-columns: 1fr; } th, td { padding: 12px; font-size: 13px; } .member-search { min-width: 0; width: 100%; } .guild-card { flex: 0 0 260px; } .detail-compare-card { flex: 0 0 270px; } .hero h1 { font-size: clamp(18px, 4.8vw, 26px); } .modal-box { padding: 20px; } }
   </style>
 </head>
 <body>
