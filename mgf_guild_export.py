@@ -29,9 +29,10 @@ def extract_query_value(url: str, key: str) -> str:
 
 
 def power_to_man_units(power_text: str) -> int:
+    normalized = power_text.replace(",", "")
     total = 0
-    for unit, multiplier in (("조", 100_000_000), ("억", 10_000), ("만", 1)):
-        match = re.search(rf"(\d+)\s*{unit}", power_text)
+    for unit, multiplier in (("경", 1_000_000_000_000), ("조", 100_000_000), ("억", 10_000), ("만", 1)):
+        match = re.search(rf"(\d+)\s*{unit}", normalized)
         if match:
             total += int(match.group(1)) * multiplier
     return total
@@ -41,11 +42,15 @@ def format_man_units(value: int) -> str:
     if value <= 0:
         return "0만"
 
-    jo = value // 100_000_000
-    remainder = value % 100_000_000
+    gyeong = value // 1_000_000_000_000
+    remainder = value % 1_000_000_000_000
+    jo = remainder // 100_000_000
+    remainder = remainder % 100_000_000
     eok = remainder // 10_000
     man = remainder % 10_000
     parts: list[str] = []
+    if gyeong:
+        parts.append(f"{gyeong}경")
     if jo:
         parts.append(f"{jo}조")
     if eok:
