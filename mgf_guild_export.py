@@ -19,6 +19,7 @@ LEAGUE_URL = (
 _HERE = Path(__file__).parent
 OUTPUT_PATH = _HERE / "mgf_matched_5_guilds.xlsx"
 HTML_OUTPUT_PATH = _HERE / "mgf_matched_5_guilds_report.html"
+SCORE_TABLE_PATH = _HERE / "길드 대항전 점수표.txt"
 
 
 def clean_text(value: str) -> str:
@@ -64,6 +65,10 @@ def safe_sheet_name(name: str) -> str:
 def anchor_id(name: str) -> str:
     normalized = re.sub(r"[^a-zA-Z0-9가-힣]+", "-", name).strip("-")
     return normalized or "guild"
+
+
+def format_score(value: int) -> str:
+    return f"{value:,}점"
 
 
 def next_available_path(path: Path) -> Path:
@@ -112,6 +117,101 @@ def build_guild_summary(guild_row: dict[str, Any], members: list[dict[str, Any]]
         "median_power_text": format_man_units(median_power_value),
         "top1_share_pct": top1_share_pct,
         "top3_share_pct": top3_share_pct,
+    }
+
+
+def parse_score_table(path: Path) -> list[dict[str, int]]:
+    rows: list[dict[str, int]] = []
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = clean_text(raw_line)
+        if not line:
+            continue
+        match = re.search(r"(\d+)위\s*:\s*([\d,]+)", line)
+        if not match:
+            continue
+        rows.append({
+            "rank": int(match.group(1)),
+            "score": int(match.group(2).replace(",", "")),
+        })
+    return rows
+
+
+def build_guild_war_simulation(
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    score_table: list[dict[str, int]],
+) -> dict[str, Any]:
+    score_by_rank = {row["rank"]: row["score"] for row in score_table}
+    ranked_members: list[dict[str, Any]] = []
+    all_members = [
+        member
+        for guild_members in members_by_guild.values()
+        for member in guild_members
+    ]
+    sorted_members = sorted(
+        all_members,
+        key=lambda member: (
+            -power_to_man_units(str(member.get("combat_power", ""))),
+            str(member.get("guild_name", "")),
+            str(member.get("nickname", "")),
+        ),
+    )
+    guild_totals: dict[str, dict[str, Any]] = {
+        guild_name: {
+            "guild_name": guild_name,
+            "total_score": 0,
+            "member_count": 0,
+            "scoring_count": 0,
+            "top_finisher_rank": None,
+            "top_finisher_name": "",
+        }
+        for guild_name in members_by_guild
+    }
+
+    for index, member in enumerate(sorted_members, start=1):
+        guild_name = str(member["guild_name"])
+        score = score_by_rank.get(index, 0)
+        ranked_member = {
+            "overall_rank": index,
+            "guild_name": guild_name,
+            "nickname": str(member["nickname"]),
+            "combat_power": str(member["combat_power"]),
+            "combat_power_value": power_to_man_units(str(member.get("combat_power", ""))),
+            "job_name": str(member.get("job_name", "")),
+            "character_url": str(member.get("character_url", "")),
+            "score": score,
+        }
+        ranked_members.append(ranked_member)
+
+        guild_total = guild_totals[guild_name]
+        guild_total["member_count"] += 1
+        guild_total["total_score"] += score
+        if score > 0:
+            guild_total["scoring_count"] += 1
+        if guild_total["top_finisher_rank"] is None:
+            guild_total["top_finisher_rank"] = index
+            guild_total["top_finisher_name"] = ranked_member["nickname"]
+
+    guild_rankings = sorted(
+        guild_totals.values(),
+        key=lambda row: (-int(row["total_score"]), int(row["top_finisher_rank"] or 9999), str(row["guild_name"])),
+    )
+    for index, guild_row in enumerate(guild_rankings, start=1):
+        guild_row["simulation_rank"] = index
+        guild_row["total_score_text"] = format_score(int(guild_row["total_score"]))
+
+    score_table_preview = [
+        {"label": "1~10위", "range": "1,000,000 → 410,000"},
+        {"label": "11~30위", "range": "380,000 → 160,000"},
+        {"label": "31~60위", "range": "157,000 → 100,000"},
+        {"label": "61~100위", "range": "99,000 → 60,300"},
+        {"label": "101~150위", "range": "59,600 → 25,300"},
+    ]
+
+    return {
+        "ranked_members": ranked_members,
+        "guild_rankings": guild_rankings,
+        "score_table": score_table,
+        "score_table_preview": score_table_preview,
     }
 
 
@@ -405,6 +505,79 @@ def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_b
     return f'<section class="detail-compare-wrap">{"".join(columns)}</section>'
 
 
+def render_guild_war_simulation_section(simulation: dict[str, Any]) -> str:
+    guild_cards = "".join(
+        f"""
+        <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
+          <div class="simulation-rank-top">
+            <span class="simulation-rank-badge">#{int(guild_row['simulation_rank'])}</span>
+            <strong>{escape(str(guild_row['guild_name']))}</strong>
+          </div>
+          <div class="simulation-rank-score">{escape(str(guild_row['total_score_text']))}</div>
+          <dl class="simulation-rank-meta">
+            <div><dt>득점 인원</dt><dd>{int(guild_row['scoring_count'])}명</dd></div>
+            <div><dt>최고 순위</dt><dd>{int(guild_row['top_finisher_rank'] or 0)}위 · {escape(str(guild_row['top_finisher_name']))}</dd></div>
+          </dl>
+        </article>
+        """
+        for guild_row in simulation["guild_rankings"]
+    )
+    preview_cards = "".join(
+        f"""
+        <article class="score-rule-card">
+          <span>{escape(str(row['label']))}</span>
+          <strong>{escape(str(row['range']))}</strong>
+        </article>
+        """
+        for row in simulation["score_table_preview"]
+    )
+    ranked_rows = "".join(
+        f"""
+        <tr>
+          <td>{int(member['overall_rank'])}</td>
+          <td>{escape(str(member['guild_name']))}</td>
+          <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
+          <td>{escape(str(member['job_name']))}</td>
+          <td>{escape(str(member['combat_power']))}</td>
+          <td>{format_score(int(member['score']))}</td>
+        </tr>
+        """
+        for member in simulation["ranked_members"]
+    )
+    return f"""
+    <section class="simulation-section">
+      <div class="simulation-overview">
+        <div>
+          <p class="eyebrow">Guild War Projection</p>
+          <h3>매칭 길드 5개 전원을 합산한 대항전 예상 시뮬레이션</h3>
+          <p class="simulation-copy">모든 길드원을 전투력 순으로 다시 정렬한 뒤, 제공된 순위별 점수표를 적용해 길드별 총합 점수를 계산했다.</p>
+        </div>
+        <div class="score-rule-grid">{preview_cards}</div>
+      </div>
+      <div class="simulation-rank-grid">{guild_cards}</div>
+      <div class="table-wrap simulation-table-wrap">
+        <div class="table-toolbar">
+          <h3>대항전 예상 개인 순위</h3>
+          <div class="toolbar-actions"><span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span></div>
+        </div>
+        <table class="member-table simulation-table">
+          <thead>
+            <tr>
+              <th>순위</th>
+              <th>길드</th>
+              <th>닉네임</th>
+              <th>직업</th>
+              <th>전투력</th>
+              <th>예상 점수</th>
+            </tr>
+          </thead>
+          <tbody>{ranked_rows}</tbody>
+        </table>
+      </div>
+    </section>
+    """
+
+
 def render_guild_modals(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
     modals: list[str] = []
     for guild_row in guild_rows:
@@ -482,6 +655,9 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     )
     summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
     compare_cards_html = render_compare_cards(guild_rows, members_by_guild)
+    score_table = parse_score_table(SCORE_TABLE_PATH)
+    simulation = build_guild_war_simulation(members_by_guild, score_table)
+    simulation_html = render_guild_war_simulation_section(simulation)
     detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild)
     guild_modals_html = render_guild_modals(guild_rows, members_by_guild)
 
@@ -565,6 +741,9 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
       cursor: pointer;
     }}
     .hero-nav a:hover {{ background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }}
+    .section-tabs {{ display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }}
+    .section-tabs a {{ padding: 12px 16px; border-radius: 999px; background: rgba(255,255,255,0.68); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); font-size: 13px; font-weight: 700; }}
+    .section-tabs a:hover {{ background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }}
     .summary-grid {{ display: grid; gap: 16px; margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }}
     .summary-card, .guild-card, .info-panel, .detail-compare-card {{
       background: var(--panel);
@@ -630,7 +809,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .detail-compare-wrap::-webkit-scrollbar-track {{ background: rgba(110,84,60,0.06); border-radius: 999px; }}
     .detail-compare-wrap::-webkit-scrollbar-thumb {{ background: rgba(173,101,64,0.28); border-radius: 999px; }}
     .detail-compare-card {{
-      flex: 0 0 300px;
+      flex: 0 0 280px;
       min-width: 0;
       padding: 18px;
       scroll-snap-align: start;
@@ -650,6 +829,29 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .detail-compare-table td:first-child a {{ color: var(--text); font-weight: 700; }}
     .detail-compare-table td:last-child {{ color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }}
     .detail-compare-table tr:hover td {{ background: rgba(255,255,255,0.35); }}
+    .simulation-section {{ margin-top: 26px; padding: 24px; border-radius: 30px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,251,246,0.96), rgba(249,242,234,0.95)); box-shadow: var(--shadow); }}
+    .simulation-overview {{ display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; }}
+    .simulation-overview h3 {{ margin: 6px 0 0; font-size: 28px; }}
+    .simulation-copy {{ margin: 14px 0 0; color: var(--muted); line-height: 1.7; }}
+    .score-rule-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }}
+    .score-rule-card {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); }}
+    .score-rule-card span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
+    .score-rule-card strong {{ display: block; font-size: 15px; }}
+    .simulation-rank-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }}
+    .simulation-rank-card {{ padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 14px 32px rgba(78,58,42,0.08); }}
+    .simulation-rank-top {{ display: flex; align-items: center; gap: 10px; }}
+    .simulation-rank-top strong {{ font-size: 22px; }}
+    .simulation-rank-badge {{ display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 32px; padding: 0 10px; border-radius: 999px; background: rgba(212,125,90,0.15); color: var(--accent-3); font-size: 13px; font-weight: 800; }}
+    .simulation-rank-card.rank-1 .simulation-rank-badge {{ background: rgba(212,125,90,0.24); }}
+    .simulation-rank-score {{ margin-top: 14px; font-size: 30px; font-weight: 800; line-height: 1.1; }}
+    .simulation-rank-meta {{ display: grid; gap: 10px; margin: 14px 0 0; }}
+    .simulation-rank-meta div {{ padding-top: 10px; border-top: 1px solid rgba(110,84,60,0.08); }}
+    .simulation-rank-meta dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
+    .simulation-rank-meta dd {{ margin: 0; font-size: 14px; font-weight: 700; }}
+    .simulation-table-wrap {{ margin-top: 18px; }}
+    .simulation-table td:nth-child(1), .simulation-table td:nth-child(6), .simulation-table th:nth-child(1), .simulation-table th:nth-child(6) {{ white-space: nowrap; }}
+    .simulation-table td:nth-child(5), .simulation-table td:nth-child(6) {{ font-variant-numeric: tabular-nums; }}
+    .simulation-table td:nth-child(6) {{ color: var(--accent-3); font-weight: 800; }}
     /* #4: Modal system */
     .modal-backdrop {{
       display: none;
@@ -728,8 +930,8 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .badge-master {{ background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }}
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
-    @media (max-width: 980px) {{ .section-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 270px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .modal-box {{ padding: 20px; }} }}
+    @media (max-width: 980px) {{ .section-grid, .simulation-overview {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-section {{ padding: 20px; }} .modal-box {{ padding: 20px; }} }}
   </style>
 </head>
 <body>
@@ -744,10 +946,19 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
       <section class="summary-grid">{summary_cards_html}</section>
     </header>
 
-    <h2 class="section-title">Guild Comparison</h2>
+    <nav class="section-tabs">
+      <a href="#guild-comparison">Guild Comparison</a>
+      <a href="#guild-war-simulation">대항전 예상 시뮬레이션</a>
+      <a href="#guild-detail-comparison">Guild Detail Comparison</a>
+    </nav>
+
+    <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
     <div class="compare-scroll-wrap">{compare_cards_html}</div>
 
-    <h2 class="section-title">Guild Detail Comparison</h2>
+    <h2 class="section-title" id="guild-war-simulation">대항전 예상 시뮬레이션</h2>
+    {simulation_html}
+
+    <h2 class="section-title" id="guild-detail-comparison">Guild Detail Comparison</h2>
     {detail_comparison_html}
 
     <p class="footer">Generated from public MGF guild pages · 길드 카드 클릭 시 상세 정보 팝업</p>
