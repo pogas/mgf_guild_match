@@ -91,6 +91,36 @@ def format_score(value: int) -> str:
     return f"{value:,}점"
 
 
+def parse_rank_number(value: str) -> int | None:
+    match = re.search(r"(\d+)", value.replace(",", ""))
+    return int(match.group(1)) if match else None
+
+
+def describe_rank_tier(rank_value: str, label: str) -> str:
+    rank_number = parse_rank_number(rank_value)
+    if rank_number is None:
+        return f"{label} 순위 확인 필요"
+    if rank_number == 1:
+        return f"{label} 1위"
+    if rank_number <= 3:
+        return f"{label} TOP3"
+    if rank_number <= 10:
+        return f"{label} TOP10"
+    if rank_number <= 30:
+        return f"{label} TOP30"
+    return f"{label} {rank_number}위"
+
+
+def describe_concentration(top3_share_pct: float, top5_share_pct: float) -> str:
+    if top3_share_pct >= 80 or top5_share_pct >= 92:
+        return "초집중형"
+    if top3_share_pct >= 65 or top5_share_pct >= 85:
+        return "상위 집중형"
+    if top3_share_pct >= 50 or top5_share_pct >= 75:
+        return "균형형"
+    return "분산형"
+
+
 def next_available_path(path: Path) -> Path:
     if not path.exists():
         return path
@@ -119,8 +149,13 @@ def build_guild_summary(guild_row: dict[str, Any], members: list[dict[str, Any]]
         median_power_value = 0
     top1_power_value = sorted_member_powers[0] if sorted_member_powers else 0
     top3_power_value = sum(sorted_member_powers[:3]) if sorted_member_powers else 0
+    top5_power_value = sum(sorted_member_powers[:5]) if sorted_member_powers else 0
+    top10_power_value = sum(sorted_member_powers[:10]) if sorted_member_powers else 0
     top1_share_pct = round((top1_power_value / guild_power_value) * 100, 1) if guild_power_value else 0
     top3_share_pct = round((top3_power_value / guild_power_value) * 100, 1) if guild_power_value else 0
+    top5_share_pct = round((top5_power_value / guild_power_value) * 100, 1) if guild_power_value else 0
+    top10_share_pct = round((top10_power_value / guild_power_value) * 100, 1) if guild_power_value else 0
+    top_member_gap_value = top1_power_value - sorted_member_powers[1] if len(sorted_member_powers) > 1 else top1_power_value
     return {
         "guild_name": guild_row["guild_name"],
         "member_count_int": len(members),
@@ -137,6 +172,10 @@ def build_guild_summary(guild_row: dict[str, Any], members: list[dict[str, Any]]
         "median_power_text": format_man_units(median_power_value),
         "top1_share_pct": top1_share_pct,
         "top3_share_pct": top3_share_pct,
+        "top5_share_pct": top5_share_pct,
+        "top10_share_pct": top10_share_pct,
+        "concentration_label": describe_concentration(top3_share_pct, top5_share_pct),
+        "top_member_gap_text": format_man_units(top_member_gap_value),
     }
 
 
@@ -428,6 +467,10 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
                 </div>
                 <span class="rank-pill">전체 {escape(str(guild_row['global_rank']))} · 서버 {escape(str(guild_row['server_rank']))}</span>
               </div>
+              <div class="rank-badge-row">
+                <span class="rank-badge rank-badge-global">{escape(describe_rank_tier(str(guild_row['global_rank']), '전체'))}</span>
+                <span class="rank-badge rank-badge-server">{escape(describe_rank_tier(str(guild_row['server_rank']), '서버'))}</span>
+              </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>{width_pct}%</strong></div>
               <div class="power-meter"><span style="width:{width_pct}%"></span></div>
               <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 {summary['top1_share_pct']}% · TOP3 {summary['top3_share_pct']}%</strong></div>
@@ -447,6 +490,11 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
                   <strong>{escape(str(summary['median_power_text']))}</strong>
+                </article>
+                <article class="analysis-chip analysis-chip-strong">
+                  <span>집중도 판정</span>
+                  <strong>{escape(str(summary['concentration_label']))}</strong>
+                  <em>TOP5 {summary['top5_share_pct']}% · TOP10 {summary['top10_share_pct']}%</em>
                 </article>
               </div>
               <dl class="guild-metrics">
@@ -645,6 +693,28 @@ def render_guild_modals(guild_rows: list[dict[str, Any]], members_by_guild: dict
                     </ul>
                   </article>
                 </div>
+                <div class="modal-comparison-grid">
+                  <article class="comparison-callout comparison-callout-rank">
+                    <span>순위 포지션</span>
+                    <strong>{escape(describe_rank_tier(str(guild_row['global_rank']), '전체'))}</strong>
+                    <em>{escape(describe_rank_tier(str(guild_row['server_rank']), '서버'))}</em>
+                  </article>
+                  <article class="comparison-callout comparison-callout-focus">
+                    <span>상위 멤버 집중도</span>
+                    <strong>{escape(str(summary['concentration_label']))}</strong>
+                    <em>TOP3 {summary['top3_share_pct']}% · TOP5 {summary['top5_share_pct']}%</em>
+                  </article>
+                  <article class="comparison-callout comparison-callout-gap">
+                    <span>TOP 멤버 격차</span>
+                    <strong>{escape(str(summary['top_member_gap_text']))}</strong>
+                    <em>1위와 2위 전투력 차이</em>
+                  </article>
+                  <article class="comparison-callout comparison-callout-core">
+                    <span>핵심 전력 범위</span>
+                    <strong>TOP10 {summary['top10_share_pct']}%</strong>
+                    <em>길드 총 전투력 대비 상위 10인 비중</em>
+                  </article>
+                </div>
                 <div class="table-wrap">
                   <div class="table-toolbar">
                     <h3>길드원 목록</h3>
@@ -810,6 +880,10 @@ def build_html_report(
     .guild-card-top {{ display: flex; justify-content: space-between; gap: 16px; align-items: start; }}
     .guild-card h3 {{ margin: 6px 0 0; font-size: 28px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .rank-pill {{ padding: 8px 12px; border-radius: 999px; background: rgba(212,125,90,0.12); color: var(--accent-3); font-size: 12px; white-space: nowrap; font-weight: 700; }}
+    .rank-badge-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }}
+    .rank-badge {{ display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; border: 1px solid rgba(110,84,60,0.08); }}
+    .rank-badge-global {{ background: rgba(212,125,90,0.14); color: var(--accent-3); }}
+    .rank-badge-server {{ background: rgba(136,177,124,0.14); color: #55734f; }}
     .bar-label-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 700; }}
     .bar-label-row strong {{ color: var(--text); font-size: 12px; }}
     .bar-label-row-secondary {{ margin-top: 14px; }}
@@ -826,6 +900,8 @@ def build_html_report(
     .analysis-chip {{ padding: 12px 14px; border-radius: 16px; background: rgba(255,255,255,0.6); border: 1px solid rgba(110,84,60,0.08); }}
     .analysis-chip span {{ display: block; color: var(--muted); font-size: 11px; margin-bottom: 6px; letter-spacing: .04em; }}
     .analysis-chip strong {{ display: block; font-size: 15px; line-height: 1.35; }}
+    .analysis-chip em {{ display: block; margin-top: 6px; color: var(--muted); font-style: normal; font-size: 12px; }}
+    .analysis-chip-strong {{ background: linear-gradient(160deg, rgba(255,245,235,0.96), rgba(247,235,220,0.94)); }}
     .guild-note {{ margin: 16px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }}
     .card-jump {{ display: inline-flex; margin-top: 16px; color: var(--accent-3); font-size: 13px; font-weight: 700; }}
     /* #3: Guild Detail Comparison — 고정폭 카드, 내부 overflow */
@@ -946,6 +1022,15 @@ def build_html_report(
     .highlights span {{ color: var(--muted); font-size: 12px; }}
     .highlights strong {{ font-size: 16px; line-height: 1.4; }}
     .highlights em {{ color: var(--muted); font-style: normal; font-size: 13px; }}
+    .modal-comparison-grid {{ display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }}
+    .comparison-callout {{ padding: 16px; border-radius: 20px; border: 1px solid rgba(110,84,60,0.08); background: rgba(255,255,255,0.68); box-shadow: 0 10px 24px rgba(78,58,42,0.06); }}
+    .comparison-callout span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 8px; }}
+    .comparison-callout strong {{ display: block; font-size: 18px; line-height: 1.3; }}
+    .comparison-callout em {{ display: block; margin-top: 6px; color: var(--muted); font-style: normal; font-size: 12px; line-height: 1.5; }}
+    .comparison-callout-rank {{ background: linear-gradient(160deg, rgba(255,246,239,0.96), rgba(248,235,224,0.92)); }}
+    .comparison-callout-focus {{ background: linear-gradient(160deg, rgba(247,250,241,0.96), rgba(233,244,227,0.94)); }}
+    .comparison-callout-gap {{ background: linear-gradient(160deg, rgba(255,251,244,0.96), rgba(245,238,228,0.94)); }}
+    .comparison-callout-core {{ background: linear-gradient(160deg, rgba(252,246,241,0.96), rgba(247,239,229,0.94)); }}
     .table-wrap {{ margin-top: 18px; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; background: rgba(255, 252, 247, 0.8); }}
     .table-toolbar {{ display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 18px 20px; border-bottom: 1px solid rgba(110,84,60,0.08); }}
     .table-toolbar h3 {{ margin: 0; font-size: 18px; }}
@@ -963,7 +1048,7 @@ def build_html_report(
     .badge-master {{ background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }}
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
-    @media (max-width: 980px) {{ .section-grid, .simulation-overview {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
+    @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
     @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} }}
   </style>
 </head>
