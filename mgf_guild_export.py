@@ -1,9 +1,10 @@
+import argparse
 import re
 from collections import OrderedDict
 from html import escape
 from pathlib import Path
 from typing import Any
-from urllib.parse import parse_qs, urljoin, urlparse
+from urllib.parse import parse_qs, quote, urljoin, urlparse
 
 import requests
 from xlsxwriter import Workbook
@@ -13,12 +14,8 @@ from bs4 import BeautifulSoup, Tag
 
 
 BASE_URL = "https://mgf.gg"
-LEAGUE_URL = (
-    "https://mgf.gg/contents/guild.php?mode=league&stx=%EB%B9%85%EB%94%9C"
-)
+DEFAULT_GUILD_NAME = "빅딜"
 _HERE = Path(__file__).parent
-OUTPUT_PATH = _HERE / "mgf_matched_5_guilds.xlsx"
-HTML_OUTPUT_PATH = _HERE / "mgf_matched_5_guilds_report.html"
 SCORE_TABLE_PATH = _HERE / "길드 대항전 점수표.txt"
 
 
@@ -65,6 +62,22 @@ def safe_sheet_name(name: str) -> str:
 def anchor_id(name: str) -> str:
     normalized = re.sub(r"[^a-zA-Z0-9가-힣]+", "-", name).strip("-")
     return normalized or "guild"
+
+
+def safe_file_stem(name: str) -> str:
+    normalized = re.sub(r'[<>:"/\\|?*]+', "-", clean_text(name)).strip(" .")
+    return normalized or "guild"
+
+
+def build_league_url(guild_name: str) -> str:
+    return f"{BASE_URL}/contents/guild.php?mode=league&stx={quote(guild_name)}"
+
+
+def build_output_paths(guild_name: str) -> tuple[Path, Path]:
+    file_stem = safe_file_stem(guild_name)
+    output_path = _HERE / f"{file_stem}_mgf_matched_5_guilds.xlsx"
+    html_output_path = _HERE / f"{file_stem}_mgf_matched_5_guilds_report.html"
+    return output_path, html_output_path
 
 
 def format_score(value: int) -> str:
@@ -221,8 +234,8 @@ def fetch_soup(session: requests.Session, url: str) -> BeautifulSoup:
     return BeautifulSoup(response.text, "html.parser")
 
 
-def collect_guild_links(session: requests.Session) -> list[str]:
-    soup = fetch_soup(session, LEAGUE_URL)
+def collect_guild_links(session: requests.Session, league_url: str) -> list[str]:
+    soup = fetch_soup(session, league_url)
     deduped: "OrderedDict[str, None]" = OrderedDict()
 
     for anchor in soup.find_all("a", href=True):
@@ -652,7 +665,11 @@ def render_guild_modals(guild_rows: list[dict[str, Any]], members_by_guild: dict
     return "".join(modals)
 
 
-def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> Path:
+def build_html_report(
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    html_output_path: Path,
+) -> Path:
     # #1 fix: build nav_links outside the f-string to avoid double-brace escaping
     nav_links = "".join(
         '<a data-modal="' + anchor_id(str(row["guild_name"])) + '" href="#">' + escape(str(row["guild_name"])) + "</a>"
@@ -1054,7 +1071,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
 </body>
 </html>
 """
-    target_path = HTML_OUTPUT_PATH
+    target_path = html_output_path
     while True:
         try:
             target_path.write_text(html, encoding="utf-8")
@@ -1062,8 +1079,12 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
         except PermissionError:
             target_path = next_available_path(target_path)
 
-def build_workbook(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> Path:
-    target_path = OUTPUT_PATH
+def build_workbook(
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    output_path: Path,
+) -> Path:
+    target_path = output_path
     guild_headers = [
         "guild_name",
         "guild_url",
@@ -1117,7 +1138,22 @@ def build_workbook(guild_rows: list[dict[str, Any]], members_by_guild: dict[str,
                     pass
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="MGF 매칭 길드 리포트 생성기")
+    parser.add_argument(
+        "--guild-name",
+        default=DEFAULT_GUILD_NAME,
+        help="대항전 최신화 기준 길드명 (기본값: 빅딜)",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = parse_args()
+    guild_name = clean_text(args.guild_name)
+    league_url = build_league_url(guild_name)
+    output_path, html_output_path = build_output_paths(guild_name)
+
     session = requests.Session()
     session.headers.update(
         {
@@ -1129,7 +1165,7 @@ def main() -> None:
         }
     )
 
-    guild_links = collect_guild_links(session)
+    guild_links = collect_guild_links(session, league_url)
     guild_rows: list[dict[str, Any]] = []
     members_by_guild: dict[str, list[dict[str, Any]]] = OrderedDict()
 
@@ -1138,10 +1174,12 @@ def main() -> None:
         guild_rows.append(guild_row)
         members_by_guild[guild_row["guild_name"]] = member_rows
 
-    workbook_path = build_workbook(guild_rows, members_by_guild)
-    html_report_path = build_html_report(guild_rows, members_by_guild)
+    workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
+    html_report_path = build_html_report(guild_rows, members_by_guild, html_output_path)
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
+    print(f"Guild seed: {guild_name}")
+    print(f"League URL: {league_url}")
     print(f"Created: {workbook_path}")
     print(f"Created: {html_report_path}")
     print(f"Guild sheets: {1 + len(members_by_guild)}")
