@@ -428,12 +428,13 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
                 </div>
                 <span class="rank-pill">전체 {escape(str(guild_row['global_rank']))} · 서버 {escape(str(guild_row['server_rank']))}</span>
               </div>
+              <div class="bar-label-row"><span>길드 총 전투력</span><strong>{width_pct}%</strong></div>
               <div class="power-meter"><span style="width:{width_pct}%"></span></div>
+              <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 {summary['top1_share_pct']}% · TOP3 {summary['top3_share_pct']}%</strong></div>
               <div class="share-visual" aria-label="상위 전투력 비중">
                 <span class="share-top1" style="width:{summary['top1_share_pct']}%"></span>
                 <span class="share-top3" style="width:{max(summary['top3_share_pct'] - summary['top1_share_pct'], 0)}%"></span>
               </div>
-              <div class="share-caption">TOP1 {summary['top1_share_pct']}% · TOP3 {summary['top3_share_pct']}%</div>
               <div class="guild-analysis-grid">
                 <article class="analysis-chip">
                   <span>TOP1 / TOP3</span>
@@ -809,7 +810,10 @@ def build_html_report(
     .guild-card-top {{ display: flex; justify-content: space-between; gap: 16px; align-items: start; }}
     .guild-card h3 {{ margin: 6px 0 0; font-size: 28px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .rank-pill {{ padding: 8px 12px; border-radius: 999px; background: rgba(212,125,90,0.12); color: var(--accent-3); font-size: 12px; white-space: nowrap; font-weight: 700; }}
-    .power-meter {{ height: 10px; border-radius: 999px; background: rgba(110,84,60,0.08); overflow: hidden; margin: 18px 0; }}
+    .bar-label-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 700; }}
+    .bar-label-row strong {{ color: var(--text); font-size: 12px; }}
+    .bar-label-row-secondary {{ margin-top: 14px; }}
+    .power-meter {{ height: 10px; border-radius: 999px; background: rgba(110,84,60,0.08); overflow: hidden; margin: 8px 0 0; }}
     .power-meter span {{ display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }}
     .guild-metrics {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }}
     .guild-metrics div {{ padding: 12px 0; border-top: 1px solid rgba(110,84,60,0.08); }}
@@ -818,7 +822,6 @@ def build_html_report(
     .share-visual {{ display: flex; height: 10px; margin-top: 12px; border-radius: 999px; overflow: hidden; background: rgba(110,84,60,0.08); }}
     .share-top1 {{ background: linear-gradient(90deg, rgba(212,125,90,0.95), rgba(212,125,90,0.78)); }}
     .share-top3 {{ background: linear-gradient(90deg, rgba(136,177,124,0.9), rgba(136,177,124,0.68)); }}
-    .share-caption {{ margin-top: 8px; color: var(--muted); font-size: 12px; font-weight: 700; }}
     .guild-analysis-grid {{ display: grid; gap: 10px; margin-top: 14px; }}
     .analysis-chip {{ padding: 12px 14px; border-radius: 16px; background: rgba(255,255,255,0.6); border: 1px solid rgba(110,84,60,0.08); }}
     .analysis-chip span {{ display: block; color: var(--muted); font-size: 11px; margin-bottom: 6px; letter-spacing: .04em; }}
