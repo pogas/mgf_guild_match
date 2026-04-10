@@ -130,6 +130,29 @@ def cleanup_old_history(guild_name: str, retain_days: int) -> list[Path]:
     return deleted_paths
 
 
+def validate_report_data(
+    guild_seed_name: str,
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+) -> list[str]:
+    errors: list[str] = []
+    guild_names = {str(row.get("guild_name", "")) for row in guild_rows}
+    total_members = sum(len(rows) for rows in members_by_guild.values())
+
+    if guild_seed_name not in guild_names:
+        errors.append(f"seed guild missing from matched set: {guild_seed_name}")
+    if len(guild_rows) < 5:
+        errors.append(f"matched guild count too low: {len(guild_rows)}")
+    if total_members < 100:
+        errors.append(f"total member count suspiciously low: {total_members}")
+
+    empty_guilds = [name for name, rows in members_by_guild.items() if not rows]
+    if empty_guilds:
+        errors.append(f"guilds with no members: {', '.join(empty_guilds)}")
+
+    return errors
+
+
 def format_score(value: int) -> str:
     return f"{value:,}점"
 
@@ -1612,6 +1635,11 @@ def parse_args() -> argparse.Namespace:
         default=0,
         help="history 폴더에서 유지할 최근 일수. 0이면 정리 안 함",
     )
+    parser.add_argument(
+        "--fail-on-invalid-data",
+        action="store_true",
+        help="매칭 결과가 비정상일 때 종료 코드 1로 실패 처리",
+    )
     return parser.parse_args()
 
 
@@ -1640,6 +1668,14 @@ def main() -> None:
         guild_row, member_rows = parse_guild_page(session, guild_link)
         guild_rows.append(guild_row)
         members_by_guild[guild_row["guild_name"]] = member_rows
+
+    validation_errors = validate_report_data(guild_name, guild_rows, members_by_guild)
+    if validation_errors:
+        print("Validation failed:")
+        for error in validation_errors:
+            print(f"- {error}")
+        if args.fail_on_invalid_data:
+            raise SystemExit(1)
 
     score_table = parse_score_table(SCORE_TABLE_PATH)
     simulation = build_guild_war_simulation(members_by_guild, score_table)
