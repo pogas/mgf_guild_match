@@ -75,8 +75,10 @@ def build_league_url(guild_name: str) -> str:
 
 def build_output_paths(guild_name: str) -> tuple[Path, Path]:
     file_stem = safe_file_stem(guild_name)
-    output_path = _HERE / f"{file_stem}_mgf_matched_5_guilds.xlsx"
-    html_output_path = _HERE / f"{file_stem}_mgf_matched_5_guilds_report.html"
+    guild_dir = _HERE / "reports" / file_stem
+    guild_dir.mkdir(parents=True, exist_ok=True)
+    output_path = guild_dir / f"{file_stem}_mgf_matched_5_guilds.xlsx"
+    html_output_path = guild_dir / "index.html"
     return output_path, html_output_path
 
 
