@@ -558,7 +558,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     }}
     .guild-card:hover {{ transform: translateY(-3px); border-color: rgba(173,101,64,0.24); box-shadow: 0 24px 44px rgba(78, 58, 42, 0.16); }}
     .guild-card-top {{ display: flex; justify-content: space-between; gap: 16px; align-items: start; }}
-    .guild-card h3 {{ margin: 6px 0 0; font-size: 28px; }}
+    .guild-card h3 {{ margin: 6px 0 0; font-size: 28px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .rank-pill {{ padding: 8px 12px; border-radius: 999px; background: rgba(212,125,90,0.12); color: var(--accent-3); font-size: 12px; white-space: nowrap; font-weight: 700; }}
     .power-meter {{ height: 10px; border-radius: 999px; background: rgba(110,84,60,0.08); overflow: hidden; margin: 18px 0; }}
     .power-meter span {{ display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }}
@@ -581,7 +581,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .detail-compare-wrap::-webkit-scrollbar-track {{ background: rgba(110,84,60,0.06); border-radius: 999px; }}
     .detail-compare-wrap::-webkit-scrollbar-thumb {{ background: rgba(173,101,64,0.28); border-radius: 999px; }}
     .detail-compare-card {{
-      flex: 0 0 220px;
+      flex: 0 0 320px;
       min-width: 0;
       padding: 18px;
       scroll-snap-align: start;
@@ -594,9 +594,9 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .detail-compare-meta {{ display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(110,84,60,0.08); color: var(--muted); font-size: 12px; }}
     .detail-compare-table {{ width: 100%; border-collapse: collapse; margin-top: 14px; table-layout: fixed; }}
     .detail-compare-table th {{ text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 7px 6px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; overflow: hidden; }}
-    .detail-compare-table th:first-child {{ width: 56%; }}
-    .detail-compare-table th:last-child {{ width: 44%; text-align: right; }}
-    .detail-compare-table td {{ padding: 8px 6px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+    .detail-compare-table th:first-child {{ width: 48%; }}
+    .detail-compare-table th:last-child {{ width: 52%; text-align: right; }}
+    .detail-compare-table td {{ padding: 8px 8px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .detail-compare-table td:first-child {{ font-weight: 700; }}
     .detail-compare-table td:first-child a {{ color: var(--text); font-weight: 700; }}
     .detail-compare-table td:last-child {{ color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }}
@@ -680,7 +680,7 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
     @media (max-width: 980px) {{ .section-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .modal-box {{ padding: 20px; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 280px; }} .modal-box {{ padding: 20px; }} }}
   </style>
 </head>
 <body>
