@@ -61,6 +61,11 @@ def safe_sheet_name(name: str) -> str:
     return name[:31]
 
 
+def anchor_id(name: str) -> str:
+    normalized = re.sub(r"[^a-zA-Z0-9가-힣]+", "-", name).strip("-")
+    return normalized or "guild"
+
+
 def next_available_path(path: Path) -> Path:
     if not path.exists():
         return path
@@ -270,25 +275,27 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
         members = members_by_guild[guild_name]
         summary = build_guild_summary(guild_row, members)
         width_pct = round(summary["guild_power_value"] / max_power * 100, 1) if max_power else 0
+        anchor = anchor_id(guild_name)
         cards.append(
             f"""
-            <article class=\"guild-card\">
-              <div class=\"guild-card-top\">
+            <a class="guild-card" href="#{escape(anchor)}">
+              <div class="guild-card-top">
                 <div>
-                  <p class=\"eyebrow\">{escape(str(guild_row['server_display']))}</p>
+                  <p class="eyebrow">{escape(str(guild_row['server_display']))}</p>
                   <h3>{escape(guild_name)}</h3>
                 </div>
-                <span class=\"rank-pill\">전체 {escape(str(guild_row['global_rank']))} · 서버 {escape(str(guild_row['server_rank']))}</span>
+                <span class="rank-pill">전체 {escape(str(guild_row['global_rank']))} · 서버 {escape(str(guild_row['server_rank']))}</span>
               </div>
-              <div class=\"power-meter\"><span style=\"width:{width_pct}%\"></span></div>
-              <dl class=\"guild-metrics\">
+              <div class="power-meter"><span style="width:{width_pct}%"></span></div>
+              <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>{escape(str(guild_row['guild_power']))}</dd></div>
                 <div><dt>길드원 수</dt><dd>{summary['member_count_int']}명</dd></div>
                 <div><dt>평균 레벨</dt><dd>Lv.{summary['avg_level']}</dd></div>
                 <div><dt>TOP 멤버</dt><dd>{escape(str(summary['top_member_name']))}</dd></div>
               </dl>
-              <p class=\"guild-note\">{escape(str(guild_row['guild_notice']))}</p>
-            </article>
+              <p class="guild-note">{escape(str(guild_row['guild_notice']))}</p>
+              <span class="card-jump">길드 상세 보기 ↘</span>
+            </a>
             """
         )
     return "".join(cards)
@@ -301,21 +308,57 @@ def render_member_rows(members: list[dict[str, Any]]) -> str:
         master_badge = '<span class="badge badge-master">MASTER</span>' if member.get("is_master") == "Y" else ""
         rows.append(
             f"""
-            <tr data-power=\"{power_value}\" data-level=\"{escape(str(member['level']))}\" data-rank=\"{escape(str(member['member_rank_in_guild']))}\">
+            <tr data-power="{power_value}" data-level="{escape(str(member['level']))}" data-rank="{escape(str(member['member_rank_in_guild']))}">
               <td>{escape(str(member['member_rank_in_guild']))}</td>
               <td>
-                <div class=\"member-name-cell\">
-                  <a href=\"{escape(str(member['character_url']))}\" target=\"_blank\" rel=\"noreferrer\">{escape(str(member['nickname']))}</a>
+                <div class="member-name-cell">
+                  <a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a>
                   {master_badge}
                 </div>
               </td>
-              <td><span class=\"badge\">{escape(str(member['job_name']))}</span></td>
+              <td><span class="badge">{escape(str(member['job_name']))}</span></td>
               <td>Lv.{escape(str(member['level']))}</td>
-              <td class=\"power-col\">{escape(str(member['combat_power']))}</td>
+              <td class="power-col">{escape(str(member['combat_power']))}</td>
             </tr>
             """
         )
     return "".join(rows)
+
+
+def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
+    columns: list[str] = []
+    for guild_row in guild_rows:
+        guild_name = str(guild_row["guild_name"])
+        members = members_by_guild[guild_name]
+        anchor = anchor_id(guild_name)
+        member_list = "".join(
+            f"""
+            <li>
+              <a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a>
+              <span>{escape(str(member['combat_power']))}</span>
+            </li>
+            """
+            for member in members
+        )
+        columns.append(
+            f"""
+            <article class="detail-compare-card">
+              <div class="detail-compare-head">
+                <div>
+                  <p class="eyebrow">{escape(str(guild_row['server_display']))}</p>
+                  <h3>{escape(guild_name)}</h3>
+                </div>
+                <a class="mini-link" href="#{escape(anchor)}">상세 섹션으로</a>
+              </div>
+              <div class="detail-compare-meta">
+                <span>길드원 {len(members)}명</span>
+                <span>{escape(str(guild_row['guild_power']))}</span>
+              </div>
+              <ol class="detail-compare-list">{member_list}</ol>
+            </article>
+            """
+        )
+    return f'<section class="detail-compare-wrap">{"".join(columns)}</section>'
 
 
 def render_guild_sections(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
@@ -324,19 +367,19 @@ def render_guild_sections(guild_rows: list[dict[str, Any]], members_by_guild: di
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
         summary = build_guild_summary(guild_row, members)
-        anchor = re.sub(r"[^a-zA-Z0-9가-힣]+", "-", guild_name)
+        anchor = anchor_id(guild_name)
         sections.append(
             f"""
-            <section class=\"guild-section\" id=\"{escape(anchor)}\">
-              <div class=\"section-head\">
+            <section class="guild-section" id="{escape(anchor)}">
+              <div class="section-head">
                 <div>
-                  <p class=\"eyebrow\">{escape(str(guild_row['server_display']))} · 기준일 {escape(str(guild_row['data_date']))}</p>
+                  <p class="eyebrow">{escape(str(guild_row['server_display']))} · 기준일 {escape(str(guild_row['data_date']))}</p>
                   <h2>{escape(guild_name)}</h2>
                 </div>
-                <a class=\"detail-link\" href=\"{escape(str(guild_row['guild_url']))}\" target=\"_blank\" rel=\"noreferrer\">원본 길드 페이지 보기</a>
+                <a class="detail-link" href="{escape(str(guild_row['guild_url']))}" target="_blank" rel="noreferrer">원본 길드 페이지 보기</a>
               </div>
-              <div class=\"section-grid\">
-                <article class=\"info-panel\">
+              <div class="section-grid">
+                <article class="info-panel">
                   <h3>길드 정보</h3>
                   <dl>
                     <div><dt>길드 마스터</dt><dd>{escape(str(guild_row['guild_master_name']))}</dd></div>
@@ -347,9 +390,9 @@ def render_guild_sections(guild_rows: list[dict[str, Any]], members_by_guild: di
                     <div><dt>평균 레벨</dt><dd>Lv.{summary['avg_level']}</dd></div>
                   </dl>
                 </article>
-                <article class=\"info-panel emphasis\">
+                <article class="info-panel emphasis">
                   <h3>핵심 포인트</h3>
-                  <ul class=\"highlights\">
+                  <ul class="highlights">
                     <li><span>TOP 멤버</span><strong>{escape(str(summary['top_member_name']))}</strong><em>{escape(str(summary['top_member_power']))}</em></li>
                     <li><span>TOP 멤버 직업</span><strong>{escape(str(summary['top_member_job']))}</strong></li>
                     <li><span>마스터 전투력</span><strong>{escape(str(summary['master_member_power']))}</strong></li>
@@ -357,27 +400,25 @@ def render_guild_sections(guild_rows: list[dict[str, Any]], members_by_guild: di
                   </ul>
                 </article>
               </div>
-              <div class=\"table-wrap\">
-                <div class=\"table-toolbar\">
+              <div class="table-wrap">
+                <div class="table-toolbar">
                   <h3>길드원 목록</h3>
-                  <div class=\"toolbar-actions\">
-                    <input class=\"member-search\" type=\"search\" placeholder=\"닉네임 / 직업 검색\" data-target=\"table-{escape(anchor)}\" />
-                    <span class=\"hint\">열 제목 클릭 시 정렬</span>
+                  <div class="toolbar-actions">
+                    <input class="member-search" type="search" placeholder="닉네임 / 직업 검색" data-target="table-{escape(anchor)}" />
+                    <span class="hint">열 제목 클릭 시 정렬</span>
                   </div>
                 </div>
-                <table class=\"member-table\" id=\"table-{escape(anchor)}\">
+                <table class="member-table" id="table-{escape(anchor)}">
                   <thead>
                     <tr>
-                      <th data-sort=\"rank\">순위</th>
-                      <th data-sort=\"name\">닉네임</th>
-                      <th data-sort=\"job\">직업</th>
-                      <th data-sort=\"level\">레벨</th>
-                      <th data-sort=\"power\">전투력</th>
+                      <th data-sort="rank">순위</th>
+                      <th data-sort="name">닉네임</th>
+                      <th data-sort="job">직업</th>
+                      <th data-sort="level">레벨</th>
+                      <th data-sort="power">전투력</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {render_member_rows(members)}
-                  </tbody>
+                  <tbody>{render_member_rows(members)}</tbody>
                 </table>
               </div>
             </section>
@@ -388,29 +429,29 @@ def render_guild_sections(guild_rows: list[dict[str, Any]], members_by_guild: di
 
 def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> Path:
     nav_links = "".join(
-        f'<a href="#{escape(re.sub(r"[^a-zA-Z0-9가-힣]+", "-", str(row["guild_name"]))) }">{escape(str(row["guild_name"]))}</a>'
+        f'<a href="#{{escape(anchor_id(str(row["guild_name"])))}}">{{escape(str(row["guild_name"]))}}</a>'
         for row in guild_rows
     )
     html = f"""<!DOCTYPE html>
-<html lang=\"ko\">
+<html lang="ko">
 <head>
-  <meta charset=\"utf-8\" />
-  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MGF 매칭 길드 리포트</title>
   <style>
     :root {{
-      --bg: #07111f;
-      --bg-soft: rgba(10, 22, 40, 0.72);
-      --panel: rgba(12, 27, 47, 0.88);
-      --panel-strong: rgba(18, 38, 66, 0.95);
-      --line: rgba(170, 201, 255, 0.16);
-      --text: #edf4ff;
-      --muted: #9bb0d1;
-      --accent: #7ae7c7;
-      --accent-2: #82a8ff;
-      --accent-3: #ffd37a;
-      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-      --radius: 24px;
+      --bg: #f7f3ec;
+      --bg-alt: #fffaf3;
+      --panel: rgba(255, 252, 247, 0.92);
+      --panel-strong: rgba(250, 244, 236, 0.96);
+      --line: rgba(110, 84, 60, 0.12);
+      --text: #2e241d;
+      --muted: #7a6658;
+      --accent: #d47d5a;
+      --accent-2: #88b17c;
+      --accent-3: #ad6540;
+      --shadow: 0 18px 44px rgba(78, 58, 42, 0.12);
+      --radius: 22px;
     }}
     * {{ box-sizing: border-box; }}
     html {{ scroll-behavior: smooth; }}
@@ -419,9 +460,9 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
       font-family: "Segoe UI", "Apple SD Gothic Neo", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(130, 168, 255, 0.18), transparent 28%),
-        radial-gradient(circle at top right, rgba(122, 231, 199, 0.16), transparent 24%),
-        linear-gradient(180deg, #091220 0%, #07111f 50%, #050b14 100%);
+        radial-gradient(circle at top left, rgba(212, 125, 90, 0.14), transparent 30%),
+        radial-gradient(circle at top right, rgba(136, 177, 124, 0.18), transparent 28%),
+        linear-gradient(180deg, #f7f3ec 0%, #fbf7f1 46%, #f4ece2 100%);
       min-height: 100vh;
     }}
     body::before {{
@@ -429,120 +470,140 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(circle at center, black 45%, transparent 90%);
+      background-image: linear-gradient(rgba(80, 58, 40, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(80, 58, 40, 0.03) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: radial-gradient(circle at center, black 52%, transparent 90%);
     }}
     a {{ color: inherit; text-decoration: none; }}
-    .page {{ width: min(1280px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 56px; position: relative; }}
+    .page {{ width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; }}
     .hero {{
       position: relative;
       overflow: hidden;
       padding: 36px;
       border: 1px solid var(--line);
       border-radius: 32px;
-      background: linear-gradient(135deg, rgba(16, 34, 58, 0.98), rgba(6, 16, 29, 0.9));
+      background: linear-gradient(135deg, rgba(255, 251, 246, 0.98), rgba(247, 239, 229, 0.94));
       box-shadow: var(--shadow);
     }}
     .hero::after {{
       content: "";
       position: absolute;
-      right: -80px;
-      top: -80px;
-      width: 240px;
-      height: 240px;
+      right: -48px;
+      top: -48px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(122,231,199,0.28), transparent 65%);
-      filter: blur(8px);
+      background: radial-gradient(circle, rgba(212, 125, 90, 0.18), transparent 68%);
+      filter: blur(12px);
     }}
-    .eyebrow {{ margin: 0 0 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-size: 12px; }}
-    .hero h1 {{ margin: 0; font-size: clamp(34px, 5vw, 62px); line-height: 1.02; max-width: 11ch; }}
-    .hero p.lead {{ max-width: 720px; color: var(--muted); font-size: 16px; line-height: 1.7; margin: 16px 0 0; }}
+    .hero-copy {{ max-width: 660px; }}
+    .eyebrow {{ margin: 0 0 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 700; }}
+    .hero h1 {{ margin: 0; font-size: clamp(34px, 5vw, 58px); line-height: 1.08; max-width: 8.5ch; text-wrap: balance; }}
+    .hero p.lead {{ max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 16px 0 0; }}
     .hero-nav {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }}
     .hero-nav a {{
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(110, 84, 60, 0.1);
       color: var(--text);
       font-size: 14px;
+      transition: all 0.18s ease;
     }}
+    .hero-nav a:hover {{ background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }}
     .summary-grid, .compare-grid {{ display: grid; gap: 16px; margin-top: 22px; }}
     .summary-grid {{ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 28px; }}
-    .summary-card, .guild-card, .info-panel {{
+    .summary-card, .guild-card, .info-panel, .detail-compare-card {{
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(10px);
     }}
     .summary-card {{ padding: 22px; min-height: 152px; }}
     .summary-label {{ margin: 0; font-size: 13px; color: var(--muted); }}
     .summary-value {{ display: block; margin-top: 14px; font-size: 28px; line-height: 1.15; }}
     .summary-help {{ margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }}
-    .section-title {{ margin: 44px 0 16px; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); }}
+    .section-title {{ margin: 44px 0 16px; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }}
     .compare-grid {{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }}
-    .guild-card {{ padding: 22px; }}
+    .guild-card {{ padding: 22px; display: block; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }}
+    .guild-card:hover {{ transform: translateY(-3px); border-color: rgba(173,101,64,0.24); box-shadow: 0 24px 44px rgba(78, 58, 42, 0.16); }}
     .guild-card-top {{ display: flex; justify-content: space-between; gap: 16px; align-items: start; }}
     .guild-card h3, .section-head h2 {{ margin: 6px 0 0; font-size: 28px; }}
-    .rank-pill {{ padding: 8px 12px; border-radius: 999px; background: rgba(130,168,255,0.12); color: #c9d8ff; font-size: 12px; white-space: nowrap; }}
-    .power-meter {{ height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; margin: 18px 0; }}
+    .rank-pill {{ padding: 8px 12px; border-radius: 999px; background: rgba(212,125,90,0.12); color: var(--accent-3); font-size: 12px; white-space: nowrap; font-weight: 700; }}
+    .power-meter {{ height: 10px; border-radius: 999px; background: rgba(110,84,60,0.08); overflow: hidden; margin: 18px 0; }}
     .power-meter span {{ display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }}
     .guild-metrics {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }}
-    .guild-metrics div, .info-panel dl div {{ padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.08); }}
+    .guild-metrics div, .info-panel dl div {{ padding: 12px 0; border-top: 1px solid rgba(110,84,60,0.08); }}
     .guild-metrics dt, .info-panel dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
-    .guild-metrics dd, .info-panel dd {{ margin: 0; font-size: 15px; font-weight: 600; }}
+    .guild-metrics dd, .info-panel dd {{ margin: 0; font-size: 15px; font-weight: 700; }}
     .guild-note {{ margin: 16px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }}
-    .guild-section {{ margin-top: 28px; padding: 26px; border-radius: 30px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(10,22,40,0.96), rgba(7,16,30,0.95)); box-shadow: var(--shadow); }}
+    .card-jump {{ display: inline-flex; margin-top: 16px; color: var(--accent-3); font-size: 13px; font-weight: 700; }}
+    .detail-compare-wrap {{ display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr); gap: 16px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; }}
+    .detail-compare-card {{ padding: 18px; scroll-snap-align: start; background: linear-gradient(180deg, rgba(255,252,247,0.98), rgba(247,239,229,0.94)); }}
+    .detail-compare-head {{ display: flex; justify-content: space-between; gap: 12px; align-items: start; }}
+    .detail-compare-head h3 {{ margin: 4px 0 0; font-size: 24px; }}
+    .mini-link {{ padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-size: 12px; font-weight: 700; }}
+    .detail-compare-meta {{ display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(110,84,60,0.08); color: var(--muted); font-size: 12px; }}
+    .detail-compare-list {{ list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; max-height: 980px; overflow: auto; }}
+    .detail-compare-list li {{ display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(110,84,60,0.08); }}
+    .detail-compare-list a {{ font-weight: 700; color: var(--text); }}
+    .detail-compare-list span {{ color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }}
+    .guild-section {{ margin-top: 28px; padding: 26px; border-radius: 30px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,251,246,0.96), rgba(249,242,234,0.95)); box-shadow: var(--shadow); }}
     .section-head {{ display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 18px; }}
-    .detail-link {{ padding: 11px 16px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); color: #dbe8ff; white-space: nowrap; }}
+    .detail-link {{ padding: 11px 16px; border-radius: 999px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-weight: 700; }}
     .section-grid {{ display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }}
     .info-panel {{ padding: 20px; }}
     .info-panel h3 {{ margin: 0 0 14px; font-size: 18px; }}
-    .info-panel.emphasis {{ background: linear-gradient(160deg, rgba(17,36,62,0.98), rgba(14,31,52,0.96)); }}
+    .info-panel.emphasis {{ background: linear-gradient(160deg, rgba(255,245,235,0.98), rgba(247,235,220,0.96)); }}
     .highlights {{ list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }}
-    .highlights li {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); display: grid; gap: 4px; }}
+    .highlights li {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.58); border: 1px solid rgba(110,84,60,0.06); display: grid; gap: 4px; }}
     .highlights span {{ color: var(--muted); font-size: 12px; }}
     .highlights strong {{ font-size: 16px; line-height: 1.4; }}
-    .highlights em {{ color: #bcd0ef; font-style: normal; font-size: 13px; }}
-    .table-wrap {{ margin-top: 18px; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; background: rgba(7, 16, 29, 0.86); }}
-    .table-toolbar {{ display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }}
+    .highlights em {{ color: var(--muted); font-style: normal; font-size: 13px; }}
+    .table-wrap {{ margin-top: 18px; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; background: rgba(255, 252, 247, 0.8); }}
+    .table-toolbar {{ display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 18px 20px; border-bottom: 1px solid rgba(110,84,60,0.08); }}
     .table-toolbar h3 {{ margin: 0; font-size: 18px; }}
     .toolbar-actions {{ display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }}
-    .member-search {{ min-width: 240px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: var(--text); border-radius: 999px; padding: 11px 14px; outline: none; }}
-    .member-search::placeholder {{ color: #7e95b9; }}
+    .member-search {{ min-width: 240px; border: 1px solid rgba(110,84,60,0.12); background: rgba(255,255,255,0.75); color: var(--text); border-radius: 999px; padding: 11px 14px; outline: none; }}
+    .member-search::placeholder {{ color: #9d8b7d; }}
     .hint {{ color: var(--muted); font-size: 12px; }}
     table {{ width: 100%; border-collapse: collapse; }}
-    th, td {{ padding: 16px 18px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.07); }}
-    th {{ position: sticky; top: 0; background: rgba(13, 28, 48, 0.96); color: #bfd1ef; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }}
-    tr:hover td {{ background: rgba(255,255,255,0.03); }}
+    th, td {{ padding: 16px 18px; text-align: left; border-bottom: 1px solid rgba(110,84,60,0.07); }}
+    th {{ position: sticky; top: 0; background: rgba(250,244,237,0.98); color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; font-weight: 700; }}
+    tr:hover td {{ background: rgba(255,255,255,0.35); }}
     .member-name-cell {{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }}
-    .member-name-cell a {{ color: #f6fbff; font-weight: 700; }}
-    .badge {{ display: inline-flex; align-items: center; min-height: 28px; padding: 4px 10px; border-radius: 999px; background: rgba(130,168,255,0.14); color: #dce6ff; font-size: 12px; border: 1px solid rgba(130,168,255,0.16); }}
-    .badge-master {{ background: rgba(255, 211, 122, 0.15); color: #ffe2a8; border-color: rgba(255, 211, 122, 0.2); }}
-    .power-col {{ font-variant-numeric: tabular-nums; color: #dffcf5; font-weight: 700; }}
+    .member-name-cell a {{ color: var(--text); font-weight: 700; }}
+    .badge {{ display: inline-flex; align-items: center; min-height: 28px; padding: 4px 10px; border-radius: 999px; background: rgba(136,177,124,0.14); color: #55734f; font-size: 12px; border: 1px solid rgba(136,177,124,0.16); font-weight: 700; }}
+    .badge-master {{ background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }}
+    .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
-    @media (max-width: 980px) {{ .section-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1280px); }} .hero, .guild-section {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} }}
+    @media (max-width: 980px) {{ .section-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} .detail-compare-wrap {{ grid-auto-columns: minmax(280px, 86vw); }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero, .guild-section {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .hero h1 {{ max-width: 9.5ch; }} }}
   </style>
 </head>
 <body>
-  <div class=\"page\">
-    <header class=\"hero\">
-      <p class=\"eyebrow\">MGF League Match Report</p>
-      <h1>매칭된 5개 길드를 한 번에 보는 HTML 리포트</h1>
-      <p class=\"lead\">기존 엑셀보다 훨씬 읽기 쉽도록 길드 비교 카드, 핵심 요약, 길드별 상세 섹션, 길드원 검색/정렬 가능한 테이블을 한 화면에 정리했다. 로컬 파일로 바로 열 수 있고, 원본 길드/캐릭터 페이지로도 이동할 수 있다.</p>
-      <nav class=\"hero-nav\">{nav_links}</nav>
-      <section class=\"summary-grid\">{render_summary_cards(guild_rows, members_by_guild)}</section>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">MGF League Match Report</p>
+        <h1>매칭된 5개 길드를 한 번에 보는 리포트</h1>
+        <p class="lead">너무 무거운 남색 분위기는 걷어내고, 밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 다시 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
+      </div>
+      <nav class="hero-nav">{nav_links}</nav>
+      <section class="summary-grid">{render_summary_cards(guild_rows, members_by_guild)}</section>
     </header>
 
-    <h2 class=\"section-title\">Guild Comparison</h2>
-    <section class=\"compare-grid\">{render_compare_cards(guild_rows, members_by_guild)}</section>
+    <h2 class="section-title">Guild Comparison</h2>
+    <section class="compare-grid">{render_compare_cards(guild_rows, members_by_guild)}</section>
 
-    <h2 class=\"section-title\">Guild Details</h2>
+    <h2 class="section-title">Guild Detail Comparison</h2>
+    {render_detail_comparison_section(guild_rows, members_by_guild)}
+
+    <h2 class="section-title">Guild Details</h2>
     {render_guild_sections(guild_rows, members_by_guild)}
 
-    <p class=\"footer\">Generated from public MGF guild pages · Open locally in any modern browser</p>
+    <p class="footer">Generated from public MGF guild pages · Open locally in any modern browser</p>
   </div>
   <script>
     document.querySelectorAll('.member-search').forEach((input) => {{
@@ -599,7 +660,6 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
             return target_path
         except PermissionError:
             target_path = next_available_path(target_path)
-
 
 def build_workbook(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> Path:
     target_path = OUTPUT_PATH
