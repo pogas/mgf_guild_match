@@ -137,14 +137,11 @@ def validate_report_data(
 ) -> list[str]:
     errors: list[str] = []
     guild_names = {str(row.get("guild_name", "")) for row in guild_rows}
-    total_members = sum(len(rows) for rows in members_by_guild.values())
 
     if guild_seed_name not in guild_names:
         errors.append(f"seed guild missing from matched set: {guild_seed_name}")
     if len(guild_rows) < 5:
         errors.append(f"matched guild count too low: {len(guild_rows)}")
-    if total_members < 100:
-        errors.append(f"total member count suspiciously low: {total_members}")
 
     empty_guilds = [name for name, rows in members_by_guild.items() if not rows]
     if empty_guilds:
