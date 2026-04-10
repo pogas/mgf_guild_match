@@ -331,12 +331,12 @@ def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_b
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
         anchor = anchor_id(guild_name)
-        member_list = "".join(
+        member_rows = "".join(
             f"""
-            <li>
-              <a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a>
-              <span>{escape(str(member['combat_power']))}</span>
-            </li>
+            <tr>
+              <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
+              <td>{escape(str(member['combat_power']))}</td>
+            </tr>
             """
             for member in members
         )
@@ -354,7 +354,10 @@ def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_b
                 <span>길드원 {len(members)}명</span>
                 <span>{escape(str(guild_row['guild_power']))}</span>
               </div>
-              <ol class="detail-compare-list">{member_list}</ol>
+              <table class="detail-compare-table">
+                <thead><tr><th>닉네임</th><th>전투력</th></tr></thead>
+                <tbody>{member_rows}</tbody>
+              </table>
             </article>
             """
         )
@@ -496,9 +499,9 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
       background: radial-gradient(circle, rgba(212, 125, 90, 0.18), transparent 68%);
       filter: blur(12px);
     }}
-    .hero-copy {{ max-width: 660px; }}
+    .hero-copy {{ max-width: 560px; }}
     .eyebrow {{ margin: 0 0 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 700; }}
-    .hero h1 {{ margin: 0; font-size: clamp(34px, 5vw, 58px); line-height: 1.08; max-width: 8.5ch; text-wrap: balance; }}
+    .hero h1 {{ margin: 0; font-size: clamp(26px, 3.6vw, 42px); line-height: 1.15; max-width: 18ch; word-break: keep-all; }}
     .hero p.lead {{ max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 16px 0 0; }}
     .hero-nav {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }}
     .hero-nav a {{
@@ -545,10 +548,13 @@ def build_html_report(guild_rows: list[dict[str, Any]], members_by_guild: dict[s
     .detail-compare-head h3 {{ margin: 4px 0 0; font-size: 24px; }}
     .mini-link {{ padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-size: 12px; font-weight: 700; }}
     .detail-compare-meta {{ display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(110,84,60,0.08); color: var(--muted); font-size: 12px; }}
-    .detail-compare-list {{ list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; max-height: 980px; overflow: auto; }}
-    .detail-compare-list li {{ display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(110,84,60,0.08); }}
-    .detail-compare-list a {{ font-weight: 700; color: var(--text); }}
-    .detail-compare-list span {{ color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }}
+    .detail-compare-table {{ width: 100%; border-collapse: collapse; margin-top: 14px; }}
+    .detail-compare-table th {{ text-align: left; color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px; border-bottom: 2px solid rgba(110,84,60,0.10); font-weight: 700; white-space: nowrap; }}
+    .detail-compare-table td {{ padding: 9px 10px; border-bottom: 1px solid rgba(110,84,60,0.07); font-size: 14px; white-space: nowrap; }}
+    .detail-compare-table td:first-child {{ font-weight: 700; }}
+    .detail-compare-table td:first-child a {{ color: var(--text); font-weight: 700; }}
+    .detail-compare-table td:last-child {{ color: var(--accent-3); font-variant-numeric: tabular-nums; text-align: right; }}
+    .detail-compare-table tr:hover td {{ background: rgba(255,255,255,0.35); }}
     .guild-section {{ margin-top: 28px; padding: 26px; border-radius: 30px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,251,246,0.96), rgba(249,242,234,0.95)); box-shadow: var(--shadow); }}
     .section-head {{ display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 18px; }}
     .detail-link {{ padding: 11px 16px; border-radius: 999px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-weight: 700; }}
