@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -28,20 +28,17 @@ jobs:
           pip install requests beautifulsoup4 xlsxwriter
 
       - name: Generate latest reports
-        working-directory: ./mgf_guild_report
         run: |
           python mgf_guild_export.py --guild-name "빅딜" --snapshot-mode latest --retain-history-days 7
           python mgf_guild_export.py --guild-name "셀린느" --snapshot-mode latest --retain-history-days 7
 
       - name: Generate daily history snapshots
-        working-directory: ./mgf_guild_report
         run: |
           SNAPSHOT_DATE=$(TZ='Asia/Seoul' date +%F)
           python mgf_guild_export.py --guild-name "빅딜" --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7
           python mgf_guild_export.py --guild-name "셀린느" --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7
 
       - name: Commit and push if changed
-        working-directory: ./mgf_guild_report
         env:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
