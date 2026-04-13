@@ -91,31 +91,44 @@ def resolve_snapshot_date(snapshot_date: str | None) -> str:
     return datetime.now().strftime("%Y-%m-%d")
 
 
-def build_output_paths(guild_name: str, report_mode: str, snapshot_mode: str, snapshot_date: str | None) -> tuple[Path, Path]:
+def build_mode_filenames(guild_name: str, report_mode: str) -> tuple[str, str, str]:
+    file_stem = safe_file_stem(guild_name)
+    if report_mode == "league":
+        return (
+            f"{file_stem}_league_mgf_report.xlsx",
+            "index.html",
+            "snapshot.json",
+        )
+    return (
+        f"{file_stem}_training_mgf_report.xlsx",
+        "training.html",
+        "training_snapshot.json",
+    )
+
+
+def build_output_paths(guild_name: str, report_mode: str, snapshot_mode: str, snapshot_date: str | None) -> tuple[Path, Path, Path]:
     file_stem = safe_file_stem(guild_name)
     guild_dir = _HERE / "reports" / file_stem
-    if report_mode != "league":
-        guild_dir = guild_dir / report_mode
+    workbook_name, html_name, snapshot_name = build_mode_filenames(guild_name, report_mode)
     if snapshot_mode == "history":
         dated_dir = guild_dir / "history" / resolve_snapshot_date(snapshot_date)
         dated_dir.mkdir(parents=True, exist_ok=True)
-        output_path = dated_dir / f"{file_stem}_mgf_matched_5_guilds.xlsx"
-        html_output_path = dated_dir / "index.html"
+        output_path = dated_dir / workbook_name
+        html_output_path = dated_dir / html_name
+        snapshot_path = dated_dir / snapshot_name
     else:
         guild_dir.mkdir(parents=True, exist_ok=True)
-        output_path = guild_dir / f"{file_stem}_mgf_matched_5_guilds.xlsx"
-        html_output_path = guild_dir / "index.html"
-    return output_path, html_output_path
+        output_path = guild_dir / workbook_name
+        html_output_path = guild_dir / html_name
+        snapshot_path = guild_dir / snapshot_name
+    return output_path, html_output_path, snapshot_path
 
 
 def cleanup_old_history(guild_name: str, report_mode: str, retain_days: int) -> list[Path]:
     if retain_days <= 0:
         return []
 
-    history_dir = _HERE / "reports" / safe_file_stem(guild_name)
-    if report_mode != "league":
-        history_dir = history_dir / report_mode
-    history_dir = history_dir / "history"
+    history_dir = _HERE / "reports" / safe_file_stem(guild_name) / "history"
     if not history_dir.exists():
         return []
 
@@ -423,21 +436,18 @@ def build_snapshot_data(
     }
 
 
-def write_snapshot_json(snapshot_data: dict[str, Any], output_dir: Path) -> Path:
-    snapshot_path = output_dir / "snapshot.json"
+def write_snapshot_json(snapshot_data: dict[str, Any], snapshot_path: Path) -> Path:
     snapshot_path.write_text(json.dumps(snapshot_data, ensure_ascii=False, indent=2), encoding="utf-8")
     return snapshot_path
 
 
 def load_history_snapshots(guild_name: str, report_mode: str) -> list[dict[str, Any]]:
-    history_dir = _HERE / "reports" / safe_file_stem(guild_name)
-    if report_mode != "league":
-        history_dir = history_dir / report_mode
-    history_dir = history_dir / "history"
+    history_dir = _HERE / "reports" / safe_file_stem(guild_name) / "history"
     if not history_dir.exists():
         return []
     snapshots: list[dict[str, Any]] = []
-    for snapshot_file in sorted(history_dir.glob("*/snapshot.json")):
+    _, _, snapshot_name = build_mode_filenames(guild_name, report_mode)
+    for snapshot_file in sorted(history_dir.glob(f"*/{snapshot_name}")):
         try:
             snapshots.append(json.loads(snapshot_file.read_text(encoding="utf-8")))
         except Exception:
@@ -1705,7 +1715,7 @@ def main() -> None:
     guild_name = clean_text(args.guild_name)
     report_mode = args.report_mode
     league_url = build_match_url(guild_name, report_mode)
-    output_path, html_output_path = build_output_paths(guild_name, report_mode, args.snapshot_mode, args.snapshot_date)
+    output_path, html_output_path, snapshot_output_path = build_output_paths(guild_name, report_mode, args.snapshot_mode, args.snapshot_date)
 
     session = requests.Session()
     session.headers.update(
@@ -1747,7 +1757,7 @@ def main() -> None:
 
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
     html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
-    snapshot_path = write_snapshot_json(snapshot_data, html_output_path.parent)
+    snapshot_path = write_snapshot_json(snapshot_data, snapshot_output_path)
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
     deleted_history_paths = cleanup_old_history(guild_name, report_mode, args.retain_history_days)
