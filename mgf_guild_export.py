@@ -1523,7 +1523,7 @@ def build_html_report(
         <div class="mode-tabs">{mode_tabs_html}</div>
         <p class="eyebrow">MGF League Match Report</p>
         <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
-        <p class="lead">밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
+        <p class="lead">위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
       </div>
       <nav class="hero-nav">{nav_links}</nav>
       <section class="summary-grid">{summary_cards_html}</section>
