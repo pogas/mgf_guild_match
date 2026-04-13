@@ -36,6 +36,7 @@ TRAINING_JOB_COEFFICIENTS = {
     "불독": 747692.334,
     "나이트로드": 876729.517,
     "히어로": 759119.642,
+    "팔라딘": 759119.642,
     "아크메이지(썬,콜)": 794141.188,
     "신궁": 808215.517,
     "섀도어": 761279.837,
@@ -1231,10 +1232,9 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
           <td>{int(member['overall_rank'])}</td>
           <td>{escape(str(member['guild_name']))}</td>
           <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
-          <td>{escape(str(member['job_name']))}</td>
+          <td><strong class="job-name">{escape(str(member['job_name']))}</strong></td>
           <td>{escape(str(member['combat_power']))}</td>
           <td>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</td>
-          <td>{escape(str(member['coefficient_label']))}</td>
           <td>{escape(str(member['estimated_metric_text']))}</td>
         </tr>
         """
@@ -1282,10 +1282,9 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
                   <th>길드</th>
                   <th>닉네임</th>
                   <th>직업</th>
-                   <th>전투력</th>
-                   <th>레벨</th>
-                   <th>직업계수</th>
-                   <th>예상 점수</th>
+                  <th>전투력</th>
+                  <th>레벨</th>
+                  <th>예상 점수</th>
                 </tr>
               </thead>
               <tbody>{ranked_rows}</tbody>
@@ -1698,6 +1697,7 @@ def build_html_report(
     .table-filter-label {{ display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.1); }}
     .table-filter-label span {{ color: var(--muted); font-size: 12px; font-weight: 700; white-space: nowrap; }}
     .table-filter-label select {{ border: 0; background: transparent; color: var(--text); font-size: 13px; font-weight: 700; outline: none; min-width: 110px; }}
+    .simulation-table .job-name {{ font-weight: 800; }}
     .simulation-table td:nth-child(1), .simulation-table th:nth-child(1) {{ white-space: nowrap; }}
     .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ font-variant-numeric: tabular-nums; }}
     .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ color: var(--accent-3); font-weight: 800; }}
