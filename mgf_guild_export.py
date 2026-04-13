@@ -1245,14 +1245,14 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
             </div>
             <div class="score-rule-grid">{preview_cards}</div>
           </div>
-          <div class="simulation-overview">
-            <div>
+          <section class="job-coefficient-section">
+            <div class="job-coefficient-head">
               <p class="eyebrow">Job Coefficients</p>
               <h3>직업 보정 계수</h3>
               <p class="simulation-copy">직업별 보정값은 70명 실제 수련장 결과를 기준으로 역산한 상대 지표다.</p>
             </div>
-            <div class="score-rule-grid">{coefficient_cards}</div>
-          </div>
+            <div class="job-coefficient-grid">{coefficient_cards}</div>
+          </section>
           <div class="simulation-rank-grid">{guild_cards}</div>
           <div class="table-wrap simulation-table-wrap">
             <div class="table-toolbar">
@@ -1660,6 +1660,9 @@ def build_html_report(
     .simulation-overview h3 {{ margin: 6px 0 0; font-size: 28px; }}
     .simulation-copy {{ margin: 14px 0 0; color: var(--muted); line-height: 1.7; }}
     .score-rule-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }}
+    .job-coefficient-section {{ margin-top: 18px; padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.56); border: 1px solid rgba(110,84,60,0.08); }}
+    .job-coefficient-head h3 {{ margin: 6px 0 0; font-size: 24px; }}
+    .job-coefficient-grid {{ display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }}
     .score-rule-card {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); }}
     .score-rule-card span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
     .score-rule-card strong {{ display: block; font-size: 15px; }}
@@ -1781,8 +1784,8 @@ def build_html_report(
     .badge-master {{ background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }}
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
-    @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid {{ grid-template-columns: 1fr; }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} }}
+    @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} }}
   </style>
 </head>
 <body>
