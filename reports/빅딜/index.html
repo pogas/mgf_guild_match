@@ -63,6 +63,10 @@
       filter: blur(12px);
     }
     .hero-copy { max-width: 100%; }
+    .mode-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+    .mode-tab { display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }
+    .mode-tab.active { background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }
+    .mode-tab.disabled { opacity: 0.45; cursor: not-allowed; }
     .eyebrow { margin: 0 0 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 700; }
     .hero h1 { margin: 0; font-size: clamp(22px, 2.8vw, 38px); line-height: 1.15; max-width: none; white-space: nowrap; word-break: keep-all; }
     .hero p.lead { max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 16px 0 0; }
@@ -317,6 +321,7 @@
   <div class="page">
     <header class="hero">
       <div class="hero-copy">
+        <div class="mode-tabs"><a class="mode-tab active" href="index.html">대항전 리포트</a><a class="mode-tab " href="training.html">수련장 리포트</a></div>
         <p class="eyebrow">MGF League Match Report</p>
         <h1>빅딜 대항전 리포트</h1>
         <p class="lead">밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
@@ -1563,12 +1568,12 @@
                     <h3>7일 추세</h3>
                     <div class="trend-chart-card">
                       <span>총 전투력</span>
-                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 40.0,34.0 80.0,2.0 120.0,2.0" /></svg></div>
+                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,2.0 40.0,34.0 80.0,2.0 120.0,2.0" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span></div>
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,4.11 40.0,2.0 80.0,3.95 120.0,34.0" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 40.0,2.0 80.0,3.95 120.0,34.0" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -2062,7 +2067,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 40.0,23.53 80.0,17.83 120.0,2.0" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,2.0 40.0,34.0 80.0,25.54 120.0,2.0" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -2556,7 +2561,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,2.0 40.0,8.28 80.0,12.47 120.0,34.0" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 40.0,2.0 80.0,7.21 120.0,34.0" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -3050,7 +3055,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,2.0 40.0,26.48 80.0,34.0 120.0,26.93" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,3.93 40.0,2.0 80.0,34.0 120.0,3.93" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -3557,7 +3562,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,2.0 40.0,9.02 80.0,20.09 120.0,34.0" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 40.0,2.0 80.0,16.18 120.0,34.0" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span></div>
                     </div>
                   </article>
