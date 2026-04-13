@@ -31,12 +31,16 @@ jobs:
         run: |
           python mgf_guild_export.py --guild-name "빅딜" --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data
           python mgf_guild_export.py --guild-name "셀린느" --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data
+          python mgf_guild_export.py --guild-name "빅딜" --report-mode training --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data
+          python mgf_guild_export.py --guild-name "셀린느" --report-mode training --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data
 
       - name: Generate daily history snapshots
         run: |
           SNAPSHOT_DATE=$(TZ='Asia/Seoul' date +%F)
           python mgf_guild_export.py --guild-name "빅딜" --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data
           python mgf_guild_export.py --guild-name "셀린느" --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data
+          python mgf_guild_export.py --guild-name "빅딜" --report-mode training --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data
+          python mgf_guild_export.py --guild-name "셀린느" --report-mode training --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data
 
       - name: Commit and push if changed
         env:

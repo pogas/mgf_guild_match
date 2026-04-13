@@ -23,6 +23,24 @@ REPORT_MODE_LABELS = {
     "league": "대항전",
     "training": "수련장",
 }
+# 수련장 점수 추정 모델 (실제 35명 결과 역산 기반, 2026-04-13)
+# 공식: 예상점수 = 레벨기준점수(level) × 직업계수(job)
+# 레벨기준점수 = 205957 × level - 17372890  (선형 회귀, Lv.98~103 데이터)
+# 평균 오차 ~12%, 중앙값 오차 ~8.5%  — 참고용 추정치
+TRAINING_LEVEL_SLOPE = 205957.2
+TRAINING_LEVEL_INTERCEPT = -17372889.6
+TRAINING_JOB_COEFFICIENTS = {
+    "비숍": 1.261,
+    "보우마스터": 1.101,
+    "다크나이트": 1.064,
+    "아크메이지(불,독)": 1.050,
+    "불독": 1.050,
+    "나이트로드": 1.019,
+    "히어로": 1.009,
+    "아크메이지(썬,콜)": 1.000,
+    "신궁": 0.989,
+    "섀도어": 0.967,
+}
 
 
 def clean_text(value: str) -> str:
@@ -216,11 +234,65 @@ def format_percent_delta(value: float) -> str:
     return f"{sign}{value:.1f}%"
 
 
+def format_metric_delta(value: int, use_man_units: bool) -> str:
+    if use_man_units:
+        sign = "+" if value > 0 else "-" if value < 0 else ""
+        return f"{sign}{format_man_units(abs(value))}"
+    return format_delta(value, "점")
+
+
 def build_member_key(member: dict[str, Any]) -> str:
     character_key = clean_text(str(member.get("character_key", "")))
     if character_key:
         return character_key
     return clean_text(str(member.get("nickname", "")))
+
+
+def get_report_copy(report_mode: str) -> dict[str, str]:
+    if report_mode == "training":
+        return {
+            "hero_eyebrow": "MGF Training Match Report",
+            "lead": "위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교하며 수련장 예상 지표를 볼 수 있다.",
+            "simulation_nav": "수련장 예상 시뮬레이터",
+            "simulation_metric": "수련장 지표",
+            "simulation_metric_short": "예상 지표",
+            "simulation_delta": "수련장 지표 변화",
+            "trend_label": "수련장 지표",
+            "auto_summary_best": "수련장 지표 최대 상승",
+        }
+    return {
+        "hero_eyebrow": "MGF League Match Report",
+        "lead": "위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.",
+        "simulation_nav": "대항전 예상 시뮬레이터",
+        "simulation_metric": "대항전 점수",
+        "simulation_metric_short": "예상 점수",
+        "simulation_delta": "대항전 점수 변화",
+        "trend_label": "대항전 점수",
+        "auto_summary_best": "대항전 점수 최대 상승",
+    }
+
+
+def normalize_job_name(job_name: str) -> str:
+    return re.sub(r"\s+", "", clean_text(job_name))
+
+
+def get_training_job_coefficient(job_name: str) -> tuple[float, str]:
+    normalized_job = normalize_job_name(job_name)
+    for candidate, coefficient in TRAINING_JOB_COEFFICIENTS.items():
+        normalized_candidate = normalize_job_name(candidate)
+        if normalized_job == normalized_candidate or normalized_candidate in normalized_job or normalized_job in normalized_candidate:
+            return coefficient, candidate
+    return 1.0, "기본"
+
+
+def estimate_training_score(level: int, job_name: str) -> int:
+    """레벨 + 직업 기반 수련장 예상 점수 추정 (실제 데이터 역산 모델).
+    평균 오차 ~12%, 중앙값 오차 ~8.5% — 참고용 추정치.
+    """
+    base = TRAINING_LEVEL_SLOPE * level + TRAINING_LEVEL_INTERCEPT
+    base = max(base, 100_000)  # 레벨이 매우 낮은 경우 음수 방지
+    coefficient, _ = get_training_job_coefficient(job_name)
+    return round(base * coefficient)
 
 
 def next_available_path(path: Path) -> Path:
@@ -376,8 +448,109 @@ def build_guild_war_simulation(
     }
 
 
+def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    ranked_members: list[dict[str, Any]] = []
+    all_members = [
+        member
+        for guild_members in members_by_guild.values()
+        for member in guild_members
+    ]
+    projected_members: list[dict[str, Any]] = []
+    guild_totals: dict[str, dict[str, Any]] = {
+        guild_name: {
+            "guild_name": guild_name,
+            "total_score": 0,
+            "member_count": 0,
+            "weighted_sum": 0.0,
+            "top_finisher_rank": None,
+            "top_finisher_name": "",
+        }
+        for guild_name in members_by_guild
+    }
+
+    for member in all_members:
+        guild_name = str(member.get("guild_name", ""))
+        combat_power_value = power_to_man_units(str(member.get("combat_power", "")))
+        job_name = str(member.get("job_name", ""))
+        level_raw = member.get("level", 0)
+        try:
+            level = int(level_raw)
+        except (ValueError, TypeError):
+            level = 0
+        coefficient, coefficient_label = get_training_job_coefficient(job_name)
+        if level > 0:
+            estimated_metric_value = estimate_training_score(level, job_name)
+        else:
+            # 레벨 정보 없을 때 전투력 기반 fallback
+            estimated_metric_value = round(combat_power_value * coefficient)
+        projected_members.append(
+            {
+                "guild_name": guild_name,
+                "nickname": str(member.get("nickname", "")),
+                "combat_power": str(member.get("combat_power", "")),
+                "combat_power_value": combat_power_value,
+                "job_name": str(member.get("job_name", "")),
+                "level": level,
+                "character_url": str(member.get("character_url", "")),
+                "coefficient": coefficient,
+                "coefficient_label": coefficient_label,
+                "score": estimated_metric_value,
+                "estimated_metric_value": estimated_metric_value,
+                "estimated_metric_text": format_man_units(estimated_metric_value),
+            }
+        )
+
+    sorted_members = sorted(
+        projected_members,
+        key=lambda member: (
+            -int(member["estimated_metric_value"]),
+            -int(member["combat_power_value"]),
+            str(member["guild_name"]),
+            str(member["nickname"]),
+        ),
+    )
+
+    for index, member in enumerate(sorted_members, start=1):
+        ranked_member = {
+            "overall_rank": index,
+            **member,
+        }
+        ranked_members.append(ranked_member)
+
+        guild_total = guild_totals[str(member["guild_name"])]
+        guild_total["member_count"] += 1
+        guild_total["total_score"] += int(member["estimated_metric_value"])
+        guild_total["weighted_sum"] += float(member["coefficient"])
+        if guild_total["top_finisher_rank"] is None:
+            guild_total["top_finisher_rank"] = index
+            guild_total["top_finisher_name"] = str(member["nickname"])
+
+    guild_rankings = sorted(
+        guild_totals.values(),
+        key=lambda row: (-int(row["total_score"]), int(row["top_finisher_rank"] or 9999), str(row["guild_name"])),
+    )
+    for index, guild_row in enumerate(guild_rankings, start=1):
+        guild_row["simulation_rank"] = index
+        guild_row["total_score_text"] = format_man_units(int(guild_row["total_score"]))
+        guild_row["avg_coefficient"] = round(float(guild_row["weighted_sum"]) / max(int(guild_row["member_count"]), 1), 3)
+
+    coefficient_preview = [
+        {"label": job_name, "range": f"×{coefficient:.3f}"}
+        for job_name, coefficient in TRAINING_JOB_COEFFICIENTS.items()
+    ]
+    coefficient_preview.append({"label": "기타 직업", "range": "×1.000"})
+
+    return {
+        "ranked_members": ranked_members,
+        "guild_rankings": guild_rankings,
+        "score_table": [],
+        "score_table_preview": coefficient_preview,
+    }
+
+
 def build_snapshot_data(
     guild_seed_name: str,
+    report_mode: str,
     guild_rows: list[dict[str, Any]],
     members_by_guild: dict[str, list[dict[str, Any]]],
     simulation: dict[str, Any],
@@ -406,6 +579,7 @@ def build_snapshot_data(
             member_map[member_key] = {
                 "nickname": str(member.get("nickname", "")),
                 "job_name": str(member.get("job_name", "")),
+                "level": int(member.get("level", 0)) if str(member.get("level", "")).isdigit() else 0,
                 "combat_power": str(member.get("combat_power", "")),
                 "combat_power_value": power_to_man_units(str(member.get("combat_power", ""))),
                 "rank_in_guild": parse_rank_number(str(member.get("member_rank_in_guild", ""))) or 0,
@@ -431,6 +605,7 @@ def build_snapshot_data(
         }
     return {
         "guild_seed_name": guild_seed_name,
+        "report_mode": report_mode,
         "snapshot_date": snapshot_date,
         "guilds": guilds,
     }
@@ -473,6 +648,7 @@ def build_sparkline(values: list[int], width: int = 120, height: int = 36) -> st
 
 
 def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: list[dict[str, Any]]) -> dict[str, Any]:
+    report_mode = str(current_snapshot.get("report_mode", "league"))
     previous_snapshot = history_snapshots[-1] if history_snapshots else None
     trend_snapshots = history_snapshots[-6:] + [current_snapshot]
     guild_analysis: dict[str, Any] = {}
@@ -555,6 +731,7 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
     stable_guild = max(guild_analysis.items(), key=lambda item: item[1]["retained_top10_count"], default=("", {"retained_top10_count": 0}))
 
     return {
+        "report_mode": report_mode,
         "has_previous": previous_snapshot is not None,
         "previous_date": previous_snapshot.get("snapshot_date") if previous_snapshot else "",
         "guilds": guild_analysis,
@@ -745,6 +922,7 @@ def render_summary_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
 
 
 def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
+    copy = get_report_copy(str(history_analysis.get("report_mode", "league")))
     if not history_analysis.get("has_previous"):
         return """
         <section class="auto-summary-grid">
@@ -760,7 +938,7 @@ def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
     cards = [
         ("길드원 증감", f"+{summary['total_joined']} / -{summary['total_departed']}", f"비교 기준일 {history_analysis['previous_date']} 대비"),
         ("총 전투력 최대 상승", summary["best_power_guild"] or "-", format_man_units(abs(summary["best_power_delta"])) if summary["best_power_guild"] else "변화 없음"),
-        ("대항전 점수 최대 상승", summary["best_sim_guild"] or "-", format_score(abs(summary["best_sim_delta"])) if summary["best_sim_guild"] else "변화 없음"),
+        (copy["auto_summary_best"], summary["best_sim_guild"] or "-", format_man_units(abs(summary["best_sim_delta"])) if copy["simulation_metric_short"] == "예상 지표" and summary["best_sim_guild"] else format_score(abs(summary["best_sim_delta"])) if summary["best_sim_guild"] else "변화 없음"),
         ("상위권 고정도 최고", summary["stable_guild"] or "-", f"TOP10 유지 {summary['stable_retained']}명" if summary["stable_guild"] else "데이터 없음"),
     ]
     return '<section class="auto-summary-grid">' + ''.join(
@@ -776,6 +954,7 @@ def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
 
 
 def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]], history_analysis: dict[str, Any]) -> str:
+    copy = get_report_copy(str(history_analysis.get("report_mode", "league")))
     max_power = max(power_to_man_units(str(row.get("guild_power", ""))) for row in guild_rows) if guild_rows else 1
     cards: list[str] = []
 
@@ -802,7 +981,7 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
               </div>
               <div class="trend-pill-row">
                 <span class="trend-pill {'positive' if guild_history.get('guild_power_delta', 0) >= 0 else 'negative'}">총전투력 {format_percent_delta(float(guild_history.get('guild_power_delta_pct', 0)))} </span>
-                <span class="trend-pill {'positive' if guild_history.get('simulation_score_delta', 0) >= 0 else 'negative'}">대항점수 {format_delta(int(guild_history.get('simulation_score_delta', 0)), '점')}</span>
+                <span class="trend-pill {'positive' if guild_history.get('simulation_score_delta', 0) >= 0 else 'negative'}">{escape(copy['simulation_metric'])} {format_metric_delta(int(guild_history.get('simulation_score_delta', 0)), copy['simulation_metric_short'] == '예상 지표')}</span>
                 <span class="trend-pill neutral">TOP10 유지 {int(guild_history.get('retained_top10_count', 0))}명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>{width_pct}%</strong></div>
@@ -986,28 +1165,82 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
     """
 
 
-def render_training_simulation_modal() -> str:
-    return """
-    <div class="modal-backdrop" id="modal-guild-war-simulation" role="dialog" aria-modal="true" aria-label="수련장 시뮬레이터 준비 중">
+def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
+    guild_cards = "".join(
+        f"""
+        <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
+          <div class="simulation-rank-top">
+            <span class="simulation-rank-badge">#{int(guild_row['simulation_rank'])}</span>
+            <strong>{escape(str(guild_row['guild_name']))}</strong>
+          </div>
+          <div class="simulation-rank-score">{escape(str(guild_row['total_score_text']))}</div>
+          <dl class="simulation-rank-meta">
+            <div><dt>참여 인원</dt><dd>{int(guild_row['member_count'])}명</dd></div>
+            <div><dt>평균 계수</dt><dd>×{float(guild_row['avg_coefficient']):.3f}</dd></div>
+            <div><dt>최고 예상 순위</dt><dd>{int(guild_row['top_finisher_rank'] or 0)}위 · {escape(str(guild_row['top_finisher_name']))}</dd></div>
+          </dl>
+        </article>
+        """
+        for guild_row in simulation["guild_rankings"]
+    )
+    preview_cards = "".join(
+        f"""
+        <article class="score-rule-card">
+          <span>{escape(str(row['label']))}</span>
+          <strong>{escape(str(row['range']))}</strong>
+        </article>
+        """
+        for row in simulation["score_table_preview"]
+    )
+    ranked_rows = "".join(
+        f"""
+        <tr>
+          <td>{int(member['overall_rank'])}</td>
+          <td>{escape(str(member['guild_name']))}</td>
+          <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
+          <td>{escape(str(member['job_name']))}</td>
+          <td>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</td>
+          <td>{escape(str(member['combat_power']))}</td>
+          <td>×{float(member['coefficient']):.3f}</td>
+          <td>{escape(str(member['estimated_metric_text']))}</td>
+        </tr>
+        """
+        for member in simulation["ranked_members"]
+    )
+    return f"""
+    <div class="modal-backdrop" id="modal-guild-war-simulation" role="dialog" aria-modal="true" aria-label="수련장 예상 시뮬레이터">
       <div class="modal-box simulation-modal-box">
         <button class="modal-close" aria-label="닫기">×</button>
         <section class="simulation-section">
           <div class="simulation-overview">
             <div>
               <p class="eyebrow">Training Simulator</p>
-              <h3>수련장 예상 시뮬레이터 준비 중</h3>
-              <p class="simulation-copy">수련장 점수 계산표를 아직 찾는 중이라 점수 집계 로직은 비워두고, 현재는 동일한 팝업 자리만 먼저 준비했다.</p>
+              <h3>수련장 예상 시뮬레이터</h3>
+              <p class="simulation-copy">레벨 + 직업 계수 기반 수련장 예상 점수 (실제 35명 데이터 역산 모델). 평균 오차 ~12% — 참고용 추정치.</p>
             </div>
-            <div class="score-rule-grid">
-              <article class="score-rule-card">
-                <span>상태</span>
-                <strong>점수표 대기</strong>
-              </article>
-              <article class="score-rule-card">
-                <span>예정 기능</span>
-                <strong>길드별 점수 합산</strong>
-              </article>
+            <div class="score-rule-grid">{preview_cards}</div>
+          </div>
+          <div class="simulation-rank-grid">{guild_cards}</div>
+          <div class="table-wrap simulation-table-wrap">
+            <div class="table-toolbar">
+              <h3>수련장 예상 개인 순위</h3>
+              <div class="toolbar-actions"><span class="hint">예상 점수 = 기준점수(레벨) × 직업계수</span></div>
             </div>
+            <table class="member-table simulation-table">
+              <thead>
+                <tr>
+                  <th>순위</th>
+                  <th>길드</th>
+                  <th>닉네임</th>
+                  <th>직업</th>
+                   <th>전투력</th>
+                   <th>레벨</th>
+                   <th>직업계수</th>
+                   <th>예상 점수</th>
+                </tr>
+              </thead>
+              <tbody>{ranked_rows}</tbody>
+            </table>
           </div>
         </section>
       </div>
@@ -1020,6 +1253,7 @@ def render_guild_modals(
     members_by_guild: dict[str, list[dict[str, Any]]],
     history_analysis: dict[str, Any],
 ) -> str:
+    copy = get_report_copy(str(history_analysis.get("report_mode", "league")))
     modals: list[str] = []
     for guild_row in guild_rows:
         guild_name = str(guild_row["guild_name"])
@@ -1089,7 +1323,7 @@ def render_guild_modals(
                     <ul class="history-list">
                       <li><span>길드원 증감</span><strong>{format_delta(int(guild_history.get('member_count_delta', 0)), '명')}</strong></li>
                       <li><span>총 전투력 변화</span><strong>{format_percent_delta(float(guild_history.get('guild_power_delta_pct', 0)))}</strong></li>
-                      <li><span>대항전 점수 변화</span><strong>{format_delta(int(guild_history.get('simulation_score_delta', 0)), '점')}</strong></li>
+                      <li><span>{escape(copy['simulation_delta'])}</span><strong>{format_metric_delta(int(guild_history.get('simulation_score_delta', 0)), copy['simulation_metric_short'] == '예상 지표')}</strong></li>
                       <li><span>길드 내부 TOP10 고정도</span><strong>{int(guild_history.get('retained_top10_count', 0))} / 10</strong></li>
                     </ul>
                   </article>
@@ -1116,7 +1350,7 @@ def render_guild_modals(
                       <div class="trend-axis">{''.join(f'<span>{escape(label)}</span>' for label in guild_history.get('trend_labels', []))}</div>
                     </div>
                     <div class="trend-chart-card">
-                      <span>대항전 점수</span>
+                      <span>{escape(copy['trend_label'])}</span>
                       <div class="trend-chart trend-chart-secondary">{guild_history.get('simulation_trend_svg', '')}</div>
                       <div class="trend-axis">{''.join(f'<span>{escape(label)}</span>' for label in guild_history.get('trend_labels', []))}</div>
                     </div>
@@ -1180,6 +1414,7 @@ def build_html_report(
         for row in guild_rows
     )
     report_label = REPORT_MODE_LABELS[report_mode]
+    copy = get_report_copy(report_mode)
     summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
     auto_summary_html = render_auto_summary_section(history_analysis)
     compare_cards_html = render_compare_cards(guild_rows, members_by_guild, history_analysis)
@@ -1188,7 +1423,8 @@ def build_html_report(
         simulation = build_guild_war_simulation(members_by_guild, score_table)
         simulation_modal_html = render_guild_war_simulation_modal(simulation)
     else:
-        simulation_modal_html = render_training_simulation_modal()
+        simulation = build_training_simulation(members_by_guild)
+        simulation_modal_html = render_training_simulation_modal(simulation)
     detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild)
     guild_modals_html = render_guild_modals(guild_rows, members_by_guild, history_analysis)
 
@@ -1406,9 +1642,9 @@ def build_html_report(
     .simulation-rank-meta dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
     .simulation-rank-meta dd {{ margin: 0; font-size: 14px; font-weight: 700; }}
     .simulation-table-wrap {{ margin-top: 18px; }}
-    .simulation-table td:nth-child(1), .simulation-table td:nth-child(6), .simulation-table th:nth-child(1), .simulation-table th:nth-child(6) {{ white-space: nowrap; }}
-    .simulation-table td:nth-child(5), .simulation-table td:nth-child(6) {{ font-variant-numeric: tabular-nums; }}
-    .simulation-table td:nth-child(6) {{ color: var(--accent-3); font-weight: 800; }}
+    .simulation-table td:nth-child(1), .simulation-table th:nth-child(1) {{ white-space: nowrap; }}
+    .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ font-variant-numeric: tabular-nums; }}
+    .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ color: var(--accent-3); font-weight: 800; }}
     /* #4: Modal system */
     .modal-backdrop {{
       display: none;
@@ -1521,9 +1757,9 @@ def build_html_report(
     <header class="hero">
       <div class="hero-copy">
         <div class="mode-tabs">{mode_tabs_html}</div>
-        <p class="eyebrow">MGF League Match Report</p>
-        <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
-        <p class="lead">위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
+         <p class="eyebrow">{escape(copy['hero_eyebrow'])}</p>
+         <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
+         <p class="lead">{escape(copy['lead'])}</p>
       </div>
       <nav class="hero-nav">{nav_links}</nav>
       <section class="summary-grid">{summary_cards_html}</section>
@@ -1531,7 +1767,7 @@ def build_html_report(
     </header>
 
     <nav class="section-tabs">
-      <a data-modal="guild-war-simulation" href="#">{escape(report_label)} 예상 시뮬레이터</a>
+      <a data-modal="guild-war-simulation" href="#">{escape(copy['simulation_nav'])}</a>
     </nav>
 
     <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
@@ -1864,9 +2100,9 @@ def main() -> None:
         score_table = parse_score_table(SCORE_TABLE_PATH)
         simulation = build_guild_war_simulation(members_by_guild, score_table)
     else:
-        simulation = {"guild_rankings": []}
+        simulation = build_training_simulation(members_by_guild)
     snapshot_date = resolve_snapshot_date(args.snapshot_date) if args.snapshot_mode == "history" else datetime.now().strftime("%Y-%m-%d")
-    snapshot_data = build_snapshot_data(guild_name, guild_rows, members_by_guild, simulation, snapshot_date)
+    snapshot_data = build_snapshot_data(guild_name, report_mode, guild_rows, members_by_guild, simulation, snapshot_date)
     history_snapshots = load_history_snapshots(guild_name, report_mode)
     history_analysis = build_history_analysis(snapshot_data, history_snapshots)
 
