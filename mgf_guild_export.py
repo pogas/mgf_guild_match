@@ -1243,7 +1243,6 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
               <h3>수련장 예상 시뮬레이터</h3>
               <p class="simulation-copy">레벨 + 전투력 + 직업 기반 수련장 예상 점수 (실제 70명 데이터 역산 모델). 평균 오차 ~12.1% — 참고용 추정치.</p>
             </div>
-            <div class="score-rule-grid">{preview_cards}</div>
           </div>
           <section class="job-coefficient-section">
             <div class="job-coefficient-head">
@@ -1828,7 +1827,6 @@ def build_html_report(
         let lastTime = 0;
         let velocityX = 0;
         let movedDistance = 0;
-        let suppressClickUntil = 0;
         let animationFrameId = null;
 
         const stopMomentum = () => {{
@@ -1882,22 +1880,23 @@ def build_html_report(
           if (!isPointerDown) return;
           isPointerDown = false;
           container.classList.remove('dragging');
-          if (movedDistance > 6) {{
-            suppressClickUntil = Date.now() + 220;
+          const wasDrag = movedDistance > 6;
+          if (wasDrag) {{
             startMomentum();
           }}
           if (event && event.pointerId !== undefined) {{
             container.releasePointerCapture?.(event.pointerId);
           }}
-        }};
-
-        container.addEventListener('click', (event) => {{
-          if (Date.now() < suppressClickUntil) {{
-            container.dataset.suppressClickUntil = String(suppressClickUntil);
-            event.preventDefault();
-            event.stopPropagation();
+          // 드래그 없이 탭/클릭이면 카드 모달 직접 열기
+          if (!wasDrag && event && event.type === 'pointerup') {{
+            const card = event.target.closest('.guild-card[data-modal]');
+            if (card) {{
+              const id = card.dataset.modal;
+              const backdrop = document.getElementById('modal-' + id);
+              if (backdrop) backdrop.classList.add('open');
+            }}
           }}
-        }}, true);
+        }};
 
         container.addEventListener('pointerup', stopDrag);
         container.addEventListener('pointercancel', stopDrag);
@@ -1912,11 +1911,9 @@ def build_html_report(
     document.addEventListener('click', (event) => {{
       const card = event.target.closest('.guild-card[data-modal]');
       if (!card) return;
-      const scrollWrap = card.closest('.compare-scroll-wrap');
-      if (scrollWrap) {{
-        const suppressUntil = Number(scrollWrap.dataset.suppressClickUntil || 0);
-        if (Date.now() < suppressUntil) return;
-      }}
+      const scrollWrap = card.closest('.compare-scroll-wrap, .detail-compare-wrap');
+      // scroll wrap 내부 카드는 pointerup 핸들러에서 직접 처리하므로 여기서 skip
+      if (scrollWrap) return;
       const id = card.dataset.modal;
       const backdrop = document.getElementById('modal-' + id);
       if (backdrop) backdrop.classList.add('open');
