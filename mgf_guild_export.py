@@ -1208,15 +1208,6 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
         """
         for guild_row in simulation["guild_rankings"]
     )
-    preview_cards = "".join(
-        f"""
-        <article class="score-rule-card">
-          <span>{escape(str(row['label']))}</span>
-          <strong>{escape(str(row['range']))}</strong>
-        </article>
-        """
-        for row in simulation["score_table_preview"]
-    )
     ranked_rows = "".join(
         f"""
         <tr>
@@ -1889,7 +1880,8 @@ def build_html_report(
           }}
           // 드래그 없이 탭/클릭이면 카드 모달 직접 열기
           if (!wasDrag && event && event.type === 'pointerup') {{
-            const card = event.target.closest('.guild-card[data-modal]');
+            const releaseTarget = document.elementFromPoint(event.clientX, event.clientY);
+            const card = releaseTarget?.closest('.guild-card[data-modal]');
             if (card) {{
               const id = card.dataset.modal;
               const backdrop = document.getElementById('modal-' + id);

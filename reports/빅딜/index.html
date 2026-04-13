@@ -5436,7 +5436,8 @@
           }
           // 드래그 없이 탭/클릭이면 카드 모달 직접 열기
           if (!wasDrag && event && event.type === 'pointerup') {
-            const card = event.target.closest('.guild-card[data-modal]');
+            const releaseTarget = document.elementFromPoint(event.clientX, event.clientY);
+            const card = releaseTarget?.closest('.guild-card[data-modal]');
             if (card) {
               const id = card.dataset.modal;
               const backdrop = document.getElementById('modal-' + id);
