@@ -108,7 +108,10 @@
       overflow-x: auto;
       padding-bottom: 10px;
       scroll-snap-type: x proximity;
+      cursor: grab;
+      user-select: none;
     }
+    .compare-scroll-wrap.dragging { cursor: grabbing; }
     .compare-scroll-wrap::-webkit-scrollbar { height: 6px; }
     .compare-scroll-wrap::-webkit-scrollbar-track { background: rgba(110,84,60,0.06); border-radius: 999px; }
     .compare-scroll-wrap::-webkit-scrollbar-thumb { background: rgba(173,101,64,0.28); border-radius: 999px; }
@@ -161,7 +164,10 @@
       padding-bottom: 10px;
       scroll-snap-type: x proximity;
       align-items: start;
+      cursor: grab;
+      user-select: none;
     }
+    .detail-compare-wrap.dragging { cursor: grabbing; }
     .detail-compare-wrap::-webkit-scrollbar { height: 6px; }
     .detail-compare-wrap::-webkit-scrollbar-track { background: rgba(110,84,60,0.06); border-radius: 999px; }
     .detail-compare-wrap::-webkit-scrollbar-thumb { background: rgba(173,101,64,0.28); border-radius: 999px; }
@@ -5392,6 +5398,45 @@
         if (backdrop) backdrop.classList.add('open');
       });
     });
+
+    const enableDragScroll = (selector) => {
+      document.querySelectorAll(selector).forEach((container) => {
+        let isPointerDown = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+
+        container.addEventListener('pointerdown', (event) => {
+          isPointerDown = true;
+          startX = event.clientX;
+          startScrollLeft = container.scrollLeft;
+          container.classList.add('dragging');
+          container.setPointerCapture?.(event.pointerId);
+        });
+
+        container.addEventListener('pointermove', (event) => {
+          if (!isPointerDown) return;
+          const deltaX = event.clientX - startX;
+          container.scrollLeft = startScrollLeft - deltaX;
+        });
+
+        const stopDrag = (event) => {
+          if (!isPointerDown) return;
+          isPointerDown = false;
+          container.classList.remove('dragging');
+          if (event && event.pointerId !== undefined) {
+            container.releasePointerCapture?.(event.pointerId);
+          }
+        };
+
+        container.addEventListener('pointerup', stopDrag);
+        container.addEventListener('pointercancel', stopDrag);
+        container.addEventListener('pointerleave', stopDrag);
+      });
+    };
+
+    enableDragScroll('.compare-scroll-wrap');
+    enableDragScroll('.detail-compare-wrap');
+
     // modal close — backdrop click or close button
     document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
       backdrop.addEventListener('click', (e) => {
