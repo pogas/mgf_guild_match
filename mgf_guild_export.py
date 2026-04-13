@@ -1159,6 +1159,30 @@ def build_html_report(
     html_output_path: Path,
 ) -> Path:
     # #1 fix: build nav_links outside the f-string to avoid double-brace escaping
+    league_exists = (html_output_path.parent / "index.html").exists() or report_mode == "league"
+    training_exists = (html_output_path.parent / "training.html").exists() or report_mode == "training"
+    mode_tabs = [
+        (
+            "league",
+            "대항전 리포트",
+            "index.html",
+            league_exists,
+        ),
+        (
+            "training",
+            "수련장 리포트",
+            "training.html",
+            training_exists,
+        ),
+    ]
+    mode_tabs_html = "".join(
+        (
+            f'<a class="mode-tab {"active" if mode == report_mode else ""}" href="{href}">{escape(label)}</a>'
+            if is_available
+            else f'<span class="mode-tab disabled">{escape(label)}</span>'
+        )
+        for mode, label, href, is_available in mode_tabs
+    )
     nav_links = "".join(
         '<a data-modal="' + anchor_id(str(row["guild_name"])) + '" href="#">' + escape(str(row["guild_name"])) + "</a>"
         for row in guild_rows
@@ -1241,6 +1265,10 @@ def build_html_report(
       filter: blur(12px);
     }}
     .hero-copy {{ max-width: 100%; }}
+    .mode-tabs {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }}
+    .mode-tab {{ display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }}
+    .mode-tab.active {{ background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }}
+    .mode-tab.disabled {{ opacity: 0.45; cursor: not-allowed; }}
     .eyebrow {{ margin: 0 0 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 700; }}
     .hero h1 {{ margin: 0; font-size: clamp(22px, 2.8vw, 38px); line-height: 1.15; max-width: none; white-space: nowrap; word-break: keep-all; }}
     .hero p.lead {{ max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 16px 0 0; }}
@@ -1495,6 +1523,7 @@ def build_html_report(
   <div class="page">
     <header class="hero">
       <div class="hero-copy">
+        <div class="mode-tabs">{mode_tabs_html}</div>
         <p class="eyebrow">MGF League Match Report</p>
         <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
         <p class="lead">밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
