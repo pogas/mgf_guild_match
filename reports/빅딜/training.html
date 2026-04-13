@@ -108,7 +108,10 @@
       overflow-x: auto;
       padding-bottom: 10px;
       scroll-snap-type: x proximity;
+      cursor: grab;
+      user-select: none;
     }
+    .compare-scroll-wrap.dragging { cursor: grabbing; }
     .compare-scroll-wrap::-webkit-scrollbar { height: 6px; }
     .compare-scroll-wrap::-webkit-scrollbar-track { background: rgba(110,84,60,0.06); border-radius: 999px; }
     .compare-scroll-wrap::-webkit-scrollbar-thumb { background: rgba(173,101,64,0.28); border-radius: 999px; }
@@ -161,7 +164,10 @@
       padding-bottom: 10px;
       scroll-snap-type: x proximity;
       align-items: start;
+      cursor: grab;
+      user-select: none;
     }
+    .detail-compare-wrap.dragging { cursor: grabbing; }
     .detail-compare-wrap::-webkit-scrollbar { height: 6px; }
     .detail-compare-wrap::-webkit-scrollbar-track { background: rgba(110,84,60,0.06); border-radius: 999px; }
     .detail-compare-wrap::-webkit-scrollbar-thumb { background: rgba(173,101,64,0.28); border-radius: 999px; }
@@ -2948,7 +2954,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>숑이, 소독약, 주존사</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 아크메이지(썬,콜) +6, 나이트로드 +3</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 아크메이지(썬,콜) +6, 히어로 +3</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3962,7 +3968,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>다내꼬양, 으닝닝맛섀도, 캘리v</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +11, 비숍 +8, 신궁 +3</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +11, 비숍 +8, 다크나이트 +3</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -4469,7 +4475,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>망동, 밍츄핑, 걀보</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 아크메이지(썬,콜) +6, 다크나이트 +6</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 다크나이트 +6, 아크메이지(썬,콜) +6</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -4911,7 +4917,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>선바, 뽀대챠밍, 신궝</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +7, 섀도어 +7, 비숍 +6</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 아크메이지(썬,콜) +7, 비숍 +6</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -5359,6 +5365,45 @@
         if (backdrop) backdrop.classList.add('open');
       });
     });
+
+    const enableDragScroll = (selector) => {
+      document.querySelectorAll(selector).forEach((container) => {
+        let isPointerDown = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+
+        container.addEventListener('pointerdown', (event) => {
+          isPointerDown = true;
+          startX = event.clientX;
+          startScrollLeft = container.scrollLeft;
+          container.classList.add('dragging');
+          container.setPointerCapture?.(event.pointerId);
+        });
+
+        container.addEventListener('pointermove', (event) => {
+          if (!isPointerDown) return;
+          const deltaX = event.clientX - startX;
+          container.scrollLeft = startScrollLeft - deltaX;
+        });
+
+        const stopDrag = (event) => {
+          if (!isPointerDown) return;
+          isPointerDown = false;
+          container.classList.remove('dragging');
+          if (event && event.pointerId !== undefined) {
+            container.releasePointerCapture?.(event.pointerId);
+          }
+        };
+
+        container.addEventListener('pointerup', stopDrag);
+        container.addEventListener('pointercancel', stopDrag);
+        container.addEventListener('pointerleave', stopDrag);
+      });
+    };
+
+    enableDragScroll('.compare-scroll-wrap');
+    enableDragScroll('.detail-compare-wrap');
+
     // modal close — backdrop click or close button
     document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
       backdrop.addEventListener('click', (e) => {
