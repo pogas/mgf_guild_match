@@ -1100,6 +1100,7 @@ def render_guild_modals(
 
 
 def build_html_report(
+    guild_seed_name: str,
     guild_rows: list[dict[str, Any]],
     members_by_guild: dict[str, list[dict[str, Any]]],
     history_analysis: dict[str, Any],
@@ -1124,7 +1125,7 @@ def build_html_report(
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MGF 매칭 길드 리포트</title>
+  <title>{escape(guild_seed_name)} 대항전 리포트</title>
   <style>
     :root {{
       --bg: #f7f3ec;
@@ -1439,7 +1440,7 @@ def build_html_report(
     <header class="hero">
       <div class="hero-copy">
         <p class="eyebrow">MGF League Match Report</p>
-        <h1>매칭된 5개 길드를 한 번에 보는 리포트</h1>
+        <h1>{escape(guild_seed_name)} 대항전 리포트</h1>
         <p class="lead">밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
       </div>
       <nav class="hero-nav">{nav_links}</nav>
@@ -1689,7 +1690,7 @@ def main() -> None:
     history_analysis = build_history_analysis(snapshot_data, history_snapshots)
 
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
-    html_report_path = build_html_report(guild_rows, members_by_guild, history_analysis, html_output_path)
+    html_report_path = build_html_report(guild_name, guild_rows, members_by_guild, history_analysis, html_output_path)
     snapshot_path = write_snapshot_json(snapshot_data, html_output_path.parent)
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
