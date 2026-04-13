@@ -1103,6 +1103,10 @@ def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_b
 
 
 def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
+    guild_filter_options = "".join(
+        f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
+        for guild_row in simulation["guild_rankings"]
+    )
     guild_cards = "".join(
         f"""
         <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
@@ -1130,7 +1134,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
     )
     ranked_rows = "".join(
         f"""
-        <tr>
+        <tr data-guild="{escape(str(member['guild_name']))}">
           <td>{int(member['overall_rank'])}</td>
           <td>{escape(str(member['guild_name']))}</td>
           <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
@@ -1158,9 +1162,18 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
           <div class="table-wrap simulation-table-wrap">
             <div class="table-toolbar">
               <h3>대항전 예상 개인 순위</h3>
-              <div class="toolbar-actions"><span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span></div>
+              <div class="toolbar-actions">
+                <label class="table-filter-label">
+                  <span>길드 필터</span>
+                  <select class="guild-filter" data-target="guild-war-simulation-table">
+                    <option value="">전체 길드</option>
+                    {guild_filter_options}
+                  </select>
+                </label>
+                <span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span>
+              </div>
             </div>
-            <table class="member-table simulation-table">
+            <table class="member-table simulation-table" id="guild-war-simulation-table">
               <thead>
                 <tr>
                   <th>순위</th>
@@ -1181,6 +1194,10 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
 
 
 def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
+    guild_filter_options = "".join(
+        f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
+        for guild_row in simulation["guild_rankings"]
+    )
     coefficient_cards = "".join(
         f"""
         <article class="score-rule-card">
@@ -1210,7 +1227,7 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
     )
     ranked_rows = "".join(
         f"""
-        <tr>
+        <tr data-guild="{escape(str(member['guild_name']))}">
           <td>{int(member['overall_rank'])}</td>
           <td>{escape(str(member['guild_name']))}</td>
           <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
@@ -1247,9 +1264,18 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
           <div class="table-wrap simulation-table-wrap">
             <div class="table-toolbar">
               <h3>수련장 예상 개인 순위</h3>
-              <div class="toolbar-actions"><span class="hint">예상 점수 = 직업 기준값 × 레벨^0.2 × 전투력^0.2</span></div>
+              <div class="toolbar-actions">
+                <label class="table-filter-label">
+                  <span>길드 필터</span>
+                  <select class="guild-filter" data-target="training-simulation-table">
+                    <option value="">전체 길드</option>
+                    {guild_filter_options}
+                  </select>
+                </label>
+                <span class="hint">예상 점수 = 직업 기준값 × 레벨^0.2 × 전투력^0.2</span>
+              </div>
             </div>
-            <table class="member-table simulation-table">
+            <table class="member-table simulation-table" id="training-simulation-table">
               <thead>
                 <tr>
                   <th>순위</th>
@@ -1668,6 +1694,10 @@ def build_html_report(
     .simulation-rank-meta dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
     .simulation-rank-meta dd {{ margin: 0; font-size: 14px; font-weight: 700; }}
     .simulation-table-wrap {{ margin-top: 18px; }}
+    .toolbar-actions {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }}
+    .table-filter-label {{ display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.1); }}
+    .table-filter-label span {{ color: var(--muted); font-size: 12px; font-weight: 700; white-space: nowrap; }}
+    .table-filter-label select {{ border: 0; background: transparent; color: var(--text); font-size: 13px; font-weight: 700; outline: none; min-width: 110px; }}
     .simulation-table td:nth-child(1), .simulation-table th:nth-child(1) {{ white-space: nowrap; }}
     .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ font-variant-numeric: tabular-nums; }}
     .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ color: var(--accent-3); font-weight: 800; }}
@@ -1809,6 +1839,11 @@ def build_html_report(
   {simulation_modal_html}
 
   <script>
+    const openModal = (id) => {{
+      const backdrop = document.getElementById('modal-' + id);
+      if (backdrop) backdrop.classList.add('open');
+    }};
+
     const enableDragScroll = (selector) => {{
       document.querySelectorAll(selector).forEach((container) => {{
         let isPointerDown = false;
@@ -1878,14 +1913,12 @@ def build_html_report(
           if (event && event.pointerId !== undefined) {{
             container.releasePointerCapture?.(event.pointerId);
           }}
-          // 드래그 없이 탭/클릭이면 카드 모달 직접 열기
+          // 드래그 없이 탭/클릭이면 modal trigger 직접 열기
           if (!wasDrag && event && event.type === 'pointerup') {{
             const releaseTarget = document.elementFromPoint(event.clientX, event.clientY);
-            const card = releaseTarget?.closest('.guild-card[data-modal]');
-            if (card) {{
-              const id = card.dataset.modal;
-              const backdrop = document.getElementById('modal-' + id);
-              if (backdrop) backdrop.classList.add('open');
+            const trigger = releaseTarget?.closest('.guild-card[data-modal], .mini-link[data-modal]');
+            if (trigger) {{
+              openModal(trigger.dataset.modal);
             }}
           }}
         }};
@@ -1906,9 +1939,7 @@ def build_html_report(
       const scrollWrap = card.closest('.compare-scroll-wrap, .detail-compare-wrap');
       // scroll wrap 내부 카드는 pointerup 핸들러에서 직접 처리하므로 여기서 skip
       if (scrollWrap) return;
-      const id = card.dataset.modal;
-      const backdrop = document.getElementById('modal-' + id);
-      if (backdrop) backdrop.classList.add('open');
+      openModal(card.dataset.modal);
     }});
 
     // modal close — backdrop click or close button
@@ -1928,27 +1959,40 @@ def build_html_report(
     document.querySelectorAll('.hero-nav a[data-modal], .section-tabs a[data-modal]').forEach((a) => {{
       a.addEventListener('click', (e) => {{
         e.preventDefault();
-        const backdrop = document.getElementById('modal-' + a.dataset.modal);
-        if (backdrop) backdrop.classList.add('open');
+        openModal(a.dataset.modal);
       }});
     }});
     // detail compare "상세 섹션으로" links
     document.querySelectorAll('.mini-link[data-modal]').forEach((btn) => {{
       btn.addEventListener('click', (e) => {{
         e.preventDefault();
-        const backdrop = document.getElementById('modal-' + btn.dataset.modal);
-        if (backdrop) backdrop.classList.add('open');
+        openModal(btn.dataset.modal);
       }});
     }});
+
+    const applyTableFilters = (table) => {{
+      if (!table?.id) return;
+      const keyword = (document.querySelector(`.member-search[data-target="${{table.id}}"]`)?.value || '').trim().toLowerCase();
+      const guild = document.querySelector(`.guild-filter[data-target="${{table.id}}"]`)?.value || '';
+      table.querySelectorAll('tbody tr').forEach((row) => {{
+        const text = row.innerText.toLowerCase();
+        const matchesKeyword = !keyword || text.includes(keyword);
+        const matchesGuild = !guild || row.dataset.guild === guild;
+        row.style.display = matchesKeyword && matchesGuild ? '' : 'none';
+      }});
+    }};
 
     document.querySelectorAll('.member-search').forEach((input) => {{
       input.addEventListener('input', () => {{
         const table = document.getElementById(input.dataset.target);
-        const keyword = input.value.trim().toLowerCase();
-        table.querySelectorAll('tbody tr').forEach((row) => {{
-          const text = row.innerText.toLowerCase();
-          row.style.display = text.includes(keyword) ? '' : 'none';
-        }});
+        applyTableFilters(table);
+      }});
+    }});
+
+    document.querySelectorAll('.guild-filter').forEach((select) => {{
+      select.addEventListener('change', () => {{
+        const table = document.getElementById(select.dataset.target);
+        applyTableFilters(table);
       }});
     }});
 
