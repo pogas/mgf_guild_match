@@ -497,8 +497,10 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
 
         retained_top10_count = len(set(current_guild["top10_keys"]) & set(previous_guild.get("top10_keys", []))) if previous_guild else 0
 
-        power_values_trend = [int(snapshot["guilds"][guild_name]["guild_power_value"]) for snapshot in trend_snapshots if guild_name in snapshot.get("guilds", {})]
-        simulation_values_trend = [int(snapshot["guilds"][guild_name].get("simulation_score", 0)) for snapshot in trend_snapshots if guild_name in snapshot.get("guilds", {})]
+        guild_trend_snapshots = [snapshot for snapshot in trend_snapshots if guild_name in snapshot.get("guilds", {})]
+        power_values_trend = [int(snapshot["guilds"][guild_name]["guild_power_value"]) for snapshot in guild_trend_snapshots]
+        simulation_values_trend = [int(snapshot["guilds"][guild_name].get("simulation_score", 0)) for snapshot in guild_trend_snapshots]
+        trend_labels = [str(snapshot.get("snapshot_date", ""))[5:].replace("-", "/") for snapshot in guild_trend_snapshots]
 
         guild_power_delta = int(current_guild["guild_power_value"]) - int(previous_guild.get("guild_power_value", 0)) if previous_guild else 0
         previous_power_value = int(previous_guild.get("guild_power_value", 0)) if previous_guild else 0
@@ -521,6 +523,7 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
             "retained_top10_pct": round((retained_top10_count / 10) * 100, 1) if previous_guild else 0,
             "power_trend_svg": build_sparkline(power_values_trend),
             "simulation_trend_svg": build_sparkline(simulation_values_trend),
+            "trend_labels": trend_labels,
         }
 
     total_joined = sum(len(value["joined_members"]) for value in guild_analysis.values())
@@ -1059,10 +1062,12 @@ def render_guild_modals(
                     <div class="trend-chart-card">
                       <span>총 전투력</span>
                       <div class="trend-chart">{guild_history.get('power_trend_svg', '')}</div>
+                      <div class="trend-axis">{''.join(f'<span>{escape(label)}</span>' for label in guild_history.get('trend_labels', []))}</div>
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
                       <div class="trend-chart trend-chart-secondary">{guild_history.get('simulation_trend_svg', '')}</div>
+                      <div class="trend-axis">{''.join(f'<span>{escape(label)}</span>' for label in guild_history.get('trend_labels', []))}</div>
                     </div>
                   </article>
                 </div>
@@ -1406,6 +1411,8 @@ def build_html_report(
     .trend-chart {{ height: 40px; color: var(--accent-3); background: rgba(255,248,243,0.7); border-radius: 14px; padding: 6px; }}
     .trend-chart svg {{ width: 100%; height: 100%; display: block; }}
     .trend-chart-secondary {{ color: #55734f; }}
+    .trend-axis {{ display: flex; justify-content: space-between; gap: 6px; margin-top: 6px; color: var(--muted); font-size: 10px; }}
+    .trend-axis span {{ flex: 1; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .table-wrap {{ margin-top: 18px; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; background: rgba(255, 252, 247, 0.8); }}
     .table-toolbar {{ display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 18px 20px; border-bottom: 1px solid rgba(110,84,60,0.08); }}
     .table-toolbar h3 {{ margin: 0; font-size: 18px; }}
