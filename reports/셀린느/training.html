@@ -197,6 +197,9 @@
     .simulation-overview h3 { margin: 6px 0 0; font-size: 28px; }
     .simulation-copy { margin: 14px 0 0; color: var(--muted); line-height: 1.7; }
     .score-rule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+    .job-coefficient-section { margin-top: 18px; padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.56); border: 1px solid rgba(110,84,60,0.08); }
+    .job-coefficient-head h3 { margin: 6px 0 0; font-size: 24px; }
+    .job-coefficient-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
     .score-rule-card { padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); }
     .score-rule-card span { display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
     .score-rule-card strong { display: block; font-size: 15px; }
@@ -318,8 +321,8 @@
     .badge-master { background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }
     .power-col { font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }
     .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }
-    @media (max-width: 980px) { .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid { grid-template-columns: 1fr; } .section-head, .table-toolbar { flex-direction: column; align-items: start; } }
-    @media (max-width: 720px) { .page { width: min(100% - 20px, 1320px); } .hero { padding: 20px; } .guild-metrics { grid-template-columns: 1fr; } th, td { padding: 12px; font-size: 13px; } .member-search { min-width: 0; width: 100%; } .guild-card { flex: 0 0 260px; } .detail-compare-card { flex: 0 0 250px; } .hero h1 { font-size: clamp(18px, 4.8vw, 26px); } .simulation-modal-box, .modal-box { padding: 20px; } }
+    @media (max-width: 980px) { .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid { grid-template-columns: 1fr; } .job-coefficient-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .section-head, .table-toolbar { flex-direction: column; align-items: start; } }
+    @media (max-width: 720px) { .page { width: min(100% - 20px, 1320px); } .hero { padding: 20px; } .guild-metrics { grid-template-columns: 1fr; } .job-coefficient-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } th, td { padding: 12px; font-size: 13px; } .member-search { min-width: 0; width: 100%; } .guild-card { flex: 0 0 260px; } .detail-compare-card { flex: 0 0 250px; } .hero h1 { font-size: clamp(18px, 4.8vw, 26px); } .simulation-modal-box, .modal-box { padding: 20px; } }
   </style>
 </head>
 <body>
@@ -523,16 +526,16 @@
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>707조 1,351억 6,773만</strong>
+                  <strong>712조 9,509억 928만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
-                  <strong>70조 9,862억 4,982만</strong>
+                  <strong>72조 1,500억 2,450만</strong>
                 </article>
                 <article class="analysis-chip analysis-chip-strong">
                   <span>집중도 판정</span>
                   <strong>상위 집중형</strong>
-                  <em>TOP5 90.0% · TOP10 99.2%</em>
+                  <em>TOP5 90.7% · TOP10 100.0%</em>
                 </article>
               </div>
               <dl class="guild-metrics">
@@ -1123,12 +1126,12 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%8A%A4%ED%83%80%EC%BA%90%EC%B9%98" target="_blank" rel="noreferrer">스타캐치</a></td>
-              <td>978조 7665억 8728만</td>
+              <td>1112조 8677억 9360만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%8C%EB%9F%B0%ED%88%AC%ED%82%AC" target="_blank" rel="noreferrer">빌런투킬</a></td>
-              <td>933조 5078억 2755만</td>
+              <td>960조 7702억 374만</td>
             </tr>
             
             <tr>
@@ -1152,13 +1155,13 @@
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%EB%B6%80%EC%97%89%EC%9D%B4%EC%97%86%EB%8B%A4" target="_blank" rel="noreferrer">부엉이없다</a></td>
-              <td>137조 9189억 5210만</td>
+              <td><a href="https://mgf.gg/contents/character.php?n=%ED%94%84%EB%A6%AC%ED%94%84%EB%A6%AC" target="_blank" rel="noreferrer">프리프리</a></td>
+              <td>143조 1307억 9972만</td>
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%ED%94%84%EB%A6%AC%ED%94%84%EB%A6%AC" target="_blank" rel="noreferrer">프리프리</a></td>
-              <td>133조 9835억 1204만</td>
+              <td><a href="https://mgf.gg/contents/character.php?n=%EB%B6%80%EC%97%89%EC%9D%B4%EC%97%86%EB%8B%A4" target="_blank" rel="noreferrer">부엉이없다</a></td>
+              <td>137조 9189억 5210만</td>
             </tr>
             
             <tr>
@@ -1173,7 +1176,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%9E%BC%ED%8F%AC%EC%A6%88" target="_blank" rel="noreferrer">잼포즈</a></td>
-              <td>71조 5763억 8505만</td>
+              <td>73조 9039억 3442만</td>
             </tr>
             
             <tr>
@@ -1188,7 +1191,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%86%8C%EC%86%8C%EC%B1%842" target="_blank" rel="noreferrer">소소채2</a></td>
-              <td>56조 1022억 3684만</td>
+              <td>56조 9226억 6343만</td>
             </tr>
             
             <tr>
@@ -1203,7 +1206,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%8B%B8%EB%8C%80%EA%B8%B0" target="_blank" rel="noreferrer">김치싸대기</a></td>
-              <td>36조 6013억 1317만</td>
+              <td>36조 7009억 4629만</td>
             </tr>
             
             <tr>
@@ -1248,7 +1251,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=junoflo" target="_blank" rel="noreferrer">junoflo</a></td>
-              <td>9조 8206억 4671만</td>
+              <td>10조 5344억 1386만</td>
             </tr>
             </tbody>
               </table>
@@ -1990,7 +1993,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>샾둥이, 애갱, 샾패트</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 아크메이지(썬,콜) +5, 히어로 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 아크메이지(썬,콜) +5, 비숍 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -2950,7 +2953,7 @@
                   <article class="comparison-callout comparison-callout-focus">
                     <span>상위 멤버 집중도</span>
                     <strong>상위 집중형</strong>
-                    <em>TOP3 79.4% · TOP5 90.0%</em>
+                    <em>TOP3 79.4% · TOP5 90.7%</em>
                   </article>
                   <article class="comparison-callout comparison-callout-gap">
                     <span>TOP 멤버 격차</span>
@@ -2959,7 +2962,7 @@
                   </article>
                   <article class="comparison-callout comparison-callout-core">
                     <span>핵심 전력 범위</span>
-                    <strong>TOP10 99.2%</strong>
+                    <strong>TOP10 100.0%</strong>
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
                   </article>
                 </div>
@@ -2978,7 +2981,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>스타냥이, 돈스, 진자이</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +9, 아크메이지(썬,콜) +6, 히어로 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +9, 아크메이지(썬,콜) +6, 다크나이트 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3073,7 +3076,7 @@
               <td class="power-col">1182조 6684억 3913만</td>
             </tr>
             
-            <tr data-power="97876658728" data-level="108" data-rank="5">
+            <tr data-power="111286779360" data-level="108" data-rank="5">
               <td>5</td>
               <td>
                 <div class="member-name-cell">
@@ -3083,10 +3086,10 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.108</td>
-              <td class="power-col">978조 7665억 8728만</td>
+              <td class="power-col">1112조 8677억 9360만</td>
             </tr>
             
-            <tr data-power="93350782755" data-level="108" data-rank="6">
+            <tr data-power="96077020374" data-level="108" data-rank="6">
               <td>6</td>
               <td>
                 <div class="member-name-cell">
@@ -3096,7 +3099,7 @@
               </td>
               <td><span class="badge">팔라딘</span></td>
               <td>Lv.108</td>
-              <td class="power-col">933조 5078억 2755만</td>
+              <td class="power-col">960조 7702억 374만</td>
             </tr>
             
             <tr data-power="31458798957" data-level="107" data-rank="7">
@@ -3151,8 +3154,21 @@
               <td class="power-col">147조 7288억 7111만</td>
             </tr>
             
-            <tr data-power="13791895210" data-level="104" data-rank="11">
+            <tr data-power="14313079972" data-level="105" data-rank="11">
               <td>11</td>
+              <td>
+                <div class="member-name-cell">
+                  <a href="https://mgf.gg/contents/character.php?n=%ED%94%84%EB%A6%AC%ED%94%84%EB%A6%AC" target="_blank" rel="noreferrer">프리프리</a>
+                  
+                </div>
+              </td>
+              <td><span class="badge">섀도어</span></td>
+              <td>Lv.105</td>
+              <td class="power-col">143조 1307억 9972만</td>
+            </tr>
+            
+            <tr data-power="13791895210" data-level="104" data-rank="12">
+              <td>12</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EB%B6%80%EC%97%89%EC%9D%B4%EC%97%86%EB%8B%A4" target="_blank" rel="noreferrer">부엉이없다</a>
@@ -3162,19 +3178,6 @@
               <td><span class="badge">섀도어</span></td>
               <td>Lv.104</td>
               <td class="power-col">137조 9189억 5210만</td>
-            </tr>
-            
-            <tr data-power="13398351204" data-level="105" data-rank="12">
-              <td>12</td>
-              <td>
-                <div class="member-name-cell">
-                  <a href="https://mgf.gg/contents/character.php?n=%ED%94%84%EB%A6%AC%ED%94%84%EB%A6%AC" target="_blank" rel="noreferrer">프리프리</a>
-                  
-                </div>
-              </td>
-              <td><span class="badge">섀도어</span></td>
-              <td>Lv.105</td>
-              <td class="power-col">133조 9835억 1204만</td>
             </tr>
             
             <tr data-power="11728079343" data-level="105" data-rank="13">
@@ -3203,7 +3206,7 @@
               <td class="power-col">85조 1744억 8515만</td>
             </tr>
             
-            <tr data-power="7157638505" data-level="103" data-rank="15">
+            <tr data-power="7390393442" data-level="103" data-rank="15">
               <td>15</td>
               <td>
                 <div class="member-name-cell">
@@ -3213,7 +3216,7 @@
               </td>
               <td><span class="badge">아크메이지(썬,콜)</span></td>
               <td>Lv.103</td>
-              <td class="power-col">71조 5763억 8505만</td>
+              <td class="power-col">73조 9039억 3442만</td>
             </tr>
             
             <tr data-power="7039611459" data-level="104" data-rank="16">
@@ -3242,7 +3245,7 @@
               <td class="power-col">59조 1651억 31만</td>
             </tr>
             
-            <tr data-power="5610223684" data-level="102" data-rank="18">
+            <tr data-power="5692266343" data-level="102" data-rank="18">
               <td>18</td>
               <td>
                 <div class="member-name-cell">
@@ -3252,7 +3255,7 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.102</td>
-              <td class="power-col">56조 1022억 3684만</td>
+              <td class="power-col">56조 9226억 6343만</td>
             </tr>
             
             <tr data-power="3710570885" data-level="104" data-rank="19">
@@ -3281,7 +3284,7 @@
               <td class="power-col">36조 8904억 6796만</td>
             </tr>
             
-            <tr data-power="3660131317" data-level="102" data-rank="21">
+            <tr data-power="3670094629" data-level="103" data-rank="21">
               <td>21</td>
               <td>
                 <div class="member-name-cell">
@@ -3290,8 +3293,8 @@
                 </div>
               </td>
               <td><span class="badge">히어로</span></td>
-              <td>Lv.102</td>
-              <td class="power-col">36조 6013억 1317만</td>
+              <td>Lv.103</td>
+              <td class="power-col">36조 7009억 4629만</td>
             </tr>
             
             <tr data-power="3374924506" data-level="102" data-rank="22">
@@ -3398,7 +3401,7 @@
               <td class="power-col">21조 327억 3756만</td>
             </tr>
             
-            <tr data-power="982064671" data-level="102" data-rank="30">
+            <tr data-power="1053441386" data-level="102" data-rank="30">
               <td>30</td>
               <td>
                 <div class="member-name-cell">
@@ -3408,7 +3411,7 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.102</td>
-              <td class="power-col">9조 8206억 4671만</td>
+              <td class="power-col">10조 5344억 1386만</td>
             </tr>
             </tbody>
                   </table>
@@ -3485,7 +3488,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>가숭혁, 살뽀시, 26상탗</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +7, 다크나이트 +3</strong></li>
+                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +7, 비숍 +3</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -5451,13 +5454,13 @@
         </article>
         </div>
           </div>
-          <div class="simulation-overview">
-            <div>
+          <section class="job-coefficient-section">
+            <div class="job-coefficient-head">
               <p class="eyebrow">Job Coefficients</p>
               <h3>직업 보정 계수</h3>
               <p class="simulation-copy">직업별 보정값은 70명 실제 수련장 결과를 기준으로 역산한 상대 지표다.</p>
             </div>
-            <div class="score-rule-grid">
+            <div class="job-coefficient-grid">
         <article class="score-rule-card">
           <span>보우마스터</span>
           <strong>×1.254</strong>
@@ -5508,7 +5511,7 @@
           <strong>×0.935</strong>
         </article>
         </div>
-          </div>
+          </section>
           <div class="simulation-rank-grid">
         <article class="simulation-rank-card rank-1">
           <div class="simulation-rank-top">
@@ -5543,7 +5546,7 @@
             <span class="simulation-rank-badge">#3</span>
             <strong>셀린느</strong>
           </div>
-          <div class="simulation-rank-score">159,879,509점</div>
+          <div class="simulation-rank-score">160,243,556점</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>30명</dd></div>
             <div><dt>평균 직업 보정</dt><dd>×0.960</dd></div>
@@ -5915,6 +5918,17 @@
         
         <tr>
           <td>27</td>
+          <td>셀린느</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EC%8A%A4%ED%83%80%EC%BA%90%EC%B9%98" target="_blank" rel="noreferrer">스타캐치</a></td>
+          <td>섀도어</td>
+          <td>1112조 8677억 9360만</td>
+          <td>Lv.108</td>
+          <td>섀도어</td>
+          <td>7,898,012점</td>
+        </tr>
+        
+        <tr>
+          <td>28</td>
           <td>딸기키우기</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B4%89%EC%82%AC%EC%9B%90" target="_blank" rel="noreferrer">봉사원</a></td>
           <td>섀도어</td>
@@ -5925,7 +5939,7 @@
         </tr>
         
         <tr>
-          <td>28</td>
+          <td>29</td>
           <td>더샾</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%A7%A4%ED%8A%B8" target="_blank" rel="noreferrer">샾매트</a></td>
           <td>비숍</td>
@@ -5936,7 +5950,7 @@
         </tr>
         
         <tr>
-          <td>29</td>
+          <td>30</td>
           <td>더샾</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%8C%A8%ED%8A%B8" target="_blank" rel="noreferrer">샾패트</a></td>
           <td>섀도어</td>
@@ -5947,7 +5961,7 @@
         </tr>
         
         <tr>
-          <td>30</td>
+          <td>31</td>
           <td>이콩</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%95%BD%ED%95%9C%EA%B3%A0%EB%93%B1%EC%96%B4" target="_blank" rel="noreferrer">약한고등어</a></td>
           <td>신궁</td>
@@ -5958,7 +5972,7 @@
         </tr>
         
         <tr>
-          <td>31</td>
+          <td>32</td>
           <td>딸기키우기</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%9E%84%EC%88%9C%EC%9D%B4" target="_blank" rel="noreferrer">임순이</a></td>
           <td>다크나이트</td>
@@ -5966,17 +5980,6 @@
           <td>Lv.105</td>
           <td>다크나이트</td>
           <td>7,698,672점</td>
-        </tr>
-        
-        <tr>
-          <td>32</td>
-          <td>셀린느</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EC%8A%A4%ED%83%80%EC%BA%90%EC%B9%98" target="_blank" rel="noreferrer">스타캐치</a></td>
-          <td>섀도어</td>
-          <td>978조 7665억 8728만</td>
-          <td>Lv.108</td>
-          <td>섀도어</td>
-          <td>7,697,770점</td>
         </tr>
         
         <tr>
@@ -6509,6 +6512,17 @@
         
         <tr>
           <td>81</td>
+          <td>셀린느</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%ED%94%84%EB%A6%AC%ED%94%84%EB%A6%AC" target="_blank" rel="noreferrer">프리프리</a></td>
+          <td>섀도어</td>
+          <td>143조 1307억 9972만</td>
+          <td>Lv.105</td>
+          <td>섀도어</td>
+          <td>5,211,093점</td>
+        </tr>
+        
+        <tr>
+          <td>82</td>
           <td>호러</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%A7%84%EC%A7%9C%EC%A7%80%EC%A1%B4%EB%B2%95%EC%82%AC" target="_blank" rel="noreferrer">진짜지존법사</a></td>
           <td>아크메이지(썬,콜)</td>
@@ -6519,7 +6533,7 @@
         </tr>
         
         <tr>
-          <td>82</td>
+          <td>83</td>
           <td>더샾</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%8A%A4%ED%95%80" target="_blank" rel="noreferrer">샾스핀</a></td>
           <td>다크나이트</td>
@@ -6530,7 +6544,7 @@
         </tr>
         
         <tr>
-          <td>83</td>
+          <td>84</td>
           <td>item</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%8C%EB%A6%B0" target="_blank" rel="noreferrer">빌린</a></td>
           <td>섀도어</td>
@@ -6541,7 +6555,7 @@
         </tr>
         
         <tr>
-          <td>84</td>
+          <td>85</td>
           <td>셀린느</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B6%80%EC%97%89%EC%9D%B4%EC%97%86%EB%8B%A4" target="_blank" rel="noreferrer">부엉이없다</a></td>
           <td>섀도어</td>
@@ -6552,7 +6566,7 @@
         </tr>
         
         <tr>
-          <td>85</td>
+          <td>86</td>
           <td>딸기키우기</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%82%A4%EC%9D%80" target="_blank" rel="noreferrer">키은</a></td>
           <td>비숍</td>
@@ -6560,17 +6574,6 @@
           <td>Lv.103</td>
           <td>비숍</td>
           <td>5,151,146점</td>
-        </tr>
-        
-        <tr>
-          <td>86</td>
-          <td>셀린느</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%ED%94%84%EB%A6%AC%ED%94%84%EB%A6%AC" target="_blank" rel="noreferrer">프리프리</a></td>
-          <td>섀도어</td>
-          <td>133조 9835억 1204만</td>
-          <td>Lv.105</td>
-          <td>섀도어</td>
-          <td>5,142,715점</td>
         </tr>
         
         <tr>
@@ -6729,6 +6732,17 @@
         
         <tr>
           <td>101</td>
+          <td>셀린느</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EC%9E%BC%ED%8F%AC%EC%A6%88" target="_blank" rel="noreferrer">잼포즈</a></td>
+          <td>아크메이지(썬,콜)</td>
+          <td>73조 9039억 3442만</td>
+          <td>Lv.103</td>
+          <td>아크메이지(썬,콜)</td>
+          <td>4,744,590점</td>
+        </tr>
+        
+        <tr>
+          <td>102</td>
           <td>이콩</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B3%B5%ED%8F%AC%EC%9D%98%EC%98%A4%ED%95%A8%EB%A7%88" target="_blank" rel="noreferrer">공포의오함마</a></td>
           <td>신궁</td>
@@ -6736,17 +6750,6 @@
           <td>Lv.103</td>
           <td>신궁</td>
           <td>4,729,447점</td>
-        </tr>
-        
-        <tr>
-          <td>102</td>
-          <td>셀린느</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EC%9E%BC%ED%8F%AC%EC%A6%88" target="_blank" rel="noreferrer">잼포즈</a></td>
-          <td>아크메이지(썬,콜)</td>
-          <td>71조 5763억 8505만</td>
-          <td>Lv.103</td>
-          <td>아크메이지(썬,콜)</td>
-          <td>4,714,321점</td>
         </tr>
         
         <tr>
@@ -6886,10 +6889,10 @@
           <td>셀린느</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%86%8C%EC%86%8C%EC%B1%842" target="_blank" rel="noreferrer">소소채2</a></td>
           <td>섀도어</td>
-          <td>56조 1022억 3684만</td>
+          <td>56조 9226억 6343만</td>
           <td>Lv.102</td>
           <td>섀도어</td>
-          <td>4,295,962점</td>
+          <td>4,308,453점</td>
         </tr>
         
         <tr>
@@ -7018,10 +7021,10 @@
           <td>셀린느</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%8B%B8%EB%8C%80%EA%B8%B0" target="_blank" rel="noreferrer">김치싸대기</a></td>
           <td>히어로</td>
-          <td>36조 6013억 1317만</td>
-          <td>Lv.102</td>
+          <td>36조 7009억 4629만</td>
+          <td>Lv.103</td>
           <td>히어로</td>
-          <td>3,933,051점</td>
+          <td>3,942,876점</td>
         </tr>
         
         <tr>
@@ -7532,6 +7535,17 @@
         
         <tr>
           <td>174</td>
+          <td>셀린느</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=junoflo" target="_blank" rel="noreferrer">junoflo</a></td>
+          <td>섀도어</td>
+          <td>10조 5344억 1386만</td>
+          <td>Lv.102</td>
+          <td>섀도어</td>
+          <td>3,074,585점</td>
+        </tr>
+        
+        <tr>
+          <td>175</td>
           <td>호러</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%82%A4%EC%9A%B0%EB%8A%94%EA%B1%B4%EC%A7%88%EC%83%89" target="_blank" rel="noreferrer">키우는건질색</a></td>
           <td>아크메이지(썬,콜)</td>
@@ -7539,17 +7553,6 @@
           <td>Lv.101</td>
           <td>아크메이지(썬,콜)</td>
           <td>3,065,000점</td>
-        </tr>
-        
-        <tr>
-          <td>175</td>
-          <td>셀린느</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=junoflo" target="_blank" rel="noreferrer">junoflo</a></td>
-          <td>섀도어</td>
-          <td>9조 8206억 4671만</td>
-          <td>Lv.102</td>
-          <td>섀도어</td>
-          <td>3,031,743점</td>
         </tr>
         
         <tr>
@@ -7865,7 +7868,7 @@
           <td>셀린느</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%8C%EB%9F%B0%ED%88%AC%ED%82%AC" target="_blank" rel="noreferrer">빌런투킬</a></td>
           <td>팔라딘</td>
-          <td>933조 5078억 2755만</td>
+          <td>960조 7702억 374만</td>
           <td>Lv.108</td>
           <td>기본</td>
           <td>10점</td>
