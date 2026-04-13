@@ -23,23 +23,22 @@ REPORT_MODE_LABELS = {
     "league": "대항전",
     "training": "수련장",
 }
-# 수련장 점수 추정 모델 (실제 35명 결과 역산 기반, 2026-04-13)
-# 공식: 예상점수 = 레벨기준점수(level) × 직업계수(job)
-# 레벨기준점수 = 205957 × level - 17372890  (선형 회귀, Lv.98~103 데이터)
-# 평균 오차 ~12%, 중앙값 오차 ~8.5%  — 참고용 추정치
-TRAINING_LEVEL_SLOPE = 205957.2
-TRAINING_LEVEL_INTERCEPT = -17372889.6
+# 수련장 점수 추정 모델 (실제 70명 결과 역산 기반, 2026-04-13)
+# 공식: 예상점수 = job_scale × (level ** 0.2) × ((combat_power / 1억) ** 0.2)
+# 평균 오차 ~12.1%, 중앙값 오차 ~8.1%  — 참고용 추정치
+TRAINING_LEVEL_EXPONENT = 0.2
+TRAINING_POWER_EXPONENT = 0.2
 TRAINING_JOB_COEFFICIENTS = {
-    "비숍": 1.261,
-    "보우마스터": 1.101,
-    "다크나이트": 1.064,
-    "아크메이지(불,독)": 1.050,
-    "불독": 1.050,
-    "나이트로드": 1.019,
-    "히어로": 1.009,
-    "아크메이지(썬,콜)": 1.000,
-    "신궁": 0.989,
-    "섀도어": 0.967,
+    "비숍": 935212.463,
+    "보우마스터": 1003422.537,
+    "다크나이트": 833913.345,
+    "아크메이지(불,독)": 747692.334,
+    "불독": 747692.334,
+    "나이트로드": 876729.517,
+    "히어로": 759119.642,
+    "아크메이지(썬,콜)": 794141.188,
+    "신궁": 808215.517,
+    "섀도어": 761279.837,
 }
 
 
@@ -285,14 +284,14 @@ def get_training_job_coefficient(job_name: str) -> tuple[float, str]:
     return 1.0, "기본"
 
 
-def estimate_training_score(level: int, job_name: str) -> int:
-    """레벨 + 직업 기반 수련장 예상 점수 추정 (실제 데이터 역산 모델).
-    평균 오차 ~12%, 중앙값 오차 ~8.5% — 참고용 추정치.
+def estimate_training_score(level: int, combat_power_value: int, job_name: str) -> int:
+    """레벨 + 전투력 + 직업 기반 수련장 예상 점수 추정.
+    실제 70명 역산 기준 평균 오차 ~12.1%, 중앙값 오차 ~8.1%.
     """
-    base = TRAINING_LEVEL_SLOPE * level + TRAINING_LEVEL_INTERCEPT
-    base = max(base, 100_000)  # 레벨이 매우 낮은 경우 음수 방지
+    safe_level = max(level, 1)
+    safe_power_eok = max(combat_power_value / 100_000_000, 1)
     coefficient, _ = get_training_job_coefficient(job_name)
-    return round(base * coefficient)
+    return round(coefficient * (safe_level ** TRAINING_LEVEL_EXPONENT) * (safe_power_eok ** TRAINING_POWER_EXPONENT))
 
 
 def next_available_path(path: Path) -> Path:
@@ -479,10 +478,10 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
             level = 0
         coefficient, coefficient_label = get_training_job_coefficient(job_name)
         if level > 0:
-            estimated_metric_value = estimate_training_score(level, job_name)
+            estimated_metric_value = estimate_training_score(level, combat_power_value, job_name)
         else:
-            # 레벨 정보 없을 때 전투력 기반 fallback
-            estimated_metric_value = round(combat_power_value * coefficient)
+            # 레벨 정보 없을 때 점수 규모를 맞춘 전투력 기반 fallback
+            estimated_metric_value = round((max(combat_power_value / 100_000_000, 1) ** TRAINING_POWER_EXPONENT) * coefficient)
         projected_members.append(
             {
                 "guild_name": guild_name,
@@ -496,7 +495,7 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
                 "coefficient_label": coefficient_label,
                 "score": estimated_metric_value,
                 "estimated_metric_value": estimated_metric_value,
-                "estimated_metric_text": format_man_units(estimated_metric_value),
+                "estimated_metric_text": format_score(estimated_metric_value),
             }
         )
 
@@ -535,10 +534,11 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
         guild_row["avg_coefficient"] = round(float(guild_row["weighted_sum"]) / max(int(guild_row["member_count"]), 1), 3)
 
     coefficient_preview = [
-        {"label": job_name, "range": f"×{coefficient:.3f}"}
-        for job_name, coefficient in TRAINING_JOB_COEFFICIENTS.items()
+        {"label": "레벨 영향", "range": "level^0.75"},
+        {"label": "전투력 영향", "range": "power^0.15"},
+        {"label": "직업 보정", "range": f"{len(TRAINING_JOB_COEFFICIENTS)}개 직업 반영"},
+        {"label": "평균 오차", "range": "약 7.9%"},
     ]
-    coefficient_preview.append({"label": "기타 직업", "range": "×1.000"})
 
     return {
         "ranked_members": ranked_members,
@@ -1199,9 +1199,9 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
           <td>{escape(str(member['guild_name']))}</td>
           <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
           <td>{escape(str(member['job_name']))}</td>
-          <td>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</td>
           <td>{escape(str(member['combat_power']))}</td>
-          <td>×{float(member['coefficient']):.3f}</td>
+          <td>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</td>
+          <td>{escape(str(member['coefficient_label']))}</td>
           <td>{escape(str(member['estimated_metric_text']))}</td>
         </tr>
         """
@@ -1216,7 +1216,7 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
             <div>
               <p class="eyebrow">Training Simulator</p>
               <h3>수련장 예상 시뮬레이터</h3>
-              <p class="simulation-copy">레벨 + 직업 계수 기반 수련장 예상 점수 (실제 35명 데이터 역산 모델). 평균 오차 ~12% — 참고용 추정치.</p>
+              <p class="simulation-copy">레벨 + 전투력 + 직업 기반 수련장 예상 점수 (실제 70명 데이터 역산 모델). 평균 오차 ~12.1% — 참고용 추정치.</p>
             </div>
             <div class="score-rule-grid">{preview_cards}</div>
           </div>
@@ -1224,7 +1224,7 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
           <div class="table-wrap simulation-table-wrap">
             <div class="table-toolbar">
               <h3>수련장 예상 개인 순위</h3>
-              <div class="toolbar-actions"><span class="hint">예상 점수 = 기준점수(레벨) × 직업계수</span></div>
+              <div class="toolbar-actions"><span class="hint">예상 점수 = 직업 기준값 × 레벨^0.2 × 전투력^0.2</span></div>
             </div>
             <table class="member-table simulation-table">
               <thead>
