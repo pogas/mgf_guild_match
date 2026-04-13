@@ -66,7 +66,6 @@
     .mode-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
     .mode-tab { display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }
     .mode-tab.active { background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }
-    .mode-tab.disabled { opacity: 0.45; cursor: not-allowed; }
     .eyebrow { margin: 0 0 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 700; }
     .hero h1 { margin: 0; font-size: clamp(22px, 2.8vw, 38px); line-height: 1.15; max-width: none; white-space: nowrap; word-break: keep-all; }
     .hero p.lead { max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 16px 0 0; }
@@ -1991,7 +1990,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>샾둥이, 애갱, 샾패트</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 아크메이지(썬,콜) +5, 히어로 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 아크메이지(썬,콜) +5, 비숍 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -2472,7 +2471,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>무치z, 카뚝, 디올핑</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>비숍 +8, 섀도어 +6, 다크나이트 +5</strong></li>
+                      <li><span>직업 분포 변화</span><strong>비숍 +8, 섀도어 +6, 아크메이지(썬,콜) +5</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -2979,7 +2978,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>스타냥이, 돈스, 진자이</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +9, 아크메이지(썬,콜) +6, 다크나이트 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +9, 아크메이지(썬,콜) +6, 히어로 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3486,7 +3485,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>가숭혁, 살뽀시, 26상탗</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +7, 다크나이트 +3</strong></li>
+                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +7, 비숍 +3</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -5461,11 +5460,31 @@
         let isPointerDown = false;
         let startX = 0;
         let startScrollLeft = 0;
+        let targetScrollLeft = container.scrollLeft;
+        let animationFrameId = null;
+
+        const animateScroll = () => {
+          const delta = targetScrollLeft - container.scrollLeft;
+          if (Math.abs(delta) < 0.5) {
+            container.scrollLeft = targetScrollLeft;
+            animationFrameId = null;
+            return;
+          }
+          container.scrollLeft += delta * 0.22;
+          animationFrameId = requestAnimationFrame(animateScroll);
+        };
+
+        const queueScroll = () => {
+          if (animationFrameId === null) {
+            animationFrameId = requestAnimationFrame(animateScroll);
+          }
+        };
 
         container.addEventListener('pointerdown', (event) => {
           isPointerDown = true;
           startX = event.clientX;
           startScrollLeft = container.scrollLeft;
+          targetScrollLeft = container.scrollLeft;
           container.classList.add('dragging');
           container.setPointerCapture?.(event.pointerId);
         });
@@ -5473,7 +5492,8 @@
         container.addEventListener('pointermove', (event) => {
           if (!isPointerDown) return;
           const deltaX = event.clientX - startX;
-          container.scrollLeft = startScrollLeft - deltaX;
+          targetScrollLeft = startScrollLeft - deltaX;
+          queueScroll();
         });
 
         const stopDrag = (event) => {

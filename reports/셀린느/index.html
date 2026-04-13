@@ -66,7 +66,6 @@
     .mode-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
     .mode-tab { display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }
     .mode-tab.active { background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }
-    .mode-tab.disabled { opacity: 0.45; cursor: not-allowed; }
     .eyebrow { margin: 0 0 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 700; }
     .hero h1 { margin: 0; font-size: clamp(22px, 2.8vw, 38px); line-height: 1.15; max-width: none; white-space: nowrap; word-break: keep-all; }
     .hero p.lead { max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 16px 0 0; }
@@ -327,7 +326,7 @@
   <div class="page">
     <header class="hero">
       <div class="hero-copy">
-        <div class="mode-tabs"><a class="mode-tab active" href="index.html">대항전 리포트</a><span class="mode-tab disabled">수련장 리포트</span></div>
+        <div class="mode-tabs"><a class="mode-tab active" href="index.html">대항전 리포트</a><a class="mode-tab " href="training.html">수련장 리포트</a></div>
         <p class="eyebrow">MGF League Match Report</p>
         <h1>셀린느 대항전 리포트</h1>
         <p class="lead">밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
@@ -5485,11 +5484,31 @@
         let isPointerDown = false;
         let startX = 0;
         let startScrollLeft = 0;
+        let targetScrollLeft = container.scrollLeft;
+        let animationFrameId = null;
+
+        const animateScroll = () => {
+          const delta = targetScrollLeft - container.scrollLeft;
+          if (Math.abs(delta) < 0.5) {
+            container.scrollLeft = targetScrollLeft;
+            animationFrameId = null;
+            return;
+          }
+          container.scrollLeft += delta * 0.22;
+          animationFrameId = requestAnimationFrame(animateScroll);
+        };
+
+        const queueScroll = () => {
+          if (animationFrameId === null) {
+            animationFrameId = requestAnimationFrame(animateScroll);
+          }
+        };
 
         container.addEventListener('pointerdown', (event) => {
           isPointerDown = true;
           startX = event.clientX;
           startScrollLeft = container.scrollLeft;
+          targetScrollLeft = container.scrollLeft;
           container.classList.add('dragging');
           container.setPointerCapture?.(event.pointerId);
         });
@@ -5497,7 +5516,8 @@
         container.addEventListener('pointermove', (event) => {
           if (!isPointerDown) return;
           const deltaX = event.clientX - startX;
-          container.scrollLeft = startScrollLeft - deltaX;
+          targetScrollLeft = startScrollLeft - deltaX;
+          queueScroll();
         });
 
         const stopDrag = (event) => {
