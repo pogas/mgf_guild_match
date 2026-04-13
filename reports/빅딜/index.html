@@ -215,6 +215,10 @@
     .simulation-rank-meta dt { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
     .simulation-rank-meta dd { margin: 0; font-size: 14px; font-weight: 700; }
     .simulation-table-wrap { margin-top: 18px; }
+    .toolbar-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .table-filter-label { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.1); }
+    .table-filter-label span { color: var(--muted); font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .table-filter-label select { border: 0; background: transparent; color: var(--text); font-size: 13px; font-weight: 700; outline: none; min-width: 110px; }
     .simulation-table td:nth-child(1), .simulation-table th:nth-child(1) { white-space: nowrap; }
     .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) { font-variant-numeric: tabular-nums; }
     .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) { color: var(--accent-3); font-weight: 800; }
@@ -388,7 +392,7 @@
         <article class="auto-summary-card">
           <p class="summary-label">대항전 점수 최대 상승</p>
           <strong class="summary-value">밤과다람쥐</strong>
-          <p class="summary-help">22,100점</p>
+          <p class="summary-help">18,300점</p>
         </article>
         
         <article class="auto-summary-card">
@@ -419,7 +423,7 @@
               </div>
               <div class="trend-pill-row">
                 <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill negative">대항전 점수 -24,800점</span>
+                <span class="trend-pill negative">대항전 점수 -42,800점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>74.2%</strong></div>
@@ -472,7 +476,7 @@
               </div>
               <div class="trend-pill-row">
                 <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill negative">대항전 점수 -16,000점</span>
+                <span class="trend-pill negative">대항전 점수 -27,700점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>72.5%</strong></div>
@@ -525,7 +529,7 @@
               </div>
               <div class="trend-pill-row">
                 <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill negative">대항전 점수 -5,700점</span>
+                <span class="trend-pill positive">대항전 점수 +12,300점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>80.1%</strong></div>
@@ -542,16 +546,16 @@
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>5조 5,688억 2,759만</strong>
+                  <strong>5조 6,150억 7,893만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
-                  <strong>2조 1,388억 1,231만</strong>
+                  <strong>2조 3,342억 6,132만</strong>
                 </article>
                 <article class="analysis-chip analysis-chip-strong">
                   <span>집중도 판정</span>
                   <strong>균형형</strong>
-                  <em>TOP5 77.8% · TOP10 100.9%</em>
+                  <em>TOP5 77.8% · TOP10 101.1%</em>
                 </article>
               </div>
               <dl class="guild-metrics">
@@ -578,24 +582,24 @@
               </div>
               <div class="trend-pill-row">
                 <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill negative">대항전 점수 -4,400점</span>
+                <span class="trend-pill positive">대항전 점수 +11,100점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>79.0%</strong></div>
               <div class="power-meter"><span style="width:79.0%"></span></div>
-              <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 33.8% · TOP3 72.0%</strong></div>
+              <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 34.8% · TOP3 74.2%</strong></div>
               <div class="share-visual" aria-label="상위 전투력 비중">
-                <span class="share-top1" style="width:33.8%"></span>
-                <span class="share-top3" style="width:38.2%"></span>
+                <span class="share-top1" style="width:34.8%"></span>
+                <span class="share-top3" style="width:39.400000000000006%"></span>
               </div>
               <div class="guild-analysis-grid">
                 <article class="analysis-chip">
                   <span>TOP1 / TOP3</span>
-                  <strong>33.8% / 72.0%</strong>
+                  <strong>34.8% / 74.2%</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>5조 534억 2,330만</strong>
+                  <strong>5조 1,876억 6,351만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
@@ -604,13 +608,13 @@
                 <article class="analysis-chip analysis-chip-strong">
                   <span>집중도 판정</span>
                   <strong>상위 집중형</strong>
-                  <em>TOP5 85.2% · TOP10 98.7%</em>
+                  <em>TOP5 87.9% · TOP10 101.4%</em>
                 </article>
               </div>
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>135조 5251억 2923만</dd></div>
                 <div><dt>길드원 수</dt><dd>30명</dd></div>
-                <div><dt>평균 레벨</dt><dd>Lv.97.0</dd></div>
+                <div><dt>평균 레벨</dt><dd>Lv.97.1</dd></div>
                 <div><dt>TOP 멤버</dt><dd>마퀸</dd></div>
               </dl>
               <p class="guild-note">가입문의 &amp;gt;&amp;gt; [ 에이비숍 , Eddy0825 ] &amp;lt;&amp;lt; 귓 1조 이상 :)</p>
@@ -631,7 +635,7 @@
               </div>
               <div class="trend-pill-row">
                 <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">대항전 점수 +22,100점</span>
+                <span class="trend-pill positive">대항전 점수 +18,300점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>100.0%</strong></div>
@@ -1051,7 +1055,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%A9%A1%EB%AF%B8%EB%8B%88%EC%A7%80%ED%9B%84" target="_blank" rel="noreferrer">쩡미니지후</a></td>
-              <td>4조 2574억 6994만</td>
+              <td>4조 5668억 4770만</td>
             </tr>
             
             <tr>
@@ -1061,12 +1065,17 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%81%EC%82%B0%EC%9D%98%EC%A1%B0%EC%9E%90%EB%A3%A1" target="_blank" rel="noreferrer">상산의조자룡</a></td>
-              <td>3조 1638억 2823만</td>
+              <td>3조 2567억 9335만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%94%84%EC%8B%AC" target="_blank" rel="noreferrer">샾프심</a></td>
               <td>2조 6800억 1132만</td>
+            </tr>
+            
+            <tr>
+              <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%ED%8D%BD%ED%8D%BD" target="_blank" rel="noreferrer">김퍽퍽</a></td>
+              <td>2조 4319억 7939만</td>
             </tr>
             
             <tr>
@@ -1080,13 +1089,8 @@
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%ED%8D%BD%ED%8D%BD" target="_blank" rel="noreferrer">김퍽퍽</a></td>
-              <td>2조 1388억 1231만</td>
-            </tr>
-            
-            <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%98%A4%ED%94%84" target="_blank" rel="noreferrer">샾오프</a></td>
-              <td>1조 6634억 6181만</td>
+              <td>2조 2853억 136만</td>
             </tr>
             
             <tr>
@@ -1126,12 +1130,12 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%95%A4%ED%94%8C%EB%9E%AB" target="_blank" rel="noreferrer">샾앤플랫</a></td>
-              <td>2316억 2601만</td>
+              <td>2467억 4454만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EA%B8%A9%EC%84%B7" target="_blank" rel="noreferrer">긩섷</a></td>
-              <td>1864억 9941만</td>
+              <td>1902억 6187만</td>
             </tr>
             
             <tr>
@@ -1141,7 +1145,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%B5%9C%ED%9B%88%EC%84%9D%EA%B0%9C%EB%A9%8B%EC%A0%B8" target="_blank" rel="noreferrer">최훈석개멋져</a></td>
-              <td>1544억 6027만</td>
+              <td>1595억 1874만</td>
             </tr>
             
             <tr>
@@ -1174,27 +1178,27 @@
                 <tbody>
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%88%ED%80%B8" target="_blank" rel="noreferrer">마퀸</a></td>
-              <td>45조 8042억 2273만</td>
+              <td>47조 1661억 6718만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%9D%BC%EB%A9%B4%EC%97%90%EA%B3%84%EB%9E%80%ED%83%81" target="_blank" rel="noreferrer">라면에계란탁</a></td>
-              <td>32조 9314억 2581만</td>
+              <td>34조 2412억 9802만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%97%90%EC%9D%B4%EB%B9%84%EC%88%8D" target="_blank" rel="noreferrer">에이비숍</a></td>
-              <td>18조 8542억 5406만</td>
+              <td>19조 1150억 3370만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%ED%99%98%EB%B6%88%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">환불카드</a></td>
-              <td>10조 6115억 767만</td>
+              <td>11조 2858억 9176만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%95%84%EB%B9%A0%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">아빠카드</a></td>
-              <td>7조 2480억 6688만</td>
+              <td>7조 2849억 8496만</td>
             </tr>
             
             <tr>
@@ -1239,7 +1243,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%9D%EC%B9%98%EC%A0%84%EB%AC%B8" target="_blank" rel="noreferrer">망치전문</a></td>
-              <td>1조 3063억 1657만</td>
+              <td>1조 3204억 8722만</td>
             </tr>
             
             <tr>
@@ -1253,8 +1257,13 @@
             </tr>
             
             <tr>
+              <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%EC%88%8D%EB%8D%A9%EA%B5%AC" target="_blank" rel="noreferrer">비숍덩구</a></td>
+              <td>1조 985억 8507만</td>
+            </tr>
+            
+            <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%ED%98%B8%EC%B8%A0" target="_blank" rel="noreferrer">호츠</a></td>
-              <td>1조 389억 721만</td>
+              <td>1조 967억 8189만</td>
             </tr>
             
             <tr>
@@ -1278,8 +1287,8 @@
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%EC%88%8D%EB%8D%A9%EA%B5%AC" target="_blank" rel="noreferrer">비숍덩구</a></td>
-              <td>9200억 3546만</td>
+              <td><a href="https://mgf.gg/contents/character.php?n=%EC%98%A4%EB%B3%B4%EA%B8%B0%EB%8B%A4" target="_blank" rel="noreferrer">오보기다</a></td>
+              <td>7694억 6713만</td>
             </tr>
             
             <tr>
@@ -1288,28 +1297,23 @@
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%EC%98%A4%EB%B3%B4%EA%B8%B0%EB%8B%A4" target="_blank" rel="noreferrer">오보기다</a></td>
-              <td>6741억 7723만</td>
-            </tr>
-            
-            <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%A1%9C%EC%9A%B0%EB%A8%B8" target="_blank" rel="noreferrer">로우머</a></td>
-              <td>6583억 4222만</td>
+              <td>6645억 6088만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=RIMS" target="_blank" rel="noreferrer">RIMS</a></td>
-              <td>6512억 5748만</td>
+              <td>6625억 2854만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%96%B5%ED%97%A4" target="_blank" rel="noreferrer">떵헤</a></td>
-              <td>6144억 6753만</td>
+              <td>6293억 7369만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%98%A4%EB%A7%90%EB%9E%91" target="_blank" rel="noreferrer">오말랑</a></td>
-              <td>5601억 9209만</td>
+              <td>5652억 1941만</td>
             </tr>
             
             <tr>
@@ -1548,7 +1552,7 @@
                     <ul class="history-list">
                       <li><span>길드원 증감</span><strong>-1명</strong></li>
                       <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
-                      <li><span>대항전 점수 변화</span><strong>-24,800점</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>-42,800점</strong></li>
                       <li><span>길드 내부 TOP10 고정도</span><strong>10 / 10</strong></li>
                     </ul>
                   </article>
@@ -1576,7 +1580,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,30.42 30.0,2.0 60.0,3.73 90.0,30.42 120.0,34.0" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,28.29 30.0,2.0 60.0,3.6 90.0,28.29 120.0,34.0" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -2029,7 +2033,7 @@
                     <ul class="history-list">
                       <li><span>길드원 증감</span><strong>0명</strong></li>
                       <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
-                      <li><span>대항전 점수 변화</span><strong>-16,000점</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>-27,700점</strong></li>
                       <li><span>길드 내부 TOP10 고정도</span><strong>10 / 10</strong></li>
                     </ul>
                   </article>
@@ -2057,7 +2061,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,2.0 30.0,34.0 60.0,25.54 90.0,2.0 120.0,3.46" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,2.0 30.0,34.0 60.0,25.54 90.0,2.0 120.0,4.52" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -2513,7 +2517,7 @@
                   </article>
                   <article class="comparison-callout comparison-callout-core">
                     <span>핵심 전력 범위</span>
-                    <strong>TOP10 100.9%</strong>
+                    <strong>TOP10 101.1%</strong>
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
                   </article>
                 </div>
@@ -2523,7 +2527,7 @@
                     <ul class="history-list">
                       <li><span>길드원 증감</span><strong>0명</strong></li>
                       <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
-                      <li><span>대항전 점수 변화</span><strong>-5,700점</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>+12,300점</strong></li>
                       <li><span>길드 내부 TOP10 고정도</span><strong>10 / 10</strong></li>
                     </ul>
                   </article>
@@ -2538,8 +2542,8 @@
                   <article class="history-panel">
                     <h3>급상승 / 순위 변화</h3>
                     <ul class="history-list history-list-compact">
-                      <li><span>전투력 변화</span><strong>변동 없음</strong></li>
-                      <li><span>길드 내부 순위</span><strong>변동 없음</strong></li>
+                      <li><span>샾오프</span><strong>+6,218억 3,955만</strong></li><li><span>쩡미니지후</span><strong>+3,093억 7,776만</strong></li><li><span>김퍽퍽</span><strong>+2,931억 6,708만</strong></li>
+                      <li><span>김퍽퍽</span><strong>+2계단</strong></li><li><span>주방화</span><strong>-1계단</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -2551,7 +2555,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,32.43 30.0,2.0 60.0,6.95 90.0,32.43 120.0,34.0" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 30.0,2.0 60.0,7.21 90.0,34.0 120.0,30.44" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -2679,7 +2683,7 @@
               <td class="power-col">6조 355억 4707만</td>
             </tr>
             
-            <tr data-power="425746994" data-level="99" data-rank="9">
+            <tr data-power="456684770" data-level="99" data-rank="9">
               <td>9</td>
               <td>
                 <div class="member-name-cell">
@@ -2689,7 +2693,7 @@
               </td>
               <td><span class="badge">아크메이지(썬,콜)</span></td>
               <td>Lv.99</td>
-              <td class="power-col">4조 2574억 6994만</td>
+              <td class="power-col">4조 5668억 4770만</td>
             </tr>
             
             <tr data-power="342768898" data-level="99" data-rank="10">
@@ -2705,7 +2709,7 @@
               <td class="power-col">3조 4276억 8898만</td>
             </tr>
             
-            <tr data-power="316382823" data-level="100" data-rank="11">
+            <tr data-power="325679335" data-level="100" data-rank="11">
               <td>11</td>
               <td>
                 <div class="member-name-cell">
@@ -2715,7 +2719,7 @@
               </td>
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.100</td>
-              <td class="power-col">3조 1638억 2823만</td>
+              <td class="power-col">3조 2567억 9335만</td>
             </tr>
             
             <tr data-power="268001132" data-level="98" data-rank="12">
@@ -2731,8 +2735,21 @@
               <td class="power-col">2조 6800억 1132만</td>
             </tr>
             
-            <tr data-power="233549574" data-level="97" data-rank="13">
+            <tr data-power="243197939" data-level="100" data-rank="13">
               <td>13</td>
+              <td>
+                <div class="member-name-cell">
+                  <a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%ED%8D%BD%ED%8D%BD" target="_blank" rel="noreferrer">김퍽퍽</a>
+                  
+                </div>
+              </td>
+              <td><span class="badge">다크나이트</span></td>
+              <td>Lv.100</td>
+              <td class="power-col">2조 4319억 7939만</td>
+            </tr>
+            
+            <tr data-power="233549574" data-level="97" data-rank="14">
+              <td>14</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EC%A3%BC%EB%B0%A9%ED%99%94" target="_blank" rel="noreferrer">주방화</a>
@@ -2744,8 +2761,8 @@
               <td class="power-col">2조 3354억 9574만</td>
             </tr>
             
-            <tr data-power="233426132" data-level="99" data-rank="14">
-              <td>14</td>
+            <tr data-power="233426132" data-level="99" data-rank="15">
+              <td>15</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%98%A4%EC%82%B0" target="_blank" rel="noreferrer">샾오산</a>
@@ -2757,20 +2774,7 @@
               <td class="power-col">2조 3342억 6132만</td>
             </tr>
             
-            <tr data-power="213881231" data-level="100" data-rank="15">
-              <td>15</td>
-              <td>
-                <div class="member-name-cell">
-                  <a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%ED%8D%BD%ED%8D%BD" target="_blank" rel="noreferrer">김퍽퍽</a>
-                  
-                </div>
-              </td>
-              <td><span class="badge">다크나이트</span></td>
-              <td>Lv.100</td>
-              <td class="power-col">2조 1388억 1231만</td>
-            </tr>
-            
-            <tr data-power="166346181" data-level="96" data-rank="16">
+            <tr data-power="228530136" data-level="96" data-rank="16">
               <td>16</td>
               <td>
                 <div class="member-name-cell">
@@ -2780,7 +2784,7 @@
               </td>
               <td><span class="badge">아크메이지(썬,콜)</span></td>
               <td>Lv.96</td>
-              <td class="power-col">1조 6634억 6181만</td>
+              <td class="power-col">2조 2853억 136만</td>
             </tr>
             
             <tr data-power="161162745" data-level="97" data-rank="17">
@@ -2874,7 +2878,7 @@
               <td class="power-col">4672억 6247만</td>
             </tr>
             
-            <tr data-power="23162601" data-level="93" data-rank="24">
+            <tr data-power="24674454" data-level="93" data-rank="24">
               <td>24</td>
               <td>
                 <div class="member-name-cell">
@@ -2884,10 +2888,10 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.93</td>
-              <td class="power-col">2316억 2601만</td>
+              <td class="power-col">2467억 4454만</td>
             </tr>
             
-            <tr data-power="18649941" data-level="94" data-rank="25">
+            <tr data-power="19026187" data-level="94" data-rank="25">
               <td>25</td>
               <td>
                 <div class="member-name-cell">
@@ -2897,7 +2901,7 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.94</td>
-              <td class="power-col">1864억 9941만</td>
+              <td class="power-col">1902억 6187만</td>
             </tr>
             
             <tr data-power="18621727" data-level="93" data-rank="26">
@@ -2913,7 +2917,7 @@
               <td class="power-col">1862억 1727만</td>
             </tr>
             
-            <tr data-power="15446027" data-level="91" data-rank="27">
+            <tr data-power="15951874" data-level="91" data-rank="27">
               <td>27</td>
               <td>
                 <div class="member-name-cell">
@@ -2923,7 +2927,7 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.91</td>
-              <td class="power-col">1544억 6027만</td>
+              <td class="power-col">1595억 1874만</td>
             </tr>
             
             <tr data-power="13464398" data-level="91" data-rank="28">
@@ -2976,13 +2980,13 @@
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
                       <div><dt>길드 전투력</dt><dd>135조 5251억 2923만</dd></div>
                       <div><dt>전체 / 서버 순위</dt><dd>366 / 30위</dd></div>
-                      <div><dt>평균 레벨</dt><dd>Lv.97.0</dd></div>
+                      <div><dt>평균 레벨</dt><dd>Lv.97.1</dd></div>
                     </dl>
                   </article>
                   <article class="info-panel emphasis">
                     <h3>핵심 포인트</h3>
                     <ul class="highlights">
-                      <li><span>TOP 멤버</span><strong>마퀸</strong><em>45조 8042억 2273만</em></li>
+                      <li><span>TOP 멤버</span><strong>마퀸</strong><em>47조 1661억 6718만</em></li>
                       <li><span>TOP 멤버 직업</span><strong>다크나이트</strong></li>
                       <li><span>마스터 전투력</span><strong>4조 9365억 4349만</strong></li>
                       <li><span>길드 공지</span><strong>가입문의 &amp;gt;&amp;gt; [ 에이비숍 , Eddy0825 ] &amp;lt;&amp;lt; 귓 1조 이상 :)</strong></li>
@@ -2998,16 +3002,16 @@
                   <article class="comparison-callout comparison-callout-focus">
                     <span>상위 멤버 집중도</span>
                     <strong>상위 집중형</strong>
-                    <em>TOP3 72.0% · TOP5 85.2%</em>
+                    <em>TOP3 74.2% · TOP5 87.9%</em>
                   </article>
                   <article class="comparison-callout comparison-callout-gap">
                     <span>TOP 멤버 격차</span>
-                    <strong>12조 8,727억 9,692만</strong>
+                    <strong>12조 9,248억 6,916만</strong>
                     <em>1위와 2위 전투력 차이</em>
                   </article>
                   <article class="comparison-callout comparison-callout-core">
                     <span>핵심 전력 범위</span>
-                    <strong>TOP10 98.7%</strong>
+                    <strong>TOP10 101.4%</strong>
                     <em>길드 총 전투력 대비 상위 10인 비중</em>
                   </article>
                 </div>
@@ -3017,7 +3021,7 @@
                     <ul class="history-list">
                       <li><span>길드원 증감</span><strong>0명</strong></li>
                       <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
-                      <li><span>대항전 점수 변화</span><strong>-4,400점</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>+11,100점</strong></li>
                       <li><span>길드 내부 TOP10 고정도</span><strong>10 / 10</strong></li>
                     </ul>
                   </article>
@@ -3032,8 +3036,8 @@
                   <article class="history-panel">
                     <h3>급상승 / 순위 변화</h3>
                     <ul class="history-list history-list-compact">
-                      <li><span>전투력 변화</span><strong>변동 없음</strong></li>
-                      <li><span>길드 내부 순위</span><strong>변동 없음</strong></li>
+                      <li><span>마퀸</span><strong>+1조 3,619억 4,445만</strong></li><li><span>라면에계란탁</span><strong>+1조 3,098억 7,221만</strong></li><li><span>환불카드</span><strong>+6,743억 8,409만</strong></li>
+                      <li><span>비숍덩구</span><strong>+5계단</strong></li><li><span>오보기다</span><strong>+1계단</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3045,7 +3049,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,3.93 30.0,2.0 60.0,34.0 90.0,3.93 120.0,7.08" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,8.69 30.0,7.06 60.0,34.0 90.0,8.69 120.0,2.0" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -3069,7 +3073,7 @@
                       </tr>
                     </thead>
                     <tbody>
-            <tr data-power="4580422273" data-level="103" data-rank="1">
+            <tr data-power="4716616718" data-level="103" data-rank="1">
               <td>1</td>
               <td>
                 <div class="member-name-cell">
@@ -3079,10 +3083,10 @@
               </td>
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.103</td>
-              <td class="power-col">45조 8042억 2273만</td>
+              <td class="power-col">47조 1661억 6718만</td>
             </tr>
             
-            <tr data-power="3293142581" data-level="102" data-rank="2">
+            <tr data-power="3424129802" data-level="102" data-rank="2">
               <td>2</td>
               <td>
                 <div class="member-name-cell">
@@ -3092,10 +3096,10 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.102</td>
-              <td class="power-col">32조 9314억 2581만</td>
+              <td class="power-col">34조 2412억 9802만</td>
             </tr>
             
-            <tr data-power="1885425406" data-level="102" data-rank="3">
+            <tr data-power="1911503370" data-level="103" data-rank="3">
               <td>3</td>
               <td>
                 <div class="member-name-cell">
@@ -3104,11 +3108,11 @@
                 </div>
               </td>
               <td><span class="badge">비숍</span></td>
-              <td>Lv.102</td>
-              <td class="power-col">18조 8542억 5406만</td>
+              <td>Lv.103</td>
+              <td class="power-col">19조 1150억 3370만</td>
             </tr>
             
-            <tr data-power="1061150767" data-level="99" data-rank="4">
+            <tr data-power="1128589176" data-level="99" data-rank="4">
               <td>4</td>
               <td>
                 <div class="member-name-cell">
@@ -3118,10 +3122,10 @@
               </td>
               <td><span class="badge">팔라딘</span></td>
               <td>Lv.99</td>
-              <td class="power-col">10조 6115억 767만</td>
+              <td class="power-col">11조 2858억 9176만</td>
             </tr>
             
-            <tr data-power="724806688" data-level="100" data-rank="5">
+            <tr data-power="728498496" data-level="100" data-rank="5">
               <td>5</td>
               <td>
                 <div class="member-name-cell">
@@ -3131,7 +3135,7 @@
               </td>
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.100</td>
-              <td class="power-col">7조 2480억 6688만</td>
+              <td class="power-col">7조 2849억 8496만</td>
             </tr>
             
             <tr data-power="656817800" data-level="100" data-rank="6">
@@ -3225,7 +3229,7 @@
               <td class="power-col">1조 3663억 941만</td>
             </tr>
             
-            <tr data-power="132971328" data-level="96" data-rank="13">
+            <tr data-power="132971328" data-level="97" data-rank="13">
               <td>13</td>
               <td>
                 <div class="member-name-cell">
@@ -3234,11 +3238,11 @@
                 </div>
               </td>
               <td><span class="badge">섀도어</span></td>
-              <td>Lv.96</td>
+              <td>Lv.97</td>
               <td class="power-col">1조 3297억 1328만</td>
             </tr>
             
-            <tr data-power="130631657" data-level="96" data-rank="14">
+            <tr data-power="132048722" data-level="96" data-rank="14">
               <td>14</td>
               <td>
                 <div class="member-name-cell">
@@ -3248,7 +3252,7 @@
               </td>
               <td><span class="badge">신궁</span></td>
               <td>Lv.96</td>
-              <td class="power-col">1조 3063억 1657만</td>
+              <td class="power-col">1조 3204억 8722만</td>
             </tr>
             
             <tr data-power="115488804" data-level="96" data-rank="15">
@@ -3277,8 +3281,21 @@
               <td class="power-col">1조 1455억 4997만</td>
             </tr>
             
-            <tr data-power="103890721" data-level="96" data-rank="17">
+            <tr data-power="109858507" data-level="97" data-rank="17">
               <td>17</td>
+              <td>
+                <div class="member-name-cell">
+                  <a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%EC%88%8D%EB%8D%A9%EA%B5%AC" target="_blank" rel="noreferrer">비숍덩구</a>
+                  
+                </div>
+              </td>
+              <td><span class="badge">아크메이지(썬,콜)</span></td>
+              <td>Lv.97</td>
+              <td class="power-col">1조 985억 8507만</td>
+            </tr>
+            
+            <tr data-power="109678189" data-level="96" data-rank="18">
+              <td>18</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%ED%98%B8%EC%B8%A0" target="_blank" rel="noreferrer">호츠</a>
@@ -3287,11 +3304,11 @@
               </td>
               <td><span class="badge">나이트로드</span></td>
               <td>Lv.96</td>
-              <td class="power-col">1조 389억 721만</td>
+              <td class="power-col">1조 967억 8189만</td>
             </tr>
             
-            <tr data-power="95860327" data-level="95" data-rank="18">
-              <td>18</td>
+            <tr data-power="95860327" data-level="95" data-rank="19">
+              <td>19</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%ED%9A%8C%EC%9B%90%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">회원카드</a>
@@ -3303,8 +3320,8 @@
               <td class="power-col">9586억 327만</td>
             </tr>
             
-            <tr data-power="94223151" data-level="96" data-rank="19">
-              <td>19</td>
+            <tr data-power="94223151" data-level="96" data-rank="20">
+              <td>20</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%ED%95%91%EC%99%80%EC%8A%A4" target="_blank" rel="noreferrer">핑와스</a>
@@ -3316,8 +3333,8 @@
               <td class="power-col">9422억 3151만</td>
             </tr>
             
-            <tr data-power="93280034" data-level="96" data-rank="20">
-              <td>20</td>
+            <tr data-power="93280034" data-level="96" data-rank="21">
+              <td>21</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EB%8B%A8%ED%92%8Da" target="_blank" rel="noreferrer">단풍a</a>
@@ -3329,8 +3346,8 @@
               <td class="power-col">9328억 34만</td>
             </tr>
             
-            <tr data-power="92212396" data-level="97" data-rank="21">
-              <td>21</td>
+            <tr data-power="92212396" data-level="97" data-rank="22">
+              <td>22</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EB%AC%B8%EB%9A%B1%EC%8B%9D" target="_blank" rel="noreferrer">문뚱식</a>
@@ -3342,21 +3359,21 @@
               <td class="power-col">9221억 2396만</td>
             </tr>
             
-            <tr data-power="92003546" data-level="97" data-rank="22">
-              <td>22</td>
+            <tr data-power="76946713" data-level="96" data-rank="23">
+              <td>23</td>
               <td>
                 <div class="member-name-cell">
-                  <a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%EC%88%8D%EB%8D%A9%EA%B5%AC" target="_blank" rel="noreferrer">비숍덩구</a>
+                  <a href="https://mgf.gg/contents/character.php?n=%EC%98%A4%EB%B3%B4%EA%B8%B0%EB%8B%A4" target="_blank" rel="noreferrer">오보기다</a>
                   
                 </div>
               </td>
-              <td><span class="badge">아크메이지(썬,콜)</span></td>
-              <td>Lv.97</td>
-              <td class="power-col">9200억 3546만</td>
+              <td><span class="badge">섀도어</span></td>
+              <td>Lv.96</td>
+              <td class="power-col">7694억 6713만</td>
             </tr>
             
-            <tr data-power="74995629" data-level="94" data-rank="23">
-              <td>23</td>
+            <tr data-power="74995629" data-level="94" data-rank="24">
+              <td>24</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EB%96%BC%EB%A7%81" target="_blank" rel="noreferrer">떼링</a>
@@ -3368,20 +3385,7 @@
               <td class="power-col">7499억 5629만</td>
             </tr>
             
-            <tr data-power="67417723" data-level="96" data-rank="24">
-              <td>24</td>
-              <td>
-                <div class="member-name-cell">
-                  <a href="https://mgf.gg/contents/character.php?n=%EC%98%A4%EB%B3%B4%EA%B8%B0%EB%8B%A4" target="_blank" rel="noreferrer">오보기다</a>
-                  
-                </div>
-              </td>
-              <td><span class="badge">섀도어</span></td>
-              <td>Lv.96</td>
-              <td class="power-col">6741억 7723만</td>
-            </tr>
-            
-            <tr data-power="65834222" data-level="97" data-rank="25">
+            <tr data-power="66456088" data-level="97" data-rank="25">
               <td>25</td>
               <td>
                 <div class="member-name-cell">
@@ -3391,10 +3395,10 @@
               </td>
               <td><span class="badge">아크메이지(썬,콜)</span></td>
               <td>Lv.97</td>
-              <td class="power-col">6583억 4222만</td>
+              <td class="power-col">6645억 6088만</td>
             </tr>
             
-            <tr data-power="65125748" data-level="95" data-rank="26">
+            <tr data-power="66252854" data-level="95" data-rank="26">
               <td>26</td>
               <td>
                 <div class="member-name-cell">
@@ -3404,10 +3408,10 @@
               </td>
               <td><span class="badge">섀도어</span></td>
               <td>Lv.95</td>
-              <td class="power-col">6512억 5748만</td>
+              <td class="power-col">6625억 2854만</td>
             </tr>
             
-            <tr data-power="61446753" data-level="94" data-rank="27">
+            <tr data-power="62937369" data-level="95" data-rank="27">
               <td>27</td>
               <td>
                 <div class="member-name-cell">
@@ -3416,11 +3420,11 @@
                 </div>
               </td>
               <td><span class="badge">아크메이지(썬,콜)</span></td>
-              <td>Lv.94</td>
-              <td class="power-col">6144억 6753만</td>
+              <td>Lv.95</td>
+              <td class="power-col">6293억 7369만</td>
             </tr>
             
-            <tr data-power="56019209" data-level="95" data-rank="28">
+            <tr data-power="56521941" data-level="95" data-rank="28">
               <td>28</td>
               <td>
                 <div class="member-name-cell">
@@ -3430,7 +3434,7 @@
               </td>
               <td><span class="badge">히어로</span></td>
               <td>Lv.95</td>
-              <td class="power-col">5601억 9209만</td>
+              <td class="power-col">5652억 1941만</td>
             </tr>
             
             <tr data-power="26155649" data-level="94" data-rank="29">
@@ -3524,7 +3528,7 @@
                     <ul class="history-list">
                       <li><span>길드원 증감</span><strong>0명</strong></li>
                       <li><span>총 전투력 변화</span><strong>0.0%</strong></li>
-                      <li><span>대항전 점수 변화</span><strong>+22,100점</strong></li>
+                      <li><span>대항전 점수 변화</span><strong>+18,300점</strong></li>
                       <li><span>길드 내부 TOP10 고정도</span><strong>10 / 10</strong></li>
                     </ul>
                   </article>
@@ -3552,7 +3556,7 @@
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 30.0,2.0 60.0,16.18 90.0,34.0 120.0,16.88" /></svg></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 30.0,2.0 60.0,16.18 90.0,34.0 120.0,19.82" /></svg></div>
                       <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span><span>04/13</span></div>
                     </div>
                   </article>
@@ -3989,7 +3993,7 @@
             <span class="simulation-rank-badge">#1</span>
             <strong>부계둘</strong>
           </div>
-          <div class="simulation-rank-score">4,362,200점</div>
+          <div class="simulation-rank-score">4,350,500점</div>
           <dl class="simulation-rank-meta">
             <div><dt>득점 인원</dt><dd>29명</dd></div>
             <div><dt>최고 순위</dt><dd>7위 · 증권보이</dd></div>
@@ -4001,7 +4005,7 @@
             <span class="simulation-rank-badge">#2</span>
             <strong>피난민</strong>
           </div>
-          <div class="simulation-rank-score">4,247,500점</div>
+          <div class="simulation-rank-score">4,265,500점</div>
           <dl class="simulation-rank-meta">
             <div><dt>득점 인원</dt><dd>29명</dd></div>
             <div><dt>최고 순위</dt><dd>4위 · 샾온</dd></div>
@@ -4013,7 +4017,7 @@
             <span class="simulation-rank-badge">#3</span>
             <strong>이고이스트</strong>
           </div>
-          <div class="simulation-rank-score">4,015,600점</div>
+          <div class="simulation-rank-score">4,031,100점</div>
           <dl class="simulation-rank-meta">
             <div><dt>득점 인원</dt><dd>30명</dd></div>
             <div><dt>최고 순위</dt><dd>3위 · 마퀸</dd></div>
@@ -4025,7 +4029,7 @@
             <span class="simulation-rank-badge">#4</span>
             <strong>빅딜</strong>
           </div>
-          <div class="simulation-rank-score">3,710,000점</div>
+          <div class="simulation-rank-score">3,692,000점</div>
           <dl class="simulation-rank-meta">
             <div><dt>득점 인원</dt><dd>28명</dd></div>
             <div><dt>최고 순위</dt><dd>13위 · 망겜감별사</dd></div>
@@ -4037,7 +4041,7 @@
             <span class="simulation-rank-badge">#5</span>
             <strong>밤과다람쥐</strong>
           </div>
-          <div class="simulation-rank-score">3,690,200점</div>
+          <div class="simulation-rank-score">3,686,400점</div>
           <dl class="simulation-rank-meta">
             <div><dt>득점 인원</dt><dd>28명</dd></div>
             <div><dt>최고 순위</dt><dd>1위 · MAKTO</dd></div>
@@ -4047,9 +4051,18 @@
           <div class="table-wrap simulation-table-wrap">
             <div class="table-toolbar">
               <h3>대항전 예상 개인 순위</h3>
-              <div class="toolbar-actions"><span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span></div>
+              <div class="toolbar-actions">
+                <label class="table-filter-label">
+                  <span>길드 필터</span>
+                  <select class="guild-filter" data-target="guild-war-simulation-table">
+                    <option value="">전체 길드</option>
+                    <option value="부계둘">부계둘</option><option value="피난민">피난민</option><option value="이고이스트">이고이스트</option><option value="빅딜">빅딜</option><option value="밤과다람쥐">밤과다람쥐</option>
+                  </select>
+                </label>
+                <span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span>
+              </div>
             </div>
-            <table class="member-table simulation-table">
+            <table class="member-table simulation-table" id="guild-war-simulation-table">
               <thead>
                 <tr>
                   <th>순위</th>
@@ -4061,7 +4074,7 @@
                 </tr>
               </thead>
               <tbody>
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>1</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=MAKTO" target="_blank" rel="noreferrer">MAKTO</a></td>
@@ -4070,7 +4083,7 @@
           <td>1,000,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>2</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%A4%EB%AF%B8%ED%98%95" target="_blank" rel="noreferrer">매미형</a></td>
@@ -4079,16 +4092,16 @@
           <td>900,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>3</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%88%ED%80%B8" target="_blank" rel="noreferrer">마퀸</a></td>
           <td>다크나이트</td>
-          <td>45조 8042억 2273만</td>
+          <td>47조 1661억 6718만</td>
           <td>800,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>4</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%98%A8" target="_blank" rel="noreferrer">샾온</a></td>
@@ -4097,16 +4110,16 @@
           <td>730,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>5</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%9D%BC%EB%A9%B4%EC%97%90%EA%B3%84%EB%9E%80%ED%83%81" target="_blank" rel="noreferrer">라면에계란탁</a></td>
           <td>섀도어</td>
-          <td>32조 9314억 2581만</td>
+          <td>34조 2412억 9802만</td>
           <td>660,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>6</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%95%9C%EA%B6%81" target="_blank" rel="noreferrer">샾한궁</a></td>
@@ -4115,7 +4128,7 @@
           <td>610,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>7</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%A6%9D%EA%B6%8C%EB%B3%B4%EC%9D%B4" target="_blank" rel="noreferrer">증권보이</a></td>
@@ -4124,7 +4137,7 @@
           <td>560,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>8</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%91%A5%EB%91%A5%EC%BD%A9%EC%9D%B4" target="_blank" rel="noreferrer">둥둥콩이</a></td>
@@ -4133,16 +4146,16 @@
           <td>510,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>9</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%97%90%EC%9D%B4%EB%B9%84%EC%88%8D" target="_blank" rel="noreferrer">에이비숍</a></td>
           <td>비숍</td>
-          <td>18조 8542억 5406만</td>
+          <td>19조 1150억 3370만</td>
           <td>460,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>10</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B0%80%EC%98%A8%EC%8A%A4" target="_blank" rel="noreferrer">가온스</a></td>
@@ -4151,7 +4164,7 @@
           <td>410,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>11</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%82%B4%EA%B0%9C" target="_blank" rel="noreferrer">샾살개</a></td>
@@ -4160,7 +4173,7 @@
           <td>380,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>12</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=Canary" target="_blank" rel="noreferrer">Canary</a></td>
@@ -4169,7 +4182,7 @@
           <td>350,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>13</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%9D%EA%B2%9C%EA%B0%90%EB%B3%84%EC%82%AC" target="_blank" rel="noreferrer">망겜감별사</a></td>
@@ -4178,7 +4191,7 @@
           <td>320,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>14</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%83%B7" target="_blank" rel="noreferrer">샾샷</a></td>
@@ -4187,7 +4200,7 @@
           <td>290,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>15</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%81%90%EC%83%A4%ED%94%84" target="_blank" rel="noreferrer">큐샤프</a></td>
@@ -4196,7 +4209,7 @@
           <td>260,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>16</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%AF%BC%ED%97%A4" target="_blank" rel="noreferrer">민헤</a></td>
@@ -4205,7 +4218,7 @@
           <td>250,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>17</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%B2%98%ED%9E%88" target="_blank" rel="noreferrer">처히</a></td>
@@ -4214,7 +4227,7 @@
           <td>240,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>18</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%82%B9%EB%AA%AC" target="_blank" rel="noreferrer">킹몬</a></td>
@@ -4223,7 +4236,7 @@
           <td>230,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>19</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B3%A0%EC%83%9D%ED%96%88%EC%96%B4" target="_blank" rel="noreferrer">고생했어</a></td>
@@ -4232,34 +4245,34 @@
           <td>220,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>20</td>
+          <td>이고이스트</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%ED%99%98%EB%B6%88%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">환불카드</a></td>
+          <td>팔라딘</td>
+          <td>11조 2858억 9176만</td>
+          <td>210,000점</td>
+        </tr>
+        
+        <tr data-guild="부계둘">
+          <td>21</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%99%98%EC%83%9D%EC%9D%98%EB%B6%88%EA%BC%AC%EC%B8%A0" target="_blank" rel="noreferrer">환생의불꼬츠</a></td>
           <td>섀도어</td>
           <td>10조 9549억 8302만</td>
-          <td>210,000점</td>
+          <td>205,000점</td>
         </tr>
         
-        <tr>
-          <td>21</td>
+        <tr data-guild="빅딜">
+          <td>22</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%97%98%EB%9D%BC%EC%9E%84" target="_blank" rel="noreferrer">엘라임</a></td>
           <td>히어로</td>
           <td>10조 7888억 6150만</td>
-          <td>205,000점</td>
-        </tr>
-        
-        <tr>
-          <td>22</td>
-          <td>이고이스트</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%ED%99%98%EB%B6%88%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">환불카드</a></td>
-          <td>팔라딘</td>
-          <td>10조 6115억 767만</td>
           <td>200,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>23</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%84%B8%EA%B3%84%EC%B1%94%ED%94%BC%EC%96%B8" target="_blank" rel="noreferrer">세계챔피언</a></td>
@@ -4268,7 +4281,7 @@
           <td>195,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>24</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%95%BC%EA%B0%80%EB%8B%A4" target="_blank" rel="noreferrer">야가다</a></td>
@@ -4277,7 +4290,7 @@
           <td>190,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>25</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%B8%8C%EC%83%A4%EB%B8%8C" target="_blank" rel="noreferrer">샾브샤브</a></td>
@@ -4286,7 +4299,7 @@
           <td>185,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>26</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B0%8D%EC%A7%84" target="_blank" rel="noreferrer">밍진</a></td>
@@ -4295,7 +4308,7 @@
           <td>180,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>27</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%B0%89%EB%8B%B9" target="_blank" rel="noreferrer">샾밉당</a></td>
@@ -4304,7 +4317,7 @@
           <td>175,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>28</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%8B%A8%ED%92%8D%EC%B9%B4%EC%9A%B0" target="_blank" rel="noreferrer">단풍카우</a></td>
@@ -4313,16 +4326,16 @@
           <td>170,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>29</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%95%84%EB%B9%A0%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">아빠카드</a></td>
           <td>다크나이트</td>
-          <td>7조 2480억 6688만</td>
+          <td>7조 2849억 8496만</td>
           <td>165,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>30</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=Naco" target="_blank" rel="noreferrer">Naco</a></td>
@@ -4331,7 +4344,7 @@
           <td>160,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>31</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%8B%9C%EA%B8%80" target="_blank" rel="noreferrer">시글</a></td>
@@ -4340,7 +4353,7 @@
           <td>157,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>32</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=AKPS" target="_blank" rel="noreferrer">AKPS</a></td>
@@ -4349,7 +4362,7 @@
           <td>154,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>33</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%95%84%EB%A5%B4%EB%AF%B8%EB%8A%90" target="_blank" rel="noreferrer">아르미느</a></td>
@@ -4358,7 +4371,7 @@
           <td>151,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>34</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EA%BE%B8%EB%B6%95" target="_blank" rel="noreferrer">샾꾸붕</a></td>
@@ -4367,7 +4380,7 @@
           <td>148,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>35</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B5%B4%EB%9F%AC%EA%B0%80%EB%8A%94%EC%9D%BC%EC%83%81" target="_blank" rel="noreferrer">굴러가는일상</a></td>
@@ -4376,7 +4389,7 @@
           <td>145,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>36</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0" target="_blank" rel="noreferrer">포스코퓨처엠</a></td>
@@ -4385,7 +4398,7 @@
           <td>142,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>37</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%95%9C%EB%8F%84%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">한도카드</a></td>
@@ -4394,25 +4407,25 @@
           <td>139,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>38</td>
+          <td>피난민</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EC%A9%A1%EB%AF%B8%EB%8B%88%EC%A7%80%ED%9B%84" target="_blank" rel="noreferrer">쩡미니지후</a></td>
+          <td>아크메이지(썬,콜)</td>
+          <td>4조 5668억 4770만</td>
+          <td>136,000점</td>
+        </tr>
+        
+        <tr data-guild="빅딜">
+          <td>39</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B0%98%EB%8F%84" target="_blank" rel="noreferrer">반도</a></td>
           <td>나이트로드</td>
           <td>4조 4313억 1006만</td>
-          <td>136,000점</td>
-        </tr>
-        
-        <tr>
-          <td>39</td>
-          <td>피난민</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EC%A9%A1%EB%AF%B8%EB%8B%88%EC%A7%80%ED%9B%84" target="_blank" rel="noreferrer">쩡미니지후</a></td>
-          <td>아크메이지(썬,콜)</td>
-          <td>4조 2574억 6994만</td>
           <td>133,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>40</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%9A%B0%ED%9B%84" target="_blank" rel="noreferrer">우후</a></td>
@@ -4421,7 +4434,7 @@
           <td>130,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>41</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%82%AC%EB%82%98%EC%9D%B4%EA%B8%B0%EB%B0%B1%ED%99%A9" target="_blank" rel="noreferrer">사나이기백황</a></td>
@@ -4430,7 +4443,7 @@
           <td>128,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>42</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%86%8C%EB%B0%A9%EB%8B%B4%EC%9A%94" target="_blank" rel="noreferrer">소방담요</a></td>
@@ -4439,7 +4452,7 @@
           <td>126,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>43</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=I%EB%9D%BC%ED%97%ACI" target="_blank" rel="noreferrer">I라헬I</a></td>
@@ -4448,7 +4461,7 @@
           <td>124,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>44</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%9D%91%EB%91%90%EB%B6%80" target="_blank" rel="noreferrer">흑두부</a></td>
@@ -4457,7 +4470,7 @@
           <td>122,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>45</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%86%A0%EB%AF%B8%EC%98%A4%EC%B9%B4%EC%83%81" target="_blank" rel="noreferrer">토미오카상</a></td>
@@ -4466,16 +4479,16 @@
           <td>120,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>46</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%81%EC%82%B0%EC%9D%98%EC%A1%B0%EC%9E%90%EB%A3%A1" target="_blank" rel="noreferrer">상산의조자룡</a></td>
           <td>다크나이트</td>
-          <td>3조 1638억 2823만</td>
+          <td>3조 2567억 9335만</td>
           <td>118,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>47</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%8F%89%ED%8F%89%EC%9D%B4%ED%98%95" target="_blank" rel="noreferrer">평평이형</a></td>
@@ -4484,7 +4497,7 @@
           <td>116,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>48</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%AF%80%EA%B3%A0" target="_blank" rel="noreferrer">므고</a></td>
@@ -4493,7 +4506,7 @@
           <td>114,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>49</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%94%84%EC%8B%AC" target="_blank" rel="noreferrer">샾프심</a></td>
@@ -4502,7 +4515,7 @@
           <td>112,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>50</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%AD%8C%ED%8C%8C%ED%8C%8C" target="_blank" rel="noreferrer">쭌파파</a></td>
@@ -4511,7 +4524,7 @@
           <td>110,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>51</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%B2%9C%EC%B9%A0" target="_blank" rel="noreferrer">천칠</a></td>
@@ -4520,7 +4533,7 @@
           <td>109,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>52</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%86%A0%EB%8B%88%EC%9B%8C%ED%84%B0" target="_blank" rel="noreferrer">토니워터</a></td>
@@ -4529,7 +4542,7 @@
           <td>108,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>53</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%EC%8A%A4%EB%B0%A4" target="_blank" rel="noreferrer">비스밤</a></td>
@@ -4538,7 +4551,7 @@
           <td>107,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>54</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%95%84%EB%A5%B4%EC%A0%A0%ED%83%80" target="_blank" rel="noreferrer">아르젠타</a></td>
@@ -4547,7 +4560,7 @@
           <td>106,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>55</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%B0%90%EC%8D%BD%EC%9E%89" target="_blank" rel="noreferrer">찐썽잉</a></td>
@@ -4556,7 +4569,7 @@
           <td>105,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>56</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B0%95%EC%B2%A0%EA%B3%A0%ED%8A%A0%EB%8D%B0" target="_blank" rel="noreferrer">강철고튠데</a></td>
@@ -4565,7 +4578,7 @@
           <td>104,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>57</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%AF%BC%EB%93%A4%EB%A0%88%EA%BD%83" target="_blank" rel="noreferrer">민들레꽃</a></td>
@@ -4574,7 +4587,7 @@
           <td>103,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>58</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%8E%91%ED%92%80" target="_blank" rel="noreferrer">펑풀</a></td>
@@ -4583,7 +4596,7 @@
           <td>102,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>59</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B1%B4%EC%95%BC%EC%9B%85" target="_blank" rel="noreferrer">건야웅</a></td>
@@ -4592,187 +4605,187 @@
           <td>101,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>60</td>
+          <td>피난민</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%ED%8D%BD%ED%8D%BD" target="_blank" rel="noreferrer">김퍽퍽</a></td>
+          <td>다크나이트</td>
+          <td>2조 4319억 7939만</td>
+          <td>100,000점</td>
+        </tr>
+        
+        <tr data-guild="부계둘">
+          <td>61</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%99%94%EC%82%B4%EB%8C%80" target="_blank" rel="noreferrer">화살대</a></td>
           <td>보우마스터</td>
           <td>2조 4258억 6186만</td>
-          <td>100,000점</td>
+          <td>99,000점</td>
         </tr>
         
-        <tr>
-          <td>61</td>
+        <tr data-guild="부계둘">
+          <td>62</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%9F%B0%EB%8B%9D%EB%9E%98%EB%B9%97" target="_blank" rel="noreferrer">런닝래빗</a></td>
           <td>아크메이지(썬,콜)</td>
           <td>2조 4177억 8071만</td>
-          <td>99,000점</td>
+          <td>98,000점</td>
         </tr>
         
-        <tr>
-          <td>62</td>
+        <tr data-guild="이고이스트">
+          <td>63</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B3%B5%EC%82%AC%EA%B3%BC%EC%9E%A5" target="_blank" rel="noreferrer">공사과장</a></td>
           <td>비숍</td>
           <td>2조 4059억 2866만</td>
-          <td>98,000점</td>
+          <td>97,000점</td>
         </tr>
         
-        <tr>
-          <td>63</td>
+        <tr data-guild="빅딜">
+          <td>64</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%BE%B8%EB%A5%B4%EA%BE%B8%EB%A5%B4" target="_blank" rel="noreferrer">꾸르꾸르</a></td>
           <td>섀도어</td>
           <td>2조 3765억 8123만</td>
-          <td>97,000점</td>
+          <td>96,000점</td>
         </tr>
         
-        <tr>
-          <td>64</td>
+        <tr data-guild="피난민">
+          <td>65</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%A3%BC%EB%B0%A9%ED%99%94" target="_blank" rel="noreferrer">주방화</a></td>
           <td>히어로</td>
           <td>2조 3354억 9574만</td>
-          <td>96,000점</td>
+          <td>95,000점</td>
         </tr>
         
-        <tr>
-          <td>65</td>
+        <tr data-guild="피난민">
+          <td>66</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%98%A4%EC%82%B0" target="_blank" rel="noreferrer">샾오산</a></td>
           <td>섀도어</td>
           <td>2조 3342억 6132만</td>
-          <td>95,000점</td>
+          <td>94,000점</td>
         </tr>
         
-        <tr>
-          <td>66</td>
+        <tr data-guild="이고이스트">
+          <td>67</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%82%AC%EA%B3%BC%EB%8B%B7" target="_blank" rel="noreferrer">사과닷</a></td>
           <td>신궁</td>
           <td>2조 3266억 8637만</td>
-          <td>94,000점</td>
+          <td>93,000점</td>
         </tr>
         
-        <tr>
-          <td>67</td>
+        <tr data-guild="피난민">
+          <td>68</td>
+          <td>피난민</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%98%A4%ED%94%84" target="_blank" rel="noreferrer">샾오프</a></td>
+          <td>아크메이지(썬,콜)</td>
+          <td>2조 2853억 136만</td>
+          <td>92,000점</td>
+        </tr>
+        
+        <tr data-guild="빅딜">
+          <td>69</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%8D%95%EB%A5%B4%EC%BD%94%ED%94%84" target="_blank" rel="noreferrer">덕르코프</a></td>
           <td>섀도어</td>
           <td>2조 2480억 2119만</td>
-          <td>93,000점</td>
+          <td>91,000점</td>
         </tr>
         
-        <tr>
-          <td>68</td>
-          <td>피난민</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%ED%8D%BD%ED%8D%BD" target="_blank" rel="noreferrer">김퍽퍽</a></td>
-          <td>다크나이트</td>
-          <td>2조 1388억 1231만</td>
-          <td>92,000점</td>
-        </tr>
-        
-        <tr>
-          <td>69</td>
+        <tr data-guild="빅딜">
+          <td>70</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B2%A8%EC%9A%B8%EB%B0%94%EB%8B%A4" target="_blank" rel="noreferrer">겨울바다</a></td>
           <td>아크메이지(썬,콜)</td>
           <td>2조 1038억 6635만</td>
-          <td>91,000점</td>
+          <td>90,000점</td>
         </tr>
         
-        <tr>
-          <td>70</td>
+        <tr data-guild="빅딜">
+          <td>71</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%97%AC%EB%B8%A8" target="_blank" rel="noreferrer">여븨</a></td>
           <td>섀도어</td>
           <td>2조 737억 3833만</td>
-          <td>90,000점</td>
+          <td>89,000점</td>
         </tr>
         
-        <tr>
-          <td>71</td>
+        <tr data-guild="이고이스트">
+          <td>72</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%BD%80%EB%BE%B0%ED%95%B4%EB%B4%84" target="_blank" rel="noreferrer">뽀뾰해봄</a></td>
           <td>아크메이지(썬,콜)</td>
           <td>2조 690억 7726만</td>
-          <td>89,000점</td>
+          <td>88,000점</td>
         </tr>
         
-        <tr>
-          <td>72</td>
+        <tr data-guild="부계둘">
+          <td>73</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%94%BC%EC%96%B4%EB%82%9C" target="_blank" rel="noreferrer">피어난</a></td>
           <td>히어로</td>
           <td>2조 305억 8537만</td>
-          <td>88,000점</td>
+          <td>87,000점</td>
         </tr>
         
-        <tr>
-          <td>73</td>
+        <tr data-guild="빅딜">
+          <td>74</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%A0%9C%EC%8A%A4%ED%94%84%EB%A6%AC" target="_blank" rel="noreferrer">제스프리</a></td>
           <td>신궁</td>
           <td>1조 9311억 8518만</td>
-          <td>87,000점</td>
+          <td>86,000점</td>
         </tr>
         
-        <tr>
-          <td>74</td>
+        <tr data-guild="빅딜">
+          <td>75</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B6%88%EB%B3%B4%EB%8F%85%EC%A7%80" target="_blank" rel="noreferrer">불보독지</a></td>
           <td>아크메이지(불,독)</td>
           <td>1조 9171억 4797만</td>
-          <td>86,000점</td>
+          <td>85,000점</td>
         </tr>
         
-        <tr>
-          <td>75</td>
+        <tr data-guild="빅딜">
+          <td>76</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%8D%B0%EB%93%9C%EC%BA%A3" target="_blank" rel="noreferrer">데드캣</a></td>
           <td>신궁</td>
           <td>1조 8260억 5446만</td>
-          <td>85,000점</td>
+          <td>84,000점</td>
         </tr>
         
-        <tr>
-          <td>76</td>
+        <tr data-guild="빅딜">
+          <td>77</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%97%AC%EB%88%88" target="_blank" rel="noreferrer">여눈</a></td>
           <td>섀도어</td>
           <td>1조 7856억 5439만</td>
-          <td>84,000점</td>
+          <td>83,000점</td>
         </tr>
         
-        <tr>
-          <td>77</td>
+        <tr data-guild="밤과다람쥐">
+          <td>78</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B3%B4%EA%BF%8D" target="_blank" rel="noreferrer">보꿍</a></td>
           <td>섀도어</td>
           <td>1조 7252억 2671만</td>
-          <td>83,000점</td>
+          <td>82,000점</td>
         </tr>
         
-        <tr>
-          <td>78</td>
+        <tr data-guild="빅딜">
+          <td>79</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%94%8C%EB%A1%9C%EC%9A%B000" target="_blank" rel="noreferrer">플로우00</a></td>
           <td>보우마스터</td>
           <td>1조 6923억 5834만</td>
-          <td>82,000점</td>
-        </tr>
-        
-        <tr>
-          <td>79</td>
-          <td>피난민</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%98%A4%ED%94%84" target="_blank" rel="noreferrer">샾오프</a></td>
-          <td>아크메이지(썬,콜)</td>
-          <td>1조 6634억 6181만</td>
           <td>81,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>80</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EA%B0%90%EC%9E%90" target="_blank" rel="noreferrer">샾감자</a></td>
@@ -4781,7 +4794,7 @@
           <td>80,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>81</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%AC%B4%EC%A7%84%EB%AF%B8" target="_blank" rel="noreferrer">무진미</a></td>
@@ -4790,7 +4803,7 @@
           <td>79,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>82</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=Eddy0825" target="_blank" rel="noreferrer">Eddy0825</a></td>
@@ -4799,7 +4812,7 @@
           <td>78,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>83</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%A4%EC%8A%A4%EC%B0%8C%EC%97%90" target="_blank" rel="noreferrer">샤스찌에</a></td>
@@ -4808,7 +4821,7 @@
           <td>77,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>84</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=oEMPo" target="_blank" rel="noreferrer">oEMPo</a></td>
@@ -4817,7 +4830,7 @@
           <td>76,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>85</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%9E%88%ED%9E%88%EB%A7%98" target="_blank" rel="noreferrer">히히맘</a></td>
@@ -4826,7 +4839,7 @@
           <td>75,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>86</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%86%8C%EB%85%84%EA%B0%80%EC%9E%A5%EC%9B%90%EB%94%9C" target="_blank" rel="noreferrer">소년가장원딜</a></td>
@@ -4835,7 +4848,7 @@
           <td>74,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>87</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%86%A0%EC%9D%B4%EA%B0%90%EC%9E%90" target="_blank" rel="noreferrer">토이감자</a></td>
@@ -4844,16 +4857,16 @@
           <td>73,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>88</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%9D%EC%B9%98%EC%A0%84%EB%AC%B8" target="_blank" rel="noreferrer">망치전문</a></td>
           <td>신궁</td>
-          <td>1조 3063억 1657만</td>
+          <td>1조 3204억 8722만</td>
           <td>72,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>89</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%B9%98%ED%82%A8v" target="_blank" rel="noreferrer">치킨v</a></td>
@@ -4862,7 +4875,7 @@
           <td>71,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="빅딜">
           <td>90</td>
           <td>빅딜</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%9A%A4%EC%A7%80" target="_blank" rel="noreferrer">욤지</a></td>
@@ -4871,7 +4884,7 @@
           <td>70,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>91</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B3%B4%EB%8F%99%ED%95%91" target="_blank" rel="noreferrer">보동핑</a></td>
@@ -4880,7 +4893,7 @@
           <td>69,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>92</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%8F%8C%EA%B2%A9%EB%8C%80%EC%9B%90" target="_blank" rel="noreferrer">돌격대원</a></td>
@@ -4889,7 +4902,7 @@
           <td>68,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>93</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%8B%B8%ED%86%A0%EB%A3%A8" target="_blank" rel="noreferrer">싸토루</a></td>
@@ -4898,7 +4911,7 @@
           <td>67,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>94</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%8B%89%EC%BB%A4" target="_blank" rel="noreferrer">닉커</a></td>
@@ -4907,115 +4920,115 @@
           <td>66,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>95</td>
+          <td>이고이스트</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%EC%88%8D%EB%8D%A9%EA%B5%AC" target="_blank" rel="noreferrer">비숍덩구</a></td>
+          <td>아크메이지(썬,콜)</td>
+          <td>1조 985억 8507만</td>
+          <td>65,000점</td>
+        </tr>
+        
+        <tr data-guild="이고이스트">
+          <td>96</td>
+          <td>이고이스트</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%ED%98%B8%EC%B8%A0" target="_blank" rel="noreferrer">호츠</a></td>
+          <td>나이트로드</td>
+          <td>1조 967억 8189만</td>
+          <td>64,000점</td>
+        </tr>
+        
+        <tr data-guild="피난민">
+          <td>97</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%96%87%EC%82%B4" target="_blank" rel="noreferrer">샾햇살</a></td>
           <td>아크메이지(썬,콜)</td>
           <td>1조 833억 4380만</td>
-          <td>65,000점</td>
+          <td>63,000점</td>
         </tr>
         
-        <tr>
-          <td>96</td>
+        <tr data-guild="부계둘">
+          <td>98</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%A7%80%EB%8B%88%EC%A2%8B%EC%95%84%EC%9A%94" target="_blank" rel="noreferrer">지니좋아요</a></td>
           <td>섀도어</td>
           <td>1조 666억 9786만</td>
-          <td>64,000점</td>
+          <td>62,000점</td>
         </tr>
         
-        <tr>
-          <td>97</td>
-          <td>이고이스트</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%ED%98%B8%EC%B8%A0" target="_blank" rel="noreferrer">호츠</a></td>
-          <td>나이트로드</td>
-          <td>1조 389억 721만</td>
-          <td>63,000점</td>
-        </tr>
-        
-        <tr>
-          <td>98</td>
+        <tr data-guild="부계둘">
+          <td>99</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=2026%EB%85%841%EC%9B%9430%EC%9D%BC" target="_blank" rel="noreferrer">2026년1월30일</a></td>
           <td>아크메이지(썬,콜)</td>
           <td>1조 129억 4198만</td>
-          <td>62,000점</td>
+          <td>61,000점</td>
         </tr>
         
-        <tr>
-          <td>99</td>
+        <tr data-guild="부계둘">
+          <td>100</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%B0%90%EA%B3%BD%EC%A0%95%EA%B7%BC" target="_blank" rel="noreferrer">찐곽정근</a></td>
           <td>다크나이트</td>
           <td>1조 24억 1640만</td>
-          <td>61,000점</td>
+          <td>60,300점</td>
         </tr>
         
-        <tr>
-          <td>100</td>
+        <tr data-guild="밤과다람쥐">
+          <td>101</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A0%88%EC%A0%9C%EB%82%B4%EA%BA%BC%EC%95%BC" target="_blank" rel="noreferrer">레제내꺼야</a></td>
           <td>아크메이지(썬,콜)</td>
           <td>9811억 2977만</td>
-          <td>60,300점</td>
+          <td>59,600점</td>
         </tr>
         
-        <tr>
-          <td>101</td>
+        <tr data-guild="이고이스트">
+          <td>102</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%9A%8C%EC%9B%90%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">회원카드</a></td>
           <td>신궁</td>
           <td>9586억 327만</td>
-          <td>59,600점</td>
+          <td>58,900점</td>
         </tr>
         
-        <tr>
-          <td>102</td>
+        <tr data-guild="피난민">
+          <td>103</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%9D%B4%EC%A7%80%EC%95%84%EC%A7%80%EC%BD%A9" target="_blank" rel="noreferrer">이지아지콩</a></td>
           <td>신궁</td>
           <td>9566억 7217만</td>
-          <td>58,900점</td>
+          <td>58,200점</td>
         </tr>
         
-        <tr>
-          <td>103</td>
+        <tr data-guild="이고이스트">
+          <td>104</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%95%91%EC%99%80%EC%8A%A4" target="_blank" rel="noreferrer">핑와스</a></td>
           <td>섀도어</td>
           <td>9422억 3151만</td>
-          <td>58,200점</td>
+          <td>57,500점</td>
         </tr>
         
-        <tr>
-          <td>104</td>
+        <tr data-guild="이고이스트">
+          <td>105</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%8B%A8%ED%92%8Da" target="_blank" rel="noreferrer">단풍a</a></td>
           <td>아크메이지(썬,콜)</td>
           <td>9328억 34만</td>
-          <td>57,500점</td>
+          <td>56,800점</td>
         </tr>
         
-        <tr>
-          <td>105</td>
+        <tr data-guild="이고이스트">
+          <td>106</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%AC%B8%EB%9A%B1%EC%8B%9D" target="_blank" rel="noreferrer">문뚱식</a></td>
           <td>섀도어</td>
           <td>9221억 2396만</td>
-          <td>56,800점</td>
-        </tr>
-        
-        <tr>
-          <td>106</td>
-          <td>이고이스트</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%EC%88%8D%EB%8D%A9%EA%B5%AC" target="_blank" rel="noreferrer">비숍덩구</a></td>
-          <td>아크메이지(썬,콜)</td>
-          <td>9200억 3546만</td>
           <td>56,100점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>107</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%99%8D%EC%B6%98%EC%82%BC" target="_blank" rel="noreferrer">홍춘삼</a></td>
@@ -5024,7 +5037,7 @@
           <td>55,400점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>108</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%AC%A8%EB%B0%8D" target="_blank" rel="noreferrer">묨밍</a></td>
@@ -5033,7 +5046,7 @@
           <td>54,700점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>109</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%82%A4%EC%A3%A0" target="_blank" rel="noreferrer">키죠</a></td>
@@ -5042,7 +5055,7 @@
           <td>54,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>110</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=S2%EC%A7%80%EC%A1%B4" target="_blank" rel="noreferrer">S2지존</a></td>
@@ -5051,70 +5064,70 @@
           <td>53,300점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>111</td>
+          <td>이고이스트</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EC%98%A4%EB%B3%B4%EA%B8%B0%EB%8B%A4" target="_blank" rel="noreferrer">오보기다</a></td>
+          <td>섀도어</td>
+          <td>7694억 6713만</td>
+          <td>52,600점</td>
+        </tr>
+        
+        <tr data-guild="밤과다람쥐">
+          <td>112</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%95%98%EC%96%80%EB%AC%BC%EA%B0%9C" target="_blank" rel="noreferrer">하얀물개</a></td>
           <td>섀도어</td>
           <td>7680억 3260만</td>
-          <td>52,600점</td>
+          <td>51,900점</td>
         </tr>
         
-        <tr>
-          <td>112</td>
+        <tr data-guild="이고이스트">
+          <td>113</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%96%BC%EB%A7%81" target="_blank" rel="noreferrer">떼링</a></td>
           <td>아크메이지(썬,콜)</td>
           <td>7499억 5629만</td>
-          <td>51,900점</td>
-        </tr>
-        
-        <tr>
-          <td>113</td>
-          <td>이고이스트</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EC%98%A4%EB%B3%B4%EA%B8%B0%EB%8B%A4" target="_blank" rel="noreferrer">오보기다</a></td>
-          <td>섀도어</td>
-          <td>6741억 7723만</td>
           <td>51,200점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>114</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A1%9C%EC%9A%B0%EB%A8%B8" target="_blank" rel="noreferrer">로우머</a></td>
           <td>아크메이지(썬,콜)</td>
-          <td>6583억 4222만</td>
+          <td>6645억 6088만</td>
           <td>50,500점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>115</td>
+          <td>이고이스트</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=RIMS" target="_blank" rel="noreferrer">RIMS</a></td>
+          <td>섀도어</td>
+          <td>6625억 2854만</td>
+          <td>49,800점</td>
+        </tr>
+        
+        <tr data-guild="밤과다람쥐">
+          <td>116</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%B4%88%EC%BD%94%EB%83%A5%EB%B6%80%ED%95%98" target="_blank" rel="noreferrer">초코냥부하</a></td>
           <td>신궁</td>
           <td>6544억 5291만</td>
-          <td>49,800점</td>
-        </tr>
-        
-        <tr>
-          <td>116</td>
-          <td>이고이스트</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=RIMS" target="_blank" rel="noreferrer">RIMS</a></td>
-          <td>섀도어</td>
-          <td>6512억 5748만</td>
           <td>49,100점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>117</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%96%B5%ED%97%A4" target="_blank" rel="noreferrer">떵헤</a></td>
           <td>아크메이지(썬,콜)</td>
-          <td>6144억 6753만</td>
+          <td>6293억 7369만</td>
           <td>48,400점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>118</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=Targa" target="_blank" rel="noreferrer">Targa</a></td>
@@ -5123,16 +5136,16 @@
           <td>47,700점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>119</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%98%A4%EB%A7%90%EB%9E%91" target="_blank" rel="noreferrer">오말랑</a></td>
           <td>히어로</td>
-          <td>5601억 9209만</td>
+          <td>5652억 1941만</td>
           <td>47,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>120</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%9E%A5%EB%B9%B5%EA%B5%AC" target="_blank" rel="noreferrer">장빵구</a></td>
@@ -5141,7 +5154,7 @@
           <td>46,300점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>121</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%95%A0%EB%91%98%EC%9D%B4%EC%97%90%EC%9A%94" target="_blank" rel="noreferrer">애둘이에요</a></td>
@@ -5150,7 +5163,7 @@
           <td>45,600점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>122</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B0%B1%EC%88%98%EB%8F%BC%EC%A7%80%EB%A1%9C%EC%84%B1" target="_blank" rel="noreferrer">백수돼지로성</a></td>
@@ -5159,7 +5172,7 @@
           <td>44,900점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>123</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A0%88%ED%94%BC%EC%8A%A4%EB%82%982" target="_blank" rel="noreferrer">레피스나2</a></td>
@@ -5168,7 +5181,7 @@
           <td>44,200점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>124</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%99%98%EB%B6%88%EB%83%A0%EB%83%A0" target="_blank" rel="noreferrer">환불냠냠</a></td>
@@ -5177,7 +5190,7 @@
           <td>43,500점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>125</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%94%B1%EC%A7%80%EB%83%A5" target="_blank" rel="noreferrer">딱지냥</a></td>
@@ -5186,7 +5199,7 @@
           <td>42,800점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>126</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%98%BC%EC%9E%90%EA%B0%80%EC%B5%9C%EA%B3%A0" target="_blank" rel="noreferrer">혼자가최고</a></td>
@@ -5195,7 +5208,7 @@
           <td>42,100점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>127</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%9D%EC%9A%A9%EC%9E%89" target="_blank" rel="noreferrer">깝용잉</a></td>
@@ -5204,7 +5217,7 @@
           <td>41,400점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>128</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%9D%EB%B3%B5%EB%B3%B5" target="_blank" rel="noreferrer">망복복</a></td>
@@ -5213,7 +5226,7 @@
           <td>40,700점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>129</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%A7%B1%EC%B0%BD%ED%9B%88" target="_blank" rel="noreferrer">짱창훈</a></td>
@@ -5222,7 +5235,7 @@
           <td>40,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>130</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%AA%A8%EB%AA%AC%EC%8C%8D" target="_blank" rel="noreferrer">모몬쌍</a></td>
@@ -5231,7 +5244,7 @@
           <td>39,300점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>131</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%A7%81%EB%B6%88%EC%B9%B4%EB%93%9C" target="_blank" rel="noreferrer">직불카드</a></td>
@@ -5240,34 +5253,34 @@
           <td>38,600점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>132</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%95%A4%ED%94%8C%EB%9E%AB" target="_blank" rel="noreferrer">샾앤플랫</a></td>
           <td>섀도어</td>
-          <td>2316억 2601만</td>
+          <td>2467억 4454만</td>
           <td>37,900점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>133</td>
+          <td>피난민</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EA%B8%A9%EC%84%B7" target="_blank" rel="noreferrer">긩섷</a></td>
+          <td>섀도어</td>
+          <td>1902억 6187만</td>
+          <td>37,200점</td>
+        </tr>
+        
+        <tr data-guild="밤과다람쥐">
+          <td>134</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%9A%B0%EC%A3%BC%EA%B0%95%EC%95%84%EC%A7%80" target="_blank" rel="noreferrer">우주강아지</a></td>
           <td>섀도어</td>
           <td>1874억 3020만</td>
-          <td>37,200점</td>
-        </tr>
-        
-        <tr>
-          <td>134</td>
-          <td>피난민</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EA%B8%A9%EC%84%B7" target="_blank" rel="noreferrer">긩섷</a></td>
-          <td>섀도어</td>
-          <td>1864억 9941만</td>
           <td>36,500점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>135</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EA%B0%88%EB%B0%B0" target="_blank" rel="noreferrer">샾갈배</a></td>
@@ -5276,7 +5289,7 @@
           <td>35,800점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>136</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%99%94%EA%B0%80%EB%82%9C%EA%BD%9D%EC%84%AD%EC%9D%B4" target="_blank" rel="noreferrer">화가난꽝섭이</a></td>
@@ -5285,16 +5298,16 @@
           <td>35,100점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>137</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%B5%9C%ED%9B%88%EC%84%9D%EA%B0%9C%EB%A9%8B%EC%A0%B8" target="_blank" rel="noreferrer">최훈석개멋져</a></td>
           <td>섀도어</td>
-          <td>1544억 6027만</td>
+          <td>1595억 1874만</td>
           <td>34,400점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="이고이스트">
           <td>138</td>
           <td>이고이스트</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%B1%84%EC%B1%84%EC%9E%90%EB%A7%A4" target="_blank" rel="noreferrer">채채자매</a></td>
@@ -5303,7 +5316,7 @@
           <td>33,700점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>139</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%82%AC%EB%8B%88%EC%84%9C%EB%A6%AC%EB%8B%B9" target="_blank" rel="noreferrer">샾사니서리당</a></td>
@@ -5312,7 +5325,7 @@
           <td>33,000점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="피난민">
           <td>140</td>
           <td>피난민</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%BB%A4%ED%94%BC%EB%91%A5" target="_blank" rel="noreferrer">커피둥</a></td>
@@ -5321,7 +5334,7 @@
           <td>32,300점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>141</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%9D%B4%EC%A7%84%EB%8B%88" target="_blank" rel="noreferrer">이진니</a></td>
@@ -5330,7 +5343,7 @@
           <td>31,600점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>142</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B4%89%EC%98%A4%EB%A6%AC" target="_blank" rel="noreferrer">봉오리</a></td>
@@ -5339,7 +5352,7 @@
           <td>30,900점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="밤과다람쥐">
           <td>143</td>
           <td>밤과다람쥐</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%A7%8C%EB%85%84%EC%84%A4%EB%94%B8%EA%B8%B0" target="_blank" rel="noreferrer">만년설딸기</a></td>
@@ -5348,7 +5361,7 @@
           <td>30,200점</td>
         </tr>
         
-        <tr>
+        <tr data-guild="부계둘">
           <td>144</td>
           <td>부계둘</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B5%AC%EB%A6%AC%EA%B5%AC%EB%A6%AC%EB%BD%95%EB%A6%AC" target="_blank" rel="noreferrer">구리구리뽕리</a></td>
@@ -5365,6 +5378,11 @@
     
 
   <script>
+    const openModal = (id) => {
+      const backdrop = document.getElementById('modal-' + id);
+      if (backdrop) backdrop.classList.add('open');
+    };
+
     const enableDragScroll = (selector) => {
       document.querySelectorAll(selector).forEach((container) => {
         let isPointerDown = false;
@@ -5434,14 +5452,12 @@
           if (event && event.pointerId !== undefined) {
             container.releasePointerCapture?.(event.pointerId);
           }
-          // 드래그 없이 탭/클릭이면 카드 모달 직접 열기
+          // 드래그 없이 탭/클릭이면 modal trigger 직접 열기
           if (!wasDrag && event && event.type === 'pointerup') {
             const releaseTarget = document.elementFromPoint(event.clientX, event.clientY);
-            const card = releaseTarget?.closest('.guild-card[data-modal]');
-            if (card) {
-              const id = card.dataset.modal;
-              const backdrop = document.getElementById('modal-' + id);
-              if (backdrop) backdrop.classList.add('open');
+            const trigger = releaseTarget?.closest('.guild-card[data-modal], .mini-link[data-modal]');
+            if (trigger) {
+              openModal(trigger.dataset.modal);
             }
           }
         };
@@ -5462,9 +5478,7 @@
       const scrollWrap = card.closest('.compare-scroll-wrap, .detail-compare-wrap');
       // scroll wrap 내부 카드는 pointerup 핸들러에서 직접 처리하므로 여기서 skip
       if (scrollWrap) return;
-      const id = card.dataset.modal;
-      const backdrop = document.getElementById('modal-' + id);
-      if (backdrop) backdrop.classList.add('open');
+      openModal(card.dataset.modal);
     });
 
     // modal close — backdrop click or close button
@@ -5484,27 +5498,40 @@
     document.querySelectorAll('.hero-nav a[data-modal], .section-tabs a[data-modal]').forEach((a) => {
       a.addEventListener('click', (e) => {
         e.preventDefault();
-        const backdrop = document.getElementById('modal-' + a.dataset.modal);
-        if (backdrop) backdrop.classList.add('open');
+        openModal(a.dataset.modal);
       });
     });
     // detail compare "상세 섹션으로" links
     document.querySelectorAll('.mini-link[data-modal]').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const backdrop = document.getElementById('modal-' + btn.dataset.modal);
-        if (backdrop) backdrop.classList.add('open');
+        openModal(btn.dataset.modal);
       });
     });
+
+    const applyTableFilters = (table) => {
+      if (!table?.id) return;
+      const keyword = (document.querySelector(`.member-search[data-target="${table.id}"]`)?.value || '').trim().toLowerCase();
+      const guild = document.querySelector(`.guild-filter[data-target="${table.id}"]`)?.value || '';
+      table.querySelectorAll('tbody tr').forEach((row) => {
+        const text = row.innerText.toLowerCase();
+        const matchesKeyword = !keyword || text.includes(keyword);
+        const matchesGuild = !guild || row.dataset.guild === guild;
+        row.style.display = matchesKeyword && matchesGuild ? '' : 'none';
+      });
+    };
 
     document.querySelectorAll('.member-search').forEach((input) => {
       input.addEventListener('input', () => {
         const table = document.getElementById(input.dataset.target);
-        const keyword = input.value.trim().toLowerCase();
-        table.querySelectorAll('tbody tr').forEach((row) => {
-          const text = row.innerText.toLowerCase();
-          row.style.display = text.includes(keyword) ? '' : 'none';
-        });
+        applyTableFilters(table);
+      });
+    });
+
+    document.querySelectorAll('.guild-filter').forEach((select) => {
+      select.addEventListener('change', () => {
+        const table = document.getElementById(select.dataset.target);
+        applyTableFilters(table);
       });
     });
 
