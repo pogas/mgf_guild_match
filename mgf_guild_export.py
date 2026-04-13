@@ -1149,7 +1149,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
     return f"""
     <div class="modal-backdrop" id="modal-guild-war-simulation" role="dialog" aria-modal="true" aria-label="대항전 예상 시뮬레이션">
       <div class="modal-box simulation-modal-box">
-        <button class="modal-close" aria-label="닫기">×</button>
+        <button type="button" class="modal-close" aria-label="닫기">×</button>
         <section class="simulation-section">
           <div class="simulation-overview">
             <div>
@@ -1208,27 +1208,48 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
         """
         for row in simulation.get("job_coefficient_cards", [])
     )
+    filtered_job_coefficient_cards = [
+        row
+        for row in simulation.get("job_coefficient_cards", [])
+        if str(row.get("label", "")) != "불독"
+    ]
+    coefficient_count = len(filtered_job_coefficient_cards)
+    filtered_coefficient_cards = "".join(
+        f"""
+        <article class="score-rule-card">
+          <span>{escape(str(row['label']))}</span>
+          <strong>{escape(str(row['range']))}</strong>
+        </article>
+        """
+        for row in filtered_job_coefficient_cards
+    )
     guild_cards = "".join(
         f"""
         <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
-          <div class="simulation-rank-top">
-            <span class="simulation-rank-badge">#{int(guild_row['simulation_rank'])}</span>
-            <strong>{escape(str(guild_row['guild_name']))}</strong>
+          <button type="button" class="simulation-rank-toggle" aria-expanded="false">
+            <div class="simulation-rank-top">
+              <span class="simulation-rank-badge">#{int(guild_row['simulation_rank'])}</span>
+              <strong>{escape(str(guild_row['guild_name']))}</strong>
+            </div>
+            <div class="simulation-rank-score">{escape(str(guild_row['total_score_text']))}</div>
+            <div class="simulation-rank-summary">{int(guild_row['member_count'])}명 · 최고 개인 순위 {int(guild_row['top_finisher_rank'] or 0)}위</div>
+            <span class="simulation-section-toggle-label">상세 보기</span>
+          </button>
+          <div class="simulation-rank-details" hidden>
+            <dl class="simulation-rank-meta">
+              <div><dt>참여 인원</dt><dd>{int(guild_row['member_count'])}명</dd></div>
+              <div><dt>평균 직업 보정</dt><dd>×{float(guild_row['avg_job_ratio']):.3f}</dd></div>
+              <div><dt>주요 직업 구성</dt><dd>{escape(str(guild_row['job_mix_text']))}</dd></div>
+              <div><dt>최고 예상 순위</dt><dd>{int(guild_row['top_finisher_rank'] or 0)}위 · {escape(str(guild_row['top_finisher_name']))}</dd></div>
+            </dl>
           </div>
-          <div class="simulation-rank-score">{escape(str(guild_row['total_score_text']))}</div>
-          <dl class="simulation-rank-meta">
-            <div><dt>참여 인원</dt><dd>{int(guild_row['member_count'])}명</dd></div>
-            <div><dt>평균 직업 보정</dt><dd>×{float(guild_row['avg_job_ratio']):.3f}</dd></div>
-            <div><dt>주요 직업 구성</dt><dd>{escape(str(guild_row['job_mix_text']))}</dd></div>
-            <div><dt>최고 예상 순위</dt><dd>{int(guild_row['top_finisher_rank'] or 0)}위 · {escape(str(guild_row['top_finisher_name']))}</dd></div>
-          </dl>
         </article>
         """
         for guild_row in simulation["guild_rankings"]
     )
     ranked_rows = "".join(
         f"""
-        <tr data-guild="{escape(str(member['guild_name']))}">
+        <tr data-guild="{escape(str(member['guild_name']))}" data-rank="{int(member['overall_rank'])}" data-power="{int(member['combat_power_value'])}" data-level="{int(member.get('level', 0) or 0)}">
           <td>{int(member['overall_rank'])}</td>
           <td>{escape(str(member['guild_name']))}</td>
           <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
@@ -1240,10 +1261,42 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
         """
         for member in simulation["ranked_members"]
     )
+    ranked_cards = "".join(
+        f"""
+        <article class="simulation-member-card" data-guild="{escape(str(member['guild_name']))}">
+          <button type="button" class="simulation-member-toggle" aria-expanded="false">
+            <div class="simulation-member-card-top">
+              <div class="simulation-member-card-identity">
+                <span class="simulation-member-rank">#{int(member['overall_rank'])}</span>
+                <div class="simulation-member-primary">
+                  <strong>{escape(str(member['nickname']))}</strong>
+                  <p>{escape(str(member['guild_name']))} · <strong class="job-name">{escape(str(member['job_name']))}</strong></p>
+                  <span class="simulation-member-power">전투력 {escape(str(member['combat_power']))}</span>
+                </div>
+              </div>
+              <div class="simulation-member-score">
+                <span>예상 점수</span>
+                <strong>{escape(str(member['estimated_metric_text']))}</strong>
+              </div>
+            </div>
+            <span class="simulation-member-toggle-label">상세 보기</span>
+          </button>
+          <div class="simulation-member-details" hidden>
+            <dl class="simulation-member-meta">
+              <div><dt>레벨</dt><dd>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</dd></div>
+              <div><dt>길드</dt><dd>{escape(str(member['guild_name']))}</dd></div>
+              <div><dt>직업</dt><dd><strong class="job-name">{escape(str(member['job_name']))}</strong></dd></div>
+              <div><dt>프로필</dt><dd><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
+            </dl>
+          </div>
+        </article>
+        """
+        for member in simulation["ranked_members"]
+    )
     return f"""
     <div class="modal-backdrop" id="modal-guild-war-simulation" role="dialog" aria-modal="true" aria-label="수련장 예상 시뮬레이터">
       <div class="modal-box simulation-modal-box">
-        <button class="modal-close" aria-label="닫기">×</button>
+        <button type="button" class="modal-close" aria-label="닫기">×</button>
         <section class="simulation-section">
           <div class="simulation-overview">
             <div>
@@ -1253,12 +1306,20 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
             </div>
           </div>
           <section class="job-coefficient-section">
-            <div class="job-coefficient-head">
-              <p class="eyebrow">Job Coefficients</p>
-              <h3>직업 보정 계수</h3>
-              <p class="simulation-copy">직업별 보정값은 70명 실제 수련장 결과를 기준으로 역산한 상대 지표다.</p>
+            <button type="button" class="job-coefficient-toggle" aria-expanded="false">
+              <div class="job-coefficient-head">
+                <div>
+                  <p class="eyebrow">Job Coefficients</p>
+                  <h3>직업 보정 계수</h3>
+                  <p class="simulation-copy">직업별 보정값은 70명 실제 수련장 결과를 기준으로 역산한 상대 지표다.</p>
+                </div>
+                <div class="job-coefficient-summary">{coefficient_count}개 직업</div>
+              </div>
+              <span class="simulation-section-toggle-label">상세 보기</span>
+            </button>
+            <div class="job-coefficient-details" hidden>
+              <div class="job-coefficient-grid">{filtered_coefficient_cards}</div>
             </div>
-            <div class="job-coefficient-grid">{coefficient_cards}</div>
           </section>
           <div class="simulation-rank-grid">{guild_cards}</div>
           <div class="table-wrap simulation-table-wrap">
@@ -1275,15 +1336,16 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
                 <span class="hint">예상 점수 = 직업 기준값 × 레벨^0.2 × 전투력^0.2</span>
               </div>
             </div>
-            <table class="member-table simulation-table" id="training-simulation-table">
+            <div class="simulation-mobile-card-list" data-target="training-simulation-table">{ranked_cards}</div>
+            <table class="member-table simulation-table training-simulation-table" id="training-simulation-table">
               <thead>
                 <tr>
-                  <th>순위</th>
+                  <th data-sort="rank">순위</th>
                   <th>길드</th>
                   <th>닉네임</th>
                   <th>직업</th>
-                  <th>전투력</th>
-                  <th>레벨</th>
+                  <th data-sort="power">전투력</th>
+                  <th data-sort="level">레벨</th>
                   <th>예상 점수</th>
                 </tr>
               </thead>
@@ -1313,7 +1375,7 @@ def render_guild_modals(
             f"""
             <div class="modal-backdrop" id="modal-{escape(anchor)}" role="dialog" aria-modal="true" aria-label="{escape(guild_name)}">
               <div class="modal-box">
-                <button class="modal-close" aria-label="닫기">×</button>
+                <button type="button" class="modal-close" aria-label="닫기">×</button>
                 <div class="section-head">
                   <div>
                     <p class="eyebrow">{escape(str(guild_row['server_display']))} · 기준일 {escape(str(guild_row['data_date']))}</p>
@@ -1676,7 +1738,11 @@ def build_html_report(
     .simulation-copy {{ margin: 14px 0 0; color: var(--muted); line-height: 1.7; }}
     .score-rule-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }}
     .job-coefficient-section {{ margin-top: 18px; padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.56); border: 1px solid rgba(110,84,60,0.08); }}
+    .job-coefficient-toggle, .simulation-rank-toggle {{ width: 100%; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; padding: 0; }}
     .job-coefficient-head h3 {{ margin: 6px 0 0; font-size: 24px; }}
+    .job-coefficient-head {{ display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }}
+    .job-coefficient-summary {{ display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 800; white-space: nowrap; }}
+    .job-coefficient-details {{ margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(110,84,60,0.08); }}
     .job-coefficient-grid {{ display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }}
     .score-rule-card {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); }}
     .score-rule-card span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
@@ -1688,16 +1754,43 @@ def build_html_report(
     .simulation-rank-badge {{ display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 32px; padding: 0 10px; border-radius: 999px; background: rgba(212,125,90,0.15); color: var(--accent-3); font-size: 13px; font-weight: 800; }}
     .simulation-rank-card.rank-1 .simulation-rank-badge {{ background: rgba(212,125,90,0.24); }}
     .simulation-rank-score {{ margin-top: 14px; font-size: 30px; font-weight: 800; line-height: 1.1; }}
+    .simulation-rank-summary {{ margin-top: 10px; color: var(--muted); font-size: 13px; font-weight: 700; }}
     .simulation-rank-meta {{ display: grid; gap: 10px; margin: 14px 0 0; }}
     .simulation-rank-meta div {{ padding-top: 10px; border-top: 1px solid rgba(110,84,60,0.08); }}
     .simulation-rank-meta dt {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
     .simulation-rank-meta dd {{ margin: 0; font-size: 14px; font-weight: 700; }}
+    .simulation-rank-details {{ margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(110,84,60,0.08); }}
     .simulation-table-wrap {{ margin-top: 18px; }}
     .toolbar-actions {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }}
     .table-filter-label {{ display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.1); }}
     .table-filter-label span {{ color: var(--muted); font-size: 12px; font-weight: 700; white-space: nowrap; }}
     .table-filter-label select {{ border: 0; background: transparent; color: var(--text); font-size: 13px; font-weight: 700; outline: none; min-width: 110px; }}
     .simulation-table .job-name {{ font-weight: 800; }}
+    .simulation-mobile-card-list {{ display: none; gap: 12px; padding: 16px; }}
+    .simulation-member-card {{ border-radius: 20px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 12px 30px rgba(78,58,42,0.08); overflow: hidden; }}
+    .simulation-member-toggle {{ width: 100%; padding: 16px; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }}
+    .simulation-member-card-top {{ display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }}
+    .simulation-member-card-identity {{ display: flex; gap: 12px; align-items: flex-start; min-width: 0; }}
+    .simulation-member-rank {{ display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 32px; padding: 0 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 13px; font-weight: 800; flex-shrink: 0; }}
+    .simulation-member-primary {{ min-width: 0; overflow: hidden; }}
+    .simulation-member-card-identity strong {{ display: block; font-size: 16px; line-height: 1.35; }}
+    .simulation-member-card-identity p {{ margin: 4px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }}
+    .simulation-member-power {{ display: block; margin-top: 6px; color: var(--text); font-size: 12px; font-weight: 700; line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+    .simulation-member-score {{ text-align: right; flex-shrink: 0; padding: 10px 12px; border-radius: 16px; background: linear-gradient(160deg, rgba(255,246,239,0.96), rgba(248,235,224,0.92)); border: 1px solid rgba(212,125,90,0.18); box-shadow: 0 8px 18px rgba(173,101,64,0.10); }}
+    .simulation-member-score span {{ display: block; color: var(--accent-3); font-size: 11px; margin-bottom: 4px; font-weight: 700; }}
+    .simulation-member-score strong {{ display: block; color: var(--accent-3); font-size: 18px; line-height: 1.25; }}
+    .simulation-member-toggle-label {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
+    .simulation-member-toggle-label::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
+    .simulation-member-card.expanded .simulation-member-toggle-label::after {{ transform: rotate(180deg); }}
+    .simulation-section-toggle-label {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
+    .simulation-section-toggle-label::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
+    .job-coefficient-section.expanded .simulation-section-toggle-label::after, .simulation-rank-card.expanded .simulation-section-toggle-label::after {{ transform: rotate(180deg); }}
+    .simulation-member-details {{ padding: 0 16px 16px; border-top: 1px solid rgba(110,84,60,0.08); background: rgba(255,255,255,0.38); }}
+    .simulation-member-meta {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0 0; }}
+    .simulation-member-meta div {{ padding: 12px; border-radius: 14px; background: rgba(255,255,255,0.62); border: 1px solid rgba(110,84,60,0.06); min-width: 0; }}
+    .simulation-member-meta dt {{ color: var(--muted); font-size: 11px; margin-bottom: 6px; }}
+    .simulation-member-meta dd {{ margin: 0; font-size: 13px; font-weight: 700; line-height: 1.45; word-break: break-word; }}
+    .simulation-member-meta a {{ color: var(--accent-3); }}
     .simulation-table td:nth-child(1), .simulation-table th:nth-child(1) {{ white-space: nowrap; }}
     .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ font-variant-numeric: tabular-nums; }}
     .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ color: var(--accent-3); font-weight: 800; }}
@@ -1805,7 +1898,7 @@ def build_html_report(
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
     @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} .training-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} }}
   </style>
 </head>
 <body>
@@ -1953,7 +2046,7 @@ def build_html_report(
     }});
     // ESC key
     document.addEventListener('keydown', (e) => {{
-      if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach((b) => b.classList.remove('open'));
+      if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach((b) => {{ b.classList.remove('open'); }});
     }});
     // nav links — open modal instead of scroll
     document.querySelectorAll('.hero-nav a[data-modal], .section-tabs a[data-modal]').forEach((a) => {{
@@ -1980,6 +2073,12 @@ def build_html_report(
         const matchesGuild = !guild || row.dataset.guild === guild;
         row.style.display = matchesKeyword && matchesGuild ? '' : 'none';
       }});
+      document.querySelectorAll(`.simulation-mobile-card-list[data-target="${{table.id}}"] .simulation-member-card`).forEach((card) => {{
+        const text = card.innerText.toLowerCase();
+        const matchesKeyword = !keyword || text.includes(keyword);
+        const matchesGuild = !guild || card.dataset.guild === guild;
+        card.style.display = matchesKeyword && matchesGuild ? '' : 'none';
+      }});
     }};
 
     document.querySelectorAll('.member-search').forEach((input) => {{
@@ -1993,6 +2092,42 @@ def build_html_report(
       select.addEventListener('change', () => {{
         const table = document.getElementById(select.dataset.target);
         applyTableFilters(table);
+      }});
+    }});
+
+    document.querySelectorAll('.simulation-member-toggle').forEach((button) => {{
+      button.addEventListener('click', () => {{
+        const card = button.closest('.simulation-member-card');
+        const details = card?.querySelector('.simulation-member-details');
+        if (!card || !details) return;
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        details.hidden = expanded;
+        card.classList.toggle('expanded', !expanded);
+      }});
+    }});
+
+    document.querySelectorAll('.job-coefficient-toggle').forEach((button) => {{
+      button.addEventListener('click', () => {{
+        const section = button.closest('.job-coefficient-section');
+        const details = section?.querySelector('.job-coefficient-details');
+        if (!section || !details) return;
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        details.hidden = expanded;
+        section.classList.toggle('expanded', !expanded);
+      }});
+    }});
+
+    document.querySelectorAll('.simulation-rank-toggle').forEach((button) => {{
+      button.addEventListener('click', () => {{
+        const card = button.closest('.simulation-rank-card');
+        const details = card?.querySelector('.simulation-rank-details');
+        if (!card || !details) return;
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        details.hidden = expanded;
+        card.classList.toggle('expanded', !expanded);
       }});
     }});
 
@@ -2024,7 +2159,7 @@ def build_html_report(
             if (aValue > bValue) return current === 'asc' ? 1 : -1;
             return 0;
           }});
-          rows.forEach((row) => tbody.appendChild(row));
+          rows.forEach((row) => {{ tbody.appendChild(row); }});
         }});
       }});
     }});
