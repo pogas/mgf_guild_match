@@ -19,6 +19,10 @@ BASE_URL = "https://mgf.gg"
 DEFAULT_GUILD_NAME = "빅딜"
 _HERE = Path(__file__).parent
 SCORE_TABLE_PATH = _HERE / "길드 대항전 점수표.txt"
+REPORT_MODE_LABELS = {
+    "league": "대항전",
+    "training": "수련장",
+}
 
 
 def clean_text(value: str) -> str:
@@ -76,8 +80,8 @@ def safe_file_stem(name: str) -> str:
     return normalized or "guild"
 
 
-def build_league_url(guild_name: str) -> str:
-    return f"{BASE_URL}/contents/guild.php?mode=league&stx={quote(guild_name)}"
+def build_match_url(guild_name: str, report_mode: str) -> str:
+    return f"{BASE_URL}/contents/guild.php?mode={report_mode}&stx={quote(guild_name)}"
 
 
 def resolve_snapshot_date(snapshot_date: str | None) -> str:
@@ -87,9 +91,11 @@ def resolve_snapshot_date(snapshot_date: str | None) -> str:
     return datetime.now().strftime("%Y-%m-%d")
 
 
-def build_output_paths(guild_name: str, snapshot_mode: str, snapshot_date: str | None) -> tuple[Path, Path]:
+def build_output_paths(guild_name: str, report_mode: str, snapshot_mode: str, snapshot_date: str | None) -> tuple[Path, Path]:
     file_stem = safe_file_stem(guild_name)
     guild_dir = _HERE / "reports" / file_stem
+    if report_mode != "league":
+        guild_dir = guild_dir / report_mode
     if snapshot_mode == "history":
         dated_dir = guild_dir / "history" / resolve_snapshot_date(snapshot_date)
         dated_dir.mkdir(parents=True, exist_ok=True)
@@ -102,11 +108,14 @@ def build_output_paths(guild_name: str, snapshot_mode: str, snapshot_date: str |
     return output_path, html_output_path
 
 
-def cleanup_old_history(guild_name: str, retain_days: int) -> list[Path]:
+def cleanup_old_history(guild_name: str, report_mode: str, retain_days: int) -> list[Path]:
     if retain_days <= 0:
         return []
 
-    history_dir = _HERE / "reports" / safe_file_stem(guild_name) / "history"
+    history_dir = _HERE / "reports" / safe_file_stem(guild_name)
+    if report_mode != "league":
+        history_dir = history_dir / report_mode
+    history_dir = history_dir / "history"
     if not history_dir.exists():
         return []
 
@@ -420,8 +429,11 @@ def write_snapshot_json(snapshot_data: dict[str, Any], output_dir: Path) -> Path
     return snapshot_path
 
 
-def load_history_snapshots(guild_name: str) -> list[dict[str, Any]]:
-    history_dir = _HERE / "reports" / safe_file_stem(guild_name) / "history"
+def load_history_snapshots(guild_name: str, report_mode: str) -> list[dict[str, Any]]:
+    history_dir = _HERE / "reports" / safe_file_stem(guild_name)
+    if report_mode != "league":
+        history_dir = history_dir / report_mode
+    history_dir = history_dir / "history"
     if not history_dir.exists():
         return []
     snapshots: list[dict[str, Any]] = []
@@ -964,6 +976,35 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
     """
 
 
+def render_training_simulation_modal() -> str:
+    return """
+    <div class="modal-backdrop" id="modal-guild-war-simulation" role="dialog" aria-modal="true" aria-label="수련장 시뮬레이터 준비 중">
+      <div class="modal-box simulation-modal-box">
+        <button class="modal-close" aria-label="닫기">×</button>
+        <section class="simulation-section">
+          <div class="simulation-overview">
+            <div>
+              <p class="eyebrow">Training Simulator</p>
+              <h3>수련장 예상 시뮬레이터 준비 중</h3>
+              <p class="simulation-copy">수련장 점수 계산표를 아직 찾는 중이라 점수 집계 로직은 비워두고, 현재는 동일한 팝업 자리만 먼저 준비했다.</p>
+            </div>
+            <div class="score-rule-grid">
+              <article class="score-rule-card">
+                <span>상태</span>
+                <strong>점수표 대기</strong>
+              </article>
+              <article class="score-rule-card">
+                <span>예정 기능</span>
+                <strong>길드별 점수 합산</strong>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    """
+
+
 def render_guild_modals(
     guild_rows: list[dict[str, Any]],
     members_by_guild: dict[str, list[dict[str, Any]]],
@@ -1101,6 +1142,7 @@ def render_guild_modals(
 
 def build_html_report(
     guild_seed_name: str,
+    report_mode: str,
     guild_rows: list[dict[str, Any]],
     members_by_guild: dict[str, list[dict[str, Any]]],
     history_analysis: dict[str, Any],
@@ -1111,12 +1153,16 @@ def build_html_report(
         '<a data-modal="' + anchor_id(str(row["guild_name"])) + '" href="#">' + escape(str(row["guild_name"])) + "</a>"
         for row in guild_rows
     )
+    report_label = REPORT_MODE_LABELS[report_mode]
     summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
     auto_summary_html = render_auto_summary_section(history_analysis)
     compare_cards_html = render_compare_cards(guild_rows, members_by_guild, history_analysis)
-    score_table = parse_score_table(SCORE_TABLE_PATH)
-    simulation = build_guild_war_simulation(members_by_guild, score_table)
-    simulation_modal_html = render_guild_war_simulation_modal(simulation)
+    if report_mode == "league":
+        score_table = parse_score_table(SCORE_TABLE_PATH)
+        simulation = build_guild_war_simulation(members_by_guild, score_table)
+        simulation_modal_html = render_guild_war_simulation_modal(simulation)
+    else:
+        simulation_modal_html = render_training_simulation_modal()
     detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild)
     guild_modals_html = render_guild_modals(guild_rows, members_by_guild, history_analysis)
 
@@ -1125,7 +1171,7 @@ def build_html_report(
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{escape(guild_seed_name)} 대항전 리포트</title>
+  <title>{escape(guild_seed_name)} {escape(report_label)} 리포트</title>
   <style>
     :root {{
       --bg: #f7f3ec;
@@ -1440,7 +1486,7 @@ def build_html_report(
     <header class="hero">
       <div class="hero-copy">
         <p class="eyebrow">MGF League Match Report</p>
-        <h1>{escape(guild_seed_name)} 대항전 리포트</h1>
+        <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
         <p class="lead">밝고 따뜻한 톤 위에서 길드 비교와 길드원 구성을 더 읽기 쉽게 정리했다. 위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교할 수 있다.</p>
       </div>
       <nav class="hero-nav">{nav_links}</nav>
@@ -1449,7 +1495,7 @@ def build_html_report(
     </header>
 
     <nav class="section-tabs">
-      <a data-modal="guild-war-simulation" href="#">대항전 예상 시뮬레이션</a>
+      <a data-modal="guild-war-simulation" href="#">{escape(report_label)} 예상 시뮬레이터</a>
     </nav>
 
     <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
@@ -1625,6 +1671,12 @@ def parse_args() -> argparse.Namespace:
         help="대항전 최신화 기준 길드명 (기본값: 빅딜)",
     )
     parser.add_argument(
+        "--report-mode",
+        choices=["league", "training"],
+        default="league",
+        help="리포트 종류 (league=대항전, training=수련장)",
+    )
+    parser.add_argument(
         "--snapshot-mode",
         choices=["latest", "history"],
         default="latest",
@@ -1651,8 +1703,9 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     guild_name = clean_text(args.guild_name)
-    league_url = build_league_url(guild_name)
-    output_path, html_output_path = build_output_paths(guild_name, args.snapshot_mode, args.snapshot_date)
+    report_mode = args.report_mode
+    league_url = build_match_url(guild_name, report_mode)
+    output_path, html_output_path = build_output_paths(guild_name, report_mode, args.snapshot_mode, args.snapshot_date)
 
     session = requests.Session()
     session.headers.update(
@@ -1682,21 +1735,25 @@ def main() -> None:
         if args.fail_on_invalid_data:
             raise SystemExit(1)
 
-    score_table = parse_score_table(SCORE_TABLE_PATH)
-    simulation = build_guild_war_simulation(members_by_guild, score_table)
+    if report_mode == "league":
+        score_table = parse_score_table(SCORE_TABLE_PATH)
+        simulation = build_guild_war_simulation(members_by_guild, score_table)
+    else:
+        simulation = {"guild_rankings": []}
     snapshot_date = resolve_snapshot_date(args.snapshot_date) if args.snapshot_mode == "history" else datetime.now().strftime("%Y-%m-%d")
     snapshot_data = build_snapshot_data(guild_name, guild_rows, members_by_guild, simulation, snapshot_date)
-    history_snapshots = load_history_snapshots(guild_name)
+    history_snapshots = load_history_snapshots(guild_name, report_mode)
     history_analysis = build_history_analysis(snapshot_data, history_snapshots)
 
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
-    html_report_path = build_html_report(guild_name, guild_rows, members_by_guild, history_analysis, html_output_path)
+    html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
     snapshot_path = write_snapshot_json(snapshot_data, html_output_path.parent)
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
-    deleted_history_paths = cleanup_old_history(guild_name, args.retain_history_days)
+    deleted_history_paths = cleanup_old_history(guild_name, report_mode, args.retain_history_days)
     print(f"Guild seed: {guild_name}")
-    print(f"League URL: {league_url}")
+    print(f"Report mode: {report_mode}")
+    print(f"Match URL: {league_url}")
     print(f"Snapshot mode: {args.snapshot_mode}")
     print(f"Created: {workbook_path}")
     print(f"Created: {html_report_path}")
