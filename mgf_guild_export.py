@@ -460,7 +460,8 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
             "guild_name": guild_name,
             "total_score": 0,
             "member_count": 0,
-            "weighted_sum": 0.0,
+            "job_ratio_sum": 0.0,
+            "job_count_map": {},
             "top_finisher_rank": None,
             "top_finisher_name": "",
         }
@@ -519,7 +520,10 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
         guild_total = guild_totals[str(member["guild_name"])]
         guild_total["member_count"] += 1
         guild_total["total_score"] += int(member["estimated_metric_value"])
-        guild_total["weighted_sum"] += float(member["coefficient"])
+        normalized_job_ratio = float(member["coefficient"]) / 800000.0
+        guild_total["job_ratio_sum"] += normalized_job_ratio
+        coefficient_label = str(member["coefficient_label"])
+        guild_total["job_count_map"][coefficient_label] = int(guild_total["job_count_map"].get(coefficient_label, 0)) + 1
         if guild_total["top_finisher_rank"] is None:
             guild_total["top_finisher_rank"] = index
             guild_total["top_finisher_name"] = str(member["nickname"])
@@ -530,14 +534,24 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
     )
     for index, guild_row in enumerate(guild_rankings, start=1):
         guild_row["simulation_rank"] = index
-        guild_row["total_score_text"] = format_man_units(int(guild_row["total_score"]))
-        guild_row["avg_coefficient"] = round(float(guild_row["weighted_sum"]) / max(int(guild_row["member_count"]), 1), 3)
+        guild_row["total_score_text"] = format_score(int(guild_row["total_score"]))
+        guild_row["avg_job_ratio"] = round(float(guild_row["job_ratio_sum"]) / max(int(guild_row["member_count"]), 1), 3)
+        top_jobs = sorted(
+            guild_row["job_count_map"].items(),
+            key=lambda item: (-int(item[1]), str(item[0])),
+        )[:3]
+        guild_row["job_mix_text"] = ", ".join(f"{name} {count}명" for name, count in top_jobs) or "집계 없음"
 
     coefficient_preview = [
-        {"label": "레벨 영향", "range": "level^0.75"},
-        {"label": "전투력 영향", "range": "power^0.15"},
+        {"label": "레벨 영향", "range": "level^0.2"},
+        {"label": "전투력 영향", "range": "power^0.2"},
         {"label": "직업 보정", "range": f"{len(TRAINING_JOB_COEFFICIENTS)}개 직업 반영"},
-        {"label": "평균 오차", "range": "약 7.9%"},
+        {"label": "평균 오차", "range": "약 12.1%"},
+    ]
+
+    job_coefficient_cards = [
+        {"label": job_name, "range": f"×{coefficient / 800000.0:.3f}"}
+        for job_name, coefficient in sorted(TRAINING_JOB_COEFFICIENTS.items(), key=lambda item: (-item[1], item[0]))
     ]
 
     return {
@@ -545,6 +559,7 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
         "guild_rankings": guild_rankings,
         "score_table": [],
         "score_table_preview": coefficient_preview,
+        "job_coefficient_cards": job_coefficient_cards,
     }
 
 
@@ -1166,6 +1181,15 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
 
 
 def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
+    coefficient_cards = "".join(
+        f"""
+        <article class="score-rule-card">
+          <span>{escape(str(row['label']))}</span>
+          <strong>{escape(str(row['range']))}</strong>
+        </article>
+        """
+        for row in simulation.get("job_coefficient_cards", [])
+    )
     guild_cards = "".join(
         f"""
         <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
@@ -1176,7 +1200,8 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
           <div class="simulation-rank-score">{escape(str(guild_row['total_score_text']))}</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>{int(guild_row['member_count'])}명</dd></div>
-            <div><dt>평균 계수</dt><dd>×{float(guild_row['avg_coefficient']):.3f}</dd></div>
+            <div><dt>평균 직업 보정</dt><dd>×{float(guild_row['avg_job_ratio']):.3f}</dd></div>
+            <div><dt>주요 직업 구성</dt><dd>{escape(str(guild_row['job_mix_text']))}</dd></div>
             <div><dt>최고 예상 순위</dt><dd>{int(guild_row['top_finisher_rank'] or 0)}위 · {escape(str(guild_row['top_finisher_name']))}</dd></div>
           </dl>
         </article>
@@ -1219,6 +1244,14 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
               <p class="simulation-copy">레벨 + 전투력 + 직업 기반 수련장 예상 점수 (실제 70명 데이터 역산 모델). 평균 오차 ~12.1% — 참고용 추정치.</p>
             </div>
             <div class="score-rule-grid">{preview_cards}</div>
+          </div>
+          <div class="simulation-overview">
+            <div>
+              <p class="eyebrow">Job Coefficients</p>
+              <h3>직업 보정 계수</h3>
+              <p class="simulation-copy">직업별 보정값은 70명 실제 수련장 결과를 기준으로 역산한 상대 지표다.</p>
+            </div>
+            <div class="score-rule-grid">{coefficient_cards}</div>
           </div>
           <div class="simulation-rank-grid">{guild_cards}</div>
           <div class="table-wrap simulation-table-wrap">
@@ -1783,15 +1816,6 @@ def build_html_report(
   {simulation_modal_html}
 
   <script>
-    // modal open
-    document.querySelectorAll('.guild-card[data-modal]').forEach((card) => {{
-      card.addEventListener('click', () => {{
-        const id = card.dataset.modal;
-        const backdrop = document.getElementById('modal-' + id);
-        if (backdrop) backdrop.classList.add('open');
-      }});
-    }});
-
     const enableDragScroll = (selector) => {{
       document.querySelectorAll(selector).forEach((container) => {{
         let isPointerDown = false;
@@ -1866,6 +1890,7 @@ def build_html_report(
 
         container.addEventListener('click', (event) => {{
           if (Date.now() < suppressClickUntil) {{
+            container.dataset.suppressClickUntil = String(suppressClickUntil);
             event.preventDefault();
             event.stopPropagation();
           }}
@@ -1879,6 +1904,20 @@ def build_html_report(
 
     enableDragScroll('.compare-scroll-wrap');
     enableDragScroll('.detail-compare-wrap');
+
+    // modal open
+    document.addEventListener('click', (event) => {{
+      const card = event.target.closest('.guild-card[data-modal]');
+      if (!card) return;
+      const scrollWrap = card.closest('.compare-scroll-wrap');
+      if (scrollWrap) {{
+        const suppressUntil = Number(scrollWrap.dataset.suppressClickUntil || 0);
+        if (Date.now() < suppressUntil) return;
+      }}
+      const id = card.dataset.modal;
+      const backdrop = document.getElementById('modal-' + id);
+      if (backdrop) backdrop.classList.add('open');
+    }});
 
     // modal close — backdrop click or close button
     document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {{
