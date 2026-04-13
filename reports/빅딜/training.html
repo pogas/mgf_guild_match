@@ -1965,7 +1965,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>망겜감별사, 큐샤프, 킹몬</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 아크메이지(썬,콜) +6, 신궁 +3</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 아크메이지(썬,콜) +6, 히어로 +3</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -2953,7 +2953,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>숑이, 소독약, 주존사</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 아크메이지(썬,콜) +6, 신궁 +3</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 아크메이지(썬,콜) +6, 히어로 +3</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3460,7 +3460,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>뀨래, 호겡, 과학실</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +11, 아크메이지(썬,콜) +5, 다크나이트 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +11, 아크메이지(썬,콜) +5, 히어로 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -5342,12 +5342,12 @@
             <div class="score-rule-grid">
         <article class="score-rule-card">
           <span>레벨 영향</span>
-          <strong>level^0.75</strong>
+          <strong>level^0.2</strong>
         </article>
         
         <article class="score-rule-card">
           <span>전투력 영향</span>
-          <strong>power^0.15</strong>
+          <strong>power^0.2</strong>
         </article>
         
         <article class="score-rule-card">
@@ -5357,7 +5357,65 @@
         
         <article class="score-rule-card">
           <span>평균 오차</span>
-          <strong>약 7.9%</strong>
+          <strong>약 12.1%</strong>
+        </article>
+        </div>
+          </div>
+          <div class="simulation-overview">
+            <div>
+              <p class="eyebrow">Job Coefficients</p>
+              <h3>직업 보정 계수</h3>
+              <p class="simulation-copy">직업별 보정값은 70명 실제 수련장 결과를 기준으로 역산한 상대 지표다.</p>
+            </div>
+            <div class="score-rule-grid">
+        <article class="score-rule-card">
+          <span>보우마스터</span>
+          <strong>×1.254</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>비숍</span>
+          <strong>×1.169</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>나이트로드</span>
+          <strong>×1.096</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>다크나이트</span>
+          <strong>×1.042</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>신궁</span>
+          <strong>×1.010</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>아크메이지(썬,콜)</span>
+          <strong>×0.993</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>섀도어</span>
+          <strong>×0.952</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>히어로</span>
+          <strong>×0.949</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>불독</span>
+          <strong>×0.935</strong>
+        </article>
+        
+        <article class="score-rule-card">
+          <span>아크메이지(불,독)</span>
+          <strong>×0.935</strong>
         </article>
         </div>
           </div>
@@ -5367,10 +5425,11 @@
             <span class="simulation-rank-badge">#1</span>
             <strong>숑숑</strong>
           </div>
-          <div class="simulation-rank-score">7,723억 6,344만</div>
+          <div class="simulation-rank-score">77,236,344점</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>30명</dd></div>
-            <div><dt>평균 계수</dt><dd>×804406.787</dd></div>
+            <div><dt>평균 직업 보정</dt><dd>×1.006</dd></div>
+            <div><dt>주요 직업 구성</dt><dd>섀도어 10명, 아크메이지(썬,콜) 6명, 나이트로드 3명</dd></div>
             <div><dt>최고 예상 순위</dt><dd>6위 · 숑이</dd></div>
           </dl>
         </article>
@@ -5380,10 +5439,11 @@
             <span class="simulation-rank-badge">#2</span>
             <strong>빅딜</strong>
           </div>
-          <div class="simulation-rank-score">7,551억 1,771만</div>
+          <div class="simulation-rank-score">75,511,771점</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>29명</dd></div>
-            <div><dt>평균 계수</dt><dd>×801912.900</dd></div>
+            <div><dt>평균 직업 보정</dt><dd>×1.002</dd></div>
+            <div><dt>주요 직업 구성</dt><dd>섀도어 10명, 아크메이지(썬,콜) 6명, 신궁 3명</dd></div>
             <div><dt>최고 예상 순위</dt><dd>7위 · 야가다</dd></div>
           </dl>
         </article>
@@ -5393,10 +5453,11 @@
             <span class="simulation-rank-badge">#3</span>
             <strong>또래</strong>
           </div>
-          <div class="simulation-rank-score">7,165억 8,313만</div>
+          <div class="simulation-rank-score">71,658,313점</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>30명</dd></div>
-            <div><dt>평균 계수</dt><dd>×798564.239</dd></div>
+            <div><dt>평균 직업 보정</dt><dd>×0.998</dd></div>
+            <div><dt>주요 직업 구성</dt><dd>섀도어 11명, 아크메이지(썬,콜) 5명, 다크나이트 4명</dd></div>
             <div><dt>최고 예상 순위</dt><dd>4위 · 뀨래</dd></div>
           </dl>
         </article>
@@ -5406,10 +5467,11 @@
             <span class="simulation-rank-badge">#4</span>
             <strong>부계둘</strong>
           </div>
-          <div class="simulation-rank-score">7,154억 9,029만</div>
+          <div class="simulation-rank-score">71,549,029점</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>29명</dd></div>
-            <div><dt>평균 계수</dt><dd>×772446.630</dd></div>
+            <div><dt>평균 직업 보정</dt><dd>×0.966</dd></div>
+            <div><dt>주요 직업 구성</dt><dd>섀도어 8명, 아크메이지(썬,콜) 7명, 다크나이트 5명</dd></div>
             <div><dt>최고 예상 순위</dt><dd>9위 · 둥둥콩이</dd></div>
           </dl>
         </article>
@@ -5419,10 +5481,11 @@
             <span class="simulation-rank-badge">#5</span>
             <strong>0FeroCity</strong>
           </div>
-          <div class="simulation-rank-score">7,091억 3,758만</div>
+          <div class="simulation-rank-score">70,913,758점</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>30명</dd></div>
-            <div><dt>평균 계수</dt><dd>×795908.662</dd></div>
+            <div><dt>평균 직업 보정</dt><dd>×0.995</dd></div>
+            <div><dt>주요 직업 구성</dt><dd>섀도어 11명, 비숍 8명, 다크나이트 3명</dd></div>
             <div><dt>최고 예상 순위</dt><dd>1위 · 다내꼬양</dd></div>
           </dl>
         </article>
@@ -5432,10 +5495,11 @@
             <span class="simulation-rank-badge">#6</span>
             <strong>알바천국</strong>
           </div>
-          <div class="simulation-rank-score">6,824억 6,532만</div>
+          <div class="simulation-rank-score">68,246,532점</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>28명</dd></div>
-            <div><dt>평균 계수</dt><dd>×824234.859</dd></div>
+            <div><dt>평균 직업 보정</dt><dd>×1.030</dd></div>
+            <div><dt>주요 직업 구성</dt><dd>섀도어 7명, 아크메이지(썬,콜) 7명, 비숍 6명</dd></div>
             <div><dt>최고 예상 순위</dt><dd>3위 · 선바</dd></div>
           </dl>
         </article>
@@ -5445,10 +5509,11 @@
             <span class="simulation-rank-badge">#7</span>
             <strong>풍년순대국밥</strong>
           </div>
-          <div class="simulation-rank-score">6,144억 6,618만</div>
+          <div class="simulation-rank-score">61,446,618점</div>
           <dl class="simulation-rank-meta">
             <div><dt>참여 인원</dt><dd>25명</dd></div>
-            <div><dt>평균 계수</dt><dd>×802438.893</dd></div>
+            <div><dt>평균 직업 보정</dt><dd>×1.003</dd></div>
+            <div><dt>주요 직업 구성</dt><dd>섀도어 7명, 다크나이트 6명, 아크메이지(썬,콜) 6명</dd></div>
             <div><dt>최고 예상 순위</dt><dd>2위 · 망동</dd></div>
           </dl>
         </article>
@@ -7691,15 +7756,6 @@
     
 
   <script>
-    // modal open
-    document.querySelectorAll('.guild-card[data-modal]').forEach((card) => {
-      card.addEventListener('click', () => {
-        const id = card.dataset.modal;
-        const backdrop = document.getElementById('modal-' + id);
-        if (backdrop) backdrop.classList.add('open');
-      });
-    });
-
     const enableDragScroll = (selector) => {
       document.querySelectorAll(selector).forEach((container) => {
         let isPointerDown = false;
@@ -7774,6 +7830,7 @@
 
         container.addEventListener('click', (event) => {
           if (Date.now() < suppressClickUntil) {
+            container.dataset.suppressClickUntil = String(suppressClickUntil);
             event.preventDefault();
             event.stopPropagation();
           }
@@ -7787,6 +7844,20 @@
 
     enableDragScroll('.compare-scroll-wrap');
     enableDragScroll('.detail-compare-wrap');
+
+    // modal open
+    document.addEventListener('click', (event) => {
+      const card = event.target.closest('.guild-card[data-modal]');
+      if (!card) return;
+      const scrollWrap = card.closest('.compare-scroll-wrap');
+      if (scrollWrap) {
+        const suppressUntil = Number(scrollWrap.dataset.suppressClickUntil || 0);
+        if (Date.now() < suppressUntil) return;
+      }
+      const id = card.dataset.modal;
+      const backdrop = document.getElementById('modal-' + id);
+      if (backdrop) backdrop.classList.add('open');
+    });
 
     // modal close — backdrop click or close button
     document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
