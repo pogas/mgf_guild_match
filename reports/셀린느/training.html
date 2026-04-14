@@ -100,6 +100,18 @@
     .summary-value { display: block; margin-top: 14px; font-size: 28px; line-height: 1.15; }
     .summary-help { margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
     .section-title { margin: 44px 0 16px; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }
+    .mobile-section-toggle { display: none; width: 100%; margin: 18px 0 0; padding: 16px 18px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,0.76); color: var(--text); text-align: left; box-shadow: var(--shadow); }
+    .mobile-section-toggle strong { display: block; font-size: 16px; }
+    .mobile-section-toggle span { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; color: var(--accent-3); font-size: 12px; font-weight: 800; }
+    .mobile-section-toggle span::after { content: "▾"; font-size: 12px; transition: transform .18s ease; }
+    .mobile-section-panel.expanded .mobile-section-toggle span::after { transform: rotate(180deg); }
+    .mobile-section-body { display: block; }
+    .hero-stats-toggle { display: none; width: 100%; margin-top: 20px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,0.68); color: var(--text); text-align: left; cursor: pointer; box-shadow: 0 8px 20px rgba(78,58,42,0.07); }
+    .hero-stats-toggle strong { display: block; font-size: 14px; font-weight: 800; }
+    .hero-stats-toggle span { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--accent-3); font-size: 12px; font-weight: 800; }
+    .hero-stats-toggle span::after { content: "▾"; font-size: 12px; transition: transform .18s ease; }
+    .hero-stats-toggle.open span::after { transform: rotate(180deg); }
+    .hero-stats-body { display: block; }
     /* #2: Guild Comparison — 가로 스크롤 한 열 레이아웃 */
     .compare-scroll-wrap {
       display: flex;
@@ -348,9 +360,9 @@
     .member-search::placeholder { color: #9d8b7d; }
     .hint { color: var(--muted); font-size: 12px; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 16px 18px; text-align: left; border-bottom: 1px solid rgba(110,84,60,0.07); }
-    th { position: sticky; top: 0; background: rgba(250,244,237,0.98); color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; font-weight: 700; }
-    tr:hover td { background: rgba(255,255,255,0.35); }
+    .member-table th, .member-table td { padding: 16px 18px; text-align: left; border-bottom: 1px solid rgba(110,84,60,0.07); }
+    .member-table th { position: sticky; top: 0; background: rgba(250,244,237,0.98); color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; font-weight: 700; }
+    .member-table tr:hover td { background: rgba(255,255,255,0.35); }
     .member-name-cell { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .member-name-cell a { color: var(--text); font-weight: 700; }
     .badge { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 10px; border-radius: 999px; background: rgba(136,177,124,0.14); color: #55734f; font-size: 12px; border: 1px solid rgba(136,177,124,0.16); font-weight: 700; }
@@ -358,7 +370,7 @@
     .power-col { font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }
     .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }
     @media (max-width: 980px) { .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid { grid-template-columns: 1fr; } .job-coefficient-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .section-head, .table-toolbar { flex-direction: column; align-items: start; } }
-    @media (max-width: 720px) { .page { width: min(100% - 20px, 1320px); } .hero { padding: 20px; } .guild-metrics { grid-template-columns: 1fr; } .job-coefficient-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } th, td { padding: 12px; font-size: 13px; } .member-search { min-width: 0; width: 100%; } .guild-card { flex: 0 0 260px; } .detail-compare-card { flex: 0 0 250px; } .hero h1 { font-size: clamp(18px, 4.8vw, 26px); } .simulation-modal-box, .modal-box { padding: 20px; } .training-simulation-table { display: none; } .simulation-mobile-card-list { display: grid; } .simulation-member-score { padding: 9px 11px; } .simulation-member-score strong { font-size: 16px; } .simulation-member-meta { grid-template-columns: 1fr; } .simulation-rank-grid { grid-template-columns: 1fr; } .simulation-rank-card { padding: 16px; } .simulation-rank-score { font-size: 24px; } .job-coefficient-head { flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 720px) { .page { width: min(100% - 20px, 1320px); } .hero { padding: 20px; } .guild-metrics { grid-template-columns: 1fr; } .job-coefficient-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .member-table th, .member-table td { padding: 12px; font-size: 13px; } .member-search { min-width: 0; width: 100%; } .guild-card { flex: 0 0 260px; } .detail-compare-card { flex: 0 0 250px; } .hero h1 { font-size: clamp(18px, 4.8vw, 26px); } .simulation-modal-box, .modal-box { padding: 20px; } .training-simulation-table, .guild-war-simulation-table { display: none; } .simulation-mobile-card-list { display: grid; } .simulation-member-score { padding: 9px 11px; } .simulation-member-score strong { font-size: 16px; } .simulation-member-meta { grid-template-columns: 1fr; } .simulation-rank-grid { grid-template-columns: 1fr; } .simulation-rank-card { padding: 16px; } .simulation-rank-score { font-size: 24px; } .job-coefficient-head { flex-direction: column; align-items: flex-start; } .section-title { display: none; } .mobile-section-toggle { display: block; } .mobile-section-panel:not(.expanded) .mobile-section-body { display: none; } .hero-stats-toggle { display: block; } .hero-stats-body:not(.open) { display: none; } }
   </style>
 </head>
 <body>
@@ -371,7 +383,12 @@
          <p class="lead">위에서는 길드 단위 흐름을 보고, 아래에서는 길드별 길드원을 옆으로 바로 비교하며 수련장 예상 지표를 볼 수 있다.</p>
       </div>
       <nav class="hero-nav"><a data-modal="더샾" href="#">더샾</a><a data-modal="딸기키우기" href="#">딸기키우기</a><a data-modal="셀린느" href="#">셀린느</a><a data-modal="LUXURY" href="#">LUXURY</a><a data-modal="호러" href="#">호러</a><a data-modal="이콩" href="#">이콩</a><a data-modal="item" href="#">item</a></nav>
-      <section class="summary-grid">
+      <button type="button" class="hero-stats-toggle" aria-expanded="false">
+        <strong>리포트 요약 통계</strong>
+        <span>접기 / 펴기</span>
+      </button>
+      <div class="hero-stats-body" id="hero-stats-body">
+        <section class="summary-grid">
         <article class="summary-card">
           <p class="summary-label">매칭 길드</p>
           <strong class="summary-value">7개</strong>
@@ -392,7 +409,7 @@
         
         <article class="summary-card">
           <p class="summary-label">평균 레벨</p>
-          <strong class="summary-value">Lv.103.7</strong>
+          <strong class="summary-value">Lv.103.8</strong>
           <p class="summary-help">전체 길드원 평균 레벨</p>
         </article>
         
@@ -408,7 +425,7 @@
           <p class="summary-help">페이지 노출 기준 데이터</p>
         </article>
         </section>
-      
+        
         <section class="auto-summary-grid">
           <article class="auto-summary-card auto-summary-card-empty">
             <p class="summary-label">히스토리 비교 준비 중</p>
@@ -417,14 +434,21 @@
           </article>
         </section>
         
+      </div>
     </header>
 
     <nav class="section-tabs">
       <a data-modal="guild-war-simulation" href="#">수련장 예상 시뮬레이터</a>
     </nav>
 
-    <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
-    <div class="compare-scroll-wrap">
+    <section class="mobile-section-panel" id="guild-comparison-section">
+      <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
+      <button type="button" class="mobile-section-toggle" data-target="guild-comparison-body" aria-expanded="false">
+        <strong>Guild Comparison</strong>
+        <span>상세 보기</span>
+      </button>
+      <div class="mobile-section-body" id="guild-comparison-body">
+        <div class="compare-scroll-wrap">
             <div class="guild-card" data-modal="더샾">
               <div class="guild-card-top">
                 <div>
@@ -562,11 +586,11 @@
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>720조 2,021억 6,678만</strong>
+                  <strong>720조 2,825억 4,296만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
-                  <strong>74조 3,720억 2,507만</strong>
+                  <strong>74조 3,896억 68만</strong>
                 </article>
                 <article class="analysis-chip analysis-chip-strong">
                   <span>집중도 판정</span>
@@ -615,7 +639,7 @@
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>836조 9,106억 1,750만</strong>
+                  <strong>837조 763억 5,310만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
@@ -668,7 +692,7 @@
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>855조 5,939억 7,415만</strong>
+                  <strong>855조 6,641억 4,961만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
@@ -721,7 +745,7 @@
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>806조 8,685억 8,574만</strong>
+                  <strong>806조 8,788억 4,205만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
@@ -774,7 +798,7 @@
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>741조 9,082억 474만</strong>
+                  <strong>741조 9,272억 9,552만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
@@ -789,16 +813,24 @@
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>2경 148조 6982억 7060만</dd></div>
                 <div><dt>길드원 수</dt><dd>30명</dd></div>
-                <div><dt>평균 레벨</dt><dd>Lv.101.7</dd></div>
+                <div><dt>평균 레벨</dt><dd>Lv.101.8</dd></div>
                 <div><dt>TOP 멤버</dt><dd>코로드</dd></div>
               </dl>
               <p class="guild-note">We Go Together !</p>
               <span class="card-jump">길드 상세 보기 ↘</span>
             </div>
             </div>
+      </div>
+    </section>
 
-    <h2 class="section-title" id="guild-detail-comparison">Guild Detail Comparison</h2>
-    <section class="detail-compare-wrap">
+    <section class="mobile-section-panel" id="guild-detail-comparison-section">
+      <h2 class="section-title" id="guild-detail-comparison">Guild Detail Comparison</h2>
+      <button type="button" class="mobile-section-toggle" data-target="guild-detail-comparison-body" aria-expanded="false">
+        <strong>Guild Detail Comparison</strong>
+        <span>상세 보기</span>
+      </button>
+      <div class="mobile-section-body" id="guild-detail-comparison-body">
+        <section class="detail-compare-wrap">
             <article class="detail-compare-card">
               <div class="detail-compare-head">
                 <div>
@@ -1157,7 +1189,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%8C%EB%9F%B0%ED%88%AC%ED%82%AC" target="_blank" rel="noreferrer">빌런투킬</a></td>
-              <td>1021조 5073억 9566만</td>
+              <td>1022조 1463억 7965만</td>
             </tr>
             
             <tr>
@@ -1207,7 +1239,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%9E%BC%ED%8F%AC%EC%A6%88" target="_blank" rel="noreferrer">잼포즈</a></td>
-              <td>74조 2195억 2686만</td>
+              <td>74조 2546억 7807만</td>
             </tr>
             
             <tr>
@@ -1222,17 +1254,17 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%ED%95%A0%EB%A3%BD" target="_blank" rel="noreferrer">할룽</a></td>
-              <td>37조 7902억 3547만</td>
+              <td>38조 3694억 6015만</td>
+            </tr>
+            
+            <tr>
+              <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%8B%B8%EB%8C%80%EA%B8%B0" target="_blank" rel="noreferrer">김치싸대기</a></td>
+              <td>38조 568억 6620만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%A3%A8%EB%84%A8" target="_blank" rel="noreferrer">루넨</a></td>
               <td>37조 1057억 885만</td>
-            </tr>
-            
-            <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%8B%B8%EB%8C%80%EA%B8%B0" target="_blank" rel="noreferrer">김치싸대기</a></td>
-              <td>36조 8989억 4048만</td>
             </tr>
             
             <tr>
@@ -1325,7 +1357,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=26%EA%B8%B8%EC%B4%88" target="_blank" rel="noreferrer">26길초</a></td>
-              <td>423조 609억 3629만</td>
+              <td>427조 2003억 2087만</td>
             </tr>
             
             <tr>
@@ -1335,7 +1367,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=26%EB%93%A4%EB%B0%95" target="_blank" rel="noreferrer">26들박</a></td>
-              <td>329조 7132억 4310만</td>
+              <td>330조 3801억 9081만</td>
             </tr>
             
             <tr>
@@ -1473,7 +1505,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%82%9C%ED%92%8D" target="_blank" rel="noreferrer">난풍</a></td>
-              <td>2064조 9957억 9090만</td>
+              <td>2066조 6901억 7240만</td>
             </tr>
             
             <tr>
@@ -1568,7 +1600,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%ED%9B%84%EC%95%84%EB%A9%80%EB%A1%9C%ED%95%98%EB%83%90" target="_blank" rel="noreferrer">후아멀로하냐</a></td>
-              <td>6조 2410억 1159만</td>
+              <td>6조 6518억 9389만</td>
             </tr>
             
             <tr>
@@ -1646,7 +1678,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%84%A4%EC%A6%88" target="_blank" rel="noreferrer">설즈</a></td>
-              <td>932조 4522억 4629만</td>
+              <td>932조 7496억 7919만</td>
             </tr>
             
             <tr>
@@ -1883,13 +1915,13 @@
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%EC%8B%9C%ED%94%84%EB%8B%98" target="_blank" rel="noreferrer">시프님</a></td>
-              <td>14조 2969억 3551만</td>
+              <td><a href="https://mgf.gg/contents/character.php?n=95%EB%8F%84%EB%8F%84" target="_blank" rel="noreferrer">95도도</a></td>
+              <td>14조 6429억 438만</td>
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=95%EB%8F%84%EB%8F%84" target="_blank" rel="noreferrer">95도도</a></td>
-              <td>14조 1726억 7817만</td>
+              <td><a href="https://mgf.gg/contents/character.php?n=%EC%8B%9C%ED%94%84%EB%8B%98" target="_blank" rel="noreferrer">시프님</a></td>
+              <td>14조 2969억 3551만</td>
             </tr>
             
             <tr>
@@ -1929,7 +1961,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EB%98%94%EB%98%94" target="_blank" rel="noreferrer">김똔똔</a></td>
-              <td>2조 7337억 3836만</td>
+              <td>2조 8362억 3551만</td>
             </tr>
             
             <tr>
@@ -1945,6 +1977,8 @@
               </table>
             </article>
             </section>
+      </div>
+    </section>
 
     <p class="footer">Generated from public MGF guild pages · 길드 카드 클릭 시 상세 정보 팝업</p>
   </div>
@@ -2019,7 +2053,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>샾둥이, 애갱, 샾패트</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 히어로 +4, 아크메이지(썬,콜) +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 아크메이지(썬,콜) +4, 히어로 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -2474,7 +2508,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>무치z, 카뚝, 디올핑</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>비숍 +8, 섀도어 +6, 아크메이지(썬,콜) +5</strong></li>
+                      <li><span>직업 분포 변화</span><strong>비숍 +8, 섀도어 +6, 다크나이트 +5</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -2981,7 +3015,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>스타냥이, 돈스, 진자이</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +9, 아크메이지(썬,콜) +6, 다크나이트 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +9, 아크메이지(썬,콜) +6, 히어로 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3089,7 +3123,7 @@
               <td class="power-col">1112조 8677억 9360만</td>
             </tr>
             
-            <tr data-power="102150739566" data-level="108" data-rank="6">
+            <tr data-power="102214637965" data-level="108" data-rank="6">
               <td>6</td>
               <td>
                 <div class="member-name-cell">
@@ -3099,7 +3133,7 @@
               </td>
               <td><span class="badge">팔라딘</span></td>
               <td>Lv.108</td>
-              <td class="power-col">1021조 5073억 9566만</td>
+              <td class="power-col">1022조 1463억 7965만</td>
             </tr>
             
             <tr data-power="31531049477" data-level="107" data-rank="7">
@@ -3219,7 +3253,7 @@
               <td class="power-col">74조 5245억 2328만</td>
             </tr>
             
-            <tr data-power="7421952686" data-level="103" data-rank="16">
+            <tr data-power="7425467807" data-level="103" data-rank="16">
               <td>16</td>
               <td>
                 <div class="member-name-cell">
@@ -3229,7 +3263,7 @@
               </td>
               <td><span class="badge">아크메이지(썬,콜)</span></td>
               <td>Lv.103</td>
-              <td class="power-col">74조 2195억 2686만</td>
+              <td class="power-col">74조 2546억 7807만</td>
             </tr>
             
             <tr data-power="5916510031" data-level="105" data-rank="17">
@@ -3258,7 +3292,7 @@
               <td class="power-col">56조 9226억 6343만</td>
             </tr>
             
-            <tr data-power="3779023547" data-level="104" data-rank="19">
+            <tr data-power="3836946015" data-level="104" data-rank="19">
               <td>19</td>
               <td>
                 <div class="member-name-cell">
@@ -3268,11 +3302,24 @@
               </td>
               <td><span class="badge">아크메이지(썬,콜)</span></td>
               <td>Lv.104</td>
-              <td class="power-col">37조 7902억 3547만</td>
+              <td class="power-col">38조 3694억 6015만</td>
             </tr>
             
-            <tr data-power="3710570885" data-level="104" data-rank="20">
+            <tr data-power="3805686620" data-level="103" data-rank="20">
               <td>20</td>
+              <td>
+                <div class="member-name-cell">
+                  <a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%8B%B8%EB%8C%80%EA%B8%B0" target="_blank" rel="noreferrer">김치싸대기</a>
+                  
+                </div>
+              </td>
+              <td><span class="badge">히어로</span></td>
+              <td>Lv.103</td>
+              <td class="power-col">38조 568억 6620만</td>
+            </tr>
+            
+            <tr data-power="3710570885" data-level="104" data-rank="21">
+              <td>21</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EB%A3%A8%EB%84%A8" target="_blank" rel="noreferrer">루넨</a>
@@ -3282,19 +3329,6 @@
               <td><span class="badge">섀도어</span></td>
               <td>Lv.104</td>
               <td class="power-col">37조 1057억 885만</td>
-            </tr>
-            
-            <tr data-power="3689894048" data-level="103" data-rank="21">
-              <td>21</td>
-              <td>
-                <div class="member-name-cell">
-                  <a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%8B%B8%EB%8C%80%EA%B8%B0" target="_blank" rel="noreferrer">김치싸대기</a>
-                  
-                </div>
-              </td>
-              <td><span class="badge">히어로</span></td>
-              <td>Lv.103</td>
-              <td class="power-col">36조 8989억 4048만</td>
             </tr>
             
             <tr data-power="3374924506" data-level="102" data-rank="22">
@@ -3488,7 +3522,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>가숭혁, 살뽀시, 26상탗</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +7, 다크나이트 +3</strong></li>
+                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +7, 비숍 +3</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3596,7 +3630,7 @@
               <td class="power-col">473조 935억 9830만</td>
             </tr>
             
-            <tr data-power="42306093629" data-level="106" data-rank="6">
+            <tr data-power="42720032087" data-level="106" data-rank="6">
               <td>6</td>
               <td>
                 <div class="member-name-cell">
@@ -3606,7 +3640,7 @@
               </td>
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.106</td>
-              <td class="power-col">423조 609억 3629만</td>
+              <td class="power-col">427조 2003억 2087만</td>
             </tr>
             
             <tr data-power="35542283360" data-level="107" data-rank="7">
@@ -3622,7 +3656,7 @@
               <td class="power-col">355조 4228억 3360만</td>
             </tr>
             
-            <tr data-power="32971324310" data-level="106" data-rank="8">
+            <tr data-power="33038019081" data-level="106" data-rank="8">
               <td>8</td>
               <td>
                 <div class="member-name-cell">
@@ -3632,7 +3666,7 @@
               </td>
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.106</td>
-              <td class="power-col">329조 7132억 4310만</td>
+              <td class="power-col">330조 3801억 9081만</td>
             </tr>
             
             <tr data-power="26748734322" data-level="106" data-rank="9">
@@ -4051,7 +4085,7 @@
               <td class="power-col">4378조 604억 9661만</td>
             </tr>
             
-            <tr data-power="206499579090" data-level="108" data-rank="3">
+            <tr data-power="206669017240" data-level="108" data-rank="3">
               <td>3</td>
               <td>
                 <div class="member-name-cell">
@@ -4061,7 +4095,7 @@
               </td>
               <td><span class="badge">신궁</span></td>
               <td>Lv.108</td>
-              <td class="power-col">2064조 9957억 9090만</td>
+              <td class="power-col">2066조 6901억 7240만</td>
             </tr>
             
             <tr data-power="82668721556" data-level="106" data-rank="4">
@@ -4298,7 +4332,7 @@
               <td class="power-col">7조 5150억 8566만</td>
             </tr>
             
-            <tr data-power="624101159" data-level="99" data-rank="22">
+            <tr data-power="665189389" data-level="99" data-rank="22">
               <td>22</td>
               <td>
                 <div class="member-name-cell">
@@ -4308,7 +4342,7 @@
               </td>
               <td><span class="badge">신궁</span></td>
               <td>Lv.99</td>
-              <td class="power-col">6조 2410억 1159만</td>
+              <td class="power-col">6조 6518억 9389만</td>
             </tr>
             
             <tr data-power="603268572" data-level="99" data-rank="23">
@@ -4489,7 +4523,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>싸뤽, 신궁쨩, 실민</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>비숍 +7, 다크나이트 +6, 신궁 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>비숍 +7, 다크나이트 +6, 섀도어 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -4571,7 +4605,7 @@
               <td class="power-col">1248조 757억 8818만</td>
             </tr>
             
-            <tr data-power="93245224629" data-level="108" data-rank="4">
+            <tr data-power="93274967919" data-level="108" data-rank="4">
               <td>4</td>
               <td>
                 <div class="member-name-cell">
@@ -4581,7 +4615,7 @@
               </td>
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.108</td>
-              <td class="power-col">932조 4522억 4629만</td>
+              <td class="power-col">932조 7496억 7919만</td>
             </tr>
             
             <tr data-power="73291868857" data-level="109" data-rank="5">
@@ -4933,7 +4967,7 @@
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
                       <div><dt>길드 전투력</dt><dd>2경 148조 6982억 7060만</dd></div>
                       <div><dt>전체 / 서버 순위</dt><dd>28 / 1위</dd></div>
-                      <div><dt>평균 레벨</dt><dd>Lv.101.7</dd></div>
+                      <div><dt>평균 레벨</dt><dd>Lv.101.8</dd></div>
                     </dl>
                   </article>
                   <article class="info-panel emphasis">
@@ -5195,7 +5229,7 @@
               <td class="power-col">28조 236억 7493만</td>
             </tr>
             
-            <tr data-power="2730954161" data-level="101" data-rank="14">
+            <tr data-power="2730954161" data-level="102" data-rank="14">
               <td>14</td>
               <td>
                 <div class="member-name-cell">
@@ -5204,7 +5238,7 @@
                 </div>
               </td>
               <td><span class="badge">나이트로드</span></td>
-              <td>Lv.101</td>
+              <td>Lv.102</td>
               <td class="power-col">27조 3095억 4161만</td>
             </tr>
             
@@ -5260,8 +5294,21 @@
               <td class="power-col">14조 9711억 9031만</td>
             </tr>
             
-            <tr data-power="1429693551" data-level="101" data-rank="19">
+            <tr data-power="1464290438" data-level="101" data-rank="19">
               <td>19</td>
+              <td>
+                <div class="member-name-cell">
+                  <a href="https://mgf.gg/contents/character.php?n=95%EB%8F%84%EB%8F%84" target="_blank" rel="noreferrer">95도도</a>
+                  
+                </div>
+              </td>
+              <td><span class="badge">히어로</span></td>
+              <td>Lv.101</td>
+              <td class="power-col">14조 6429억 438만</td>
+            </tr>
+            
+            <tr data-power="1429693551" data-level="101" data-rank="20">
+              <td>20</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EC%8B%9C%ED%94%84%EB%8B%98" target="_blank" rel="noreferrer">시프님</a>
@@ -5271,19 +5318,6 @@
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.101</td>
               <td class="power-col">14조 2969억 3551만</td>
-            </tr>
-            
-            <tr data-power="1417267817" data-level="101" data-rank="20">
-              <td>20</td>
-              <td>
-                <div class="member-name-cell">
-                  <a href="https://mgf.gg/contents/character.php?n=95%EB%8F%84%EB%8F%84" target="_blank" rel="noreferrer">95도도</a>
-                  
-                </div>
-              </td>
-              <td><span class="badge">히어로</span></td>
-              <td>Lv.101</td>
-              <td class="power-col">14조 1726억 7817만</td>
             </tr>
             
             <tr data-power="856411682" data-level="101" data-rank="21">
@@ -5377,7 +5411,7 @@
               <td class="power-col">3조 620억 6174만</td>
             </tr>
             
-            <tr data-power="273373836" data-level="98" data-rank="28">
+            <tr data-power="283623551" data-level="98" data-rank="28">
               <td>28</td>
               <td>
                 <div class="member-name-cell">
@@ -5387,7 +5421,7 @@
               </td>
               <td><span class="badge">비숍</span></td>
               <td>Lv.98</td>
-              <td class="power-col">2조 7337억 3836만</td>
+              <td class="power-col">2조 8362억 3551만</td>
             </tr>
             
             <tr data-power="206130190" data-level="97" data-rank="29">
@@ -5546,7 +5580,7 @@
               <span class="simulation-rank-badge">#3</span>
               <strong>셀린느</strong>
             </div>
-            <div class="simulation-rank-score">199,161,154점</div>
+            <div class="simulation-rank-score">199,210,536점</div>
             <div class="simulation-rank-summary">30명 · 최고 개인 순위 4위</div>
             <span class="simulation-section-toggle-label">상세 보기</span>
           </button>
@@ -5566,7 +5600,7 @@
               <span class="simulation-rank-badge">#4</span>
               <strong>LUXURY</strong>
             </div>
-            <div class="simulation-rank-score">178,222,564점</div>
+            <div class="simulation-rank-score">178,243,264점</div>
             <div class="simulation-rank-summary">29명 · 최고 개인 순위 2위</div>
             <span class="simulation-section-toggle-label">상세 보기</span>
           </button>
@@ -5586,7 +5620,7 @@
               <span class="simulation-rank-badge">#5</span>
               <strong>이콩</strong>
             </div>
-            <div class="simulation-rank-score">175,694,360점</div>
+            <div class="simulation-rank-score">175,695,046점</div>
             <div class="simulation-rank-summary">29명 · 최고 개인 순위 1위</div>
             <span class="simulation-section-toggle-label">상세 보기</span>
           </button>
@@ -5606,7 +5640,7 @@
               <span class="simulation-rank-badge">#6</span>
               <strong>호러</strong>
             </div>
-            <div class="simulation-rank-score">164,732,311점</div>
+            <div class="simulation-rank-score">164,779,502점</div>
             <div class="simulation-rank-summary">30명 · 최고 개인 순위 5위</div>
             <span class="simulation-section-toggle-label">상세 보기</span>
           </button>
@@ -5626,7 +5660,7 @@
               <span class="simulation-rank-badge">#7</span>
               <strong>item</strong>
             </div>
-            <div class="simulation-rank-score">154,117,200점</div>
+            <div class="simulation-rank-score">154,191,667점</div>
             <div class="simulation-rank-summary">30명 · 최고 개인 순위 8위</div>
             <span class="simulation-section-toggle-label">상세 보기</span>
           </button>
@@ -5675,9 +5709,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.111</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.111</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>1위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%8B%B8%EB%A4%BD" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5703,9 +5738,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.112</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.112</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>2위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B0%80%EC%88%AD%ED%98%81" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5731,9 +5767,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.113</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.113</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>3위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%91%A5%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5759,9 +5796,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.113</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.113</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>4위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%8A%A4%ED%83%80%EB%83%A5%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5787,9 +5825,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.111</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.111</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>5위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B8%B0%EC%9A%94%EB%B0%8B" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5815,9 +5854,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.112</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.112</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>6위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%AC%B4%EC%B9%98z" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5843,9 +5883,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>7위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8F%88%EC%8A%A4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5871,9 +5912,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.111</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.111</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>8위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%BD%94%EB%A1%9C%EB%93%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5899,9 +5941,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.110</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.110</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>9위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%82%B4%EB%BD%80%EC%8B%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5927,9 +5970,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.111</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.111</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>10위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%8B%A0%EA%B6%81%EC%A8%A9" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5955,9 +5999,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.110</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.110</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>11위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%A7%A0%EC%8A%A4%EB%A7%A8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -5983,9 +6028,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.112</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.112</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>12위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9D%BC%EC%9B%94%EB%A7%88%EB%85%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6011,9 +6057,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">나이트로드</strong></dd></div>
+              <div><dt>순위</dt><dd>13위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%A0%EA%B0%B1" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6039,9 +6086,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.110</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.110</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>14위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%B9%B4%EB%9A%9D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6067,9 +6115,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>15위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EA%B0%92" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6095,9 +6144,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>16위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%A5%AC%EC%A0%95%EB%B1%85%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6123,9 +6173,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.110</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.110</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>17위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%8A%A8%EB%85%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6151,9 +6202,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>18위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%A1%9C%EB%93%9C%EC%88%8D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6167,21 +6219,22 @@
                 <div class="simulation-member-primary">
                   <strong>난풍</strong>
                   <p>호러 · <strong class="job-name">신궁</strong></p>
-                  <span class="simulation-member-power">전투력 2064조 9957억 9090만</span>
+                  <span class="simulation-member-power">전투력 2066조 6901억 7240만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>12,060,499점</strong>
+                <strong>12,062,774점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>19위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%82%9C%ED%92%8D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6207,9 +6260,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>20위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B7%80%EC%97%AC%EC%9B%8C%EC%84%9C%EB%AF%B8%EC%95%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6235,9 +6289,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">팔라딘</strong></dd></div>
+              <div><dt>순위</dt><dd>21위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%94%94%EC%98%AC%ED%95%91" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6263,9 +6318,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">보우마스터</strong></dd></div>
+              <div><dt>순위</dt><dd>22위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%BD%ED%95%9C%EA%B3%A0%EB%93%B1%EC%96%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6291,9 +6347,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>23위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%A7%84%EC%9E%90%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6319,9 +6376,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>24위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=26%EC%83%81%ED%83%97" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6347,9 +6405,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>25위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%A7%A4%ED%8A%B8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6375,9 +6434,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>26위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%A7%90%EB%A0%88%EC%9D%B4%ED%9E%88%EC%96%B4%EB%A1%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6403,9 +6463,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.109</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>27위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%8B%A4%EB%AF%BC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6431,9 +6492,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>28위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B0%80%EC%A0%95%EA%B5%90%EC%9C%A1%ED%95%84%EC%88%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6459,9 +6521,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(불,독)</strong></dd></div>
+              <div><dt>순위</dt><dd>29위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%9A%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6487,9 +6550,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>30위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%8A%A4%ED%83%80%EC%BA%90%EC%B9%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6515,9 +6579,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>31위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%8C%A8%ED%8A%B8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6531,21 +6596,22 @@
                 <div class="simulation-member-primary">
                   <strong>설즈</strong>
                   <p>이콩 · <strong class="job-name">다크나이트</strong></p>
-                  <span class="simulation-member-power">전투력 932조 4522억 4629만</span>
+                  <span class="simulation-member-power">전투력 932조 7496억 7919만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>9,347,143점</strong>
+                <strong>9,347,829점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>32위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%84%A4%EC%A6%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6559,21 +6625,22 @@
                 <div class="simulation-member-primary">
                   <strong>빌런투킬</strong>
                   <p>셀린느 · <strong class="job-name">팔라딘</strong></p>
-                  <span class="simulation-member-power">전투력 1021조 5073억 9566만</span>
+                  <span class="simulation-member-power">전투력 1022조 1463억 7965만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>9,307,287점</strong>
+                <strong>9,308,625점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">팔라딘</strong></dd></div>
+              <div><dt>순위</dt><dd>33위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B9%8C%EB%9F%B0%ED%88%AC%ED%82%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6599,9 +6666,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>34위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%AC%B8%EB%94%94%EB%A5%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6627,9 +6695,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>35위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%95%98%EC%97%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6655,9 +6724,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>36위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%98%A4%EB%A6%AC%EB%AF%B8%EC%95%BC%EC%98%B9" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6683,9 +6753,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>37위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%88%84%EC%A7%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6711,9 +6782,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>38위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%95%AD%EC%83%81%EB%B0%9D%EC%9D%80%ED%95%98%EB%A3%A8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6739,9 +6811,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>39위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8B%AC%EC%8B%B9" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6767,9 +6840,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>40위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=Bit%EC%88%8D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6795,9 +6869,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>41위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8B%A8%ED%92%8D%EB%85%B8%EB%B9%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6823,9 +6898,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>42위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B0%80%ED%94%84%ED%91%B8%EC%94%A8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6851,9 +6927,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>43위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9E%84%EC%88%9C%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6879,9 +6956,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>44위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%ED%8A%B8%EC%B8%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6907,9 +6985,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>45위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9D%91%EB%88%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6935,9 +7014,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.108</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>46위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%86%A1%EA%B3%A7" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6963,9 +7043,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>47위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=26%EB%B0%8D%EB%B0%8D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -6991,9 +7072,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>48위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%94%BC%EB%8D%B0%EA%B8%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7019,9 +7101,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>49위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%91%98%EA%B8%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7047,9 +7130,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">나이트로드</strong></dd></div>
+              <div><dt>순위</dt><dd>50위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%89%AC%EC%9A%B4%EC%9D%B4%EB%A6%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7075,9 +7159,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>51위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%85%9C%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7103,9 +7188,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>52위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%8F%84%EB%8F%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7131,9 +7217,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">팔라딘</strong></dd></div>
+              <div><dt>순위</dt><dd>53위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%87%8C%EC%89%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7147,21 +7234,22 @@
                 <div class="simulation-member-primary">
                   <strong>26길초</strong>
                   <p>LUXURY · <strong class="job-name">다크나이트</strong></p>
-                  <span class="simulation-member-power">전투력 423조 609억 3629만</span>
+                  <span class="simulation-member-power">전투력 427조 2003억 2087만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>7,721,088점</strong>
+                <strong>7,738,399점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>54위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=26%EA%B8%B8%EC%B4%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7187,9 +7275,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>55위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE32%EB%B3%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7215,9 +7304,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(불,독)</strong></dd></div>
+              <div><dt>순위</dt><dd>56위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%AA%AC%ED%95%A8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7243,9 +7333,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(불,독)</strong></dd></div>
+              <div><dt>순위</dt><dd>57위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%94%84%EB%9E%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7271,9 +7362,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>58위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%A8%EC%82%90" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7299,9 +7391,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>59위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE6" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7327,9 +7420,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>60위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%98%A5%EC%9C%BC%EB%A6%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7355,9 +7449,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>61위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B2%B8%EC%B0%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7383,9 +7478,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>62위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9B%94%EA%B4%91%EC%82%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7399,21 +7495,22 @@
                 <div class="simulation-member-primary">
                   <strong>26들박</strong>
                   <p>LUXURY · <strong class="job-name">다크나이트</strong></p>
-                  <span class="simulation-member-power">전투력 329조 7132억 4310만</span>
+                  <span class="simulation-member-power">전투력 330조 3801억 9081만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>7,290,834점</strong>
+                <strong>7,294,223점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>63위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=26%EB%93%A4%EB%B0%95" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7439,9 +7536,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>64위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%84%9C%EC%98%88%EC%8A%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7467,9 +7565,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>65위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%8A%A4%ED%83%80%EB%8E%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7495,9 +7594,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(불,독)</strong></dd></div>
+              <div><dt>순위</dt><dd>66위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B2%A0%ED%8B%B0%EB%B2%A0%EB%94%94%EB%B2%A0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7523,9 +7623,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.107</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>67위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%97%AC%EC%82%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7551,9 +7652,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>68위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B5%AC%ED%94%BD" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7579,9 +7681,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>69위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B3%B4%EC%83%A4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7607,9 +7710,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>70위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%BD%80%EB%8B%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7635,9 +7739,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>71위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%98%B4%EC%A7%9D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7663,9 +7768,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>72위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%A1%9C%EB%A1%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7691,9 +7797,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>73위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8B%A4%EC%9D%B4%EC%82%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7719,9 +7826,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(불,독)</strong></dd></div>
+              <div><dt>순위</dt><dd>74위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%BD%ED%95%B4%EC%A7%84%EC%AD%8C%EC%84%9D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7747,9 +7855,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>75위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%83%89%EB%8F%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7775,9 +7884,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>76위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%BD%EC%96%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7803,9 +7913,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>77위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%82%A4%EC%9D%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7831,9 +7942,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>78위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%B6%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7859,9 +7971,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>79위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%94%BC%EB%AA%BD" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7887,9 +8000,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>80위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%97%B0%EC%A7%80%EC%9E%84%EB%8B%B9" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7915,9 +8029,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>81위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B9%8C%EB%A6%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7943,9 +8058,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>82위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%97%88%EB%B8%8C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7971,9 +8087,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>83위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%ED%95%B4%EB%8B%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -7999,9 +8116,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>84위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%97%94%EC%A0%A4%EA%B0%80%EB%93%A0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8027,9 +8145,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>85위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EA%B5%AC%EB%A6%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8055,9 +8174,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>86위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%B8%A0%ED%82%A4%ED%8B%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8083,9 +8203,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.106</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>87위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9E%84%EC%8A%B9%EB%AF%BC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8111,9 +8232,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>88위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%95%AB%EB%94%9C%EB%A7%8C%EC%82%BC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8139,9 +8261,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>89위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%94%84%EB%A6%AC%ED%94%84%EB%A6%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8167,9 +8290,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>90위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%BD%83%EC%9D%84%EB%93%A0%EB%82%A8%EC%9E%90" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8195,9 +8319,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>91위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EC%96%8D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8223,9 +8348,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>92위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B6%80%EC%97%89%EC%9D%B4%EC%97%86%EB%8B%A4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8251,9 +8377,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>93위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B0%98%EB%A7%A5%EC%95%84%EB%B2%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8279,9 +8406,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>94위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%85%B8%EB%93%9D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8307,9 +8435,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>95위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%EB%B2%88%EB%9C%A9" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8335,9 +8464,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>96위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B4%89%ED%8A%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8363,9 +8493,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>97위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE%ED%85%8C%EB%A6%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8391,9 +8522,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>98위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%84%B4%ED%9E%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8419,9 +8551,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>99위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%A7%84%EC%A7%9C%EC%A7%80%EC%A1%B4%EB%B2%95%EC%82%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8447,9 +8580,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>100위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B3%B5%ED%8F%AC%EC%9D%98%EC%98%A4%ED%95%A8%EB%A7%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8475,9 +8609,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>101위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%BE%8C%EA%B0%90" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8503,9 +8638,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(불,독)</strong></dd></div>
+              <div><dt>순위</dt><dd>102위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%A8%B8%EC%93%B0%EC%9C%BD%ED%83%80%EB%93%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8531,9 +8667,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>더샾</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>103위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%83%BE76%EC%84%B8%ED%98%84%EC%88%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8559,9 +8696,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>104위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%95%AB%EB%91%90" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8587,9 +8725,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>105위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%95%AB%EC%9E%A5" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8615,9 +8754,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>106위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%95%98%ED%9B%84%EB%8F%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8643,9 +8783,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>107위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%BB%94%EC%88%98%EB%8B%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8671,9 +8812,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>108위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%82%B0%ED%83%80%EC%84%A0%EB%AC%BC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8699,9 +8841,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(불,독)</strong></dd></div>
+              <div><dt>순위</dt><dd>109위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%A0%9C%EB%A1%9C%EC%8A%88%EA%B0%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8715,21 +8858,22 @@
                 <div class="simulation-member-primary">
                   <strong>잼포즈</strong>
                   <p>셀린느 · <strong class="job-name">아크메이지(썬,콜)</strong></p>
-                  <span class="simulation-member-power">전투력 74조 2195억 2686만</span>
+                  <span class="simulation-member-power">전투력 74조 2546억 7807만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>4,987,796점</strong>
+                <strong>4,988,339점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>110위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9E%BC%ED%8F%AC%EC%A6%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8755,9 +8899,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>111위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%BD%83%EB%82%98%EB%9E%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8783,9 +8928,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.105</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>112위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=POSCO" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8811,9 +8957,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>113위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%84%EB%A7%88%EB%82%A0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8839,9 +8986,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>114위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%86%8C%EC%86%8C%EC%B1%842" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8867,9 +9015,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>115위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%A8%EB%A6%AC%EC%8A%A4%EB%B9%8C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8895,9 +9044,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>116위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9B%90%EC%88%9C%EC%B2%A0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8923,9 +9073,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>117위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%99%98%EB%B6%88%EB%82%A8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8951,9 +9102,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>118위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%A1%B0%EC%BD%A9%EB%82%98%EB%AC%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -8979,9 +9131,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>119위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%96%BC%EC%9D%8C%EA%B9%A8%EB%A8%B9%EA%B8%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9007,9 +9160,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>120위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8F%84%EB%A0%B93" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9023,21 +9177,22 @@
                 <div class="simulation-member-primary">
                   <strong>김치싸대기</strong>
                   <p>셀린느 · <strong class="job-name">히어로</strong></p>
-                  <span class="simulation-member-power">전투력 36조 8989억 4048만</span>
+                  <span class="simulation-member-power">전투력 38조 568억 6620만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>4,551,493점</strong>
+                <strong>4,583,954점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>121위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%8B%B8%EB%8C%80%EA%B8%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9063,9 +9218,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>122위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%B5%9C%EC%94%A8%EC%9A%A9" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9091,9 +9247,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">나이트로드</strong></dd></div>
+              <div><dt>순위</dt><dd>123위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9D%80%EB%8B%AC%EC%B4%9D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9119,9 +9276,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>124위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%A3%A8%EB%84%A8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9147,9 +9305,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>125위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%91%90%EA%B7%BC%ED%91%B8%EA%B7%BC%EC%97%B0%EA%B7%BC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9175,9 +9334,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>126위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=26%EB%B0%B0%ED%84%B8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9203,9 +9363,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>127위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%A5%98%ED%85%8C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9231,9 +9392,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>128위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=ADELL" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9259,9 +9421,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>129위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%B5%B8%EA%BC%AC%EB%8B%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9287,9 +9450,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">보우마스터</strong></dd></div>
+              <div><dt>순위</dt><dd>130위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B8%8C%EA%B9%83" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9303,21 +9467,22 @@
                 <div class="simulation-member-primary">
                   <strong>할룽</strong>
                   <p>셀린느 · <strong class="job-name">아크메이지(썬,콜)</strong></p>
-                  <span class="simulation-member-power">전투력 37조 7902억 3547만</span>
+                  <span class="simulation-member-power">전투력 38조 3694억 6015만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>4,291,260점</strong>
+                <strong>4,306,300점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.104</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>131위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%95%A0%EB%A3%BD" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9343,9 +9508,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>132위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8C%80%EB%B0%A9%EC%96%B4%EC%A1%B0%EC%95%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9371,9 +9537,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>133위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%98%88%EB%A7%88%EC%8B%A0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9399,9 +9566,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>134위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%85%EC%9D%98%EA%BD%83" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9427,9 +9595,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>135위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%91%A4%EC%82%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9448,16 +9617,17 @@
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>4,083,781점</strong>
+                <strong>4,103,948점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">나이트로드</strong></dd></div>
+              <div><dt>순위</dt><dd>136위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%88%AE2" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9483,9 +9653,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>137위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9D%B4%EB%9F%AC%EB%8A%94%EA%B1%B0%EC%95%84%EB%83%90" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9511,9 +9682,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>138위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%BF%A0%EC%86%8C%EA%B0%80%ED%82%A4%ED%82%A4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9539,9 +9711,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>139위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%98%9C%EC%98%81" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9567,9 +9740,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>140위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=81%ED%95%99%EC%B0%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9595,9 +9769,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>141위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9A%B8%ED%9E%9D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9623,9 +9798,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>142위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B0%B1%EC%97%84%EA%B2%BD" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9651,9 +9827,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>143위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EB%8C%80%ED%98%91" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9679,9 +9856,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>144위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%B2%9C%EC%B9%B8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9707,9 +9885,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>145위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%8F%AC%EB%87%A8%EC%95%BC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9735,9 +9914,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>146위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%95%A9%EC%BD%A9" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9763,9 +9943,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>147위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%BD%80%EB%9D%BC%EB%B9%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9791,9 +9972,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>148위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%82%A4%EC%9B%80%EB%A7%A8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9819,9 +10001,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>149위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=SingA" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9847,9 +10030,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>150위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%AA%BD%ED%98%B8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9875,9 +10059,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>151위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%83%9C%EC%BC%B1" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9903,9 +10088,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>152위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%B1%A0%EC%9E%AC%EB%B2%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9931,9 +10117,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>153위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=26%ED%90%9D%EB%B0%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9959,9 +10146,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>154위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%B5%9C%EC%86%8C%EB%8E%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -9987,9 +10175,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>155위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%BB%90%EB%8A%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10015,9 +10204,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>딸기키우기</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>156위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B9%8C%EC%82%ACPC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10031,21 +10221,22 @@
                 <div class="simulation-member-primary">
                   <strong>95도도</strong>
                   <p>item · <strong class="job-name">히어로</strong></p>
-                  <span class="simulation-member-power">전투력 14조 1726억 7817만</span>
+                  <span class="simulation-member-power">전투력 14조 6429억 438만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>3,616,735점</strong>
+                <strong>3,643,989점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>157위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=95%EB%8F%84%EB%8F%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10071,9 +10262,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>158위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9C%A0%EB%94%94%ED%8B%B0%EA%B8%B0%EC%B0%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10099,9 +10291,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>159위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%84%EB%AA%A8%EB%A5%B4%ED%8C%8C%ED%8B%B0%ED%80%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10127,9 +10320,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.103</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>160위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%99%93%EC%B3%90" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10155,9 +10349,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>161위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%97%90%EB%A7%9D" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10183,9 +10378,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>162위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%8B%9C%ED%94%84%EB%8B%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10211,9 +10407,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>163위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=26%EC%A1%B0%EC%84%A0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10239,9 +10436,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>164위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B4%84%EB%85%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10267,9 +10465,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>165위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%95%9C%EC%9C%A0%ED%99%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10295,9 +10494,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">팔라딘</strong></dd></div>
+              <div><dt>순위</dt><dd>166위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%A9%94%ED%82%A4%EB%AC%B4%EB%9D%BC%EB%94%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10323,9 +10523,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>167위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8B%A4%EC%86%A1%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10351,9 +10552,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>168위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%BF%9C%EC%82%90" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10379,9 +10581,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(불,독)</strong></dd></div>
+              <div><dt>순위</dt><dd>169위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%95%9CPoll" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10407,9 +10610,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>길드</dt><dd>셀린느</dd></div>
+              <div><dt>레벨</dt><dd>Lv.102</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>170위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=junoflo" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10435,9 +10639,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>171위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%82%AD%EB%A7%8C%EB%A7%8C%EB%93%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10463,10 +10668,40 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>172위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%81%AC%EC%95%99%EB%A0%88%EB%AA%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
+            </dl>
+          </div>
+        </article>
+        
+        <article class="simulation-member-card" data-guild="item">
+          <button type="button" class="simulation-member-toggle" aria-expanded="false">
+            <div class="simulation-member-card-top">
+              <div class="simulation-member-card-identity">
+                <span class="simulation-member-rank">#173</span>
+                <div class="simulation-member-primary">
+                  <strong>김똔똔</strong>
+                  <p>item · <strong class="job-name">비숍</strong></p>
+                  <span class="simulation-member-power">전투력 2조 8362억 3551만</span>
+                </div>
+              </div>
+              <div class="simulation-member-score">
+                <span>예상 점수</span>
+                <strong>3,208,366점</strong>
+              </div>
+            </div>
+            <span class="simulation-member-toggle-label">상세 보기</span>
+          </button>
+          <div class="simulation-member-details" hidden>
+            <dl class="simulation-member-meta">
+              <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.98</dd></div>
+              <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>173위</dd></div>
+              <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EB%98%94%EB%98%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
         </article>
@@ -10475,7 +10710,7 @@
           <button type="button" class="simulation-member-toggle" aria-expanded="false">
             <div class="simulation-member-card-top">
               <div class="simulation-member-card-identity">
-                <span class="simulation-member-rank">#173</span>
+                <span class="simulation-member-rank">#174</span>
                 <div class="simulation-member-primary">
                   <strong>악전</strong>
                   <p>호러 · <strong class="job-name">신궁</strong></p>
@@ -10491,9 +10726,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>174위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%95%85%EC%A0%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10503,7 +10739,7 @@
           <button type="button" class="simulation-member-toggle" aria-expanded="false">
             <div class="simulation-member-card-top">
               <div class="simulation-member-card-identity">
-                <span class="simulation-member-rank">#174</span>
+                <span class="simulation-member-rank">#175</span>
                 <div class="simulation-member-primary">
                   <strong>박미쯔</strong>
                   <p>호러 · <strong class="job-name">아크메이지(썬,콜)</strong></p>
@@ -10519,38 +10755,11 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>175위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B0%95%EB%AF%B8%EC%AF%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
-            </dl>
-          </div>
-        </article>
-        
-        <article class="simulation-member-card" data-guild="item">
-          <button type="button" class="simulation-member-toggle" aria-expanded="false">
-            <div class="simulation-member-card-top">
-              <div class="simulation-member-card-identity">
-                <span class="simulation-member-rank">#175</span>
-                <div class="simulation-member-primary">
-                  <strong>김똔똔</strong>
-                  <p>item · <strong class="job-name">비숍</strong></p>
-                  <span class="simulation-member-power">전투력 2조 7337억 3836만</span>
-                </div>
-              </div>
-              <div class="simulation-member-score">
-                <span>예상 점수</span>
-                <strong>3,181,320점</strong>
-              </div>
-            </div>
-            <span class="simulation-member-toggle-label">상세 보기</span>
-          </button>
-          <div class="simulation-member-details" hidden>
-            <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.98</dd></div>
-              <div><dt>길드</dt><dd>item</dd></div>
-              <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
-              <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EB%98%94%EB%98%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
         </article>
@@ -10575,9 +10784,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>176위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%81%BD%EC%BD%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10603,9 +10813,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>177위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B0%95%EB%9D%B5%EB%9D%B5" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10619,21 +10830,22 @@
                 <div class="simulation-member-primary">
                   <strong>후아멀로하냐</strong>
                   <p>호러 · <strong class="job-name">신궁</strong></p>
-                  <span class="simulation-member-power">전투력 6조 2410억 1159만</span>
+                  <span class="simulation-member-power">전투력 6조 6518억 9389만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>3,040,523점</strong>
+                <strong>3,085,439점</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>178위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%9B%84%EC%95%84%EB%A9%80%EB%A1%9C%ED%95%98%EB%83%90" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10659,9 +10871,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>179위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%82%A4%EC%9A%B0%EB%8A%94%EA%B1%B4%EC%A7%88%EC%83%89" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10687,9 +10900,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>180위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%88%91%EB%8B%B9" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10715,9 +10929,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>181위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B3%A0%EC%98%81%ED%9D%AC%EB%A9%88%EB%AD%84%EB%AF%B8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10743,9 +10958,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>182위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B9%A0%EB%82%98%EB%94%98" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10771,9 +10987,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>183위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B4%89%ED%95%A9%EB%B6%88%EA%B0%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10799,9 +11016,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>184위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%A6%AC%EC%96%BC%ED%81%AC%ED%81%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10827,9 +11045,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>185위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B7%AC%EC%8A%A4%ED%8C%8C%ED%8C%8C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10855,9 +11074,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>LUXURY</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>186위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%98%88%EB%9D%BC%EB%AF%B8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10883,9 +11103,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>187위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%96%84%EC%93%B1%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10911,9 +11132,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>188위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%88%A0%EC%B7%A8%ED%95%9C%ED%98%B8%EB%9E%91%EC%9D%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10939,9 +11161,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>189위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%ED%98%84%EC%A6%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10967,9 +11190,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.97</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.97</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>190위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%96%91%EC%B9%B4%EC%98%A4%EB%84%88" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -10995,9 +11219,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.97</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.97</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">신궁</strong></dd></div>
+              <div><dt>순위</dt><dd>191위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B5%B0%EB%AA%85" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11023,9 +11248,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.98</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.98</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">나이트로드</strong></dd></div>
+              <div><dt>순위</dt><dd>192위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B0%95%ED%95%98%EB%AF%BC%EB%A6%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11051,9 +11277,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>193위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%99%95%EB%9A%9C%EA%BB%91" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11079,9 +11306,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.101</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>194위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%88%98%EB%85%84" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11107,9 +11335,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.96</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.96</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>195위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9A%A9%EA%B4%91%EC%82%AC" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11135,9 +11364,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.96</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.96</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>순위</dt><dd>196위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9A%94%EC%AF%94" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11163,9 +11393,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.98</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.98</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>197위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9E%A5%EC%88%98%ED%9D%99%EC%B9%A8%EB%8C%80" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11191,9 +11422,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">나이트로드</strong></dd></div>
+              <div><dt>순위</dt><dd>198위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EA%B0%95%ED%95%9C%EA%B3%A0%EB%93%B1%EC%96%B4" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11219,9 +11451,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.100</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>199위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%B9%98%EC%A6%88%EC%99%95%EB%9A%9C%EA%BB%91" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11247,9 +11480,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>길드</dt><dd>호러</dd></div>
+              <div><dt>레벨</dt><dd>Lv.99</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>200위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%BF%A0%EC%8F%98%EC%95%BC%EB%A1%9C%EB%A1%9C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11275,9 +11509,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.97</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.97</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">아크메이지(썬,콜)</strong></dd></div>
+              <div><dt>순위</dt><dd>201위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8B%88%EC%BD%94%EC%A7%B1" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11303,9 +11538,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.96</dd></div>
               <div><dt>길드</dt><dd>item</dd></div>
+              <div><dt>레벨</dt><dd>Lv.96</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>순위</dt><dd>202위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%89%B4%EB%A7%B9%EC%9A%B0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11331,9 +11567,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.97</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.97</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">다크나이트</strong></dd></div>
+              <div><dt>순위</dt><dd>203위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%8F%8C%EC%87%A0%EC%98%81%EB%A7%8C" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11359,9 +11596,10 @@
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.95</dd></div>
               <div><dt>길드</dt><dd>이콩</dd></div>
+              <div><dt>레벨</dt><dd>Lv.95</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">섀도어</strong></dd></div>
+              <div><dt>순위</dt><dd>204위</dd></div>
               <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%B9%84%EC%96%B4%EC%B9%98%ED%82%A8" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -11560,14 +11798,14 @@
           <td>12,181,747점</td>
         </tr>
         
-        <tr data-guild="호러" data-rank="19" data-power="206499579090" data-level="108">
+        <tr data-guild="호러" data-rank="19" data-power="206669017240" data-level="108">
           <td>19</td>
           <td>호러</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%82%9C%ED%92%8D" target="_blank" rel="noreferrer">난풍</a></td>
           <td><strong class="job-name">신궁</strong></td>
-          <td>2064조 9957억 9090만</td>
+          <td>2066조 6901억 7240만</td>
           <td>Lv.108</td>
-          <td>12,060,499점</td>
+          <td>12,062,774점</td>
         </tr>
         
         <tr data-guild="딸기키우기" data-rank="20" data-power="67736323790" data-level="107">
@@ -11690,24 +11928,24 @@
           <td>9,601,383점</td>
         </tr>
         
-        <tr data-guild="이콩" data-rank="32" data-power="93245224629" data-level="108">
+        <tr data-guild="이콩" data-rank="32" data-power="93274967919" data-level="108">
           <td>32</td>
           <td>이콩</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%84%A4%EC%A6%88" target="_blank" rel="noreferrer">설즈</a></td>
           <td><strong class="job-name">다크나이트</strong></td>
-          <td>932조 4522억 4629만</td>
+          <td>932조 7496억 7919만</td>
           <td>Lv.108</td>
-          <td>9,347,143점</td>
+          <td>9,347,829점</td>
         </tr>
         
-        <tr data-guild="셀린느" data-rank="33" data-power="102150739566" data-level="108">
+        <tr data-guild="셀린느" data-rank="33" data-power="102214637965" data-level="108">
           <td>33</td>
           <td>셀린느</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B9%8C%EB%9F%B0%ED%88%AC%ED%82%AC" target="_blank" rel="noreferrer">빌런투킬</a></td>
           <td><strong class="job-name">팔라딘</strong></td>
-          <td>1021조 5073억 9566만</td>
+          <td>1022조 1463억 7965만</td>
           <td>Lv.108</td>
-          <td>9,307,287점</td>
+          <td>9,308,625점</td>
         </tr>
         
         <tr data-guild="이콩" data-rank="34" data-power="21812027446" data-level="106">
@@ -11910,14 +12148,14 @@
           <td>7,760,959점</td>
         </tr>
         
-        <tr data-guild="LUXURY" data-rank="54" data-power="42306093629" data-level="106">
+        <tr data-guild="LUXURY" data-rank="54" data-power="42720032087" data-level="106">
           <td>54</td>
           <td>LUXURY</td>
           <td><a href="https://mgf.gg/contents/character.php?n=26%EA%B8%B8%EC%B4%88" target="_blank" rel="noreferrer">26길초</a></td>
           <td><strong class="job-name">다크나이트</strong></td>
-          <td>423조 609억 3629만</td>
+          <td>427조 2003억 2087만</td>
           <td>Lv.106</td>
-          <td>7,721,088점</td>
+          <td>7,738,399점</td>
         </tr>
         
         <tr data-guild="더샾" data-rank="55" data-power="34145308309" data-level="105">
@@ -12000,14 +12238,14 @@
           <td>7,298,237점</td>
         </tr>
         
-        <tr data-guild="LUXURY" data-rank="63" data-power="32971324310" data-level="106">
+        <tr data-guild="LUXURY" data-rank="63" data-power="33038019081" data-level="106">
           <td>63</td>
           <td>LUXURY</td>
           <td><a href="https://mgf.gg/contents/character.php?n=26%EB%93%A4%EB%B0%95" target="_blank" rel="noreferrer">26들박</a></td>
           <td><strong class="job-name">다크나이트</strong></td>
-          <td>329조 7132억 4310만</td>
+          <td>330조 3801억 9081만</td>
           <td>Lv.106</td>
-          <td>7,290,834점</td>
+          <td>7,294,223점</td>
         </tr>
         
         <tr data-guild="LUXURY" data-rank="64" data-power="35542283360" data-level="107">
@@ -12470,14 +12708,14 @@
           <td>5,043,566점</td>
         </tr>
         
-        <tr data-guild="셀린느" data-rank="110" data-power="7421952686" data-level="103">
+        <tr data-guild="셀린느" data-rank="110" data-power="7425467807" data-level="103">
           <td>110</td>
           <td>셀린느</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%9E%BC%ED%8F%AC%EC%A6%88" target="_blank" rel="noreferrer">잼포즈</a></td>
           <td><strong class="job-name">아크메이지(썬,콜)</strong></td>
-          <td>74조 2195억 2686만</td>
+          <td>74조 2546억 7807만</td>
           <td>Lv.103</td>
-          <td>4,987,796점</td>
+          <td>4,988,339점</td>
         </tr>
         
         <tr data-guild="이콩" data-rank="111" data-power="4552626458" data-level="103">
@@ -12580,14 +12818,14 @@
           <td>4,601,017점</td>
         </tr>
         
-        <tr data-guild="셀린느" data-rank="121" data-power="3689894048" data-level="103">
+        <tr data-guild="셀린느" data-rank="121" data-power="3805686620" data-level="103">
           <td>121</td>
           <td>셀린느</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EC%B9%98%EC%8B%B8%EB%8C%80%EA%B8%B0" target="_blank" rel="noreferrer">김치싸대기</a></td>
           <td><strong class="job-name">히어로</strong></td>
-          <td>36조 8989억 4048만</td>
+          <td>38조 568억 6620만</td>
           <td>Lv.103</td>
-          <td>4,551,493점</td>
+          <td>4,583,954점</td>
         </tr>
         
         <tr data-guild="LUXURY" data-rank="122" data-power="1212145182" data-level="101">
@@ -12680,14 +12918,14 @@
           <td>4,316,601점</td>
         </tr>
         
-        <tr data-guild="셀린느" data-rank="131" data-power="3779023547" data-level="104">
+        <tr data-guild="셀린느" data-rank="131" data-power="3836946015" data-level="104">
           <td>131</td>
           <td>셀린느</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%95%A0%EB%A3%BD" target="_blank" rel="noreferrer">할룽</a></td>
           <td><strong class="job-name">아크메이지(썬,콜)</strong></td>
-          <td>37조 7902억 3547만</td>
+          <td>38조 3694억 6015만</td>
           <td>Lv.104</td>
-          <td>4,291,260점</td>
+          <td>4,306,300점</td>
         </tr>
         
         <tr data-guild="셀린느" data-rank="132" data-power="3149971522" data-level="103">
@@ -12730,14 +12968,14 @@
           <td>4,131,044점</td>
         </tr>
         
-        <tr data-guild="item" data-rank="136" data-power="2730954161" data-level="101">
+        <tr data-guild="item" data-rank="136" data-power="2730954161" data-level="102">
           <td>136</td>
           <td>item</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%88%AE2" target="_blank" rel="noreferrer">숮2</a></td>
           <td><strong class="job-name">나이트로드</strong></td>
           <td>27조 3095억 4161만</td>
-          <td>Lv.101</td>
-          <td>4,083,781점</td>
+          <td>Lv.102</td>
+          <td>4,103,948점</td>
         </tr>
         
         <tr data-guild="item" data-rank="137" data-power="2802367493" data-level="101">
@@ -12940,14 +13178,14 @@
           <td>3,666,862점</td>
         </tr>
         
-        <tr data-guild="item" data-rank="157" data-power="1417267817" data-level="101">
+        <tr data-guild="item" data-rank="157" data-power="1464290438" data-level="101">
           <td>157</td>
           <td>item</td>
           <td><a href="https://mgf.gg/contents/character.php?n=95%EB%8F%84%EB%8F%84" target="_blank" rel="noreferrer">95도도</a></td>
           <td><strong class="job-name">히어로</strong></td>
-          <td>14조 1726억 7817만</td>
+          <td>14조 6429억 438만</td>
           <td>Lv.101</td>
-          <td>3,616,735점</td>
+          <td>3,643,989점</td>
         </tr>
         
         <tr data-guild="호러" data-rank="158" data-power="1409528021" data-level="101">
@@ -13100,8 +13338,18 @@
           <td>3,218,553점</td>
         </tr>
         
-        <tr data-guild="호러" data-rank="173" data-power="751508566" data-level="101">
+        <tr data-guild="item" data-rank="173" data-power="283623551" data-level="98">
           <td>173</td>
+          <td>item</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EB%98%94%EB%98%94" target="_blank" rel="noreferrer">김똔똔</a></td>
+          <td><strong class="job-name">비숍</strong></td>
+          <td>2조 8362억 3551만</td>
+          <td>Lv.98</td>
+          <td>3,208,366점</td>
+        </tr>
+        
+        <tr data-guild="호러" data-rank="174" data-power="751508566" data-level="101">
+          <td>174</td>
           <td>호러</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%95%85%EC%A0%84" target="_blank" rel="noreferrer">악전</a></td>
           <td><strong class="job-name">신궁</strong></td>
@@ -13110,24 +13358,14 @@
           <td>3,205,143점</td>
         </tr>
         
-        <tr data-guild="호러" data-rank="174" data-power="1114921717" data-level="101">
-          <td>174</td>
+        <tr data-guild="호러" data-rank="175" data-power="1114921717" data-level="101">
+          <td>175</td>
           <td>호러</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%B0%95%EB%AF%B8%EC%AF%94" target="_blank" rel="noreferrer">박미쯔</a></td>
           <td><strong class="job-name">아크메이지(썬,콜)</strong></td>
           <td>11조 1492억 1717만</td>
           <td>Lv.101</td>
           <td>3,193,727점</td>
-        </tr>
-        
-        <tr data-guild="item" data-rank="175" data-power="273373836" data-level="98">
-          <td>175</td>
-          <td>item</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EA%B9%80%EB%98%94%EB%98%94" target="_blank" rel="noreferrer">김똔똔</a></td>
-          <td><strong class="job-name">비숍</strong></td>
-          <td>2조 7337억 3836만</td>
-          <td>Lv.98</td>
-          <td>3,181,320점</td>
         </tr>
         
         <tr data-guild="호러" data-rank="176" data-power="1057485807" data-level="101">
@@ -13150,14 +13388,14 @@
           <td>3,121,216점</td>
         </tr>
         
-        <tr data-guild="호러" data-rank="178" data-power="624101159" data-level="99">
+        <tr data-guild="호러" data-rank="178" data-power="665189389" data-level="99">
           <td>178</td>
           <td>호러</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%ED%9B%84%EC%95%84%EB%A9%80%EB%A1%9C%ED%95%98%EB%83%90" target="_blank" rel="noreferrer">후아멀로하냐</a></td>
           <td><strong class="job-name">신궁</strong></td>
-          <td>6조 2410억 1159만</td>
+          <td>6조 6518억 9389만</td>
           <td>Lv.99</td>
-          <td>3,040,523점</td>
+          <td>3,085,439점</td>
         </tr>
         
         <tr data-guild="호러" data-rank="179" data-power="847895075" data-level="101">
@@ -13429,7 +13667,7 @@
 
   <script>
     const openModal = (id) => {
-      const backdrop = document.getElementById('modal-' + id);
+      const backdrop = document.getElementById(`modal-${id}`);
       if (backdrop) backdrop.classList.add('open');
     };
 
@@ -13626,6 +13864,40 @@
         card.classList.toggle('expanded', !expanded);
       });
     });
+
+    const mobileSectionQuery = window.matchMedia('(max-width: 720px)');
+    const syncMobileSections = () => {
+      document.querySelectorAll('.mobile-section-toggle').forEach((button) => {
+        const panel = button.closest('.mobile-section-panel');
+        if (!panel) return;
+        const shouldExpand = !mobileSectionQuery.matches || panel.classList.contains('expanded');
+        button.setAttribute('aria-expanded', shouldExpand ? 'true' : 'false');
+      });
+    };
+
+    document.querySelectorAll('.mobile-section-toggle').forEach((button) => {
+      button.addEventListener('click', () => {
+        const panel = button.closest('.mobile-section-panel');
+        if (!panel) return;
+        const expanded = panel.classList.contains('expanded');
+        panel.classList.toggle('expanded', !expanded);
+        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      });
+    });
+
+    mobileSectionQuery.addEventListener?.('change', syncMobileSections);
+    syncMobileSections();
+
+    const heroStatsToggle = document.querySelector('.hero-stats-toggle');
+    const heroStatsBody = document.getElementById('hero-stats-body');
+    if (heroStatsToggle && heroStatsBody) {
+      heroStatsToggle.addEventListener('click', () => {
+        const open = heroStatsBody.classList.contains('open');
+        heroStatsBody.classList.toggle('open', !open);
+        heroStatsToggle.classList.toggle('open', !open);
+        heroStatsToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+    }
 
     document.querySelectorAll('.member-table').forEach((table) => {
       const tbody = table.querySelector('tbody');
