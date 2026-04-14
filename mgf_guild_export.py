@@ -1108,22 +1108,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
         f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
         for guild_row in simulation["guild_rankings"]
     )
-    guild_cards = "".join(
-        f"""
-        <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
-          <div class="simulation-rank-top">
-            <span class="simulation-rank-badge">#{int(guild_row['simulation_rank'])}</span>
-            <strong>{escape(str(guild_row['guild_name']))}</strong>
-          </div>
-          <div class="simulation-rank-score">{escape(str(guild_row['total_score_text']))}</div>
-          <dl class="simulation-rank-meta">
-            <div><dt>득점 인원</dt><dd>{int(guild_row['scoring_count'])}명</dd></div>
-            <div><dt>최고 순위</dt><dd>{int(guild_row['top_finisher_rank'] or 0)}위 · {escape(str(guild_row['top_finisher_name']))}</dd></div>
-          </dl>
-        </article>
-        """
-        for guild_row in simulation["guild_rankings"]
-    )
+    preview_count = len(simulation["score_table_preview"])
     preview_cards = "".join(
         f"""
         <article class="score-rule-card">
@@ -1133,9 +1118,31 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
         """
         for row in simulation["score_table_preview"]
     )
+    guild_cards = "".join(
+        f"""
+        <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
+          <button type="button" class="simulation-rank-toggle" aria-expanded="false">
+            <div class="simulation-rank-top">
+              <span class="simulation-rank-badge">#{int(guild_row['simulation_rank'])}</span>
+              <strong>{escape(str(guild_row['guild_name']))}</strong>
+            </div>
+            <div class="simulation-rank-score">{escape(str(guild_row['total_score_text']))}</div>
+            <div class="simulation-rank-summary">{int(guild_row['scoring_count'])}명 · 최고 개인 순위 {int(guild_row['top_finisher_rank'] or 0)}위</div>
+            <span class="simulation-section-toggle-label">상세 보기</span>
+          </button>
+          <div class="simulation-rank-details" hidden>
+            <dl class="simulation-rank-meta">
+              <div><dt>득점 인원</dt><dd>{int(guild_row['scoring_count'])}명</dd></div>
+              <div><dt>최고 개인 순위</dt><dd>{int(guild_row['top_finisher_rank'] or 0)}위 · {escape(str(guild_row['top_finisher_name']))}</dd></div>
+            </dl>
+          </div>
+        </article>
+        """
+        for guild_row in simulation["guild_rankings"]
+    )
     ranked_rows = "".join(
         f"""
-        <tr data-guild="{escape(str(member['guild_name']))}">
+        <tr data-guild="{escape(str(member['guild_name']))}" data-rank="{int(member['overall_rank'])}" data-power="{int(member.get('combat_power_value', 0) or 0)}">
           <td>{int(member['overall_rank'])}</td>
           <td>{escape(str(member['guild_name']))}</td>
           <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
@@ -1143,6 +1150,38 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
           <td>{escape(str(member['combat_power']))}</td>
           <td>{format_score(int(member['score']))}</td>
         </tr>
+        """
+        for member in simulation["ranked_members"]
+    )
+    ranked_cards = "".join(
+        f"""
+        <article class="simulation-member-card" data-guild="{escape(str(member['guild_name']))}">
+          <button type="button" class="simulation-member-toggle" aria-expanded="false">
+            <div class="simulation-member-card-top">
+              <div class="simulation-member-card-identity">
+                <span class="simulation-member-rank">#{int(member['overall_rank'])}</span>
+                <div class="simulation-member-primary">
+                  <strong>{escape(str(member['nickname']))}</strong>
+                  <p>{escape(str(member['guild_name']))} · <strong class="job-name">{escape(str(member['job_name']))}</strong></p>
+                  <span class="simulation-member-power">전투력 {escape(str(member['combat_power']))}</span>
+                </div>
+              </div>
+              <div class="simulation-member-score">
+                <span>예상 점수</span>
+                <strong>{format_score(int(member['score']))}</strong>
+              </div>
+            </div>
+            <span class="simulation-member-toggle-label">상세 보기</span>
+          </button>
+          <div class="simulation-member-details" hidden>
+            <dl class="simulation-member-meta">
+              <div><dt>길드</dt><dd>{escape(str(member['guild_name']))}</dd></div>
+              <div><dt>직업</dt><dd><strong class="job-name">{escape(str(member['job_name']))}</strong></dd></div>
+              <div><dt>순위</dt><dd>{int(member['overall_rank'])}위</dd></div>
+              <div><dt>프로필</dt><dd><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
+            </dl>
+          </div>
+        </article>
         """
         for member in simulation["ranked_members"]
     )
@@ -1157,8 +1196,23 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
               <h3>매칭 길드 5개 전원을 합산한 대항전 예상 시뮬레이션</h3>
               <p class="simulation-copy">모든 길드원을 전투력 순으로 다시 정렬한 뒤, 제공된 순위별 점수표를 적용해 길드별 총합 점수를 계산했다.</p>
             </div>
-            <div class="score-rule-grid">{preview_cards}</div>
           </div>
+          <section class="job-coefficient-section simulation-preview-section">
+            <button type="button" class="job-coefficient-toggle" aria-expanded="false">
+              <div class="job-coefficient-head">
+                <div>
+                  <p class="eyebrow">Guild War Score Table</p>
+                  <h3>대항전 점수표 미리보기</h3>
+                  <p class="simulation-copy">순위별 배점을 기준으로 전원을 다시 합산한 결과다.</p>
+                </div>
+                <div class="job-coefficient-summary">{preview_count}개 구간</div>
+              </div>
+              <span class="simulation-section-toggle-label">상세 보기</span>
+            </button>
+            <div class="job-coefficient-details" hidden>
+              <div class="score-rule-grid">{preview_cards}</div>
+            </div>
+          </section>
           <div class="simulation-rank-grid">{guild_cards}</div>
           <div class="table-wrap simulation-table-wrap">
             <div class="table-toolbar">
@@ -1174,14 +1228,15 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
                 <span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span>
               </div>
             </div>
-            <table class="member-table simulation-table" id="guild-war-simulation-table">
+            <div class="simulation-mobile-card-list" data-target="guild-war-simulation-table">{ranked_cards}</div>
+            <table class="member-table simulation-table guild-war-simulation-table" id="guild-war-simulation-table">
               <thead>
                 <tr>
-                  <th>순위</th>
+                  <th data-sort="rank">순위</th>
                   <th>길드</th>
                   <th>닉네임</th>
                   <th>직업</th>
-                  <th>전투력</th>
+                  <th data-sort="power">전투력</th>
                   <th>예상 점수</th>
                 </tr>
               </thead>
@@ -1198,15 +1253,6 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
     guild_filter_options = "".join(
         f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
         for guild_row in simulation["guild_rankings"]
-    )
-    coefficient_cards = "".join(
-        f"""
-        <article class="score-rule-card">
-          <span>{escape(str(row['label']))}</span>
-          <strong>{escape(str(row['range']))}</strong>
-        </article>
-        """
-        for row in simulation.get("job_coefficient_cards", [])
     )
     filtered_job_coefficient_cards = [
         row
@@ -1276,16 +1322,17 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>{escape(str(member['estimated_metric_text']))}</strong>
+                <strong>{format_score(int(member['score']))}</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
           </button>
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
-              <div><dt>레벨</dt><dd>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</dd></div>
               <div><dt>길드</dt><dd>{escape(str(member['guild_name']))}</dd></div>
+              <div><dt>레벨</dt><dd>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">{escape(str(member['job_name']))}</strong></dd></div>
+              <div><dt>순위</dt><dd>{int(member['overall_rank'])}위</dd></div>
               <div><dt>프로필</dt><dd><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -1640,6 +1687,18 @@ def build_html_report(
     .summary-value {{ display: block; margin-top: 14px; font-size: 28px; line-height: 1.15; }}
     .summary-help {{ margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }}
     .section-title {{ margin: 44px 0 16px; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }}
+    .mobile-section-toggle {{ display: none; width: 100%; margin: 18px 0 0; padding: 16px 18px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,0.76); color: var(--text); text-align: left; box-shadow: var(--shadow); }}
+    .mobile-section-toggle strong {{ display: block; font-size: 16px; }}
+    .mobile-section-toggle span {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
+    .mobile-section-toggle span::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
+    .mobile-section-panel.expanded .mobile-section-toggle span::after {{ transform: rotate(180deg); }}
+    .mobile-section-body {{ display: block; }}
+    .hero-stats-toggle {{ display: none; width: 100%; margin-top: 20px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,0.68); color: var(--text); text-align: left; cursor: pointer; box-shadow: 0 8px 20px rgba(78,58,42,0.07); }}
+    .hero-stats-toggle strong {{ display: block; font-size: 14px; font-weight: 800; }}
+    .hero-stats-toggle span {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
+    .hero-stats-toggle span::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
+    .hero-stats-toggle.open span::after {{ transform: rotate(180deg); }}
+    .hero-stats-body {{ display: block; }}
     /* #2: Guild Comparison — 가로 스크롤 한 열 레이아웃 */
     .compare-scroll-wrap {{
       display: flex;
@@ -1888,9 +1947,9 @@ def build_html_report(
     .member-search::placeholder {{ color: #9d8b7d; }}
     .hint {{ color: var(--muted); font-size: 12px; }}
     table {{ width: 100%; border-collapse: collapse; }}
-    th, td {{ padding: 16px 18px; text-align: left; border-bottom: 1px solid rgba(110,84,60,0.07); }}
-    th {{ position: sticky; top: 0; background: rgba(250,244,237,0.98); color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; font-weight: 700; }}
-    tr:hover td {{ background: rgba(255,255,255,0.35); }}
+    .member-table th, .member-table td {{ padding: 16px 18px; text-align: left; border-bottom: 1px solid rgba(110,84,60,0.07); }}
+    .member-table th {{ position: sticky; top: 0; background: rgba(250,244,237,0.98); color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; font-weight: 700; }}
+    .member-table tr:hover td {{ background: rgba(255,255,255,0.35); }}
     .member-name-cell {{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }}
     .member-name-cell a {{ color: var(--text); font-weight: 700; }}
     .badge {{ display: inline-flex; align-items: center; min-height: 28px; padding: 4px 10px; border-radius: 999px; background: rgba(136,177,124,0.14); color: #55734f; font-size: 12px; border: 1px solid rgba(136,177,124,0.16); font-weight: 700; }}
@@ -1898,7 +1957,7 @@ def build_html_report(
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
     @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} th, td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} .training-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} .member-table th, .member-table td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} .training-simulation-table, .guild-war-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} .section-title {{ display: none; }} .mobile-section-toggle {{ display: block; }} .mobile-section-panel:not(.expanded) .mobile-section-body {{ display: none; }} .hero-stats-toggle {{ display: block; }} .hero-stats-body:not(.open) {{ display: none; }} }}
   </style>
 </head>
 <body>
@@ -1911,19 +1970,41 @@ def build_html_report(
          <p class="lead">{escape(copy['lead'])}</p>
       </div>
       <nav class="hero-nav">{nav_links}</nav>
-      <section class="summary-grid">{summary_cards_html}</section>
-      {auto_summary_html}
+      <button type="button" class="hero-stats-toggle" aria-expanded="false">
+        <strong>리포트 요약 통계</strong>
+        <span>접기 / 펴기</span>
+      </button>
+      <div class="hero-stats-body" id="hero-stats-body">
+        <section class="summary-grid">{summary_cards_html}</section>
+        {auto_summary_html}
+      </div>
     </header>
 
     <nav class="section-tabs">
       <a data-modal="guild-war-simulation" href="#">{escape(copy['simulation_nav'])}</a>
     </nav>
 
-    <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
-    <div class="compare-scroll-wrap">{compare_cards_html}</div>
+    <section class="mobile-section-panel" id="guild-comparison-section">
+      <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
+      <button type="button" class="mobile-section-toggle" data-target="guild-comparison-body" aria-expanded="false">
+        <strong>Guild Comparison</strong>
+        <span>상세 보기</span>
+      </button>
+      <div class="mobile-section-body" id="guild-comparison-body">
+        <div class="compare-scroll-wrap">{compare_cards_html}</div>
+      </div>
+    </section>
 
-    <h2 class="section-title" id="guild-detail-comparison">Guild Detail Comparison</h2>
-    {detail_comparison_html}
+    <section class="mobile-section-panel" id="guild-detail-comparison-section">
+      <h2 class="section-title" id="guild-detail-comparison">Guild Detail Comparison</h2>
+      <button type="button" class="mobile-section-toggle" data-target="guild-detail-comparison-body" aria-expanded="false">
+        <strong>Guild Detail Comparison</strong>
+        <span>상세 보기</span>
+      </button>
+      <div class="mobile-section-body" id="guild-detail-comparison-body">
+        {detail_comparison_html}
+      </div>
+    </section>
 
     <p class="footer">Generated from public MGF guild pages · 길드 카드 클릭 시 상세 정보 팝업</p>
   </div>
@@ -1933,7 +2014,7 @@ def build_html_report(
 
   <script>
     const openModal = (id) => {{
-      const backdrop = document.getElementById('modal-' + id);
+      const backdrop = document.getElementById(`modal-${{id}}`);
       if (backdrop) backdrop.classList.add('open');
     }};
 
@@ -2130,6 +2211,40 @@ def build_html_report(
         card.classList.toggle('expanded', !expanded);
       }});
     }});
+
+    const mobileSectionQuery = window.matchMedia('(max-width: 720px)');
+    const syncMobileSections = () => {{
+      document.querySelectorAll('.mobile-section-toggle').forEach((button) => {{
+        const panel = button.closest('.mobile-section-panel');
+        if (!panel) return;
+        const shouldExpand = !mobileSectionQuery.matches || panel.classList.contains('expanded');
+        button.setAttribute('aria-expanded', shouldExpand ? 'true' : 'false');
+      }});
+    }};
+
+    document.querySelectorAll('.mobile-section-toggle').forEach((button) => {{
+      button.addEventListener('click', () => {{
+        const panel = button.closest('.mobile-section-panel');
+        if (!panel) return;
+        const expanded = panel.classList.contains('expanded');
+        panel.classList.toggle('expanded', !expanded);
+        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      }});
+    }});
+
+    mobileSectionQuery.addEventListener?.('change', syncMobileSections);
+    syncMobileSections();
+
+    const heroStatsToggle = document.querySelector('.hero-stats-toggle');
+    const heroStatsBody = document.getElementById('hero-stats-body');
+    if (heroStatsToggle && heroStatsBody) {{
+      heroStatsToggle.addEventListener('click', () => {{
+        const open = heroStatsBody.classList.contains('open');
+        heroStatsBody.classList.toggle('open', !open);
+        heroStatsToggle.classList.toggle('open', !open);
+        heroStatsToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      }});
+    }}
 
     document.querySelectorAll('.member-table').forEach((table) => {{
       const tbody = table.querySelector('tbody');
