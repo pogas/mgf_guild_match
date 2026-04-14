@@ -26,22 +26,42 @@ REPORT_MODE_LABELS = {
 }
 # 수련장 점수 추정 모델 (셀린느/빅딜 수련장 샘플 OCR + 최신 snapshot 전투력 매칭, 2026-04-13)
 # 공식: 예상점수 = job_scale × (level ** 0.5) × ((combat_power / 1억) ** 0.23)
-# 확정 샘플 96건 기준 평균 오차 ~16.8%, 중앙값 오차 ~12.9%  — 참고용 추정치
+# 확정 샘플 96건 기준 참고용 추정치
+# 직업 계수: MGF.GG 커뮤니티 밸런스 분석(2026-04-09) 기반
+#   비숍을 1.0 기준으로 각 직업 커뮤니티 점수 비율 × 255,000
+#   3차(Lv.60~99) / 4차(Lv.100+) 별도 적용
 TRAINING_LEVEL_EXPONENT = 0.5
 TRAINING_POWER_EXPONENT = 0.23
-TRAINING_JOB_COEFFICIENTS = {
-    "비숍": 255000.0,
-    "보우마스터": 237719.984,
-    "다크나이트": 186617.731,
-    "아크메이지(불,독)": 235339.472,
-    "불독": 235339.472,
-    "나이트로드": 189910.7,
-    "히어로": 195578.934,
-    "팔라딘": 181964.08,
-    "아크메이지(썬,콜)": 182503.36,
-    "신궁": 200549.682,
-    "섀도어": 189601.644,
+# 3차 전직 기준 계수 (Lv.60~99) — 커뮤니티 3차 밸런스: 비숍 11.685 = 1.0 기준
+TRAINING_JOB_COEFFICIENTS_3RD: dict[str, float] = {
+    "비숍": 255000.0,          # 11.685 / 11.685 = 1.000
+    "팔라딘": 250908.0,        # 11.496 / 11.685 = 0.984
+    "히어로": 228203.0,        # 10.455 / 11.685 = 0.895
+    "신궁": 224870.0,          # 10.302 / 11.685 = 0.882
+    "섀도어": 215682.0,        # 9.880  / 11.685 = 0.846
+    "다크나이트": 209586.0,    # 9.602  / 11.685 = 0.822
+    "보우마스터": 206199.0,    # 9.447  / 11.685 = 0.809
+    "나이트로드": 201753.0,    # 9.243  / 11.685 = 0.791
+    "아크메이지(썬,콜)": 200816.0,  # 9.200 / 11.685 = 0.787
+    "아크메이지(불,독)": 189639.0,  # 불독과 동일 취급 (3차 데이터 부재)
+    "불독": 189639.0,          # 8.689  / 11.685 = 0.744
 }
+# 4차 전직 기준 계수 (Lv.100+) — 커뮤니티 4차 밸런스: 비숍 11.894 = 1.0 기준
+TRAINING_JOB_COEFFICIENTS_4TH: dict[str, float] = {
+    "비숍": 255000.0,          # 11.894 / 11.894 = 1.000
+    "히어로": 246322.0,        # 11.492 / 11.894 = 0.966
+    "다크나이트": 240680.0,    # 11.227 / 11.894 = 0.944
+    "팔라딘": 224349.0,        # 10.467 / 11.894 = 0.880
+    "신궁": 219239.0,          # 10.228 / 11.894 = 0.860
+    "섀도어": 214472.0,        # 10.006 / 11.894 = 0.841
+    "아크메이지(썬,콜)": 210372.0,  # 9.815  / 11.894 = 0.825
+    "불독": 193833.0,          # 9.042  / 11.894 = 0.760
+    "아크메이지(불,독)": 193833.0,  # 불독과 동일 취급 (4차 데이터 부재)
+    "보우마스터": 173389.0,    # 8.088  / 11.894 = 0.680
+    "나이트로드": 165936.0,    # 7.741  / 11.894 = 0.651
+}
+# 하위 호환 단일 계수 dict (레벨 정보 없을 때 fallback — 4차 기준)
+TRAINING_JOB_COEFFICIENTS = TRAINING_JOB_COEFFICIENTS_4TH
 
 
 def clean_text(value: str) -> str:
@@ -305,22 +325,41 @@ def normalize_job_name(job_name: str) -> str:
     return re.sub(r"\s+", "", clean_text(job_name))
 
 
-def get_training_job_coefficient(job_name: str) -> tuple[float, str]:
+def _lookup_coefficient_in(job_name: str, lookup: dict[str, float]) -> tuple[float, str] | None:
     normalized_job = normalize_job_name(job_name)
-    for candidate, coefficient in TRAINING_JOB_COEFFICIENTS.items():
+    for candidate, coefficient in lookup.items():
         normalized_candidate = normalize_job_name(candidate)
         if normalized_job == normalized_candidate or normalized_candidate in normalized_job or normalized_job in normalized_candidate:
             return coefficient, candidate
-    return 1.0, "기본"
+    return None
+
+
+def get_training_job_coefficient_by_tier(job_name: str, level: int | None = None) -> tuple[float, str]:
+    """레벨 기반 3차/4차 전직 계수 선택.
+    level >= 100 → 4차 계수, level < 100 (or None) → 3차 계수.
+    해당 dict에서 못 찾으면 반대 dict로 fallback.
+    """
+    if level is not None and level >= 100:
+        primary, fallback = TRAINING_JOB_COEFFICIENTS_4TH, TRAINING_JOB_COEFFICIENTS_3RD
+    else:
+        primary, fallback = TRAINING_JOB_COEFFICIENTS_3RD, TRAINING_JOB_COEFFICIENTS_4TH
+    result = _lookup_coefficient_in(job_name, primary) or _lookup_coefficient_in(job_name, fallback)
+    return result if result is not None else (1.0, "기본")
+
+
+def get_training_job_coefficient(job_name: str) -> tuple[float, str]:
+    """하위 호환용 — 레벨 미상 시 4차 계수 기준."""
+    result = _lookup_coefficient_in(job_name, TRAINING_JOB_COEFFICIENTS_4TH)
+    return result if result is not None else (1.0, "기본")
 
 
 def estimate_training_score(level: int, combat_power_value: int, job_name: str) -> int:
     """레벨 + 전투력 + 직업 기반 수련장 예상 점수 추정.
-    샘플 OCR + snapshot 전투력 매칭 기준 평균 오차 ~16.8%, 중앙값 오차 ~12.9%.
+    3차(Lv.60~99) / 4차(Lv.100+) 계수 자동 선택.
     """
     safe_level = max(level, 1)
     safe_power_eok = max(combat_power_value / 100_000_000, 1)
-    coefficient, _ = get_training_job_coefficient(job_name)
+    coefficient, _ = get_training_job_coefficient_by_tier(job_name, level)
     return round(coefficient * (safe_level ** TRAINING_LEVEL_EXPONENT) * (safe_power_eok ** TRAINING_POWER_EXPONENT))
 
 
@@ -507,7 +546,7 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
             level = int(level_raw)
         except (ValueError, TypeError):
             level = 0
-        coefficient, coefficient_label = get_training_job_coefficient(job_name)
+        coefficient, coefficient_label = get_training_job_coefficient_by_tier(job_name, level if level > 0 else None)
         if level > 0:
             estimated_metric_value = estimate_training_score(level, combat_power_value, job_name)
         else:
@@ -575,14 +614,20 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
     coefficient_preview = [
         {"label": "레벨 영향", "range": "level^0.2"},
         {"label": "전투력 영향", "range": "power^0.2"},
-        {"label": "직업 보정", "range": f"{len(TRAINING_JOB_COEFFICIENTS)}개 직업 반영"},
+        {"label": "직업 보정", "range": "3차/4차 전직별 계수"},
         {"label": "평균 오차", "range": "약 12.1%"},
     ]
 
-    job_coefficient_cards = [
-        {"label": job_name, "range": f"×{coefficient / 800000.0:.3f}"}
-        for job_name, coefficient in sorted(TRAINING_JOB_COEFFICIENTS.items(), key=lambda item: (-item[1], item[0]))
-    ]
+    def _make_coeff_cards(coeff_dict: dict[str, float]) -> list[dict[str, str]]:
+        return [
+            {"label": job_name, "range": f"×{coefficient / 255000.0:.3f}"}
+            for job_name, coefficient in sorted(coeff_dict.items(), key=lambda item: (-item[1], item[0]))
+        ]
+
+    job_coefficient_cards = {
+        "3rd": _make_coeff_cards(TRAINING_JOB_COEFFICIENTS_3RD),
+        "4th": _make_coeff_cards(TRAINING_JOB_COEFFICIENTS_4TH),
+    }
 
     return {
         "ranked_members": ranked_members,
@@ -1298,21 +1343,28 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
         f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
         for guild_row in simulation["guild_rankings"]
     )
-    filtered_job_coefficient_cards = [
-        row
-        for row in simulation.get("job_coefficient_cards", [])
-        if str(row.get("label", "")) != "불독"
-    ]
-    coefficient_count = len(filtered_job_coefficient_cards)
-    filtered_coefficient_cards = "".join(
-        f"""
+    job_cards_by_tier = simulation.get("job_coefficient_cards", {})
+    # 불독(아크메이지(불,독) alias) 제거 — 아크메이지(불,독)으로 통합 표시
+    def _filter_cards(cards: list[dict[str, str]]) -> list[dict[str, str]]:
+        return [row for row in cards if str(row.get("label", "")) != "불독"]
+
+    cards_3rd = _filter_cards(job_cards_by_tier.get("3rd", []))
+    cards_4th = _filter_cards(job_cards_by_tier.get("4th", []))
+
+    def _render_card_grid(cards: list[dict[str, str]]) -> str:
+        return "".join(
+            f"""
         <article class="score-rule-card">
           <span>{escape(str(row['label']))}</span>
           <strong>{escape(str(row['range']))}</strong>
         </article>
         """
-        for row in filtered_job_coefficient_cards
-    )
+            for row in cards
+        )
+
+    filtered_coefficient_cards_3rd = _render_card_grid(cards_3rd)
+    filtered_coefficient_cards_4th = _render_card_grid(cards_4th)
+    coefficient_count = len(cards_4th)
     guild_cards = "".join(
         f"""
         <article class="simulation-rank-card rank-{int(guild_row['simulation_rank'])}">
@@ -1402,14 +1454,23 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
                 <div>
                   <p class="eyebrow">Job Coefficients</p>
                   <h3>직업 보정 계수</h3>
-                  <p class="simulation-copy">직업별 보정값은 70명 실제 수련장 결과를 기준으로 역산한 상대 지표다.</p>
+                  <p class="simulation-copy">커뮤니티 밸런스 분석 기준 (MGF.GG 2026-04-09). 비숍 = 1.000 기준, 3차/4차 전직별 별도 적용.</p>
                 </div>
                 <div class="job-coefficient-summary">{coefficient_count}개 직업</div>
               </div>
               <span class="simulation-section-toggle-label">상세 보기</span>
             </button>
             <div class="job-coefficient-details" hidden>
-              <div class="job-coefficient-grid">{filtered_coefficient_cards}</div>
+              <div class="coeff-tier-tabs" role="tablist">
+                <button type="button" class="coeff-tier-tab active" role="tab" data-tier="3rd">3차 전직 (Lv.60~99)</button>
+                <button type="button" class="coeff-tier-tab" role="tab" data-tier="4th">4차 전직 (Lv.100+)</button>
+              </div>
+              <div class="coeff-tier-panel" data-tier="3rd">
+                <div class="job-coefficient-grid">{filtered_coefficient_cards_3rd}</div>
+              </div>
+              <div class="coeff-tier-panel" data-tier="4th" hidden>
+                <div class="job-coefficient-grid">{filtered_coefficient_cards_4th}</div>
+              </div>
             </div>
           </section>
           <div class="simulation-rank-grid">{guild_cards}</div>
@@ -1889,7 +1950,10 @@ def build_html_report(
     .job-coefficient-head {{ display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }}
     .job-coefficient-summary {{ display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 800; white-space: nowrap; }}
     .job-coefficient-details {{ margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(110,84,60,0.08); }}
-    .job-coefficient-grid {{ display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }}
+    .coeff-tier-tabs {{ display: flex; gap: 8px; margin-bottom: 14px; }}
+    .coeff-tier-tab {{ padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(110,84,60,0.18); background: rgba(255,255,255,0.6); color: var(--muted); font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; }}
+    .coeff-tier-tab.active {{ background: linear-gradient(180deg, rgba(255,245,220,0.98), rgba(249,231,182,0.92)); color: var(--accent-3); border-color: rgba(184,123,44,0.3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); }}
+    .job-coefficient-grid {{ display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 0; }}
     .score-rule-card {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 8px 18px rgba(78,58,42,0.04); }}
     .score-rule-card span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
     .score-rule-card strong {{ display: block; font-size: 15px; }}
@@ -2288,6 +2352,16 @@ def build_html_report(
         button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         details.hidden = expanded;
         section.classList.toggle('expanded', !expanded);
+      }});
+    }});
+
+    document.querySelectorAll('.coeff-tier-tab').forEach((tab) => {{
+      tab.addEventListener('click', () => {{
+        const section = tab.closest('.job-coefficient-section');
+        if (!section) return;
+        const tier = tab.dataset.tier;
+        section.querySelectorAll('.coeff-tier-tab').forEach((t) => {{ void t.classList.toggle('active', t.dataset.tier === tier); }});
+        section.querySelectorAll('.coeff-tier-panel').forEach((p) => {{ p.hidden = p.dataset.tier !== tier; }});
       }});
     }});
 

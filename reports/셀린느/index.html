@@ -252,7 +252,10 @@
     .job-coefficient-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
     .job-coefficient-summary { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 800; white-space: nowrap; }
     .job-coefficient-details { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(110,84,60,0.08); }
-    .job-coefficient-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+    .coeff-tier-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+    .coeff-tier-tab { padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(110,84,60,0.18); background: rgba(255,255,255,0.6); color: var(--muted); font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; }
+    .coeff-tier-tab.active { background: linear-gradient(180deg, rgba(255,245,220,0.98), rgba(249,231,182,0.92)); color: var(--accent-3); border-color: rgba(184,123,44,0.3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); }
+    .job-coefficient-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 0; }
     .score-rule-card { padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 8px 18px rgba(78,58,42,0.04); }
     .score-rule-card span { display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
     .score-rule-card strong { display: block; font-size: 15px; }
@@ -448,7 +451,7 @@
         
         <article class="summary-card">
           <p class="summary-label">길드 총 전투력</p>
-          <strong class="summary-value">12경 5639조 8,352억 4,861만</strong>
+          <strong class="summary-value">12경 5657조 8,192억 7,965만</strong>
           <p class="summary-help">길드 전투력 합산</p>
         </article>
         
@@ -522,25 +525,25 @@
                 <span class="rank-badge rank-badge-server">서버 1위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +17.0% </span>
+                <span class="trend-pill positive">총전투력 +17.1% </span>
                 <span class="trend-pill positive">대항전 점수 +34,000점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>100.0%</strong></div>
               <div class="power-meter"><span style="width:100.0%"></span></div>
-              <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 45.7% · TOP3 62.6%</strong></div>
+              <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 45.7% · TOP3 62.5%</strong></div>
               <div class="share-visual" aria-label="상위 전투력 비중">
                 <span class="share-top1" style="width:45.7%"></span>
-                <span class="share-top3" style="width:16.9%"></span>
+                <span class="share-top3" style="width:16.799999999999997%"></span>
               </div>
               <div class="guild-analysis-grid">
                 <article class="analysis-chip">
                   <span>TOP1 / TOP3</span>
-                  <strong>45.7% / 62.6%</strong>
+                  <strong>45.7% / 62.5%</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>1인당 평균 전투력</span>
-                  <strong>996조 4,892억 9,550만</strong>
+                  <strong>997조 53억 9,722만</strong>
                 </article>
                 <article class="analysis-chip">
                   <span>중앙값 전투력</span>
@@ -549,11 +552,11 @@
                 <article class="analysis-chip analysis-chip-strong">
                   <span>집중도 판정</span>
                   <strong>균형형</strong>
-                  <em>TOP5 75.6% · TOP10 88.6%</em>
+                  <em>TOP5 75.5% · TOP10 88.6%</em>
                 </article>
               </div>
               <dl class="guild-metrics">
-                <div><dt>길드 전투력</dt><dd>2경 9948조 4385억 272만</dd></div>
+                <div><dt>길드 전투력</dt><dd>2경 9966조 4225억 3376만</dd></div>
                 <div><dt>길드원 수</dt><dd>30명</dd></div>
                 <div><dt>평균 레벨</dt><dd>Lv.106.1</dd></div>
                 <div><dt>TOP 멤버</dt><dd>냐락불곰</dd></div>
@@ -582,8 +585,8 @@
                 <span class="trend-pill negative">대항전 점수 -22,800점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
-              <div class="bar-label-row"><span>길드 총 전투력</span><strong>73.6%</strong></div>
-              <div class="power-meter"><span style="width:73.6%"></span></div>
+              <div class="bar-label-row"><span>길드 총 전투력</span><strong>73.5%</strong></div>
+              <div class="power-meter"><span style="width:73.5%"></span></div>
               <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 48.7% · TOP3 73.7%</strong></div>
               <div class="share-visual" aria-label="상위 전투력 비중">
                 <span class="share-top1" style="width:48.7%"></span>
@@ -694,8 +697,8 @@
                 <span class="trend-pill positive">대항전 점수 +19,000점</span>
                 <span class="trend-pill neutral">TOP10 유지 9명</span>
               </div>
-              <div class="bar-label-row"><span>길드 총 전투력</span><strong>85.8%</strong></div>
-              <div class="power-meter"><span style="width:85.8%"></span></div>
+              <div class="bar-label-row"><span>길드 총 전투력</span><strong>85.7%</strong></div>
+              <div class="power-meter"><span style="width:85.7%"></span></div>
               <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 62.3% · TOP3 87.4%</strong></div>
               <div class="share-visual" aria-label="상위 전투력 비중">
                 <span class="share-top1" style="width:62.3%"></span>
@@ -750,8 +753,8 @@
                 <span class="trend-pill positive">대항전 점수 +4,000점</span>
                 <span class="trend-pill neutral">TOP10 유지 9명</span>
               </div>
-              <div class="bar-label-row"><span>길드 총 전투력</span><strong>78.7%</strong></div>
-              <div class="power-meter"><span style="width:78.7%"></span></div>
+              <div class="bar-label-row"><span>길드 총 전투력</span><strong>78.6%</strong></div>
+              <div class="power-meter"><span style="width:78.6%"></span></div>
               <div class="bar-label-row bar-label-row-secondary"><span>TOP 멤버 집중도</span><strong>TOP1 44.3% · TOP3 86.4%</strong></div>
               <div class="share-visual" aria-label="상위 전투력 비중">
                 <span class="share-top1" style="width:44.3%"></span>
@@ -810,7 +813,7 @@
               </div>
               <div class="detail-compare-meta">
                 <span>길드원 30명</span>
-                <span>2경 9948조 4385억 272만</span>
+                <span>2경 9966조 4225억 3376만</span>
               </div>
               <table class="detail-compare-table">
                 <thead><tr><th>닉네임</th><th>전투력</th></tr></thead>
@@ -877,12 +880,12 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EB%83%90%EB%9D%BD%ED%81%AC%EB%A6%AC" target="_blank" rel="noreferrer">냐락크리</a></td>
-              <td>332조 3415억 9209만</td>
+              <td>335조 1273억 6178만</td>
             </tr>
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=%EC%99%95%ED%91%B8%EB%A7%A8" target="_blank" rel="noreferrer">왕푸맨</a></td>
-              <td>291조 8578억 1938만</td>
+              <td>296조 5575억 776만</td>
             </tr>
             
             <tr>
@@ -896,13 +899,13 @@
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%EB%83%90%EB%9D%BD%EC%BF%A0" target="_blank" rel="noreferrer">냐락쿠</a></td>
-              <td>169조 3850억 998만</td>
+              <td><a href="https://mgf.gg/contents/character.php?n=%EC%9A%95%EB%B0%95%EA%B3%A0%EC%8B%9C%EC%9E%91" target="_blank" rel="noreferrer">욕박고시작</a></td>
+              <td>169조 8634억 5863만</td>
             </tr>
             
             <tr>
-              <td><a href="https://mgf.gg/contents/character.php?n=%EC%9A%95%EB%B0%95%EA%B3%A0%EC%8B%9C%EC%9E%91" target="_blank" rel="noreferrer">욕박고시작</a></td>
-              <td>163조 4336억 396만</td>
+              <td><a href="https://mgf.gg/contents/character.php?n=%EB%83%90%EB%9D%BD%EC%BF%A0" target="_blank" rel="noreferrer">냐락쿠</a></td>
+              <td>169조 3850억 998만</td>
             </tr>
             
             <tr>
@@ -932,7 +935,7 @@
             
             <tr>
               <td><a href="https://mgf.gg/contents/character.php?n=Centauros" target="_blank" rel="noreferrer">Centauros</a></td>
-              <td>93조 7250억 8540만</td>
+              <td>95조 2928억 2418만</td>
             </tr>
             
             <tr>
@@ -1669,7 +1672,7 @@
                       <div><dt>길드 마스터</dt><dd>티짐</dd></div>
                       <div><dt>길드 레벨</dt><dd>Lv.8</dd></div>
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
-                      <div><dt>길드 전투력</dt><dd>2경 9948조 4385억 272만</dd></div>
+                      <div><dt>길드 전투력</dt><dd>2경 9966조 4225억 3376만</dd></div>
                       <div><dt>전체 / 서버 순위</dt><dd>19 / 1위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.106.1</dd></div>
                     </dl>
@@ -1693,7 +1696,7 @@
                   <article class="comparison-callout comparison-callout-focus">
                     <span>상위 멤버 집중도</span>
                     <strong>균형형</strong>
-                    <em>TOP3 62.6% · TOP5 75.6%</em>
+                    <em>TOP3 62.5% · TOP5 75.5%</em>
                   </article>
                   <article class="comparison-callout comparison-callout-gap">
                     <span>TOP 멤버 격차</span>
@@ -1711,7 +1714,7 @@
                     <h3>일간 변화 요약</h3>
                     <ul class="history-list">
                       <li><span>길드원 증감</span><strong>0명</strong></li>
-                      <li><span>총 전투력 변화</span><strong>+17.0%</strong></li>
+                      <li><span>총 전투력 변화</span><strong>+17.1%</strong></li>
                       <li><span>대항전 점수 변화</span><strong>+34,000점</strong></li>
                       <li><span>길드 내부 TOP10 고정도</span><strong>10 / 10</strong></li>
                     </ul>
@@ -1721,7 +1724,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>욕박고시작, Centauros</strong></li>
                       <li><span>이탈 길드원</span><strong>샤미다미, 와칸다검식이</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 -2, 비숍 +1, 다크나이트 +1</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 -2, 다크나이트 +1, 비숍 +1</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -1920,7 +1923,7 @@
               <td class="power-col">456조 817억 2556만</td>
             </tr>
             
-            <tr data-power="33234159209" data-level="106" data-rank="13">
+            <tr data-power="33512736178" data-level="106" data-rank="13">
               <td>13</td>
               <td>
                 <div class="member-name-cell">
@@ -1930,10 +1933,10 @@
               </td>
               <td><span class="badge">아크메이지(불,독)</span></td>
               <td>Lv.106</td>
-              <td class="power-col">332조 3415억 9209만</td>
+              <td class="power-col">335조 1273억 6178만</td>
             </tr>
             
-            <tr data-power="29185781938" data-level="105" data-rank="14">
+            <tr data-power="29655750776" data-level="105" data-rank="14">
               <td>14</td>
               <td>
                 <div class="member-name-cell">
@@ -1943,7 +1946,7 @@
               </td>
               <td><span class="badge">히어로</span></td>
               <td>Lv.105</td>
-              <td class="power-col">291조 8578억 1938만</td>
+              <td class="power-col">296조 5575억 776만</td>
             </tr>
             
             <tr data-power="21132869983" data-level="105" data-rank="15">
@@ -1972,8 +1975,21 @@
               <td class="power-col">193조 6810억 7098만</td>
             </tr>
             
-            <tr data-power="16938500998" data-level="105" data-rank="17">
+            <tr data-power="16986345863" data-level="106" data-rank="17">
               <td>17</td>
+              <td>
+                <div class="member-name-cell">
+                  <a href="https://mgf.gg/contents/character.php?n=%EC%9A%95%EB%B0%95%EA%B3%A0%EC%8B%9C%EC%9E%91" target="_blank" rel="noreferrer">욕박고시작</a>
+                  
+                </div>
+              </td>
+              <td><span class="badge">비숍</span></td>
+              <td>Lv.106</td>
+              <td class="power-col">169조 8634억 5863만</td>
+            </tr>
+            
+            <tr data-power="16938500998" data-level="105" data-rank="18">
+              <td>18</td>
               <td>
                 <div class="member-name-cell">
                   <a href="https://mgf.gg/contents/character.php?n=%EB%83%90%EB%9D%BD%EC%BF%A0" target="_blank" rel="noreferrer">냐락쿠</a>
@@ -1983,19 +1999,6 @@
               <td><span class="badge">히어로</span></td>
               <td>Lv.105</td>
               <td class="power-col">169조 3850억 998만</td>
-            </tr>
-            
-            <tr data-power="16343360396" data-level="106" data-rank="18">
-              <td>18</td>
-              <td>
-                <div class="member-name-cell">
-                  <a href="https://mgf.gg/contents/character.php?n=%EC%9A%95%EB%B0%95%EA%B3%A0%EC%8B%9C%EC%9E%91" target="_blank" rel="noreferrer">욕박고시작</a>
-                  
-                </div>
-              </td>
-              <td><span class="badge">비숍</span></td>
-              <td>Lv.106</td>
-              <td class="power-col">163조 4336억 396만</td>
             </tr>
             
             <tr data-power="15717517341" data-level="105" data-rank="19">
@@ -2063,7 +2066,7 @@
               <td class="power-col">106조 8432억 1451만</td>
             </tr>
             
-            <tr data-power="9372508540" data-level="104" data-rank="24">
+            <tr data-power="9529282418" data-level="104" data-rank="24">
               <td>24</td>
               <td>
                 <div class="member-name-cell">
@@ -2073,7 +2076,7 @@
               </td>
               <td><span class="badge">다크나이트</span></td>
               <td>Lv.104</td>
-              <td class="power-col">93조 7250억 8540만</td>
+              <td class="power-col">95조 2928억 2418만</td>
             </tr>
             
             <tr data-power="7320443276" data-level="104" data-rank="25">
@@ -5376,7 +5379,7 @@
                 <div class="simulation-member-primary">
                   <strong>냐락크리</strong>
                   <p>냐락 · <strong class="job-name">아크메이지(불,독)</strong></p>
-                  <span class="simulation-member-power">전투력 332조 3415억 9209만</span>
+                  <span class="simulation-member-power">전투력 335조 1273억 6178만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
@@ -5488,7 +5491,7 @@
                 <div class="simulation-member-primary">
                   <strong>왕푸맨</strong>
                   <p>냐락 · <strong class="job-name">히어로</strong></p>
-                  <span class="simulation-member-power">전투력 291조 8578억 1938만</span>
+                  <span class="simulation-member-power">전투력 296조 5575억 776만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
@@ -5794,9 +5797,9 @@
               <div class="simulation-member-card-identity">
                 <span class="simulation-member-rank">#53</span>
                 <div class="simulation-member-primary">
-                  <strong>냐락쿠</strong>
-                  <p>냐락 · <strong class="job-name">히어로</strong></p>
-                  <span class="simulation-member-power">전투력 169조 3850억 998만</span>
+                  <strong>욕박고시작</strong>
+                  <p>냐락 · <strong class="job-name">비숍</strong></p>
+                  <span class="simulation-member-power">전투력 169조 8634억 5863만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
@@ -5809,9 +5812,9 @@
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
               <div><dt>길드</dt><dd>냐락</dd></div>
-              <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
+              <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
               <div><dt>순위</dt><dd>53위</dd></div>
-              <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%83%90%EB%9D%BD%EC%BF%A0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
+              <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9A%95%EB%B0%95%EA%B3%A0%EC%8B%9C%EC%9E%91" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
         </article>
@@ -5822,9 +5825,9 @@
               <div class="simulation-member-card-identity">
                 <span class="simulation-member-rank">#54</span>
                 <div class="simulation-member-primary">
-                  <strong>욕박고시작</strong>
-                  <p>냐락 · <strong class="job-name">비숍</strong></p>
-                  <span class="simulation-member-power">전투력 163조 4336억 396만</span>
+                  <strong>냐락쿠</strong>
+                  <p>냐락 · <strong class="job-name">히어로</strong></p>
+                  <span class="simulation-member-power">전투력 169조 3850억 998만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
@@ -5837,9 +5840,9 @@
           <div class="simulation-member-details" hidden>
             <dl class="simulation-member-meta">
               <div><dt>길드</dt><dd>냐락</dd></div>
-              <div><dt>직업</dt><dd><strong class="job-name">비숍</strong></dd></div>
+              <div><dt>직업</dt><dd><strong class="job-name">히어로</strong></dd></div>
               <div><dt>순위</dt><dd>54위</dd></div>
-              <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EC%9A%95%EB%B0%95%EA%B3%A0%EC%8B%9C%EC%9E%91" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
+              <div><dt>프로필</dt><dd><a href="https://mgf.gg/contents/character.php?n=%EB%83%90%EB%9D%BD%EC%BF%A0" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
         </article>
@@ -6244,7 +6247,7 @@
                 <div class="simulation-member-primary">
                   <strong>Centauros</strong>
                   <p>냐락 · <strong class="job-name">다크나이트</strong></p>
-                  <span class="simulation-member-power">전투력 93조 7250억 8540만</span>
+                  <span class="simulation-member-power">전투력 95조 2928억 2418만</span>
                 </div>
               </div>
               <div class="simulation-member-score">
@@ -8821,12 +8824,12 @@
           <td>139,000점</td>
         </tr>
         
-        <tr data-guild="냐락" data-rank="38" data-power="33234159209">
+        <tr data-guild="냐락" data-rank="38" data-power="33512736178">
           <td>38</td>
           <td>냐락</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%83%90%EB%9D%BD%ED%81%AC%EB%A6%AC" target="_blank" rel="noreferrer">냐락크리</a></td>
           <td>아크메이지(불,독)</td>
-          <td>332조 3415억 9209만</td>
+          <td>335조 1273억 6178만</td>
           <td>136,000점</td>
         </tr>
         
@@ -8857,12 +8860,12 @@
           <td>128,000점</td>
         </tr>
         
-        <tr data-guild="냐락" data-rank="42" data-power="29185781938">
+        <tr data-guild="냐락" data-rank="42" data-power="29655750776">
           <td>42</td>
           <td>냐락</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EC%99%95%ED%91%B8%EB%A7%A8" target="_blank" rel="noreferrer">왕푸맨</a></td>
           <td>히어로</td>
-          <td>291조 8578억 1938만</td>
+          <td>296조 5575억 776만</td>
           <td>126,000점</td>
         </tr>
         
@@ -8956,21 +8959,21 @@
           <td>108,000점</td>
         </tr>
         
-        <tr data-guild="냐락" data-rank="53" data-power="16938500998">
+        <tr data-guild="냐락" data-rank="53" data-power="16986345863">
           <td>53</td>
+          <td>냐락</td>
+          <td><a href="https://mgf.gg/contents/character.php?n=%EC%9A%95%EB%B0%95%EA%B3%A0%EC%8B%9C%EC%9E%91" target="_blank" rel="noreferrer">욕박고시작</a></td>
+          <td>비숍</td>
+          <td>169조 8634억 5863만</td>
+          <td>107,000점</td>
+        </tr>
+        
+        <tr data-guild="냐락" data-rank="54" data-power="16938500998">
+          <td>54</td>
           <td>냐락</td>
           <td><a href="https://mgf.gg/contents/character.php?n=%EB%83%90%EB%9D%BD%EC%BF%A0" target="_blank" rel="noreferrer">냐락쿠</a></td>
           <td>히어로</td>
           <td>169조 3850억 998만</td>
-          <td>107,000점</td>
-        </tr>
-        
-        <tr data-guild="냐락" data-rank="54" data-power="16343360396">
-          <td>54</td>
-          <td>냐락</td>
-          <td><a href="https://mgf.gg/contents/character.php?n=%EC%9A%95%EB%B0%95%EA%B3%A0%EC%8B%9C%EC%9E%91" target="_blank" rel="noreferrer">욕박고시작</a></td>
-          <td>비숍</td>
-          <td>163조 4336억 396만</td>
           <td>106,000점</td>
         </tr>
         
@@ -9100,12 +9103,12 @@
           <td>92,000점</td>
         </tr>
         
-        <tr data-guild="냐락" data-rank="69" data-power="9372508540">
+        <tr data-guild="냐락" data-rank="69" data-power="9529282418">
           <td>69</td>
           <td>냐락</td>
           <td><a href="https://mgf.gg/contents/character.php?n=Centauros" target="_blank" rel="noreferrer">Centauros</a></td>
           <td>다크나이트</td>
-          <td>93조 7250억 8540만</td>
+          <td>95조 2928억 2418만</td>
           <td>91,000점</td>
         </tr>
         
@@ -10012,6 +10015,16 @@
         button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         details.hidden = expanded;
         section.classList.toggle('expanded', !expanded);
+      });
+    });
+
+    document.querySelectorAll('.coeff-tier-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const section = tab.closest('.job-coefficient-section');
+        if (!section) return;
+        const tier = tab.dataset.tier;
+        section.querySelectorAll('.coeff-tier-tab').forEach((t) => { void t.classList.toggle('active', t.dataset.tier === tier); });
+        section.querySelectorAll('.coeff-tier-panel').forEach((p) => { p.hidden = p.dataset.tier !== tier; });
       });
     });
 
