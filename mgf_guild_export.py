@@ -1645,6 +1645,9 @@ def build_html_report(
     :root {{
       --bg: #f7f3ec;
       --bg-alt: #fffaf3;
+      --sky-top: #e4f3ff;
+      --sky-bottom: #f9f3e6;
+      --cloud: rgba(255, 255, 255, 0.76);
       --panel: rgba(255, 252, 247, 0.92);
       --panel-strong: rgba(250, 244, 236, 0.96);
       --line: rgba(110, 84, 60, 0.12);
@@ -1663,22 +1666,43 @@ def build_html_report(
       font-family: "Segoe UI", "Apple SD Gothic Neo", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(105, 184, 232, 0.22), transparent 28%),
-        radial-gradient(circle at top right, rgba(216, 170, 82, 0.14), transparent 24%),
-        linear-gradient(180deg, #edf7ff 0%, #f8fbff 24%, #f8f0e2 100%);
+        radial-gradient(circle at top left, rgba(105, 184, 232, 0.32), transparent 30%),
+        radial-gradient(circle at 78% 8%, rgba(216, 170, 82, 0.16), transparent 22%),
+        radial-gradient(circle at 50% 60%, rgba(139, 199, 152, 0.10), transparent 40%),
+        linear-gradient(180deg, var(--sky-top) 0%, #f4faff 22%, #faf6ee 60%, var(--sky-bottom) 100%);
       min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
     }}
-    body::before {{
+    body::before,
+    body::after {{
       content: "";
       position: fixed;
-      inset: 0;
+      inset: auto;
       pointer-events: none;
-      background-image: linear-gradient(rgba(80, 58, 40, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(80, 58, 40, 0.03) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: radial-gradient(circle at center, black 52%, transparent 90%);
+      z-index: 0;
+      filter: blur(5px);
+    }}
+    body::before {{
+      top: 64px;
+      left: -30px;
+      width: 280px;
+      height: 96px;
+      border-radius: 999px;
+      background: var(--cloud);
+      box-shadow: 130px 20px 0 24px rgba(255, 255, 255, 0.58), 300px -6px 0 14px rgba(255, 255, 255, 0.44);
+    }}
+    body::after {{
+      right: -24px;
+      top: 200px;
+      width: 240px;
+      height: 82px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.58);
+      box-shadow: -120px 22px 0 20px rgba(255, 255, 255, 0.50), -260px 4px 0 10px rgba(255, 255, 255, 0.36);
     }}
     a {{ color: inherit; text-decoration: none; }}
-    .page {{ width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; }}
+    .page {{ width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1; }}
     .hero {{
       position: relative;
       overflow: hidden;
