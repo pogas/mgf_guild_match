@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import re
 from collections import OrderedDict
 from datetime import datetime, timedelta
@@ -96,6 +97,34 @@ def anchor_id(name: str) -> str:
 def safe_file_stem(name: str) -> str:
     normalized = re.sub(r'[<>:"/\\|?*]+', "-", clean_text(name)).strip(" .")
     return normalized or "guild"
+
+
+def find_guild_mark_path(guild_name: str) -> Path | None:
+    resource_dir = _HERE / "ResourceData"
+    for suffix in (".png", ".webp", ".jpg", ".jpeg", ".svg"):
+        candidate = resource_dir / f"{guild_name}_길드마크{suffix}"
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def build_guild_mark_map(guild_names: list[str], html_output_path: Path) -> dict[str, str]:
+    mark_map: dict[str, str] = {}
+    html_dir = html_output_path.parent
+    for guild_name in guild_names:
+        mark_path = find_guild_mark_path(guild_name)
+        if not mark_path:
+            continue
+        relative_path = Path(os.path.relpath(mark_path, html_dir)).as_posix()
+        mark_map[guild_name] = relative_path
+    return mark_map
+
+
+def render_guild_mark(guild_name: str, guild_mark_map: dict[str, str], class_name: str) -> str:
+    mark_path = guild_mark_map.get(guild_name)
+    if not mark_path:
+        return ""
+    return f'<img class="{class_name}" src="{escape(mark_path)}" alt="{escape(guild_name)} 길드마크" loading="lazy" />'
 
 
 def build_match_url(guild_name: str, report_mode: str) -> str:
@@ -969,7 +998,12 @@ def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
     ) + '</section>'
 
 
-def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]], history_analysis: dict[str, Any]) -> str:
+def render_compare_cards(
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    history_analysis: dict[str, Any],
+    guild_mark_map: dict[str, str],
+) -> str:
     copy = get_report_copy(str(history_analysis.get("report_mode", "league")))
     max_power = max(power_to_man_units(str(row.get("guild_power", ""))) for row in guild_rows) if guild_rows else 1
     cards: list[str] = []
@@ -987,7 +1021,10 @@ def render_compare_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
               <div class="guild-card-top">
                 <div>
                   <p class="eyebrow">{escape(str(guild_row['server_display']))}</p>
-                  <h3>{escape(guild_name)}</h3>
+                  <div class="guild-card-title-row">
+                    {render_guild_mark(guild_name, guild_mark_map, 'guild-card-mark')}
+                    <h3>{escape(guild_name)}</h3>
+                  </div>
                 </div>
                 <span class="rank-pill">전체 {escape(str(guild_row['global_rank']))} · 서버 {escape(str(guild_row['server_rank']))}</span>
               </div>
@@ -1064,7 +1101,11 @@ def render_member_rows(members: list[dict[str, Any]]) -> str:
     return "".join(rows)
 
 
-def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
+def render_detail_comparison_section(
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    guild_mark_map: dict[str, str],
+) -> str:
     columns: list[str] = []
     for guild_row in guild_rows:
         guild_name = str(guild_row["guild_name"])
@@ -1085,7 +1126,10 @@ def render_detail_comparison_section(guild_rows: list[dict[str, Any]], members_b
               <div class="detail-compare-head">
                 <div>
                   <p class="eyebrow">{escape(str(guild_row['server_display']))}</p>
-                  <h3>{escape(guild_name)}</h3>
+                  <div class="guild-card-title-row detail-compare-title-row">
+                    {render_guild_mark(guild_name, guild_mark_map, 'guild-card-mark')}
+                    <h3>{escape(guild_name)}</h3>
+                  </div>
                 </div>
                 <a class="mini-link" data-modal="{escape(anchor)}" href="#">상세 보기</a>
               </div>
@@ -1409,6 +1453,7 @@ def render_guild_modals(
     guild_rows: list[dict[str, Any]],
     members_by_guild: dict[str, list[dict[str, Any]]],
     history_analysis: dict[str, Any],
+    guild_mark_map: dict[str, str],
 ) -> str:
     copy = get_report_copy(str(history_analysis.get("report_mode", "league")))
     modals: list[str] = []
@@ -1426,7 +1471,10 @@ def render_guild_modals(
                 <div class="section-head">
                   <div>
                     <p class="eyebrow">{escape(str(guild_row['server_display']))} · 기준일 {escape(str(guild_row['data_date']))}</p>
-                    <h2>{escape(guild_name)}</h2>
+                    <div class="modal-title-row">
+                      {render_guild_mark(guild_name, guild_mark_map, 'modal-guild-mark')}
+                      <h2>{escape(guild_name)}</h2>
+                    </div>
                   </div>
                   <a class="detail-link" href="{escape(str(guild_row['guild_url']))}" target="_blank" rel="noreferrer">원본 길드 페이지 보기</a>
                 </div>
@@ -1572,9 +1620,12 @@ def build_html_report(
     )
     report_label = REPORT_MODE_LABELS[report_mode]
     copy = get_report_copy(report_mode)
+    guild_names = [str(row["guild_name"]) for row in guild_rows]
+    guild_mark_map = build_guild_mark_map(guild_names, html_output_path)
+    hero_guild_mark_html = render_guild_mark(guild_seed_name, guild_mark_map, "hero-title-mark")
     summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
     auto_summary_html = render_auto_summary_section(history_analysis)
-    compare_cards_html = render_compare_cards(guild_rows, members_by_guild, history_analysis)
+    compare_cards_html = render_compare_cards(guild_rows, members_by_guild, history_analysis, guild_mark_map)
     if report_mode == "league":
         score_table = parse_score_table(SCORE_TABLE_PATH)
         simulation = build_guild_war_simulation(members_by_guild, score_table)
@@ -1582,9 +1633,8 @@ def build_html_report(
     else:
         simulation = build_training_simulation(members_by_guild)
         simulation_modal_html = render_training_simulation_modal(simulation)
-    detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild)
-    guild_modals_html = render_guild_modals(guild_rows, members_by_guild, history_analysis)
-
+    detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild, guild_mark_map)
+    guild_modals_html = render_guild_modals(guild_rows, members_by_guild, history_analysis, guild_mark_map)
     html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -1613,9 +1663,9 @@ def build_html_report(
       font-family: "Segoe UI", "Apple SD Gothic Neo", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(212, 125, 90, 0.14), transparent 30%),
-        radial-gradient(circle at top right, rgba(136, 177, 124, 0.18), transparent 28%),
-        linear-gradient(180deg, #f7f3ec 0%, #fbf7f1 46%, #f4ece2 100%);
+        radial-gradient(circle at top left, rgba(105, 184, 232, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(216, 170, 82, 0.14), transparent 24%),
+        linear-gradient(180deg, #edf7ff 0%, #f8fbff 24%, #f8f0e2 100%);
       min-height: 100vh;
     }}
     body::before {{
@@ -1634,9 +1684,9 @@ def build_html_report(
       overflow: hidden;
       padding: 36px;
       border: 1px solid var(--line);
-      border-radius: 32px;
-      background: linear-gradient(135deg, rgba(255, 251, 246, 0.98), rgba(247, 239, 229, 0.94));
-      box-shadow: var(--shadow);
+      border-radius: 36px;
+      background: linear-gradient(135deg, rgba(255, 252, 247, 0.98), rgba(250, 243, 232, 0.92));
+      box-shadow: 0 28px 60px rgba(93, 66, 40, 0.18);
     }}
     .hero::after {{
       content: "";
@@ -1646,16 +1696,25 @@ def build_html_report(
       width: 180px;
       height: 180px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 125, 90, 0.18), transparent 68%);
+      background: radial-gradient(circle, rgba(216, 170, 82, 0.18), transparent 68%);
       filter: blur(12px);
+    }}
+    .hero::before {{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(105, 184, 232, 0.12), transparent 24%), radial-gradient(circle at bottom right, rgba(139, 199, 152, 0.10), transparent 18%);
+      pointer-events: none;
     }}
     .hero-copy {{ max-width: 100%; }}
     .mode-tabs {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }}
     .mode-tab {{ display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }}
     .mode-tab.active {{ background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }}
-    .eyebrow {{ margin: 0 0 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 700; }}
-    .hero h1 {{ margin: 0; font-size: clamp(22px, 2.8vw, 38px); line-height: 1.15; max-width: none; white-space: nowrap; word-break: keep-all; }}
-    .hero p.lead {{ max-width: 620px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 16px 0 0; }}
+    .eyebrow {{ display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 8px 14px; border-radius: 999px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 800; background: linear-gradient(180deg, rgba(255,245,220,0.96), rgba(249,231,182,0.9)); border: 1px solid rgba(184,123,44,0.26); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); }}
+    .hero h1 {{ margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.02em; max-width: none; word-break: keep-all; }}
+    .hero-title-row {{ display: flex; align-items: center; gap: 16px; }}
+    .hero-title-mark {{ width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; border-radius: 12px; }}
+    .hero p.lead {{ max-width: 760px; color: var(--muted); font-size: 16px; line-height: 1.75; margin: 16px 0 0; }}
     .hero-nav {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }}
     .hero-nav a {{
       padding: 10px 14px;
@@ -1668,9 +1727,9 @@ def build_html_report(
       cursor: pointer;
     }}
     .hero-nav a:hover {{ background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }}
-    .section-tabs {{ display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }}
-    .section-tabs a {{ padding: 12px 16px; border-radius: 999px; background: rgba(255,255,255,0.68); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); font-size: 13px; font-weight: 700; }}
-    .section-tabs a:hover {{ background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }}
+    .section-tabs {{ display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 0; }}
+    .section-tabs a {{ display: inline-flex; align-items: center; min-height: 46px; padding: 13px 20px; border-radius: 999px; background: linear-gradient(180deg, #cb8a42, #a96426); border: 0; color: #fff9f0; font-size: 14px; font-weight: 800; box-shadow: 0 12px 24px rgba(169,100,38,0.24); transition: transform .18s ease, box-shadow .18s ease; }}
+    .section-tabs a:hover {{ transform: translateY(-1px); box-shadow: 0 16px 28px rgba(169,100,38,0.28); }}
     .summary-grid {{ display: grid; gap: 16px; margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }}
     .auto-summary-grid {{ display: grid; gap: 16px; margin-top: 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }}
     .auto-summary-card {{ padding: 20px 22px; background: rgba(255,252,247,0.78); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }}
@@ -1682,7 +1741,8 @@ def build_html_report(
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
     }}
-    .summary-card {{ padding: 22px; min-height: 152px; }}
+    .summary-card {{ position: relative; overflow: hidden; padding: 22px; min-height: 152px; background: rgba(255, 251, 244, 0.84); }}
+    .summary-card::before {{ content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.36), rgba(255,255,255,0)); pointer-events: none; }}
     .summary-label {{ margin: 0; font-size: 13px; color: var(--muted); }}
     .summary-value {{ display: block; margin-top: 14px; font-size: 28px; line-height: 1.15; }}
     .summary-help {{ margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }}
@@ -1723,6 +1783,8 @@ def build_html_report(
     }}
     .guild-card:hover {{ transform: translateY(-3px); border-color: rgba(173,101,64,0.24); box-shadow: 0 24px 44px rgba(78, 58, 42, 0.16); }}
     .guild-card-top {{ display: flex; justify-content: space-between; gap: 16px; align-items: start; }}
+    .guild-card-title-row {{ display: flex; align-items: center; gap: 12px; min-width: 0; }}
+    .guild-card-mark {{ width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }}
     .guild-card h3 {{ margin: 6px 0 0; font-size: 28px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .rank-pill {{ padding: 8px 12px; border-radius: 999px; background: rgba(212,125,90,0.12); color: var(--accent-3); font-size: 12px; white-space: nowrap; font-weight: 700; }}
     .rank-badge-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }}
@@ -1778,6 +1840,7 @@ def build_html_report(
       overflow: hidden;
     }}
     .detail-compare-head {{ display: flex; justify-content: space-between; gap: 8px; align-items: start; }}
+    .detail-compare-title-row h3 {{ margin-top: 0; }}
     .detail-compare-head h3 {{ margin: 4px 0 0; font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .mini-link {{ flex-shrink: 0; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-size: 11px; font-weight: 700; }}
     .detail-compare-meta {{ display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(110,84,60,0.08); color: var(--muted); font-size: 12px; }}
@@ -1792,22 +1855,22 @@ def build_html_report(
     .detail-compare-table tr:hover td {{ background: rgba(255,255,255,0.35); }}
     .simulation-modal-box {{ width: min(1180px, 100%); }}
     .simulation-section {{ padding: 4px 0 0; }}
-    .simulation-overview {{ display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; }}
-    .simulation-overview h3 {{ margin: 6px 0 0; font-size: 28px; }}
+    .simulation-overview {{ display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; padding: 20px; border-radius: 26px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(248,239,225,0.92)); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 18px 36px rgba(78,58,42,0.08); }}
+    .simulation-overview h3 {{ margin: 6px 0 0; font-size: 30px; }}
     .simulation-copy {{ margin: 14px 0 0; color: var(--muted); line-height: 1.7; }}
     .score-rule-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }}
-    .job-coefficient-section {{ margin-top: 18px; padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.56); border: 1px solid rgba(110,84,60,0.08); }}
+    .job-coefficient-section {{ margin-top: 18px; padding: 18px; border-radius: 24px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 14px 28px rgba(78,58,42,0.06); }}
     .job-coefficient-toggle, .simulation-rank-toggle {{ width: 100%; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; padding: 0; }}
     .job-coefficient-head h3 {{ margin: 6px 0 0; font-size: 24px; }}
     .job-coefficient-head {{ display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }}
     .job-coefficient-summary {{ display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 800; white-space: nowrap; }}
     .job-coefficient-details {{ margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(110,84,60,0.08); }}
     .job-coefficient-grid {{ display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }}
-    .score-rule-card {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); }}
+    .score-rule-card {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 8px 18px rgba(78,58,42,0.04); }}
     .score-rule-card span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
     .score-rule-card strong {{ display: block; font-size: 15px; }}
     .simulation-rank-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }}
-    .simulation-rank-card {{ padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 14px 32px rgba(78,58,42,0.08); }}
+    .simulation-rank-card {{ padding: 18px; border-radius: 24px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 16px 34px rgba(78,58,42,0.08); }}
     .simulation-rank-top {{ display: flex; align-items: center; gap: 10px; }}
     .simulation-rank-top strong {{ font-size: 22px; }}
     .simulation-rank-badge {{ display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 32px; padding: 0 10px; border-radius: 999px; background: rgba(212,125,90,0.15); color: var(--accent-3); font-size: 13px; font-weight: 800; }}
@@ -1858,8 +1921,8 @@ def build_html_report(
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(30, 20, 12, 0.54);
-      backdrop-filter: blur(4px);
+      background: rgba(34, 23, 14, 0.56);
+      backdrop-filter: blur(6px);
       z-index: 200;
       align-items: center;
       justify-content: center;
@@ -1867,14 +1930,14 @@ def build_html_report(
     }}
     .modal-backdrop.open {{ display: flex; }}
     .modal-box {{
-      background: linear-gradient(180deg, rgba(255,251,246,0.99), rgba(249,242,234,0.98));
+      background: linear-gradient(180deg, rgba(255,252,246,0.99), rgba(250,242,230,0.97));
       border: 1px solid var(--line);
-      border-radius: 30px;
-      box-shadow: 0 32px 80px rgba(60, 42, 28, 0.28);
+      border-radius: 32px;
+      box-shadow: 0 34px 80px rgba(60, 42, 28, 0.32);
       width: min(900px, 100%);
       max-height: 90vh;
       overflow-y: auto;
-      padding: 28px;
+      padding: 30px;
       position: relative;
       animation: modal-in .22s cubic-bezier(.22,1,.36,1);
     }}
@@ -1900,6 +1963,8 @@ def build_html_report(
     }}
     .modal-close:hover {{ background: rgba(212,125,90,0.15); color: var(--accent-3); }}
     .section-head {{ display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 18px; }}
+    .modal-title-row {{ display: flex; align-items: center; gap: 14px; }}
+    .modal-guild-mark {{ width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; }}
     .section-head h2 {{ margin: 6px 0 0; font-size: 28px; }}
     .detail-link {{ padding: 11px 16px; border-radius: 999px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.1); color: var(--accent-3); white-space: nowrap; font-weight: 700; }}
     .section-grid {{ display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }}
@@ -1939,7 +2004,7 @@ def build_html_report(
     .trend-chart-secondary {{ color: #55734f; }}
     .trend-axis {{ display: flex; justify-content: space-between; gap: 6px; margin-top: 6px; color: var(--muted); font-size: 10px; }}
     .trend-axis span {{ flex: 1; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
-    .table-wrap {{ margin-top: 18px; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; background: rgba(255, 252, 247, 0.8); }}
+    .table-wrap {{ margin-top: 18px; border-radius: 26px; border: 1px solid var(--line); overflow: hidden; background: rgba(255, 252, 247, 0.84); box-shadow: 0 18px 36px rgba(78,58,42,0.08); }}
     .table-toolbar {{ display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 18px 20px; border-bottom: 1px solid rgba(110,84,60,0.08); }}
     .table-toolbar h3 {{ margin: 0; font-size: 18px; }}
     .toolbar-actions {{ display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }}
@@ -1957,7 +2022,7 @@ def build_html_report(
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
     @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} .member-table th, .member-table td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(18px, 4.8vw, 26px); }} .simulation-modal-box, .modal-box {{ padding: 20px; }} .training-simulation-table, .guild-war-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} .section-title {{ display: none; }} .mobile-section-toggle {{ display: block; }} .mobile-section-panel:not(.expanded) .mobile-section-body {{ display: none; }} .hero-stats-toggle {{ display: block; }} .hero-stats-body:not(.open) {{ display: none; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; border-radius: 28px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} .member-table th, .member-table td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 30px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .simulation-modal-box, .modal-box {{ padding: 20px; border-radius: 26px; }} .training-simulation-table, .guild-war-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} .section-title {{ display: none; }} .mobile-section-toggle {{ display: block; }} .mobile-section-panel:not(.expanded) .mobile-section-body {{ display: none; }} .hero-stats-toggle {{ display: block; }} .hero-stats-body:not(.open) {{ display: none; }} .guild-card-title-row {{ gap: 10px; }} .guild-card-mark {{ width: 34px; height: 34px; }} .modal-title-row {{ gap: 10px; }} .modal-guild-mark {{ width: 46px; height: 46px; }} .section-tabs a {{ width: 100%; justify-content: center; }} }}
   </style>
 </head>
 <body>
@@ -1965,9 +2030,15 @@ def build_html_report(
     <header class="hero">
       <div class="hero-copy">
         <div class="mode-tabs">{mode_tabs_html}</div>
-         <p class="eyebrow">{escape(copy['hero_eyebrow'])}</p>
-         <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
+         <p class="eyebrow">✦ MAPLE GUILD REPORT CONCEPT</p>
+         <div class="hero-title-row">
+           {hero_guild_mark_html}
+           <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
+         </div>
          <p class="lead">{escape(copy['lead'])}</p>
+         <div class="section-tabs">
+           <a data-modal="guild-war-simulation" href="#">{escape(copy['simulation_nav'])}</a>
+         </div>
       </div>
       <nav class="hero-nav">{nav_links}</nav>
       <button type="button" class="hero-stats-toggle" aria-expanded="false">
@@ -1979,10 +2050,6 @@ def build_html_report(
         {auto_summary_html}
       </div>
     </header>
-
-    <nav class="section-tabs">
-      <a data-modal="guild-war-simulation" href="#">{escape(copy['simulation_nav'])}</a>
-    </nav>
 
     <section class="mobile-section-panel" id="guild-comparison-section">
       <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
