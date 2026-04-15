@@ -148,6 +148,112 @@ def render_guild_mark(guild_name: str, guild_mark_map: dict[str, str], class_nam
     return f'<img class="{class_name}" src="{escape(mark_path)}" alt="{escape(guild_name)} 길드마크" loading="lazy" />'
 
 
+def build_font_face_map(html_output_path: Path) -> dict[str, str]:
+    html_dir = html_output_path.parent
+    font_dir = _HERE / "ResourceData" / "MaplestoryFont_TTF"
+    font_map: dict[str, str] = {}
+    for key, file_name in {
+        "light": "Maplestory Light.ttf",
+        "bold": "Maplestory Bold.ttf",
+    }.items():
+        font_path = font_dir / file_name
+        if font_path.exists():
+            font_map[key] = Path(os.path.relpath(font_path, html_dir)).as_posix()
+    return font_map
+
+
+def build_members_by_guild_from_snapshot(snapshot: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    members_by_guild: dict[str, list[dict[str, Any]]] = OrderedDict()
+    for guild_name, guild in snapshot.get("guilds", {}).items():
+        member_rows: list[dict[str, Any]] = []
+        for member_key, member in guild.get("members", {}).items():
+            member_rows.append(
+                {
+                    "guild_name": str(guild_name),
+                    "nickname": str(member.get("nickname", "")),
+                    "character_key": str(member_key),
+                    "combat_power": str(member.get("combat_power", "")),
+                    "job_name": str(member.get("job_name", "")),
+                    "level": int(member.get("level", 0)) if str(member.get("level", "")).isdigit() else 0,
+                    "character_url": str(member.get("character_url", "")),
+                }
+            )
+        members_by_guild[str(guild_name)] = member_rows
+    return members_by_guild
+
+
+def build_simulation_rank_changes(
+    current_snapshot: dict[str, Any],
+    previous_snapshot: dict[str, Any] | None,
+    report_mode: str,
+) -> dict[str, dict[str, Any]]:
+    if not previous_snapshot:
+        return {}
+
+    previous_members_by_guild = build_members_by_guild_from_snapshot(previous_snapshot)
+    if report_mode == "league":
+        previous_simulation = build_guild_war_simulation(previous_members_by_guild, parse_score_table(SCORE_TABLE_PATH))
+    else:
+        previous_simulation = build_training_simulation(previous_members_by_guild)
+
+    previous_rank_map = {
+        build_member_key(member): int(member.get("overall_rank", 0))
+        for member in previous_simulation.get("ranked_members", [])
+    }
+
+    current_members_by_guild = build_members_by_guild_from_snapshot(current_snapshot)
+    if report_mode == "league":
+        current_simulation = build_guild_war_simulation(current_members_by_guild, parse_score_table(SCORE_TABLE_PATH))
+    else:
+        current_simulation = build_training_simulation(current_members_by_guild)
+
+    rank_changes: dict[str, dict[str, Any]] = {}
+    for member in current_simulation.get("ranked_members", []):
+        member_key = build_member_key(member)
+        current_rank = int(member.get("overall_rank", 0))
+        previous_rank = previous_rank_map.get(member_key)
+        if previous_rank is None:
+            rank_changes[member_key] = {
+                "current_rank": current_rank,
+                "previous_rank": None,
+                "delta": None,
+                "label": "신규",
+                "short_label": "NEW",
+                "tone": "new",
+            }
+            continue
+
+        delta = previous_rank - current_rank
+        if delta > 0:
+            rank_changes[member_key] = {
+                "current_rank": current_rank,
+                "previous_rank": previous_rank,
+                "delta": delta,
+                "label": f"▲ {delta} 상승",
+                "short_label": f"▲{delta}",
+                "tone": "up",
+            }
+        elif delta < 0:
+            rank_changes[member_key] = {
+                "current_rank": current_rank,
+                "previous_rank": previous_rank,
+                "delta": delta,
+                "label": f"▼ {abs(delta)} 하락",
+                "short_label": f"▼{abs(delta)}",
+                "tone": "down",
+            }
+        else:
+            rank_changes[member_key] = {
+                "current_rank": current_rank,
+                "previous_rank": previous_rank,
+                "delta": 0,
+                "label": "변동 없음",
+                "short_label": "유지",
+                "tone": "same",
+            }
+    return rank_changes
+
+
 def build_match_url(guild_name: str, report_mode: str) -> str:
     return f"{BASE_URL}/contents/guild.php?mode={report_mode}&stx={quote(guild_name)}"
 
@@ -533,6 +639,7 @@ def build_guild_war_simulation(
         ranked_member = {
             "overall_rank": index,
             "guild_name": guild_name,
+            "character_key": build_member_key(member),
             "nickname": str(member["nickname"]),
             "combat_power": str(member["combat_power"]),
             "combat_power_value": power_to_man_units(str(member.get("combat_power", ""))),
@@ -614,6 +721,7 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
         projected_members.append(
             {
                 "guild_name": guild_name,
+                "character_key": build_member_key(member),
                 "nickname": str(member.get("nickname", "")),
                 "combat_power": str(member.get("combat_power", "")),
                 "combat_power_value": combat_power_value,
@@ -893,6 +1001,7 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
         "report_mode": report_mode,
         "has_previous": previous_snapshot is not None,
         "previous_date": previous_snapshot.get("snapshot_date") if previous_snapshot else "",
+        "simulation_rank_changes": build_simulation_rank_changes(current_snapshot, previous_snapshot, report_mode),
         "guilds": guild_analysis,
         "summary": {
             "total_joined": total_joined,
@@ -905,6 +1014,18 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
             "stable_retained": int(stable_guild[1].get("retained_top10_count", 0)),
         },
     }
+
+
+def render_simulation_rank_change_badge(change: dict[str, Any] | None, *, compact: bool = False) -> str:
+    if not change:
+        return '<span class="simulation-rank-change-badge tone-none">기록 없음</span>' if compact else ""
+    tone = escape(str(change.get("tone", "none")))
+    label = escape(str(change.get("short_label" if compact else "label", "")))
+    previous_rank = change.get("previous_rank")
+    title = ""
+    if previous_rank is not None:
+        title = f' title="직전 {int(previous_rank)}위 → 현재 {int(change.get("current_rank", 0))}위"'
+    return f'<span class="simulation-rank-change-badge tone-{tone}"{title}>{label}</span>'
 
 
 def build_snapshot_analytics(
@@ -1712,7 +1833,8 @@ def render_detail_comparison_section(
     return f'<section class="detail-compare-wrap">{"".join(columns)}</section>'
 
 
-def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
+def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analysis: dict[str, Any]) -> str:
+    simulation_rank_changes = history_analysis.get("simulation_rank_changes", {})
     guild_filter_options = "".join(
         f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
         for guild_row in simulation["guild_rankings"]
@@ -1757,7 +1879,8 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
           <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
           <td>{escape(str(member['job_name']))}</td>
           <td>{escape(str(member['combat_power']))}</td>
-          <td>{format_score(int(member['score']))}</td>
+          <td class="simulation-rank-change-cell">{render_simulation_rank_change_badge(simulation_rank_changes.get(build_member_key(member)), compact=True)}</td>
+          <td class="simulation-score-cell">{format_score(int(member['score']))}</td>
         </tr>
         """
         for member in simulation["ranked_members"]
@@ -1772,6 +1895,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
                 <div class="simulation-member-primary">
                   <strong>{escape(str(member['nickname']))}</strong>
                   <p>{escape(str(member['guild_name']))} · <strong class="job-name">{escape(str(member['job_name']))}</strong></p>
+                  {render_simulation_rank_change_badge(simulation_rank_changes.get(build_member_key(member)))}
                   <span class="simulation-member-power">전투력 {escape(str(member['combat_power']))}</span>
                 </div>
               </div>
@@ -1787,6 +1911,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
               <div><dt>길드</dt><dd>{escape(str(member['guild_name']))}</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">{escape(str(member['job_name']))}</strong></dd></div>
               <div><dt>순위</dt><dd>{int(member['overall_rank'])}위</dd></div>
+              <div><dt>직전 변동</dt><dd>{render_simulation_rank_change_badge(simulation_rank_changes.get(build_member_key(member)), compact=True)}</dd></div>
               <div><dt>프로필</dt><dd><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -1846,6 +1971,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
                   <th>닉네임</th>
                   <th>직업</th>
                   <th data-sort="power">전투력</th>
+                  <th>변동</th>
                   <th>예상 점수</th>
                 </tr>
               </thead>
@@ -1858,7 +1984,8 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any]) -> str:
     """
 
 
-def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
+def render_training_simulation_modal(simulation: dict[str, Any], history_analysis: dict[str, Any]) -> str:
+    simulation_rank_changes = history_analysis.get("simulation_rank_changes", {})
     guild_filter_options = "".join(
         f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
         for guild_row in simulation["guild_rankings"]
@@ -1918,7 +2045,8 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
           <td><strong class="job-name">{escape(str(member['job_name']))}</strong></td>
           <td>{escape(str(member['combat_power']))}</td>
           <td>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</td>
-          <td>{escape(str(member['estimated_metric_text']))}</td>
+          <td class="simulation-rank-change-cell">{render_simulation_rank_change_badge(simulation_rank_changes.get(build_member_key(member)), compact=True)}</td>
+          <td class="simulation-score-cell">{escape(str(member['estimated_metric_text']))}</td>
         </tr>
         """
         for member in simulation["ranked_members"]
@@ -1933,6 +2061,7 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
                 <div class="simulation-member-primary">
                   <strong>{escape(str(member['nickname']))}</strong>
                   <p>{escape(str(member['guild_name']))} · <strong class="job-name">{escape(str(member['job_name']))}</strong></p>
+                  {render_simulation_rank_change_badge(simulation_rank_changes.get(build_member_key(member)))}
                   <span class="simulation-member-power">전투력 {escape(str(member['combat_power']))}</span>
                 </div>
               </div>
@@ -1949,6 +2078,7 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
               <div><dt>레벨</dt><dd>Lv.{int(member.get('level', 0)) if member.get('level') else '?'}</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">{escape(str(member['job_name']))}</strong></dd></div>
               <div><dt>순위</dt><dd>{int(member['overall_rank'])}위</dd></div>
+              <div><dt>직전 변동</dt><dd>{render_simulation_rank_change_badge(simulation_rank_changes.get(build_member_key(member)), compact=True)}</dd></div>
               <div><dt>프로필</dt><dd><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
           </div>
@@ -2018,6 +2148,7 @@ def render_training_simulation_modal(simulation: dict[str, Any]) -> str:
                   <th>직업</th>
                   <th data-sort="power">전투력</th>
                   <th data-sort="level">레벨</th>
+                  <th>변동</th>
                   <th>예상 점수</th>
                 </tr>
               </thead>
@@ -2203,6 +2334,9 @@ def build_html_report(
     copy = get_report_copy(report_mode)
     guild_names = [str(row["guild_name"]) for row in guild_rows]
     guild_mark_map = build_guild_mark_map(guild_names, html_output_path)
+    font_face_map = build_font_face_map(html_output_path)
+    font_light_path = font_face_map.get("light", "")
+    font_bold_path = font_face_map.get("bold", "")
     hero_guild_mark_html = render_guild_mark(guild_seed_name, guild_mark_map, "hero-title-mark")
     summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
     auto_summary_html = render_auto_summary_section(history_analysis)
@@ -2211,10 +2345,10 @@ def build_html_report(
     if report_mode == "league":
         score_table = parse_score_table(SCORE_TABLE_PATH)
         simulation = build_guild_war_simulation(members_by_guild, score_table)
-        simulation_modal_html = render_guild_war_simulation_modal(simulation)
+        simulation_modal_html = render_guild_war_simulation_modal(simulation, history_analysis)
     else:
         simulation = build_training_simulation(members_by_guild)
-        simulation_modal_html = render_training_simulation_modal(simulation)
+        simulation_modal_html = render_training_simulation_modal(simulation, history_analysis)
     detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild, guild_mark_map)
     guild_modals_html = render_guild_modals(guild_rows, members_by_guild, history_analysis, guild_mark_map)
     snapshot_analytics_modal_html = render_snapshot_analytics_modal(history_analysis, report_mode)
@@ -2225,6 +2359,20 @@ def build_html_report(
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{escape(guild_seed_name)} {escape(report_label)} 리포트</title>
   <style>
+    @font-face {{
+      font-family: "Maplestory";
+      src: url("{escape(font_light_path)}") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }}
+    @font-face {{
+      font-family: "Maplestory";
+      src: url("{escape(font_bold_path)}") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }}
     :root {{
       --bg: #f7f3ec;
       --bg-alt: #fffaf3;
@@ -2246,7 +2394,7 @@ def build_html_report(
     html {{ scroll-behavior: smooth; }}
     body {{
       margin: 0;
-      font-family: "Segoe UI", "Apple SD Gothic Neo", sans-serif;
+      font-family: "Maplestory", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at top left, rgba(105, 184, 232, 0.32), transparent 30%),
@@ -2284,6 +2432,7 @@ def build_html_report(
       background: rgba(255, 255, 255, 0.58);
       box-shadow: -120px 22px 0 20px rgba(255, 255, 255, 0.50), -260px 4px 0 10px rgba(255, 255, 255, 0.36);
     }}
+    input, button, select, textarea {{ font: inherit; }}
     a {{ color: inherit; text-decoration: none; }}
     .page {{ width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1; }}
     .hero {{
@@ -2318,7 +2467,7 @@ def build_html_report(
     .mode-tab {{ display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }}
     .mode-tab.active {{ background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }}
     .eyebrow {{ display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 8px 14px; border-radius: 999px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 800; background: linear-gradient(180deg, rgba(255,245,220,0.96), rgba(249,231,182,0.9)); border: 1px solid rgba(184,123,44,0.26); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); }}
-    .hero h1 {{ margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.02em; max-width: none; word-break: keep-all; }}
+    .hero h1 {{ margin: 0; font-family: "Maplestory", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: clamp(28px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.02em; max-width: none; word-break: keep-all; }}
     .hero-title-row {{ display: flex; align-items: center; gap: 16px; }}
     .hero-title-mark {{ width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; border-radius: 12px; }}
     .hero p.lead {{ max-width: 760px; color: var(--muted); font-size: 16px; line-height: 1.75; margin: 16px 0 0; }}
@@ -2537,17 +2686,23 @@ def build_html_report(
     .simulation-member-rank {{ display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 32px; padding: 0 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 13px; font-weight: 800; flex-shrink: 0; }}
     .simulation-member-primary {{ min-width: 0; overflow: hidden; }}
     .simulation-member-card-identity strong {{ display: block; font-size: 16px; line-height: 1.35; }}
+    .simulation-rank-change-badge {{ display: inline-flex; align-items: center; justify-content: center; min-height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(110,84,60,0.08); background: rgba(255,255,255,0.82); color: var(--muted); font-size: 11px; font-weight: 800; white-space: nowrap; }}
+    .simulation-member-primary .simulation-rank-change-badge {{ margin-top: 8px; }}
+    .simulation-rank-change-badge.tone-up {{ background: rgba(136,177,124,0.16); border-color: rgba(136,177,124,0.24); color: #56764b; }}
+    .simulation-rank-change-badge.tone-down {{ background: rgba(212,125,90,0.14); border-color: rgba(212,125,90,0.22); color: var(--accent-3); }}
+    .simulation-rank-change-badge.tone-new {{ background: rgba(122,152,221,0.14); border-color: rgba(122,152,221,0.24); color: #4b6694; }}
+    .simulation-rank-change-badge.tone-same, .simulation-rank-change-badge.tone-none {{ background: rgba(120,111,102,0.10); border-color: rgba(120,111,102,0.12); color: var(--muted); }}
     .simulation-member-card-identity p {{ margin: 4px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }}
     .simulation-member-power {{ display: block; margin-top: 6px; color: var(--text); font-size: 12px; font-weight: 700; line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
     .simulation-member-score {{ text-align: right; flex-shrink: 0; padding: 10px 12px; border-radius: 16px; background: linear-gradient(160deg, rgba(255,246,239,0.96), rgba(248,235,224,0.92)); border: 1px solid rgba(212,125,90,0.18); box-shadow: 0 8px 18px rgba(173,101,64,0.10); }}
     .simulation-member-score span {{ display: block; color: var(--accent-3); font-size: 11px; margin-bottom: 4px; font-weight: 700; }}
     .simulation-member-score strong {{ display: block; color: var(--accent-3); font-size: 18px; line-height: 1.25; }}
     .simulation-member-toggle-label {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
-    .simulation-member-toggle-label::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
+    .simulation-member-toggle-label::after {{ content: "▾"; display: inline-block; font-size: 12px; transition: transform .18s ease; }}
     .simulation-member-card.expanded .simulation-member-toggle-label::after {{ transform: rotate(180deg); }}
     .simulation-section-toggle-label {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
-    .simulation-section-toggle-label::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
-    .job-coefficient-section.expanded .simulation-section-toggle-label::after, .simulation-rank-card.expanded .simulation-section-toggle-label::after, .analytics-module.expanded .simulation-section-toggle-label::after, .analytics-chapter.expanded .simulation-section-toggle-label::after {{ transform: rotate(180deg); }}
+    .simulation-section-toggle-label::after {{ content: "▾"; display: inline-block; font-size: 12px; transition: transform .18s ease; }}
+    .job-coefficient-section.expanded .simulation-section-toggle-label::after, .simulation-rank-card.expanded .simulation-section-toggle-label::after, .analytics-module.expanded .simulation-section-toggle-label::after, .analytics-chapter.expanded .simulation-section-toggle-label::after, .job-coefficient-toggle[aria-expanded="true"] .simulation-section-toggle-label::after, .simulation-rank-toggle[aria-expanded="true"] .simulation-section-toggle-label::after, .analytics-module-toggle[aria-expanded="true"] .simulation-section-toggle-label::after, .analytics-chapter-toggle[aria-expanded="true"] .simulation-section-toggle-label::after {{ transform: rotate(180deg); }}
     .simulation-member-details {{ padding: 0 16px 16px; border-top: 1px solid rgba(110,84,60,0.08); background: rgba(255,255,255,0.38); }}
     .simulation-member-meta {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0 0; }}
     .simulation-member-meta div {{ padding: 12px; border-radius: 14px; background: rgba(255,255,255,0.62); border: 1px solid rgba(110,84,60,0.06); min-width: 0; }}
@@ -2555,8 +2710,9 @@ def build_html_report(
     .simulation-member-meta dd {{ margin: 0; font-size: 13px; font-weight: 700; line-height: 1.45; word-break: break-word; }}
     .simulation-member-meta a {{ color: var(--accent-3); }}
     .simulation-table td:nth-child(1), .simulation-table th:nth-child(1) {{ white-space: nowrap; }}
-    .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ font-variant-numeric: tabular-nums; }}
-    .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ color: var(--accent-3); font-weight: 800; }}
+    .simulation-table .simulation-score-cell, .simulation-table .simulation-rank-change-cell, .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ font-variant-numeric: tabular-nums; font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif; }}
+    .simulation-table .simulation-score-cell {{ color: var(--accent-3); font-weight: 800; }}
+    .simulation-table .simulation-rank-change-cell {{ white-space: nowrap; }}
     /* #4: Modal system */
     .modal-backdrop {{
       display: none;

@@ -1,65 +1,73 @@
 {
   "guild_seed_name": "빅딜",
   "report_mode": "training",
-  "snapshot_date": "2026-04-14",
+  "snapshot_date": "2026-04-15",
   "guilds": {
     "빅딜": {
       "guild_name": "빅딜",
-      "guild_power_value": 12732135790,
+      "guild_power_value": 15167098177,
       "member_count": 29,
-      "avg_level": 99.3,
-      "global_rank": "377",
-      "server_rank": "14위",
+      "avg_level": 99.5,
+      "global_rank": "383",
+      "server_rank": "13위",
       "simulation_rank": 2,
-      "simulation_score": 77433835,
+      "simulation_score": 86553789,
       "members": {
         "망겜감별사": {
           "nickname": "망겜감별사",
           "job_name": "섀도어",
           "level": 103,
-          "combat_power": "17조 1695억 4531만",
-          "combat_power_value": 1716954531,
+          "combat_power": "17조 7749억 2348만",
+          "combat_power_value": 1777492348,
           "rank_in_guild": 1
         },
         "큐샤프": {
           "nickname": "큐샤프",
           "job_name": "신궁",
           "level": 103,
-          "combat_power": "14조 951억 2182만",
-          "combat_power_value": 1409512182,
+          "combat_power": "17조 4717억 6864만",
+          "combat_power_value": 1747176864,
           "rank_in_guild": 2
         },
         "킹몬": {
           "nickname": "킹몬",
           "job_name": "다크나이트",
-          "level": 100,
+          "level": 101,
           "combat_power": "12조 6365억 3160만",
           "combat_power_value": 1263653160,
           "rank_in_guild": 3
-        },
-        "엘라임": {
-          "nickname": "엘라임",
-          "job_name": "히어로",
-          "level": 100,
-          "combat_power": "10조 8080억 1797만",
-          "combat_power_value": 1080801797,
-          "rank_in_guild": 4
         },
         "야가다": {
           "nickname": "야가다",
           "job_name": "보우마스터",
           "level": 102,
-          "combat_power": "9조 7862억 1841만",
-          "combat_power_value": 978621841,
+          "combat_power": "12조 629억 6271만",
+          "combat_power_value": 1206296271,
+          "rank_in_guild": 4
+        },
+        "엘라임": {
+          "nickname": "엘라임",
+          "job_name": "히어로",
+          "level": 100,
+          "combat_power": "10조 9567억 7396만",
+          "combat_power_value": 1095677396,
           "rank_in_guild": 5
         },
         "단풍카우": {
           "nickname": "단풍카우",
           "job_name": "다크나이트",
-          "level": 102,
-          "combat_power": "8조 3610억 5502만",
-          "combat_power_value": 836105502,
+          "level": 103,
+          "combat_power": "9조 8332억 7293만",
+          "combat_power_value": 983327293,
           "rank_in_guild": 6
+        },
+        "굴러가는일상": {
+          "nickname": "굴러가는일상",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 100,
+          "combat_power": "6조 3436억 8307만",
+          "combat_power_value": 634368307,
+          "rank_in_guild": 7
         },
         "아르미느": {
           "nickname": "아르미느",
@@ -67,102 +75,94 @@
           "level": 101,
           "combat_power": "6조 468억 64만",
           "combat_power_value": 604680064,
-          "rank_in_guild": 7
-        },
-        "굴러가는일상": {
-          "nickname": "굴러가는일상",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 100,
-          "combat_power": "6조 140억 9399만",
-          "combat_power_value": 601409399,
           "rank_in_guild": 8
         },
         "포스코퓨처엠": {
           "nickname": "포스코퓨처엠",
           "job_name": "섀도어",
           "level": 100,
-          "combat_power": "5조 1592억 3651만",
-          "combat_power_value": 515923651,
+          "combat_power": "5조 2150억 6407만",
+          "combat_power_value": 521506407,
           "rank_in_guild": 9
         },
         "반도": {
           "nickname": "반도",
           "job_name": "나이트로드",
           "level": 100,
-          "combat_power": "4조 5676억 7592만",
-          "combat_power_value": 456767592,
+          "combat_power": "4조 7691억 8012만",
+          "combat_power_value": 476918012,
           "rank_in_guild": 10
         },
         "우후": {
           "nickname": "우후",
           "job_name": "히어로",
           "level": 100,
-          "combat_power": "4조 2993억 5963만",
-          "combat_power_value": 429935963,
+          "combat_power": "4조 3794억 3430만",
+          "combat_power_value": 437943430,
           "rank_in_guild": 11
         },
         "뻥뻥": {
           "nickname": "뻥뻥",
           "job_name": "신궁",
           "level": 98,
-          "combat_power": "3조 6676억 5224만",
-          "combat_power_value": 366765224,
+          "combat_power": "3조 6709억 3521만",
+          "combat_power_value": 367093521,
           "rank_in_guild": 12
-        },
-        "흑두부": {
-          "nickname": "흑두부",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 99,
-          "combat_power": "3조 3846억 5890만",
-          "combat_power_value": 338465890,
-          "rank_in_guild": 13
         },
         "므고": {
           "nickname": "므고",
           "job_name": "섀도어",
           "level": 100,
-          "combat_power": "3조 2011억 997만",
-          "combat_power_value": 320110997,
+          "combat_power": "3조 5242억 2736만",
+          "combat_power_value": 352422736,
+          "rank_in_guild": 13
+        },
+        "흑두부": {
+          "nickname": "흑두부",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 100,
+          "combat_power": "3조 3846억 5890만",
+          "combat_power_value": 338465890,
           "rank_in_guild": 14
+        },
+        "비스밤": {
+          "nickname": "비스밤",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 98,
+          "combat_power": "3조 2452억 8664만",
+          "combat_power_value": 324528664,
+          "rank_in_guild": 15
         },
         "꾸르꾸르": {
           "nickname": "꾸르꾸르",
           "job_name": "섀도어",
-          "level": 98,
-          "combat_power": "2조 8180억 4925만",
-          "combat_power_value": 281804925,
-          "rank_in_guild": 15
-        },
-        "민들레꽃": {
-          "nickname": "민들레꽃",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 100,
-          "combat_power": "2조 7171억 6721만",
-          "combat_power_value": 271716721,
+          "level": 99,
+          "combat_power": "3조 247억 827만",
+          "combat_power_value": 302470827,
           "rank_in_guild": 16
         },
         "쭌파파": {
           "nickname": "쭌파파",
           "job_name": "섀도어",
           "level": 99,
-          "combat_power": "2조 6747억 6521만",
-          "combat_power_value": 267476521,
+          "combat_power": "2조 8428억 9825만",
+          "combat_power_value": 284289825,
           "rank_in_guild": 17
         },
         "아르젠타": {
           "nickname": "아르젠타",
           "job_name": "아크메이지(썬,콜)",
           "level": 97,
-          "combat_power": "2조 6008억 7148만",
-          "combat_power_value": 260087148,
+          "combat_power": "2조 8112억 4149만",
+          "combat_power_value": 281124149,
           "rank_in_guild": 18
         },
-        "비스밤": {
-          "nickname": "비스밤",
+        "민들레꽃": {
+          "nickname": "민들레꽃",
           "job_name": "아크메이지(썬,콜)",
-          "level": 98,
-          "combat_power": "2조 5943억 9545만",
-          "combat_power_value": 259439545,
+          "level": 100,
+          "combat_power": "2조 7458억 6839만",
+          "combat_power_value": 274586839,
           "rank_in_guild": 19
         },
         "강철고튠데": {
@@ -177,16 +177,16 @@
           "nickname": "덕르코프",
           "job_name": "섀도어",
           "level": 98,
-          "combat_power": "2조 3068억 391만",
-          "combat_power_value": 230680391,
+          "combat_power": "2조 5125억 5820만",
+          "combat_power_value": 251255820,
           "rank_in_guild": 21
         },
         "겨울바다": {
           "nickname": "겨울바다",
           "job_name": "아크메이지(썬,콜)",
           "level": 98,
-          "combat_power": "2조 3067억 6242만",
-          "combat_power_value": 230676242,
+          "combat_power": "2조 3898억 659만",
+          "combat_power_value": 238980659,
           "rank_in_guild": 22
         },
         "여븨": {
@@ -250,11 +250,11 @@
         "망겜감별사",
         "큐샤프",
         "킹몬",
-        "엘라임",
         "야가다",
+        "엘라임",
         "단풍카우",
-        "아르미느",
         "굴러가는일상",
+        "아르미느",
         "포스코퓨처엠",
         "반도"
       ],
@@ -262,8 +262,8 @@
         "섀도어": 9,
         "신궁": 4,
         "다크나이트": 2,
-        "히어로": 3,
         "보우마스터": 2,
+        "히어로": 3,
         "아크메이지(썬,콜)": 6,
         "나이트로드": 2,
         "아크메이지(불,독)": 1
@@ -271,20 +271,20 @@
     },
     "숑숑": {
       "guild_name": "숑숑",
-      "guild_power_value": 12927541292,
+      "guild_power_value": 14938216000,
       "member_count": 30,
       "avg_level": 99.6,
-      "global_rank": "374",
-      "server_rank": "13위",
+      "global_rank": "386",
+      "server_rank": "14위",
       "simulation_rank": 1,
-      "simulation_score": 78063542,
+      "simulation_score": 86592492,
       "members": {
         "숑이": {
           "nickname": "숑이",
           "job_name": "아크메이지(썬,콜)",
           "level": 103,
-          "combat_power": "33조 337억 4026만",
-          "combat_power_value": 3303374026,
+          "combat_power": "34조 2454억 2477만",
+          "combat_power_value": 3424542477,
           "rank_in_guild": 1
         },
         "소독약": {
@@ -299,16 +299,16 @@
           "nickname": "주존사",
           "job_name": "히어로",
           "level": 102,
-          "combat_power": "12조 2134억 7541만",
-          "combat_power_value": 1221347541,
+          "combat_power": "13조 5344억 1698만",
+          "combat_power_value": 1353441698,
           "rank_in_guild": 3
         },
         "휘정": {
           "nickname": "휘정",
           "job_name": "신궁",
           "level": 100,
-          "combat_power": "7조 7401억 3625만",
-          "combat_power_value": 774013625,
+          "combat_power": "8조 3451억 6979만",
+          "combat_power_value": 834516979,
           "rank_in_guild": 4
         },
         "무피": {
@@ -319,20 +319,20 @@
           "combat_power_value": 710371996,
           "rank_in_guild": 5
         },
-        "파산": {
-          "nickname": "파산",
-          "job_name": "섀도어",
-          "level": 100,
-          "combat_power": "5조 2663억 2599만",
-          "combat_power_value": 526632599,
-          "rank_in_guild": 6
-        },
         "슈웃": {
           "nickname": "슈웃",
           "job_name": "아크메이지(썬,콜)",
           "level": 100,
-          "combat_power": "5조 2536억 3990만",
-          "combat_power_value": 525363990,
+          "combat_power": "5조 6389억 3793만",
+          "combat_power_value": 563893793,
+          "rank_in_guild": 6
+        },
+        "파산": {
+          "nickname": "파산",
+          "job_name": "섀도어",
+          "level": 101,
+          "combat_power": "5조 4000억 5163만",
+          "combat_power_value": 540005163,
           "rank_in_guild": 7
         },
         "캐서린": {
@@ -343,60 +343,60 @@
           "combat_power_value": 508848079,
           "rank_in_guild": 8
         },
+        "빡박이": {
+          "nickname": "빡박이",
+          "job_name": "아크메이지(불,독)",
+          "level": 99,
+          "combat_power": "4조 5873억 1265만",
+          "combat_power_value": 458731265,
+          "rank_in_guild": 9
+        },
+        "졸귀": {
+          "nickname": "졸귀",
+          "job_name": "섀도어",
+          "level": 101,
+          "combat_power": "4조 4488억 9657만",
+          "combat_power_value": 444889657,
+          "rank_in_guild": 10
+        },
         "강린": {
           "nickname": "강린",
           "job_name": "히어로",
           "level": 100,
           "combat_power": "4조 4116억 2751만",
           "combat_power_value": 441162751,
-          "rank_in_guild": 9
+          "rank_in_guild": 11
         },
         "임나연": {
           "nickname": "임나연",
           "job_name": "섀도어",
-          "level": 100,
-          "combat_power": "4조 1387억 9300만",
-          "combat_power_value": 413879300,
-          "rank_in_guild": 10
-        },
-        "빡박이": {
-          "nickname": "빡박이",
-          "job_name": "아크메이지(불,독)",
-          "level": 99,
-          "combat_power": "4조 372억 1982만",
-          "combat_power_value": 403721982,
-          "rank_in_guild": 11
-        },
-        "졸귀": {
-          "nickname": "졸귀",
-          "job_name": "섀도어",
           "level": 101,
-          "combat_power": "3조 9023억 745만",
-          "combat_power_value": 390230745,
+          "combat_power": "4조 3217억 2870만",
+          "combat_power_value": 432172870,
           "rank_in_guild": 12
         },
         "스파토이": {
           "nickname": "스파토이",
           "job_name": "신궁",
           "level": 98,
-          "combat_power": "3조 2857억 8502만",
-          "combat_power_value": 328578502,
+          "combat_power": "3조 4140억 3187만",
+          "combat_power_value": 341403187,
           "rank_in_guild": 13
         },
         "YAMAMOTO": {
           "nickname": "YAMAMOTO",
           "job_name": "섀도어",
           "level": 100,
-          "combat_power": "3조 1669억 6472만",
-          "combat_power_value": 316696472,
+          "combat_power": "3조 2774억 4053만",
+          "combat_power_value": 327744053,
           "rank_in_guild": 14
         },
         "픽홀로": {
           "nickname": "픽홀로",
           "job_name": "나이트로드",
           "level": 100,
-          "combat_power": "3조 727억 7187만",
-          "combat_power_value": 307277187,
+          "combat_power": "3조 2374억 3323만",
+          "combat_power_value": 323743323,
           "rank_in_guild": 15
         },
         "쟈라": {
@@ -427,33 +427,41 @@
           "nickname": "미진생",
           "job_name": "아크메이지(썬,콜)",
           "level": 99,
-          "combat_power": "2조 4299억 8920만",
-          "combat_power_value": 242998920,
+          "combat_power": "2조 6180억 1451만",
+          "combat_power_value": 261801451,
           "rank_in_guild": 19
-        },
-        "베르1": {
-          "nickname": "베르1",
-          "job_name": "다크나이트",
-          "level": 100,
-          "combat_power": "2조 3381억 4735만",
-          "combat_power_value": 233814735,
-          "rank_in_guild": 20
-        },
-        "Uhani": {
-          "nickname": "Uhani",
-          "job_name": "섀도어",
-          "level": 97,
-          "combat_power": "2조 384억 6922만",
-          "combat_power_value": 203846922,
-          "rank_in_guild": 21
         },
         "쟁반짜장": {
           "nickname": "쟁반짜장",
           "job_name": "나이트로드",
           "level": 100,
-          "combat_power": "2조 15억 7320만",
-          "combat_power_value": 200157320,
+          "combat_power": "2조 5842억 993만",
+          "combat_power_value": 258420993,
+          "rank_in_guild": 20
+        },
+        "베르1": {
+          "nickname": "베르1",
+          "job_name": "다크나이트",
+          "level": 100,
+          "combat_power": "2조 4873억 4597만",
+          "combat_power_value": 248734597,
+          "rank_in_guild": 21
+        },
+        "Uhani": {
+          "nickname": "Uhani",
+          "job_name": "섀도어",
+          "level": 97,
+          "combat_power": "2조 2887억 2891만",
+          "combat_power_value": 228872891,
           "rank_in_guild": 22
+        },
+        "깅궁둥": {
+          "nickname": "깅궁둥",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 98,
+          "combat_power": "2조 209억 253만",
+          "combat_power_value": 202090253,
+          "rank_in_guild": 23
         },
         "하숑": {
           "nickname": "하숑",
@@ -461,39 +469,39 @@
           "level": 98,
           "combat_power": "1조 9726억 8087만",
           "combat_power_value": 197268087,
-          "rank_in_guild": 23
-        },
-        "깅궁둥": {
-          "nickname": "깅궁둥",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 98,
-          "combat_power": "1조 8429억 3125만",
-          "combat_power_value": 184293125,
           "rank_in_guild": 24
         },
         "별렉스b": {
           "nickname": "별렉스b",
           "job_name": "히어로",
           "level": 99,
-          "combat_power": "1조 8408억 8307만",
-          "combat_power_value": 184088307,
+          "combat_power": "1조 9503억 1115만",
+          "combat_power_value": 195031115,
           "rank_in_guild": 25
         },
         "가이아의격노": {
           "nickname": "가이아의격노",
           "job_name": "보우마스터",
           "level": 98,
-          "combat_power": "1조 8332억 4883만",
-          "combat_power_value": 183324883,
+          "combat_power": "1조 9083억 9920만",
+          "combat_power_value": 190839920,
           "rank_in_guild": 26
         },
         "양설유": {
           "nickname": "양설유",
           "job_name": "신궁",
           "level": 97,
-          "combat_power": "1조 7462억 7709만",
-          "combat_power_value": 174627709,
+          "combat_power": "1조 7478억 8410만",
+          "combat_power_value": 174788410,
           "rank_in_guild": 27
+        },
+        "양산호수공원": {
+          "nickname": "양산호수공원",
+          "job_name": "섀도어",
+          "level": 97,
+          "combat_power": "1조 3330억 2595만",
+          "combat_power_value": 133302595,
+          "rank_in_guild": 28
         },
         "도레스": {
           "nickname": "도레스",
@@ -501,22 +509,14 @@
           "level": 98,
           "combat_power": "1조 1839억 1961만",
           "combat_power_value": 118391961,
-          "rank_in_guild": 28
-        },
-        "양산호수공원": {
-          "nickname": "양산호수공원",
-          "job_name": "섀도어",
-          "level": 97,
-          "combat_power": "1조 1318억 9672만",
-          "combat_power_value": 113189672,
           "rank_in_guild": 29
         },
         "potato": {
           "nickname": "potato",
           "job_name": "아크메이지(썬,콜)",
           "level": 98,
-          "combat_power": "9636억 4989만",
-          "combat_power_value": 96364989,
+          "combat_power": "1조 474억 7062만",
+          "combat_power_value": 104747062,
           "rank_in_guild": 30
         }
       },
@@ -526,11 +526,11 @@
         "주존사",
         "휘정",
         "무피",
-        "파산",
         "슈웃",
+        "파산",
         "캐서린",
-        "강린",
-        "임나연"
+        "빡박이",
+        "졸귀"
       ],
       "job_counts": {
         "아크메이지(썬,콜)": 6,
@@ -543,319 +543,70 @@
         "보우마스터": 2
       }
     },
-    "또래": {
-      "guild_name": "또래",
-      "guild_power_value": 12077537512,
-      "member_count": 27,
-      "avg_level": 97.4,
-      "global_rank": "384",
-      "server_rank": "18위",
-      "simulation_rank": 5,
-      "simulation_score": 65101358,
-      "members": {
-        "뀨래": {
-          "nickname": "뀨래",
-          "job_name": "다크나이트",
-          "level": 103,
-          "combat_power": "41조 4986억 7830만",
-          "combat_power_value": 4149867830,
-          "rank_in_guild": 1
-        },
-        "호겡": {
-          "nickname": "호겡",
-          "job_name": "섀도어",
-          "level": 102,
-          "combat_power": "25조 2647억 3158만",
-          "combat_power_value": 2526473158,
-          "rank_in_guild": 2
-        },
-        "과학실": {
-          "nickname": "과학실",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 101,
-          "combat_power": "18조 8526억 4330만",
-          "combat_power_value": 1885264330,
-          "rank_in_guild": 3
-        },
-        "우주킥": {
-          "nickname": "우주킥",
-          "job_name": "섀도어",
-          "level": 99,
-          "combat_power": "5조 2485억 7572만",
-          "combat_power_value": 524857572,
-          "rank_in_guild": 4
-        },
-        "아옳옳": {
-          "nickname": "아옳옳",
-          "job_name": "히어로",
-          "level": 99,
-          "combat_power": "4조 3994억 5106만",
-          "combat_power_value": 439945106,
-          "rank_in_guild": 5
-        },
-        "해삐예삐": {
-          "nickname": "해삐예삐",
-          "job_name": "섀도어",
-          "level": 99,
-          "combat_power": "4조 3733억 5098만",
-          "combat_power_value": 437335098,
-          "rank_in_guild": 6
-        },
-        "나영석PDD": {
-          "nickname": "나영석PDD",
-          "job_name": "히어로",
-          "level": 99,
-          "combat_power": "4조 276억 1258만",
-          "combat_power_value": 402761258,
-          "rank_in_guild": 7
-        },
-        "뜨막": {
-          "nickname": "뜨막",
-          "job_name": "섀도어",
-          "level": 97,
-          "combat_power": "3조 8020억 7051만",
-          "combat_power_value": 380207051,
-          "rank_in_guild": 8
-        },
-        "싱그러운생귤": {
-          "nickname": "싱그러운생귤",
-          "job_name": "비숍",
-          "level": 98,
-          "combat_power": "3조 1832억 4975만",
-          "combat_power_value": 318324975,
-          "rank_in_guild": 9
-        },
-        "꾸레밈": {
-          "nickname": "꾸레밈",
-          "job_name": "섀도어",
-          "level": 98,
-          "combat_power": "2조 9816억 5861만",
-          "combat_power_value": 298165861,
-          "rank_in_guild": 10
-        },
-        "또니이이": {
-          "nickname": "또니이이",
-          "job_name": "다크나이트",
-          "level": 98,
-          "combat_power": "2조 4730억 6872만",
-          "combat_power_value": 247306872,
-          "rank_in_guild": 11
-        },
-        "서튼튼이": {
-          "nickname": "서튼튼이",
-          "job_name": "다크나이트",
-          "level": 96,
-          "combat_power": "1조 8418억 8431만",
-          "combat_power_value": 184188431,
-          "rank_in_guild": 12
-        },
-        "전뱀": {
-          "nickname": "전뱀",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 97,
-          "combat_power": "1조 6908억 8745만",
-          "combat_power_value": 169088745,
-          "rank_in_guild": 13
-        },
-        "라즈샤": {
-          "nickname": "라즈샤",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 97,
-          "combat_power": "1조 5996억 6660만",
-          "combat_power_value": 159966660,
-          "rank_in_guild": 14
-        },
-        "하영진": {
-          "nickname": "하영진",
-          "job_name": "히어로",
-          "level": 97,
-          "combat_power": "1조 3331억 472만",
-          "combat_power_value": 133310472,
-          "rank_in_guild": 15
-        },
-        "갓겜이네메키": {
-          "nickname": "갓겜이네메키",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 97,
-          "combat_power": "1조 3132억 1135만",
-          "combat_power_value": 131321135,
-          "rank_in_guild": 16
-        },
-        "말랑초이": {
-          "nickname": "말랑초이",
-          "job_name": "섀도어",
-          "level": 96,
-          "combat_power": "1조 2375억 2438만",
-          "combat_power_value": 123752438,
-          "rank_in_guild": 17
-        },
-        "몰랑초이": {
-          "nickname": "몰랑초이",
-          "job_name": "섀도어",
-          "level": 97,
-          "combat_power": "1조 2347억 8879만",
-          "combat_power_value": 123478879,
-          "rank_in_guild": 18
-        },
-        "대박제육검": {
-          "nickname": "대박제육검",
-          "job_name": "신궁",
-          "level": 95,
-          "combat_power": "1조 2185억 6415만",
-          "combat_power_value": 121856415,
-          "rank_in_guild": 19
-        },
-        "항뷰리": {
-          "nickname": "항뷰리",
-          "job_name": "신궁",
-          "level": 96,
-          "combat_power": "1조 1629억 7713만",
-          "combat_power_value": 116297713,
-          "rank_in_guild": 20
-        },
-        "순혈단또": {
-          "nickname": "순혈단또",
-          "job_name": "섀도어",
-          "level": 97,
-          "combat_power": "1조 857억 4649만",
-          "combat_power_value": 108574649,
-          "rank_in_guild": 21
-        },
-        "Lim1t": {
-          "nickname": "Lim1t",
-          "job_name": "신궁",
-          "level": 97,
-          "combat_power": "9694억 4875만",
-          "combat_power_value": 96944875,
-          "rank_in_guild": 22
-        },
-        "히빌": {
-          "nickname": "히빌",
-          "job_name": "히어로",
-          "level": 95,
-          "combat_power": "9460억 3345만",
-          "combat_power_value": 94603345,
-          "rank_in_guild": 23
-        },
-        "봉구리구리": {
-          "nickname": "봉구리구리",
-          "job_name": "섀도어",
-          "level": 95,
-          "combat_power": "8854억 9428만",
-          "combat_power_value": 88549428,
-          "rank_in_guild": 24
-        },
-        "갱기님": {
-          "nickname": "갱기님",
-          "job_name": "보우마스터",
-          "level": 94,
-          "combat_power": "8307억 3657만",
-          "combat_power_value": 83073657,
-          "rank_in_guild": 25
-        },
-        "복합왕": {
-          "nickname": "복합왕",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 97,
-          "combat_power": "6862억 9343만",
-          "combat_power_value": 68629343,
-          "rank_in_guild": 26
-        },
-        "당양감": {
-          "nickname": "당양감",
-          "job_name": "섀도어",
-          "level": 93,
-          "combat_power": "1800억 8890만",
-          "combat_power_value": 18008890,
-          "rank_in_guild": 27
-        }
-      },
-      "top10_keys": [
-        "뀨래",
-        "호겡",
-        "과학실",
-        "우주킥",
-        "아옳옳",
-        "해삐예삐",
-        "나영석PDD",
-        "뜨막",
-        "싱그러운생귤",
-        "꾸레밈"
-      ],
-      "job_counts": {
-        "다크나이트": 3,
-        "섀도어": 10,
-        "아크메이지(썬,콜)": 5,
-        "히어로": 4,
-        "비숍": 1,
-        "신궁": 3,
-        "보우마스터": 1
-      }
-    },
     "0FeroCity": {
       "guild_name": "0FeroCity",
-      "guild_power_value": 12380578607,
+      "guild_power_value": 16282635868,
       "member_count": 30,
-      "avg_level": 97.2,
-      "global_rank": "382",
-      "server_rank": "19위",
+      "avg_level": 97.4,
+      "global_rank": "370",
+      "server_rank": "20위",
       "simulation_rank": 3,
-      "simulation_score": 76002513,
+      "simulation_score": 83634611,
       "members": {
         "다내꼬양": {
           "nickname": "다내꼬양",
           "job_name": "비숍",
-          "level": 103,
-          "combat_power": "46조 7631억 7929만",
-          "combat_power_value": 4676317929,
+          "level": 104,
+          "combat_power": "48조 978억 8543만",
+          "combat_power_value": 4809788543,
           "rank_in_guild": 1
         },
         "으닝닝맛섀도": {
           "nickname": "으닝닝맛섀도",
           "job_name": "섀도어",
           "level": 102,
-          "combat_power": "38조 7302억 5673만",
-          "combat_power_value": 3873025673,
+          "combat_power": "42조 2361억 6282만",
+          "combat_power_value": 4223616282,
           "rank_in_guild": 2
         },
         "캘리v": {
           "nickname": "캘리v",
           "job_name": "섀도어",
           "level": 102,
-          "combat_power": "17조 8319억 6127만",
-          "combat_power_value": 1783196127,
+          "combat_power": "19조 8537억 9210만",
+          "combat_power_value": 1985379210,
           "rank_in_guild": 3
         },
         "oFero라온o": {
           "nickname": "oFero라온o",
           "job_name": "비숍",
           "level": 101,
-          "combat_power": "10조 9434억 7404만",
-          "combat_power_value": 1094347404,
+          "combat_power": "13조 4533억 4561만",
+          "combat_power_value": 1345334561,
           "rank_in_guild": 4
         },
         "메이쁠키우깅": {
           "nickname": "메이쁠키우깅",
           "job_name": "아크메이지(썬,콜)",
           "level": 98,
-          "combat_power": "7조 1097억 2958만",
-          "combat_power_value": 710972958,
+          "combat_power": "7조 9432억 4754만",
+          "combat_power_value": 794324754,
           "rank_in_guild": 5
         },
         "용이지니": {
           "nickname": "용이지니",
           "job_name": "섀도어",
           "level": 99,
-          "combat_power": "5조 1037억 8896만",
-          "combat_power_value": 510378896,
+          "combat_power": "5조 9050억 4957만",
+          "combat_power_value": 590504957,
           "rank_in_guild": 6
         },
         "oFero월향o": {
           "nickname": "oFero월향o",
           "job_name": "섀도어",
           "level": 98,
-          "combat_power": "2조 5315억 4295만",
-          "combat_power_value": 253154295,
+          "combat_power": "2조 5681억 8798만",
+          "combat_power_value": 256818798,
           "rank_in_guild": 7
         },
         "크래쉬": {
@@ -870,57 +621,73 @@
           "nickname": "곡부공씨",
           "job_name": "다크나이트",
           "level": 100,
-          "combat_power": "2조 3103억 5819만",
-          "combat_power_value": 231035819,
+          "combat_power": "2조 4052억 3567만",
+          "combat_power_value": 240523567,
           "rank_in_guild": 9
-        },
-        "기묘함": {
-          "nickname": "기묘함",
-          "job_name": "다크나이트",
-          "level": 97,
-          "combat_power": "1조 9377억 2581만",
-          "combat_power_value": 193772581,
-          "rank_in_guild": 10
-        },
-        "한맹": {
-          "nickname": "한맹",
-          "job_name": "섀도어",
-          "level": 97,
-          "combat_power": "1조 9308억 2661만",
-          "combat_power_value": 193082661,
-          "rank_in_guild": 11
         },
         "SPICY": {
           "nickname": "SPICY",
           "job_name": "아크메이지(썬,콜)",
           "level": 98,
-          "combat_power": "1조 8682억 1465만",
-          "combat_power_value": 186821465,
+          "combat_power": "2조 1013억 6473만",
+          "combat_power_value": 210136473,
+          "rank_in_guild": 10
+        },
+        "기묘함": {
+          "nickname": "기묘함",
+          "job_name": "다크나이트",
+          "level": 98,
+          "combat_power": "2조 320억 5879만",
+          "combat_power_value": 203205879,
+          "rank_in_guild": 11
+        },
+        "한맹": {
+          "nickname": "한맹",
+          "job_name": "섀도어",
+          "level": 98,
+          "combat_power": "2조 291억 2181만",
+          "combat_power_value": 202912181,
           "rank_in_guild": 12
         },
         "장행": {
           "nickname": "장행",
           "job_name": "섀도어",
           "level": 97,
-          "combat_power": "1조 2511억 2429만",
-          "combat_power_value": 125112429,
+          "combat_power": "1조 4431억 9372만",
+          "combat_power_value": 144319372,
           "rank_in_guild": 13
         },
         "JUYs": {
           "nickname": "JUYs",
           "job_name": "아크메이지(불,독)",
           "level": 96,
-          "combat_power": "1조 1730억 3808만",
-          "combat_power_value": 117303808,
+          "combat_power": "1조 2788억 4742만",
+          "combat_power_value": 127884742,
           "rank_in_guild": 14
         },
         "격통": {
           "nickname": "격통",
           "job_name": "신궁",
           "level": 97,
-          "combat_power": "1조 1650억 878만",
-          "combat_power_value": 116500878,
+          "combat_power": "1조 2115억 6934만",
+          "combat_power_value": 121156934,
           "rank_in_guild": 15
+        },
+        "댕댕이완자": {
+          "nickname": "댕댕이완자",
+          "job_name": "비숍",
+          "level": 96,
+          "combat_power": "1조 518억 5569만",
+          "combat_power_value": 105185569,
+          "rank_in_guild": 16
+        },
+        "로절린드": {
+          "nickname": "로절린드",
+          "job_name": "비숍",
+          "level": 97,
+          "combat_power": "1조 506억 3182만",
+          "combat_power_value": 105063182,
+          "rank_in_guild": 17
         },
         "음묘우": {
           "nickname": "음묘우",
@@ -928,31 +695,23 @@
           "level": 96,
           "combat_power": "1조 211억 7612만",
           "combat_power_value": 102117612,
-          "rank_in_guild": 16
-        },
-        "로절린드": {
-          "nickname": "로절린드",
-          "job_name": "비숍",
-          "level": 97,
-          "combat_power": "9603억 4965만",
-          "combat_power_value": 96034965,
-          "rank_in_guild": 17
-        },
-        "댕댕이완자": {
-          "nickname": "댕댕이완자",
-          "job_name": "비숍",
-          "level": 96,
-          "combat_power": "8894억 6832만",
-          "combat_power_value": 88946832,
           "rank_in_guild": 18
+        },
+        "명왕하데스": {
+          "nickname": "명왕하데스",
+          "job_name": "다크나이트",
+          "level": 96,
+          "combat_power": "9070억 8647만",
+          "combat_power_value": 90708647,
+          "rank_in_guild": 19
         },
         "짱숍": {
           "nickname": "짱숍",
           "job_name": "비숍",
           "level": 97,
-          "combat_power": "8495억 9841만",
-          "combat_power_value": 84959841,
-          "rank_in_guild": 19
+          "combat_power": "8503억 4109만",
+          "combat_power_value": 85034109,
+          "rank_in_guild": 20
         },
         "빙걸공듀": {
           "nickname": "빙걸공듀",
@@ -960,14 +719,6 @@
           "level": 96,
           "combat_power": "7994억 5718만",
           "combat_power_value": 79945718,
-          "rank_in_guild": 20
-        },
-        "명왕하데스": {
-          "nickname": "명왕하데스",
-          "job_name": "다크나이트",
-          "level": 96,
-          "combat_power": "7944억 74만",
-          "combat_power_value": 79440074,
           "rank_in_guild": 21
         },
         "보라물망초": {
@@ -982,38 +733,38 @@
           "nickname": "귀흑",
           "job_name": "섀도어",
           "level": 95,
-          "combat_power": "6262억 4501만",
-          "combat_power_value": 62624501,
+          "combat_power": "6995억 2191만",
+          "combat_power_value": 69952191,
           "rank_in_guild": 23
         },
         "소망님": {
           "nickname": "소망님",
           "job_name": "비숍",
           "level": 96,
-          "combat_power": "6222억 4063만",
-          "combat_power_value": 62224063,
+          "combat_power": "6531억 8840만",
+          "combat_power_value": 65318840,
           "rank_in_guild": 24
         },
         "솜쥬멐": {
           "nickname": "솜쥬멐",
           "job_name": "섀도어",
           "level": 96,
-          "combat_power": "5960억 8308만",
-          "combat_power_value": 59608308,
+          "combat_power": "6261억 4787만",
+          "combat_power_value": 62614787,
           "rank_in_guild": 25
         },
         "오렌지니": {
           "nickname": "오렌지니",
           "job_name": "신궁",
           "level": 95,
-          "combat_power": "5682억 8299만",
-          "combat_power_value": 56828299,
+          "combat_power": "6057억 8102만",
+          "combat_power_value": 60578102,
           "rank_in_guild": 26
         },
         "야옹이공주": {
           "nickname": "야옹이공주",
           "job_name": "비숍",
-          "level": 95,
+          "level": 96,
           "combat_power": "5235억 1311만",
           "combat_power_value": 52351311,
           "rank_in_guild": 27
@@ -1030,16 +781,16 @@
           "nickname": "녕죠",
           "job_name": "히어로",
           "level": 95,
-          "combat_power": "3798억 9522만",
-          "combat_power_value": 37989522,
+          "combat_power": "4230억 8358만",
+          "combat_power_value": 42308358,
           "rank_in_guild": 29
         },
         "어뭉지": {
           "nickname": "어뭉지",
           "job_name": "섀도어",
-          "level": 92,
-          "combat_power": "3348억 1501만",
-          "combat_power_value": 33481501,
+          "level": 93,
+          "combat_power": "3660억 763만",
+          "combat_power_value": 36600763,
           "rank_in_guild": 30
         }
       },
@@ -1053,7 +804,7 @@
         "oFero월향o",
         "크래쉬",
         "곡부공씨",
-        "기묘함"
+        "SPICY"
       ],
       "job_counts": {
         "비숍": 8,
@@ -1068,28 +819,28 @@
     },
     "풍년순대국밥": {
       "guild_name": "풍년순대국밥",
-      "guild_power_value": 12612984614,
-      "member_count": 25,
+      "guild_power_value": 15049445633,
+      "member_count": 26,
       "avg_level": 98.6,
-      "global_rank": "379",
+      "global_rank": "384",
       "server_rank": "14위",
       "simulation_rank": 6,
-      "simulation_score": 61295343,
+      "simulation_score": 72553337,
       "members": {
         "망동": {
           "nickname": "망동",
           "job_name": "다크나이트",
           "level": 103,
-          "combat_power": "65조 8528억 9645만",
-          "combat_power_value": 6585289645,
+          "combat_power": "70조 692억 5246만",
+          "combat_power_value": 7006925246,
           "rank_in_guild": 1
         },
         "밍츄핑": {
           "nickname": "밍츄핑",
           "job_name": "섀도어",
           "level": 102,
-          "combat_power": "18조 4270억 8576만",
-          "combat_power_value": 1842708576,
+          "combat_power": "19조 8509억 6441만",
+          "combat_power_value": 1985096441,
           "rank_in_guild": 2
         },
         "걀보": {
@@ -1112,9 +863,25 @@
           "nickname": "랏뚜",
           "job_name": "히어로",
           "level": 98,
-          "combat_power": "3조 1283억 9737만",
-          "combat_power_value": 312839737,
+          "combat_power": "3조 5108억 743만",
+          "combat_power_value": 351080743,
           "rank_in_guild": 5
+        },
+        "이호은": {
+          "nickname": "이호은",
+          "job_name": "섀도어",
+          "level": 99,
+          "combat_power": "3조 3788억 6329만",
+          "combat_power_value": 337886329,
+          "rank_in_guild": 6
+        },
+        "승호숍": {
+          "nickname": "승호숍",
+          "job_name": "비숍",
+          "level": 98,
+          "combat_power": "3조 447억 8295만",
+          "combat_power_value": 304478295,
+          "rank_in_guild": 7
         },
         "왕오이": {
           "nickname": "왕오이",
@@ -1122,23 +889,23 @@
           "level": 99,
           "combat_power": "3조 78억 6848만",
           "combat_power_value": 300786848,
-          "rank_in_guild": 6
+          "rank_in_guild": 8
         },
-        "이호은": {
-          "nickname": "이호은",
-          "job_name": "섀도어",
-          "level": 99,
-          "combat_power": "2조 8767억 4562만",
-          "combat_power_value": 287674562,
-          "rank_in_guild": 7
+        "하깁s": {
+          "nickname": "하깁s",
+          "job_name": "다크나이트",
+          "level": 98,
+          "combat_power": "2조 8867억 6204만",
+          "combat_power_value": 288676204,
+          "rank_in_guild": 9
         },
         "그냐앙": {
           "nickname": "그냐앙",
           "job_name": "아크메이지(썬,콜)",
           "level": 99,
-          "combat_power": "2조 7816억 961만",
-          "combat_power_value": 278160961,
-          "rank_in_guild": 8
+          "combat_power": "2조 8366억 529만",
+          "combat_power_value": 283660529,
+          "rank_in_guild": 10
         },
         "애기이잉": {
           "nickname": "애기이잉",
@@ -1146,38 +913,22 @@
           "level": 98,
           "combat_power": "2조 7202억 3568만",
           "combat_power_value": 272023568,
-          "rank_in_guild": 9
+          "rank_in_guild": 11
         },
         "야제": {
           "nickname": "야제",
           "job_name": "섀도어",
           "level": 98,
-          "combat_power": "2조 6847억 4633만",
-          "combat_power_value": 268474633,
-          "rank_in_guild": 10
-        },
-        "승호숍": {
-          "nickname": "승호숍",
-          "job_name": "비숍",
-          "level": 97,
-          "combat_power": "2조 6053억 310만",
-          "combat_power_value": 260530310,
-          "rank_in_guild": 11
-        },
-        "하깁s": {
-          "nickname": "하깁s",
-          "job_name": "다크나이트",
-          "level": 98,
-          "combat_power": "2조 6043억 5354만",
-          "combat_power_value": 260435354,
+          "combat_power": "2조 7093억 1759만",
+          "combat_power_value": 270931759,
           "rank_in_guild": 12
         },
         "은디탁": {
           "nickname": "은디탁",
           "job_name": "히어로",
           "level": 100,
-          "combat_power": "2조 4095억 1005만",
-          "combat_power_value": 240951005,
+          "combat_power": "2조 6635억 5743만",
+          "combat_power_value": 266355743,
           "rank_in_guild": 13
         },
         "맛조개": {
@@ -1200,25 +951,49 @@
           "nickname": "네모수박",
           "job_name": "아크메이지(썬,콜)",
           "level": 100,
-          "combat_power": "1조 9175억 6016만",
-          "combat_power_value": 191756016,
+          "combat_power": "2조 336억 7164만",
+          "combat_power_value": 203367164,
           "rank_in_guild": 16
-        },
-        "부라": {
-          "nickname": "부라",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 99,
-          "combat_power": "1조 4308억 7074만",
-          "combat_power_value": 143087074,
-          "rank_in_guild": 17
         },
         "늙은마": {
           "nickname": "늙은마",
           "job_name": "아크메이지(불,독)",
           "level": 96,
-          "combat_power": "1조 3816억 6012만",
-          "combat_power_value": 138166012,
+          "combat_power": "1조 4964억 2721만",
+          "combat_power_value": 149642721,
+          "rank_in_guild": 17
+        },
+        "부라": {
+          "nickname": "부라",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 99,
+          "combat_power": "1조 4442억 6034만",
+          "combat_power_value": 144426034,
           "rank_in_guild": 18
+        },
+        "jinajina": {
+          "nickname": "jinajina",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 98,
+          "combat_power": "1조 2681억 6165만",
+          "combat_power_value": 126816165,
+          "rank_in_guild": 19
+        },
+        "덕장이다습할": {
+          "nickname": "덕장이다습할",
+          "job_name": "보우마스터",
+          "level": 98,
+          "combat_power": "1조 2678억 5127만",
+          "combat_power_value": 126785127,
+          "rank_in_guild": 20
+        },
+        "블루힐": {
+          "nickname": "블루힐",
+          "job_name": "비숍",
+          "level": 96,
+          "combat_power": "1조 2633억 204만",
+          "combat_power_value": 126330204,
+          "rank_in_guild": 21
         },
         "라이언킹": {
           "nickname": "라이언킹",
@@ -1226,55 +1001,39 @@
           "level": 98,
           "combat_power": "1조 2524억 293만",
           "combat_power_value": 125240293,
-          "rank_in_guild": 19
-        },
-        "jinajina": {
-          "nickname": "jinajina",
-          "job_name": "아크메이지(썬,콜)",
-          "level": 98,
-          "combat_power": "1조 1393억 8236만",
-          "combat_power_value": 113938236,
-          "rank_in_guild": 20
-        },
-        "덕장이다습할": {
-          "nickname": "덕장이다습할",
-          "job_name": "보우마스터",
-          "level": 98,
-          "combat_power": "1조 238억 9969만",
-          "combat_power_value": 102389969,
-          "rank_in_guild": 21
-        },
-        "켠석": {
-          "nickname": "켠석",
-          "job_name": "히어로",
-          "level": 97,
-          "combat_power": "1조 90억 7869만",
-          "combat_power_value": 100907869,
           "rank_in_guild": 22
         },
         "뿌베": {
           "nickname": "뿌베",
           "job_name": "다크나이트",
-          "level": 95,
-          "combat_power": "9121억 6356만",
-          "combat_power_value": 91216356,
+          "level": 96,
+          "combat_power": "1조 963억 1080만",
+          "combat_power_value": 109631080,
           "rank_in_guild": 23
         },
-        "챵술사": {
-          "nickname": "챵술사",
-          "job_name": "다크나이트",
-          "level": 98,
-          "combat_power": "8248억 9362만",
-          "combat_power_value": 82489362,
+        "켠석": {
+          "nickname": "켠석",
+          "job_name": "히어로",
+          "level": 97,
+          "combat_power": "1조 701억 6024만",
+          "combat_power_value": 107016024,
           "rank_in_guild": 24
         },
         "근카자": {
           "nickname": "근카자",
           "job_name": "섀도어",
-          "level": 95,
-          "combat_power": "7924억 737만",
-          "combat_power_value": 79240737,
+          "level": 96,
+          "combat_power": "8905억 8835만",
+          "combat_power_value": 89058835,
           "rank_in_guild": 25
+        },
+        "챵술사": {
+          "nickname": "챵술사",
+          "job_name": "다크나이트",
+          "level": 98,
+          "combat_power": "8581억 167만",
+          "combat_power_value": 85810167,
+          "rank_in_guild": 26
         }
       },
       "top10_keys": [
@@ -1283,31 +1042,296 @@
         "걀보",
         "님하하하",
         "랏뚜",
-        "왕오이",
         "이호은",
-        "그냐앙",
-        "애기이잉",
-        "야제"
+        "승호숍",
+        "왕오이",
+        "하깁s",
+        "그냐앙"
       ],
       "job_counts": {
         "다크나이트": 6,
         "섀도어": 7,
         "아크메이지(썬,콜)": 6,
         "히어로": 3,
-        "비숍": 1,
+        "비숍": 2,
         "아크메이지(불,독)": 1,
         "보우마스터": 1
       }
     },
+    "또래": {
+      "guild_name": "또래",
+      "guild_power_value": 12676169110,
+      "member_count": 29,
+      "avg_level": 97.3,
+      "global_rank": "418",
+      "server_rank": "21위",
+      "simulation_rank": 4,
+      "simulation_score": 77261060,
+      "members": {
+        "뀨래": {
+          "nickname": "뀨래",
+          "job_name": "다크나이트",
+          "level": 103,
+          "combat_power": "46조 9082억 4587만",
+          "combat_power_value": 4690824587,
+          "rank_in_guild": 1
+        },
+        "호겡": {
+          "nickname": "호겡",
+          "job_name": "섀도어",
+          "level": 102,
+          "combat_power": "25조 3673억 3541만",
+          "combat_power_value": 2536733541,
+          "rank_in_guild": 2
+        },
+        "우주킥": {
+          "nickname": "우주킥",
+          "job_name": "섀도어",
+          "level": 99,
+          "combat_power": "5조 3842억 8887만",
+          "combat_power_value": 538428887,
+          "rank_in_guild": 3
+        },
+        "아옳옳": {
+          "nickname": "아옳옳",
+          "job_name": "히어로",
+          "level": 99,
+          "combat_power": "4조 9403억 2215만",
+          "combat_power_value": 494032215,
+          "rank_in_guild": 4
+        },
+        "해삐예삐": {
+          "nickname": "해삐예삐",
+          "job_name": "섀도어",
+          "level": 99,
+          "combat_power": "4조 4946억 1973만",
+          "combat_power_value": 449461973,
+          "rank_in_guild": 5
+        },
+        "나영석PDD": {
+          "nickname": "나영석PDD",
+          "job_name": "히어로",
+          "level": 99,
+          "combat_power": "4조 2741억 7556만",
+          "combat_power_value": 427417556,
+          "rank_in_guild": 6
+        },
+        "뜨막": {
+          "nickname": "뜨막",
+          "job_name": "섀도어",
+          "level": 97,
+          "combat_power": "3조 8020억 7051만",
+          "combat_power_value": 380207051,
+          "rank_in_guild": 7
+        },
+        "싱그러운생귤": {
+          "nickname": "싱그러운생귤",
+          "job_name": "비숍",
+          "level": 98,
+          "combat_power": "3조 7134억 2075만",
+          "combat_power_value": 371342075,
+          "rank_in_guild": 8
+        },
+        "꾸레밈": {
+          "nickname": "꾸레밈",
+          "job_name": "섀도어",
+          "level": 98,
+          "combat_power": "3조 2063억 1029만",
+          "combat_power_value": 320631029,
+          "rank_in_guild": 9
+        },
+        "또니이이": {
+          "nickname": "또니이이",
+          "job_name": "다크나이트",
+          "level": 98,
+          "combat_power": "2조 5237억 4713만",
+          "combat_power_value": 252374713,
+          "rank_in_guild": 10
+        },
+        "서튼튼이": {
+          "nickname": "서튼튼이",
+          "job_name": "다크나이트",
+          "level": 96,
+          "combat_power": "2조 104억 2129만",
+          "combat_power_value": 201042129,
+          "rank_in_guild": 11
+        },
+        "전뱀": {
+          "nickname": "전뱀",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 97,
+          "combat_power": "1조 7406억 9064만",
+          "combat_power_value": 174069064,
+          "rank_in_guild": 12
+        },
+        "라즈샤": {
+          "nickname": "라즈샤",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 97,
+          "combat_power": "1조 6901억 7234만",
+          "combat_power_value": 169017234,
+          "rank_in_guild": 13
+        },
+        "하영진": {
+          "nickname": "하영진",
+          "job_name": "히어로",
+          "level": 98,
+          "combat_power": "1조 4997억 8780만",
+          "combat_power_value": 149978780,
+          "rank_in_guild": 14
+        },
+        "몰랑초이": {
+          "nickname": "몰랑초이",
+          "job_name": "섀도어",
+          "level": 97,
+          "combat_power": "1조 3594억 3535만",
+          "combat_power_value": 135943535,
+          "rank_in_guild": 15
+        },
+        "갓겜이네메키": {
+          "nickname": "갓겜이네메키",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 97,
+          "combat_power": "1조 3132억 1135만",
+          "combat_power_value": 131321135,
+          "rank_in_guild": 16
+        },
+        "청년스나이퍼": {
+          "nickname": "청년스나이퍼",
+          "job_name": "신궁",
+          "level": 96,
+          "combat_power": "1조 2939억 7599만",
+          "combat_power_value": 129397599,
+          "rank_in_guild": 17
+        },
+        "말랑초이": {
+          "nickname": "말랑초이",
+          "job_name": "섀도어",
+          "level": 96,
+          "combat_power": "1조 2655억 3884만",
+          "combat_power_value": 126553884,
+          "rank_in_guild": 18
+        },
+        "대박제육검": {
+          "nickname": "대박제육검",
+          "job_name": "신궁",
+          "level": 96,
+          "combat_power": "1조 2558억 6960만",
+          "combat_power_value": 125586960,
+          "rank_in_guild": 19
+        },
+        "노우옹": {
+          "nickname": "노우옹",
+          "job_name": "보우마스터",
+          "level": 96,
+          "combat_power": "1조 2001억 1392만",
+          "combat_power_value": 120011392,
+          "rank_in_guild": 20
+        },
+        "항뷰리": {
+          "nickname": "항뷰리",
+          "job_name": "신궁",
+          "level": 96,
+          "combat_power": "1조 1894억 1140만",
+          "combat_power_value": 118941140,
+          "rank_in_guild": 21
+        },
+        "순혈단또": {
+          "nickname": "순혈단또",
+          "job_name": "섀도어",
+          "level": 97,
+          "combat_power": "1조 1639억 5125만",
+          "combat_power_value": 116395125,
+          "rank_in_guild": 22
+        },
+        "Lim1t": {
+          "nickname": "Lim1t",
+          "job_name": "신궁",
+          "level": 98,
+          "combat_power": "1조 713억 3421만",
+          "combat_power_value": 107133421,
+          "rank_in_guild": 23
+        },
+        "히빌": {
+          "nickname": "히빌",
+          "job_name": "히어로",
+          "level": 96,
+          "combat_power": "1조 713억 81만",
+          "combat_power_value": 107130081,
+          "rank_in_guild": 24
+        },
+        "노우웅": {
+          "nickname": "노우웅",
+          "job_name": "비숍",
+          "level": 96,
+          "combat_power": "1조 443억 6693만",
+          "combat_power_value": 104436693,
+          "rank_in_guild": 25
+        },
+        "봉구리구리": {
+          "nickname": "봉구리구리",
+          "job_name": "섀도어",
+          "level": 96,
+          "combat_power": "9118억 9653만",
+          "combat_power_value": 91189653,
+          "rank_in_guild": 26
+        },
+        "갱기님": {
+          "nickname": "갱기님",
+          "job_name": "보우마스터",
+          "level": 95,
+          "combat_power": "8307억 3657만",
+          "combat_power_value": 83073657,
+          "rank_in_guild": 27
+        },
+        "복합왕": {
+          "nickname": "복합왕",
+          "job_name": "아크메이지(썬,콜)",
+          "level": 97,
+          "combat_power": "7164억 5022만",
+          "combat_power_value": 71645022,
+          "rank_in_guild": 28
+        },
+        "당양감": {
+          "nickname": "당양감",
+          "job_name": "섀도어",
+          "level": 93,
+          "combat_power": "1800억 8890만",
+          "combat_power_value": 18008890,
+          "rank_in_guild": 29
+        }
+      },
+      "top10_keys": [
+        "뀨래",
+        "호겡",
+        "우주킥",
+        "아옳옳",
+        "해삐예삐",
+        "나영석PDD",
+        "뜨막",
+        "싱그러운생귤",
+        "꾸레밈",
+        "또니이이"
+      ],
+      "job_counts": {
+        "다크나이트": 3,
+        "섀도어": 10,
+        "히어로": 4,
+        "비숍": 2,
+        "아크메이지(썬,콜)": 4,
+        "신궁": 4,
+        "보우마스터": 2
+      }
+    },
     "알바천국": {
       "guild_name": "알바천국",
-      "guild_power_value": 12795835595,
+      "guild_power_value": 14661462916,
       "member_count": 28,
-      "avg_level": 96.8,
-      "global_rank": "375",
-      "server_rank": "35위",
-      "simulation_rank": 4,
-      "simulation_score": 69028445,
+      "avg_level": 96.9,
+      "global_rank": "392",
+      "server_rank": "34위",
+      "simulation_rank": 5,
+      "simulation_score": 75347880,
       "members": {
         "선바": {
           "nickname": "선바",
@@ -1321,40 +1345,40 @@
           "nickname": "뽀대챠밍",
           "job_name": "비숍",
           "level": 101,
-          "combat_power": "16조 7960억 1040만",
-          "combat_power_value": 1679601040,
+          "combat_power": "16조 9732억 2456만",
+          "combat_power_value": 1697322456,
           "rank_in_guild": 2
         },
         "신궝": {
           "nickname": "신궝",
           "job_name": "신궁",
           "level": 100,
-          "combat_power": "5조 5446억 791만",
-          "combat_power_value": 554460791,
+          "combat_power": "5조 8822억 618만",
+          "combat_power_value": 588220618,
           "rank_in_guild": 3
         },
         "미니두두": {
           "nickname": "미니두두",
           "job_name": "비숍",
-          "level": 99,
-          "combat_power": "4조 9192억 7882만",
-          "combat_power_value": 491927882,
+          "level": 100,
+          "combat_power": "5조 2645억 1773만",
+          "combat_power_value": 526451773,
           "rank_in_guild": 4
         },
         "창창창": {
           "nickname": "창창창",
           "job_name": "다크나이트",
           "level": 100,
-          "combat_power": "3조 3293억 9219만",
-          "combat_power_value": 332939219,
+          "combat_power": "3조 4806억 1622만",
+          "combat_power_value": 348061622,
           "rank_in_guild": 5
         },
         "기어피프스": {
           "nickname": "기어피프스",
           "job_name": "아크메이지(썬,콜)",
           "level": 99,
-          "combat_power": "2조 9286억 754만",
-          "combat_power_value": 292860754,
+          "combat_power": "2조 9811억 3163만",
+          "combat_power_value": 298113163,
           "rank_in_guild": 6
         },
         "13ang뱅사거리": {
@@ -1365,52 +1389,52 @@
           "combat_power_value": 285703491,
           "rank_in_guild": 7
         },
+        "다너리": {
+          "nickname": "다너리",
+          "job_name": "섀도어",
+          "level": 99,
+          "combat_power": "2조 8482억 6540만",
+          "combat_power_value": 284826540,
+          "rank_in_guild": 8
+        },
         "님이럴": {
           "nickname": "님이럴",
           "job_name": "나이트로드",
           "level": 99,
           "combat_power": "2조 8238억 1258만",
           "combat_power_value": 282381258,
-          "rank_in_guild": 8
+          "rank_in_guild": 9
         },
         "꽤괜": {
           "nickname": "꽤괜",
           "job_name": "나이트로드",
           "level": 100,
-          "combat_power": "2조 7723억 2323만",
-          "combat_power_value": 277232323,
-          "rank_in_guild": 9
-        },
-        "다너리": {
-          "nickname": "다너리",
-          "job_name": "섀도어",
-          "level": 98,
-          "combat_power": "2조 7363억 4028만",
-          "combat_power_value": 273634028,
+          "combat_power": "2조 8073억 4920만",
+          "combat_power_value": 280734920,
           "rank_in_guild": 10
         },
         "기둥1알2": {
           "nickname": "기둥1알2",
           "job_name": "아크메이지(썬,콜)",
           "level": 100,
-          "combat_power": "2조 4510억 6682만",
-          "combat_power_value": 245106682,
+          "combat_power": "2조 4746억 3827만",
+          "combat_power_value": 247463827,
           "rank_in_guild": 11
         },
         "탱설": {
           "nickname": "탱설",
           "job_name": "신궁",
           "level": 100,
-          "combat_power": "2조 3337억 7615만",
-          "combat_power_value": 233377615,
+          "combat_power": "2조 3844억 3601만",
+          "combat_power_value": 238443601,
           "rank_in_guild": 12
         },
         "쭝요": {
           "nickname": "쭝요",
           "job_name": "아크메이지(썬,콜)",
           "level": 97,
-          "combat_power": "2조 506억 487만",
-          "combat_power_value": 205060487,
+          "combat_power": "2조 1163억 3984만",
+          "combat_power_value": 211633984,
           "rank_in_guild": 13
         },
         "클리브": {
@@ -1441,16 +1465,16 @@
           "nickname": "소바킴",
           "job_name": "비숍",
           "level": 95,
-          "combat_power": "1조 3608억 6383만",
-          "combat_power_value": 136086383,
+          "combat_power": "1조 4309억 6554만",
+          "combat_power_value": 143096554,
           "rank_in_guild": 17
         },
         "사과왕쟈": {
           "nickname": "사과왕쟈",
           "job_name": "섀도어",
           "level": 96,
-          "combat_power": "1조 733억 7740만",
-          "combat_power_value": 107337740,
+          "combat_power": "1조 1871억 4447만",
+          "combat_power_value": 118714447,
           "rank_in_guild": 18
         },
         "상속남": {
@@ -1465,8 +1489,8 @@
           "nickname": "꼬맹츄",
           "job_name": "아크메이지(썬,콜)",
           "level": 96,
-          "combat_power": "6402억 299만",
-          "combat_power_value": 64020299,
+          "combat_power": "7918억 9068만",
+          "combat_power_value": 79189068,
           "rank_in_guild": 20
         },
         "오렌지공쥬": {
@@ -1481,56 +1505,56 @@
           "nickname": "옴인형",
           "job_name": "비숍",
           "level": 92,
-          "combat_power": "2886억 7992만",
-          "combat_power_value": 28867992,
+          "combat_power": "3167억 1951만",
+          "combat_power_value": 31671951,
           "rank_in_guild": 22
         },
         "진킹배": {
           "nickname": "진킹배",
           "job_name": "히어로",
           "level": 92,
-          "combat_power": "2183억 7005만",
-          "combat_power_value": 21837005,
+          "combat_power": "2279억 9794만",
+          "combat_power_value": 22799794,
           "rank_in_guild": 23
         },
         "연상녀": {
           "nickname": "연상녀",
           "job_name": "비숍",
           "level": 93,
-          "combat_power": "1821억 4567만",
-          "combat_power_value": 18214567,
+          "combat_power": "1998억 9414만",
+          "combat_power_value": 19989414,
           "rank_in_guild": 24
         },
         "힐러충충이": {
           "nickname": "힐러충충이",
           "job_name": "비숍",
           "level": 91,
-          "combat_power": "1548억 1059만",
-          "combat_power_value": 15481059,
+          "combat_power": "1618억 3142만",
+          "combat_power_value": 16183142,
           "rank_in_guild": 25
         },
         "희태바라기": {
           "nickname": "희태바라기",
           "job_name": "아크메이지(썬,콜)",
           "level": 93,
-          "combat_power": "1381억 1656만",
-          "combat_power_value": 13811656,
+          "combat_power": "1543억 2381만",
+          "combat_power_value": 15432381,
           "rank_in_guild": 26
         },
         "머랭키쿠": {
           "nickname": "머랭키쿠",
           "job_name": "섀도어",
           "level": 90,
-          "combat_power": "1155억 4589만",
-          "combat_power_value": 11554589,
+          "combat_power": "1408억 854만",
+          "combat_power_value": 14080854,
           "rank_in_guild": 27
         },
         "공쵸": {
           "nickname": "공쵸",
           "job_name": "섀도어",
           "level": 90,
-          "combat_power": "970억 8969만",
-          "combat_power_value": 9708969,
+          "combat_power": "1071억 3139만",
+          "combat_power_value": 10713139,
           "rank_in_guild": 28
         }
       },
@@ -1542,9 +1566,9 @@
         "창창창",
         "기어피프스",
         "13ang뱅사거리",
+        "다너리",
         "님이럴",
-        "꽤괜",
-        "다너리"
+        "꽤괜"
       ],
       "job_counts": {
         "아크메이지(썬,콜)": 7,
@@ -1558,36 +1582,36 @@
     },
     "부계둘": {
       "guild_name": "부계둘",
-      "guild_power_value": 12447013596,
+      "guild_power_value": 7712704589,
       "member_count": 22,
-      "avg_level": 96.1,
-      "global_rank": "381",
-      "server_rank": "10위",
+      "avg_level": 96.4,
+      "global_rank": "556",
+      "server_rank": "14위",
       "simulation_rank": 7,
-      "simulation_score": 51167968,
+      "simulation_score": 58980933,
       "members": {
         "처히": {
           "nickname": "처히",
           "job_name": "아크메이지(썬,콜)",
           "level": 100,
-          "combat_power": "13조 5574억 3249만",
-          "combat_power_value": 1355743249,
+          "combat_power": "14조 7855억 3870만",
+          "combat_power_value": 1478553870,
           "rank_in_guild": 1
         },
         "환생의불꼬츠": {
           "nickname": "환생의불꼬츠",
           "job_name": "섀도어",
           "level": 100,
-          "combat_power": "10조 9549억 8302만",
-          "combat_power_value": 1095498302,
+          "combat_power": "11조 5497억 9854만",
+          "combat_power_value": 1154979854,
           "rank_in_guild": 2
         },
         "밍진": {
           "nickname": "밍진",
           "job_name": "섀도어",
-          "level": 100,
-          "combat_power": "8조 9166억 6911만",
-          "combat_power_value": 891666911,
+          "level": 101,
+          "combat_power": "10조 6082억 1924만",
+          "combat_power_value": 1060821924,
           "rank_in_guild": 3
         },
         "AKPS": {
@@ -1606,13 +1630,21 @@
           "combat_power_value": 395409597,
           "rank_in_guild": 5
         },
+        "천칠": {
+          "nickname": "천칠",
+          "job_name": "팔라딘",
+          "level": 99,
+          "combat_power": "3조 3198억 5397만",
+          "combat_power_value": 331985397,
+          "rank_in_guild": 6
+        },
         "토미오카상": {
           "nickname": "토미오카상",
           "job_name": "신궁",
           "level": 97,
           "combat_power": "3조 3002억 4541만",
           "combat_power_value": 330024541,
-          "rank_in_guild": 6
+          "rank_in_guild": 7
         },
         "평평이형": {
           "nickname": "평평이형",
@@ -1620,71 +1652,71 @@
           "level": 97,
           "combat_power": "3조 2987억 2385만",
           "combat_power_value": 329872385,
-          "rank_in_guild": 7
+          "rank_in_guild": 8
         },
         "런닝래빗": {
           "nickname": "런닝래빗",
           "job_name": "아크메이지(썬,콜)",
           "level": 97,
-          "combat_power": "2조 6773억 6238만",
-          "combat_power_value": 267736238,
-          "rank_in_guild": 8
-        },
-        "천칠": {
-          "nickname": "천칠",
-          "job_name": "팔라딘",
-          "level": 99,
-          "combat_power": "2조 6702억 2482만",
-          "combat_power_value": 267022482,
+          "combat_power": "3조 936억 8016만",
+          "combat_power_value": 309368016,
           "rank_in_guild": 9
         },
         "화살대": {
           "nickname": "화살대",
           "job_name": "보우마스터",
-          "level": 98,
-          "combat_power": "2조 6342억 2078만",
-          "combat_power_value": 263422078,
+          "level": 99,
+          "combat_power": "2조 8470억 3764만",
+          "combat_power_value": 284703764,
           "rank_in_guild": 10
         },
         "토니워터": {
           "nickname": "토니워터",
           "job_name": "섀도어",
-          "level": 97,
-          "combat_power": "2조 6162억 1545만",
-          "combat_power_value": 261621545,
+          "level": 98,
+          "combat_power": "2조 7791억 8260만",
+          "combat_power_value": 277918260,
           "rank_in_guild": 11
         },
         "펑풀": {
           "nickname": "펑풀",
           "job_name": "신궁",
           "level": 97,
-          "combat_power": "2조 4991억 587만",
-          "combat_power_value": 249910587,
+          "combat_power": "2조 7515억 9768만",
+          "combat_power_value": 275159768,
           "rank_in_guild": 12
         },
         "샤스찌에": {
           "nickname": "샤스찌에",
           "job_name": "아크메이지(썬,콜)",
           "level": 96,
-          "combat_power": "1조 5997억 4972만",
-          "combat_power_value": 159974972,
+          "combat_power": "2조 1842억 9550만",
+          "combat_power_value": 218429550,
           "rank_in_guild": 13
         },
         "보동핑": {
           "nickname": "보동핑",
           "job_name": "다크나이트",
           "level": 96,
-          "combat_power": "1조 3542억 7780만",
-          "combat_power_value": 135427780,
+          "combat_power": "1조 3859억 2131만",
+          "combat_power_value": 138592131,
           "rank_in_guild": 14
         },
         "지니좋아요": {
           "nickname": "지니좋아요",
           "job_name": "섀도어",
           "level": 96,
-          "combat_power": "1조 666억 9786만",
-          "combat_power_value": 106669786,
+          "combat_power": "1조 3132억 7342만",
+          "combat_power_value": 131327342,
           "rank_in_guild": 15
+        },
+        "홍춘삼": {
+          "nickname": "홍춘삼",
+          "job_name": "나이트로드",
+          "level": 95,
+          "combat_power": "1조 620억 1277만",
+          "combat_power_value": 106201277,
+          "rank_in_guild": 16
         },
         "2026년1월30일": {
           "nickname": "2026년1월30일",
@@ -1692,7 +1724,7 @@
           "level": 96,
           "combat_power": "1조 129억 4198만",
           "combat_power_value": 101294198,
-          "rank_in_guild": 16
+          "rank_in_guild": 17
         },
         "찐곽정근": {
           "nickname": "찐곽정근",
@@ -1700,46 +1732,38 @@
           "level": 95,
           "combat_power": "1조 24억 1640만",
           "combat_power_value": 100241640,
-          "rank_in_guild": 17
-        },
-        "홍춘삼": {
-          "nickname": "홍춘삼",
-          "job_name": "나이트로드",
-          "level": 95,
-          "combat_power": "8969억 3132만",
-          "combat_power_value": 89693132,
           "rank_in_guild": 18
         },
         "Targa": {
           "nickname": "Targa",
           "job_name": "섀도어",
-          "level": 94,
-          "combat_power": "5665억 5826만",
-          "combat_power_value": 56655826,
+          "level": 95,
+          "combat_power": "5903억 2749만",
+          "combat_power_value": 59032749,
           "rank_in_guild": 19
         },
         "애둘이에요": {
           "nickname": "애둘이에요",
           "job_name": "신궁",
           "level": 93,
-          "combat_power": "5504억 9405만",
-          "combat_power_value": 55049405,
+          "combat_power": "5820억 7009만",
+          "combat_power_value": 58207009,
           "rank_in_guild": 20
         },
         "짱창훈": {
           "nickname": "짱창훈",
           "job_name": "아크메이지(썬,콜)",
-          "level": 93,
-          "combat_power": "3382억 604만",
-          "combat_power_value": 33820604,
+          "level": 94,
+          "combat_power": "3558억 439만",
+          "combat_power_value": 35580439,
           "rank_in_guild": 21
         },
         "구리구리뽕리": {
           "nickname": "구리구리뽕리",
           "job_name": "히어로",
-          "level": 80,
-          "combat_power": "55억 5534만",
-          "combat_power_value": 555534,
+          "level": 81,
+          "combat_power": "57억 3736만",
+          "combat_power_value": 573736,
           "rank_in_guild": 22
         }
       },
@@ -1749,10 +1773,10 @@
         "밍진",
         "AKPS",
         "사나이기백황",
+        "천칠",
         "토미오카상",
         "평평이형",
         "런닝래빗",
-        "천칠",
         "화살대"
       ],
       "job_counts": {
@@ -1760,8 +1784,8 @@
         "섀도어": 6,
         "다크나이트": 3,
         "히어로": 2,
-        "신궁": 3,
         "팔라딘": 1,
+        "신궁": 3,
         "보우마스터": 1,
         "나이트로드": 1
       }
