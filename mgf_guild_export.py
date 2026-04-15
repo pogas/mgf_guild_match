@@ -1,5 +1,6 @@
 import argparse
 import json
+import math
 import os
 import re
 from collections import OrderedDict
@@ -288,6 +289,64 @@ def format_metric_delta(value: int, use_man_units: bool) -> str:
         sign = "+" if value > 0 else "-" if value < 0 else ""
         return f"{sign}{format_man_units(abs(value))}"
     return format_delta(value, "점")
+
+
+def _safe_int(value: Any, default: int = 0) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_snapshot_mode(snapshot: dict[str, Any], default: str = "league") -> str:
+    return str(snapshot.get("report_mode") or default)
+
+
+def _safe_snapshot_member(snapshot: dict[str, Any], guild_name: str, member_key: str, nickname: str = "") -> dict[str, Any] | None:
+    guild = snapshot.get("guilds", {}).get(guild_name, {})
+    members = guild.get("members", {})
+    if member_key in members:
+        return members[member_key]
+    if nickname:
+        for candidate in members.values():
+            if str(candidate.get("nickname", "")) == nickname:
+                return candidate
+    return None
+
+
+def _calculate_job_balance_score(job_counts: dict[str, int], member_count: int) -> float:
+    if member_count <= 0 or not job_counts:
+        return 0.0
+    shares = [count / member_count for count in job_counts.values() if count > 0]
+    entropy = -sum(share * math.log(share) for share in shares)
+    max_entropy = math.log(max(len(shares), 1)) if shares else 1
+    if max_entropy <= 0:
+        return 0.0
+    return round((entropy / max_entropy) * 100, 1)
+
+
+def _build_projection(values: list[int]) -> dict[str, Any] | None:
+    clean_values = [int(value) for value in values if int(value) >= 0]
+    if len(clean_values) < 3:
+        return None
+    xs = list(range(len(clean_values)))
+    x_mean = sum(xs) / len(xs)
+    y_mean = sum(clean_values) / len(clean_values)
+    numerator = sum((x - x_mean) * (y - y_mean) for x, y in zip(xs, clean_values))
+    denominator = sum((x - x_mean) ** 2 for x in xs) or 1
+    slope = numerator / denominator
+    intercept = y_mean - slope * x_mean
+    projected_value = max(0, round(intercept + slope * len(clean_values)))
+    residuals = [y - (intercept + slope * x) for x, y in zip(xs, clean_values)]
+    variance = sum(residual ** 2 for residual in residuals) / max(len(residuals), 1)
+    stddev = math.sqrt(variance)
+    return {
+        "projected": projected_value,
+        "lower": max(0, round(projected_value - stddev)),
+        "upper": max(0, round(projected_value + stddev)),
+        "slope": round(slope, 2),
+        "data_points_used": len(clean_values),
+    }
 
 
 def build_member_key(member: dict[str, Any]) -> str:
@@ -739,13 +798,18 @@ def build_sparkline(values: list[int], width: int = 120, height: int = 36) -> st
 
 def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: list[dict[str, Any]]) -> dict[str, Any]:
     report_mode = str(current_snapshot.get("report_mode", "league"))
-    previous_snapshot = history_snapshots[-1] if history_snapshots else None
-    trend_snapshots = history_snapshots[-6:] + [current_snapshot]
+    compatible_history = [
+        snapshot
+        for snapshot in history_snapshots
+        if _safe_snapshot_mode(snapshot, report_mode) == report_mode
+    ]
+    previous_snapshot = compatible_history[-1] if compatible_history else None
+    trend_snapshots = compatible_history[-6:] + [current_snapshot]
     guild_analysis: dict[str, Any] = {}
     for guild_name, current_guild in current_snapshot["guilds"].items():
         previous_guild = previous_snapshot["guilds"].get(guild_name) if previous_snapshot else None
-        current_members = current_guild["members"]
-        previous_members = previous_guild["members"] if previous_guild else {}
+        current_members = current_guild.get("members", {})
+        previous_members = previous_guild.get("members", {}) if previous_guild else {}
 
         joined_keys = [key for key in current_members if key not in previous_members]
         departed_keys = [key for key in previous_members if key not in current_members]
@@ -797,8 +861,10 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
         simulation_rank_delta = int(previous_guild.get("simulation_rank", 0)) - int(current_guild.get("simulation_rank", 0)) if previous_guild else 0
 
         guild_analysis[guild_name] = {
-            "joined_members": [current_members[key]["nickname"] for key in joined_keys[:5]],
-            "departed_members": [previous_members[key]["nickname"] for key in departed_keys[:5]],
+            "joined_members": [current_members[key]["nickname"] for key in joined_keys],
+            "departed_members": [previous_members[key]["nickname"] for key in departed_keys],
+            "joined_count": len(joined_keys),
+            "departed_count": len(departed_keys),
             "member_count_delta": len(joined_keys) - len(departed_keys),
             "guild_power_delta": guild_power_delta,
             "guild_power_delta_pct": guild_power_delta_pct,
@@ -812,6 +878,9 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
             "power_trend_svg": build_sparkline(power_values_trend),
             "simulation_trend_svg": build_sparkline(simulation_values_trend),
             "trend_labels": trend_labels,
+            "power_values_trend": power_values_trend,
+            "simulation_values_trend": simulation_values_trend,
+            "member_count_trend": [int(snapshot.get("guilds", {}).get(guild_name, {}).get("member_count", 0)) for snapshot in guild_trend_snapshots],
         }
 
     total_joined = sum(len(value["joined_members"]) for value in guild_analysis.values())
@@ -835,6 +904,218 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
             "stable_guild": stable_guild[0],
             "stable_retained": int(stable_guild[1].get("retained_top10_count", 0)),
         },
+    }
+
+
+def build_snapshot_analytics(
+    current_snapshot: dict[str, Any],
+    history_snapshots: list[dict[str, Any]],
+    simulation: dict[str, Any],
+) -> dict[str, Any]:
+    report_mode = str(current_snapshot.get("report_mode", "league"))
+    guild_seed_name = str(current_snapshot.get("guild_seed_name", ""))
+    history_analysis = build_history_analysis(current_snapshot, history_snapshots)
+    compatible_history = [
+        snapshot
+        for snapshot in history_snapshots
+        if _safe_snapshot_mode(snapshot, report_mode) == report_mode
+    ]
+    timeline_snapshots = compatible_history[-6:] + [current_snapshot]
+    seed_timeline = []
+    growth_cards: list[dict[str, Any]] = []
+    member_movement_cards: list[dict[str, Any]] = []
+    job_distribution_cards: list[dict[str, Any]] = []
+    competitor_rows: list[dict[str, Any]] = []
+    personal_growth_cards: list[dict[str, Any]] = []
+
+    guild_rankings = simulation.get("guild_rankings", [])
+    guild_total_score = {
+        str(row.get("guild_name", "")): _safe_int(row.get("total_score", 0))
+        for row in guild_rankings
+    }
+    members_by_guild: dict[str, list[dict[str, Any]]] = {}
+    for member in simulation.get("ranked_members", []):
+        members_by_guild.setdefault(str(member.get("guild_name", "")), []).append(member)
+
+    for snapshot in timeline_snapshots:
+        seed_guild = snapshot.get("guilds", {}).get(guild_seed_name, {})
+        if not seed_guild:
+            continue
+        seed_timeline.append(
+            {
+                "date": str(snapshot.get("snapshot_date", "")),
+                "member_count": _safe_int(seed_guild.get("member_count", 0)),
+                "guild_power_text": format_man_units(_safe_int(seed_guild.get("guild_power_value", 0))),
+                "simulation_rank": _safe_int(seed_guild.get("simulation_rank", 0)),
+                "simulation_score_text": format_score(_safe_int(seed_guild.get("simulation_score", 0))),
+            }
+        )
+
+    for guild_name, guild in current_snapshot.get("guilds", {}).items():
+        history = history_analysis.get("guilds", {}).get(guild_name, {})
+        job_counts = {str(key): _safe_int(value) for key, value in guild.get("job_counts", {}).items()}
+        member_count = max(_safe_int(guild.get("member_count", 0)), 1)
+        sorted_jobs = sorted(job_counts.items(), key=lambda item: (-item[1], item[0]))
+        top_job_name, top_job_count = sorted_jobs[0] if sorted_jobs else ("미확인", 0)
+        growth_cards.append(
+            {
+                "guild_name": guild_name,
+                "power_delta_pct": float(history.get("guild_power_delta_pct", 0)),
+                "simulation_delta": _safe_int(history.get("simulation_score_delta", 0)),
+                "member_delta": _safe_int(history.get("member_count_delta", 0)),
+                "power_trend_svg": str(history.get("power_trend_svg", "")),
+                "simulation_trend_svg": str(history.get("simulation_trend_svg", "")),
+            }
+        )
+        member_movement_cards.append(
+            {
+                "guild_name": guild_name,
+                "joined": list(history.get("joined_members", [])),
+                "departed": list(history.get("departed_members", [])),
+                "joined_count": _safe_int(history.get("joined_count", 0)),
+                "departed_count": _safe_int(history.get("departed_count", 0)),
+            }
+        )
+        job_distribution_cards.append(
+            {
+                "guild_name": guild_name,
+                "top_job": top_job_name,
+                "top_job_share": round((top_job_count / member_count) * 100, 1),
+                "balance_score": _calculate_job_balance_score(job_counts, member_count),
+                "jobs": [
+                    {"job_name": job_name, "count": count, "share_pct": round((count / member_count) * 100, 1)}
+                    for job_name, count in sorted_jobs[:5]
+                ],
+            }
+        )
+
+    seed_power = _safe_int(current_snapshot.get("guilds", {}).get(guild_seed_name, {}).get("guild_power_value", 0))
+    seed_score = _safe_int(current_snapshot.get("guilds", {}).get(guild_seed_name, {}).get("simulation_score", 0))
+    for guild_name, guild in current_snapshot.get("guilds", {}).items():
+        if guild_name == guild_seed_name:
+            continue
+        competitor_rows.append(
+            {
+                "guild_name": guild_name,
+                "power_gap_text": format_man_units(abs(_safe_int(guild.get("guild_power_value", 0)) - seed_power)),
+                "power_gap_sign": "+" if _safe_int(guild.get("guild_power_value", 0)) >= seed_power else "-",
+                "score_gap_text": format_score(abs(_safe_int(guild.get("simulation_score", 0)) - seed_score)),
+                "score_gap_sign": "+" if _safe_int(guild.get("simulation_score", 0)) >= seed_score else "-",
+                "rank": _safe_int(guild.get("simulation_rank", 0)),
+            }
+        )
+
+    contribution_cards: list[dict[str, Any]] = []
+    efficiency_cards: list[dict[str, Any]] = []
+    for guild_name, ranked_members in members_by_guild.items():
+        total_score = max(guild_total_score.get(guild_name, 0), 1)
+        contributors = sorted(
+            [
+                {
+                    "nickname": str(member.get("nickname", "")),
+                    "job_name": str(member.get("job_name", "")),
+                    "share_pct": round((_safe_int(member.get("score", 0)) / total_score) * 100, 1),
+                    "score_text": format_score(_safe_int(member.get("score", 0))),
+                }
+                for member in ranked_members
+            ],
+            key=lambda item: (-float(item["share_pct"]), item["nickname"]),
+        )[:5]
+        efficiencies = sorted(
+            [
+                {
+                    "nickname": str(member.get("nickname", "")),
+                    "job_name": str(member.get("job_name", "")),
+                    "efficiency": round((_safe_int(member.get("score", 0)) / max(_safe_int(member.get("combat_power_value", 0)), 1)) * 100_000_000, 1),
+                    "score_text": format_score(_safe_int(member.get("score", 0))),
+                }
+                for member in ranked_members
+            ],
+            key=lambda item: (-float(item["efficiency"]), item["nickname"]),
+        )[:5]
+        contribution_cards.append({"guild_name": guild_name, "items": contributors})
+        efficiency_cards.append({"guild_name": guild_name, "items": efficiencies})
+
+        personal_candidates: list[dict[str, Any]] = []
+        for member in ranked_members:
+            member_key = build_member_key(member)
+            member_name = str(member.get("nickname", ""))
+            trend_values: list[int] = []
+            trend_labels: list[str] = []
+            gaps = 0
+            for snapshot in timeline_snapshots:
+                matched_member = _safe_snapshot_member(snapshot, guild_name, member_key, member_name)
+                if not matched_member:
+                    gaps += 1
+                    continue
+                trend_values.append(_safe_int(matched_member.get("combat_power_value", 0)))
+                trend_labels.append(str(snapshot.get("snapshot_date", ""))[5:].replace("-", "/"))
+            if len(trend_values) < 2:
+                continue
+            delta_value = trend_values[-1] - trend_values[0]
+            personal_candidates.append(
+                {
+                    "nickname": member_name,
+                    "job_name": str(member.get("job_name", "")),
+                    "delta_value": delta_value,
+                    "delta_text": format_man_units(abs(delta_value)),
+                    "delta_sign": "+" if delta_value >= 0 else "-",
+                    "sparkline_svg": build_sparkline(trend_values, width=180, height=40),
+                    "trend_labels": trend_labels,
+                    "gap_count": gaps,
+                }
+            )
+        personal_candidates.sort(key=lambda item: item["delta_value"], reverse=True)
+        personal_growth_cards.append({"guild_name": guild_name, "items": personal_candidates[:5]})
+
+    prediction_rows: list[dict[str, Any]] = []
+    for guild_name, history in history_analysis.get("guilds", {}).items():
+        projection = _build_projection([_safe_int(value, 0) for value in history.get("simulation_values_trend", [])])
+        if not projection:
+            continue
+        prediction_rows.append(
+            {
+                "guild_name": guild_name,
+                "projected_value": projection["projected"],
+                "projected_text": format_score(projection["projected"]),
+                "band_text": f"{format_score(projection['lower'])} ~ {format_score(projection['upper'])}",
+                "data_points_used": projection["data_points_used"],
+            }
+        )
+    prediction_rows.sort(key=lambda item: int(item["projected_value"]), reverse=True)
+    projected_cut = prediction_rows[0]["projected_text"] if prediction_rows else "데이터 부족"
+
+    overview_cards = [
+        {
+            "label": "현재 모멘텀",
+            "value": next((card["guild_name"] for card in sorted(growth_cards, key=lambda item: item["power_delta_pct"], reverse=True) if card["power_delta_pct"] > 0), "변동 확인"),
+            "help": "총 전투력 상승 폭 기준",
+        },
+        {
+            "label": "길드원 이동",
+            "value": f"+{history_analysis.get('summary', {}).get('total_joined', 0)} / -{history_analysis.get('summary', {}).get('total_departed', 0)}",
+            "help": "최근 비교일 기준 전체 이동",
+        },
+        {
+            "label": "다음 컷 예측",
+            "value": projected_cut,
+            "help": "현재 히스토리 기반 다음 스냅샷 1위 예상 점수",
+        },
+    ]
+
+    return {
+        "overview_cards": overview_cards,
+        "growth_cards": growth_cards,
+        "member_movements": member_movement_cards,
+        "job_distribution": job_distribution_cards,
+        "contribution": contribution_cards,
+        "efficiency": efficiency_cards,
+        "personal_growth": personal_growth_cards,
+        "competitors": competitor_rows,
+        "timeline": seed_timeline,
+        "predictions": prediction_rows,
+        "projected_cut": projected_cut,
+        "history_window_days": len(timeline_snapshots),
     }
 
 
@@ -1041,6 +1322,245 @@ def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
         """
         for label, value, help_text in cards
     ) + '</section>'
+
+
+def render_snapshot_overview_section(history_analysis: dict[str, Any]) -> str:
+    analytics = history_analysis.get("snapshot_analytics", {})
+    cards = analytics.get("overview_cards", [])
+    if not cards:
+        return ""
+    return '<section class="snapshot-overview-grid">' + "".join(
+        f"""
+        <article class="auto-summary-card snapshot-overview-card" data-modal="snapshot-analytics">
+          <p class="summary-label">{escape(str(card['label']))}</p>
+          <strong class="summary-value">{escape(str(card['value']))}</strong>
+          <p class="summary-help">{escape(str(card['help']))}</p>
+          <span class="card-jump">스냅샷 분석 열기 ↘</span>
+        </article>
+        """
+        for card in cards
+    ) + "</section>"
+
+
+def render_snapshot_analytics_modal(history_analysis: dict[str, Any], report_mode: str) -> str:
+    analytics = history_analysis.get("snapshot_analytics", {})
+    if not analytics:
+        return ""
+
+    def render_module(module_id: str, title: str, takeaway: str, badge: str, body_html: str, *, expanded: bool = False) -> str:
+        return f"""
+        <section class="analytics-module {'expanded' if expanded else ''}">
+          <button type="button" class="analytics-module-toggle" aria-expanded="{'true' if expanded else 'false'}" data-module="{escape(module_id)}">
+            <div>
+              <p class="eyebrow">Snapshot Module</p>
+              <h4>{escape(title)}</h4>
+              <p class="simulation-copy">{escape(takeaway)}</p>
+            </div>
+            <div class="analytics-module-toggle-meta">
+              <span class="job-coefficient-summary">{escape(badge)}</span>
+              <span class="simulation-section-toggle-label">상세 보기</span>
+            </div>
+          </button>
+          <div class="analytics-module-body" {'hidden' if not expanded else ''}>
+            {body_html}
+          </div>
+        </section>
+        """
+
+    def render_chapter(chapter_id: str, title: str, summary: str, modules_html: str, *, expanded: bool = False) -> str:
+        return f"""
+        <section class="analytics-chapter {'expanded' if expanded else ''}">
+          <button type="button" class="analytics-chapter-toggle" aria-expanded="{'true' if expanded else 'false'}" data-chapter="{escape(chapter_id)}">
+            <div>
+              <p class="eyebrow">Analytics Chapter</p>
+              <h3>{escape(title)}</h3>
+              <p class="simulation-copy">{escape(summary)}</p>
+            </div>
+            <span class="simulation-section-toggle-label">상세 보기</span>
+          </button>
+          <div class="analytics-chapter-body" {'hidden' if not expanded else ''}>
+            {modules_html}
+          </div>
+        </section>
+        """
+
+    growth_html = '<div class="analytics-grid analytics-grid-2">' + ''.join(
+        f"""
+        <article class="info-panel analytics-stat-card">
+          <h5>{escape(str(card['guild_name']))}</h5>
+          <div class="analytics-mini-grid">
+            <span>총전투력 {format_percent_delta(float(card['power_delta_pct']))}</span>
+            <span>인원 {format_delta(int(card['member_delta']), '명')}</span>
+            <span>{'예상 지표' if report_mode == 'training' else '예상 점수'} {format_metric_delta(int(card['simulation_delta']), report_mode == 'training')}</span>
+          </div>
+          <div class="trend-chart-card"><span>총 전투력</span><div class="trend-chart">{card['power_trend_svg']}</div></div>
+          <div class="trend-chart-card"><span>{'수련장 지표' if report_mode == 'training' else '대항전 점수'}</span><div class="trend-chart trend-chart-secondary">{card['simulation_trend_svg']}</div></div>
+        </article>
+        """
+        for card in analytics.get("growth_cards", [])
+    ) + '</div>'
+
+    movement_html = '<div class="analytics-grid analytics-grid-2">' + ''.join(
+        f"""
+        <article class="history-panel analytics-list-card">
+          <h5>{escape(str(card['guild_name']))}</h5>
+          <div class="analytics-list-split">
+            <div>
+              <strong>신규 {int(card['joined_count'])}명</strong>
+              <ul class="history-list history-list-compact">{''.join(f'<li><span>{escape(name)}</span><strong>JOIN</strong></li>' for name in card['joined'][:8]) or '<li><span>변동 없음</span><strong>-</strong></li>'}</ul>
+            </div>
+            <div>
+              <strong>이탈 {int(card['departed_count'])}명</strong>
+              <ul class="history-list history-list-compact">{''.join(f'<li><span>{escape(name)}</span><strong>LEAVE</strong></li>' for name in card['departed'][:8]) or '<li><span>변동 없음</span><strong>-</strong></li>'}</ul>
+            </div>
+          </div>
+        </article>
+        """
+        for card in analytics.get("member_movements", [])
+    ) + '</div>'
+
+    competitor_html = '<div class="analytics-grid analytics-grid-2">' + ''.join(
+        f"""
+        <article class="comparison-callout comparison-callout-gap">
+          <span>{escape(str(row['guild_name']))}</span>
+          <strong>시뮬 {row['score_gap_sign']}{escape(str(row['score_gap_text']))}</strong>
+          <em>전투력 {row['power_gap_sign']}{escape(str(row['power_gap_text']))} · 현재 {int(row['rank'])}위</em>
+        </article>
+        """
+        for row in analytics.get("competitors", [])
+    ) + '</div>'
+
+    contribution_html = '<div class="analytics-grid analytics-grid-2">' + ''.join(
+        f"""
+        <article class="history-panel analytics-list-card">
+          <h5>{escape(str(card['guild_name']))}</h5>
+          <ul class="history-list history-list-compact">{
+            ''.join(f'<li><span>{escape(item["nickname"])} · {escape(item["job_name"])} </span><strong>{escape(item["score_text"])} / {item["share_pct"]}%</strong></li>' for item in card['items'])
+          }</ul>
+        </article>
+        """
+        for card in analytics.get("contribution", [])
+    ) + '</div>'
+
+    efficiency_html = '<div class="analytics-grid analytics-grid-2">' + ''.join(
+        f"""
+        <article class="history-panel analytics-list-card">
+          <h5>{escape(str(card['guild_name']))}</h5>
+          <ul class="history-list history-list-compact">{
+            ''.join(f'<li><span>{escape(item["nickname"])} · {escape(item["job_name"])} </span><strong>{item["efficiency"]:.1f} 점/억</strong></li>' for item in card['items'])
+          }</ul>
+        </article>
+        """
+        for card in analytics.get("efficiency", [])
+    ) + '</div>'
+
+    job_html = '<div class="analytics-grid analytics-grid-2">' + ''.join(
+        f"""
+        <article class="info-panel analytics-list-card">
+          <h5>{escape(str(card['guild_name']))}</h5>
+          <p class="simulation-copy">균형도 {card['balance_score']}점 · 최다 직업 {escape(str(card['top_job']))} {card['top_job_share']}%</p>
+          <div class="analytics-bar-list">{
+            ''.join(f'<div class="analytics-bar-item"><span>{escape(job["job_name"])} · {job["count"]}명</span><strong>{job["share_pct"]}%</strong><div class="power-meter"><span style="width:{job["share_pct"]}%"></span></div></div>' for job in card['jobs'])
+          }</div>
+        </article>
+        """
+        for card in analytics.get("job_distribution", [])
+    ) + '</div>'
+
+    personal_html = '<div class="analytics-grid analytics-grid-2">' + ''.join(
+        f"""
+        <article class="history-panel analytics-list-card">
+          <h5>{escape(str(card['guild_name']))}</h5>
+          <div class="analytics-person-list">{
+            ''.join(f'<div class="analytics-person-item"><div><strong>{escape(item["nickname"])} · {escape(item["job_name"])} </strong><p>{item["delta_sign"]}{escape(item["delta_text"])} · 누락 {int(item["gap_count"])}회</p></div><div class="trend-chart">{item["sparkline_svg"]}</div></div>' for item in card['items']) or '<p class="simulation-copy">히스토리 부족</p>'
+          }</div>
+        </article>
+        """
+        for card in analytics.get("personal_growth", [])
+    ) + '</div>'
+
+    timeline_html = '<div class="analytics-timeline">' + ''.join(
+        f"""
+        <article class="score-rule-card analytics-timeline-card">
+          <span>{escape(str(item['date']))}</span>
+          <strong>{escape(str(item['guild_power_text']))}</strong>
+          <em>인원 {int(item['member_count'])}명 · 시뮬 {escape(str(item['simulation_score_text']))}</em>
+        </article>
+        """
+        for item in analytics.get("timeline", [])
+    ) + '</div>'
+
+    prediction_html = '<div class="analytics-grid analytics-grid-2">' + ''.join(
+        f"""
+        <article class="comparison-callout comparison-callout-focus">
+          <span>{escape(str(item['guild_name']))}</span>
+          <strong>{escape(str(item['projected_text']))}</strong>
+          <em>예상 범위 {escape(str(item['band_text']))} · {int(item['data_points_used'])}개 스냅샷 기반</em>
+        </article>
+        """
+        for item in analytics.get("predictions", [])
+    ) + f'<article class="comparison-callout comparison-callout-core"><span>다음 컷 예상</span><strong>{escape(str(analytics.get("projected_cut", "데이터 부족")))}</strong><em>현재 보유 히스토리 기준 추정치</em></article></div>'
+
+    chapter_1 = render_chapter(
+        "chapter-now",
+        "현재 상태 · 지금 무엇이 움직였는지",
+        "전투력, 길드원 이동, 경쟁 구도를 먼저 가볍게 훑는다.",
+        render_module("growth", "길드 성장 추이 대시보드", "길드별 최근 추세를 빠르게 확인한다.", f"{int(analytics.get('history_window_days', 0))}일 창", growth_html, expanded=True)
+        + render_module("movement", "길드원 증감 / 이탈 추적", "누가 들어오고 나갔는지 길드별로 정리한다.", "현재 vs 직전", movement_html)
+        + render_module("competitor", "경쟁 길드 비교 리포트", "시드 길드 기준 격차를 본다.", "현재 매칭 4길드", competitor_html),
+        expanded=True,
+    )
+    chapter_2 = render_chapter(
+        "chapter-why",
+        "변화의 원인 · 무엇이 점수를 움직였는지",
+        "기여도, 효율, 직업 구성을 통해 길드의 체질을 읽는다.",
+        render_module("contribution", "길드 기여도 랭킹", "길드 총합에서 누가 얼마나 비중을 차지하는지 본다.", "TOP 5", contribution_html)
+        + render_module("efficiency", "전투력 대비 효율 분석", "같은 전투력 대비 더 높은 점수를 내는 멤버를 본다.", "점/억", efficiency_html)
+        + render_module("jobs", "직업 분포 / 밸런스 분석", "직업 집중도와 길드 구성의 균형을 본다.", "상위 5직업", job_html),
+    )
+    chapter_3 = render_chapter(
+        "chapter-next",
+        "사람과 다음 단계 · 누가 성장했고 다음 컷은 어디인지",
+        "개인 성장 흐름과 히스토리 타임라인, 다음 컷 예측을 확인한다.",
+        render_module("personal", "개인 성장 리포트", "현재 멤버 기준 최근 성장 흐름을 추적한다.", "길드별 TOP 5", personal_html)
+        + render_module("timeline", "스냅샷 기반 히스토리 타임라인", "최근 히스토리를 날짜별 카드로 되짚어 본다.", f"{int(analytics.get('history_window_days', 0))}개 기록", timeline_html)
+        + render_module("prediction", "미래 점수 예측 / 컷 예측", "현재 보유 스냅샷으로 다음 컷을 보수적으로 추정한다.", "통계 추정치", prediction_html),
+    )
+
+    overview_html = ''.join(
+        f"""
+        <article class="summary-card analytics-summary-card">
+          <p class="summary-label">{escape(str(card['label']))}</p>
+          <strong class="summary-value">{escape(str(card['value']))}</strong>
+          <p class="summary-help">{escape(str(card['help']))}</p>
+        </article>
+        """
+        for card in analytics.get("overview_cards", [])
+    )
+
+    return f"""
+    <div class="modal-backdrop" id="modal-snapshot-analytics" role="dialog" aria-modal="true" aria-label="스냅샷 분석">
+      <div class="modal-box simulation-modal-box snapshot-analytics-modal-box">
+        <button type="button" class="modal-close" aria-label="닫기">×</button>
+        <section class="simulation-section">
+          <div class="simulation-overview">
+            <div>
+              <p class="eyebrow">Snapshot Insights</p>
+              <h3>스냅샷 분석 허브</h3>
+              <p class="simulation-copy">메인 화면은 가볍게 유지하고, 깊은 분석은 챕터형 허브 안에서 단계적으로 펼친다. 예측은 현재 보유한 히스토리 범위 기준의 통계 추정치다.</p>
+            </div>
+          </div>
+          <section class="summary-grid analytics-summary-grid">{overview_html}</section>
+          <div class="analytics-warning">히스토리 {int(analytics.get('history_window_days', 0))}개 스냅샷 기준 · 예측/효율은 참고용 추정치</div>
+          <div class="analytics-chapter-stack">
+            {chapter_1}
+            {chapter_2}
+            {chapter_3}
+          </div>
+        </section>
+      </div>
+    </div>
+    """
 
 
 def render_compare_cards(
@@ -1686,6 +2206,7 @@ def build_html_report(
     hero_guild_mark_html = render_guild_mark(guild_seed_name, guild_mark_map, "hero-title-mark")
     summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
     auto_summary_html = render_auto_summary_section(history_analysis)
+    snapshot_overview_html = render_snapshot_overview_section(history_analysis)
     compare_cards_html = render_compare_cards(guild_rows, members_by_guild, history_analysis, guild_mark_map)
     if report_mode == "league":
         score_table = parse_score_table(SCORE_TABLE_PATH)
@@ -1696,6 +2217,7 @@ def build_html_report(
         simulation_modal_html = render_training_simulation_modal(simulation)
     detail_comparison_html = render_detail_comparison_section(guild_rows, members_by_guild, guild_mark_map)
     guild_modals_html = render_guild_modals(guild_rows, members_by_guild, history_analysis, guild_mark_map)
+    snapshot_analytics_modal_html = render_snapshot_analytics_modal(history_analysis, report_mode)
     html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -1957,6 +2479,37 @@ def build_html_report(
     .score-rule-card {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 8px 18px rgba(78,58,42,0.04); }}
     .score-rule-card span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
     .score-rule-card strong {{ display: block; font-size: 15px; }}
+    .score-rule-card em {{ display: block; margin-top: 6px; color: var(--muted); font-size: 12px; font-style: normal; }}
+    .snapshot-overview-grid {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }}
+    .snapshot-overview-card {{ cursor: pointer; position: relative; }}
+    .snapshot-overview-card .card-jump {{ margin-top: 12px; display: inline-flex; color: var(--accent-3); font-size: 12px; font-weight: 700; }}
+    .snapshot-analytics-modal-box {{ width: min(1180px, calc(100% - 24px)); }}
+    .analytics-summary-grid {{ margin-top: 18px; }}
+    .analytics-summary-card {{ background: rgba(255,255,255,0.78); }}
+    .analytics-warning {{ margin-top: 14px; padding: 12px 16px; border-radius: 18px; background: rgba(212,125,90,0.10); border: 1px solid rgba(212,125,90,0.18); color: var(--accent-3); font-size: 13px; font-weight: 700; }}
+    .analytics-chapter-stack {{ display: grid; gap: 14px; margin-top: 18px; }}
+    .analytics-chapter {{ padding: 18px; border-radius: 24px; background: rgba(255,255,255,0.66); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 14px 28px rgba(78,58,42,0.06); }}
+    .analytics-chapter-toggle, .analytics-module-toggle {{ width: 100%; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; padding: 0; }}
+    .analytics-chapter-body {{ margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(110,84,60,0.08); }}
+    .analytics-module {{ padding: 16px; border-radius: 20px; background: rgba(255,251,246,0.78); border: 1px solid rgba(110,84,60,0.08); }}
+    .analytics-module + .analytics-module {{ margin-top: 12px; }}
+    .analytics-module-toggle {{ display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }}
+    .analytics-module-toggle-meta {{ display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }}
+    .analytics-module-toggle h4, .analytics-chapter-toggle h3 {{ margin: 6px 0 0; }}
+    .analytics-module-body {{ margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(110,84,60,0.08); }}
+    .analytics-grid {{ display: grid; gap: 12px; }}
+    .analytics-grid-2 {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    .analytics-mini-grid {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 12px; color: var(--muted); font-size: 12px; }}
+    .analytics-list-card h5, .analytics-stat-card h5 {{ margin: 0 0 8px; font-size: 18px; }}
+    .analytics-list-split {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }}
+    .analytics-bar-list {{ display: grid; gap: 10px; }}
+    .analytics-bar-item strong {{ display: block; margin-bottom: 6px; }}
+    .analytics-bar-item span {{ display: block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }}
+    .analytics-person-list {{ display: grid; gap: 10px; }}
+    .analytics-person-item {{ display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 14px; align-items: center; padding: 12px; border-radius: 16px; background: rgba(255,255,255,0.68); border: 1px solid rgba(110,84,60,0.08); }}
+    .analytics-person-item p {{ margin: 4px 0 0; color: var(--muted); font-size: 12px; }}
+    .analytics-timeline {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }}
+    .analytics-timeline-card strong {{ font-size: 16px; }}
     .simulation-rank-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }}
     .simulation-rank-card {{ padding: 18px; border-radius: 24px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 16px 34px rgba(78,58,42,0.08); }}
     .simulation-rank-top {{ display: flex; align-items: center; gap: 10px; }}
@@ -1994,7 +2547,7 @@ def build_html_report(
     .simulation-member-card.expanded .simulation-member-toggle-label::after {{ transform: rotate(180deg); }}
     .simulation-section-toggle-label {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
     .simulation-section-toggle-label::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
-    .job-coefficient-section.expanded .simulation-section-toggle-label::after, .simulation-rank-card.expanded .simulation-section-toggle-label::after {{ transform: rotate(180deg); }}
+    .job-coefficient-section.expanded .simulation-section-toggle-label::after, .simulation-rank-card.expanded .simulation-section-toggle-label::after, .analytics-module.expanded .simulation-section-toggle-label::after, .analytics-chapter.expanded .simulation-section-toggle-label::after {{ transform: rotate(180deg); }}
     .simulation-member-details {{ padding: 0 16px 16px; border-top: 1px solid rgba(110,84,60,0.08); background: rgba(255,255,255,0.38); }}
     .simulation-member-meta {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0 0; }}
     .simulation-member-meta div {{ padding: 12px; border-radius: 14px; background: rgba(255,255,255,0.62); border: 1px solid rgba(110,84,60,0.06); min-width: 0; }}
@@ -2109,8 +2662,8 @@ def build_html_report(
     .badge-master {{ background: rgba(212, 125, 90, 0.15); color: var(--accent-3); border-color: rgba(212, 125, 90, 0.18); }}
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
-    @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }} .section-head, .table-toolbar {{ flex-direction: column; align-items: start; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; border-radius: 28px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} .member-table th, .member-table td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 30px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .simulation-modal-box, .modal-box {{ padding: 20px; border-radius: 26px; }} .training-simulation-table, .guild-war-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} .section-title {{ display: none; }} .mobile-section-toggle {{ display: block; }} .mobile-section-panel:not(.expanded) .mobile-section-body {{ display: none; }} .hero-stats-toggle {{ display: block; }} .hero-stats-body:not(.open) {{ display: none; }} .guild-card-title-row {{ gap: 10px; }} .guild-card-mark {{ width: 34px; height: 34px; }} .modal-title-row {{ gap: 10px; }} .modal-guild-mark {{ width: 46px; height: 46px; }} .section-tabs a {{ width: 100%; justify-content: center; }} }}
+    @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid, .snapshot-overview-grid, .analytics-grid-2, .analytics-list-split {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }} .section-head, .table-toolbar, .analytics-module-toggle {{ flex-direction: column; align-items: start; }} .analytics-person-item {{ grid-template-columns: 1fr; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; border-radius: 28px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} .member-table th, .member-table td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 30px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .simulation-modal-box, .modal-box {{ padding: 20px; border-radius: 26px; }} .training-simulation-table, .guild-war-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} .section-title {{ display: none; }} .mobile-section-toggle {{ display: block; }} .mobile-section-panel:not(.expanded) .mobile-section-body {{ display: none; }} .hero-stats-toggle {{ display: block; }} .hero-stats-body:not(.open) {{ display: none; }} .guild-card-title-row {{ gap: 10px; }} .guild-card-mark {{ width: 34px; height: 34px; }} .modal-title-row {{ gap: 10px; }} .modal-guild-mark {{ width: 46px; height: 46px; }} .section-tabs a {{ width: 100%; justify-content: center; }} .analytics-timeline {{ grid-template-columns: 1fr; }} .analytics-module {{ padding: 14px; }} }}
   </style>
 </head>
 <body>
@@ -2125,17 +2678,19 @@ def build_html_report(
          </div>
          <p class="lead">{escape(copy['lead'])}</p>
          <div class="section-tabs">
-           <a data-modal="guild-war-simulation" href="#">{escape(copy['simulation_nav'])}</a>
-         </div>
-      </div>
+            <a data-modal="guild-war-simulation" href="#">{escape(copy['simulation_nav'])}</a>
+            <a data-modal="snapshot-analytics" href="#">스냅샷 분석</a>
+          </div>
+       </div>
       <nav class="hero-nav">{nav_links}</nav>
       <button type="button" class="hero-stats-toggle" aria-expanded="false">
         <strong>리포트 요약 통계</strong>
         <span>접기 / 펴기</span>
       </button>
       <div class="hero-stats-body" id="hero-stats-body">
-        <section class="summary-grid">{summary_cards_html}</section>
-        {auto_summary_html}
+       <section class="summary-grid">{summary_cards_html}</section>
+       {auto_summary_html}
+       {snapshot_overview_html}
       </div>
     </header>
 
@@ -2166,6 +2721,7 @@ def build_html_report(
 
   {guild_modals_html}
   {simulation_modal_html}
+  {snapshot_analytics_modal_html}
 
   <script>
     const openModal = (id) => {{
@@ -2268,6 +2824,11 @@ def build_html_report(
       const scrollWrap = card.closest('.compare-scroll-wrap, .detail-compare-wrap');
       // scroll wrap 내부 카드는 pointerup 핸들러에서 직접 처리하므로 여기서 skip
       if (scrollWrap) return;
+      openModal(card.dataset.modal);
+    }});
+    document.addEventListener('click', (event) => {{
+      const card = event.target.closest('.snapshot-overview-card[data-modal]');
+      if (!card) return;
       openModal(card.dataset.modal);
     }});
 
@@ -2374,6 +2935,41 @@ def build_html_report(
         button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         details.hidden = expanded;
         card.classList.toggle('expanded', !expanded);
+      }});
+    }});
+
+    document.querySelectorAll('.analytics-chapter-toggle').forEach((button) => {{
+      button.addEventListener('click', () => {{
+        const chapter = button.closest('.analytics-chapter');
+        const body = chapter?.querySelector('.analytics-chapter-body');
+        if (!chapter || !body) return;
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        body.hidden = expanded;
+        chapter.classList.toggle('expanded', !expanded);
+      }});
+    }});
+
+    document.querySelectorAll('.analytics-module-toggle').forEach((button) => {{
+      button.addEventListener('click', () => {{
+        const module = button.closest('.analytics-module');
+        const chapter = button.closest('.analytics-chapter-body');
+        const body = module?.querySelector('.analytics-module-body');
+        if (!module || !body) return;
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        if (!expanded && chapter) {{
+          chapter.querySelectorAll('.analytics-module').forEach((other) => {{
+            if (other === module) return;
+            other.classList.remove('expanded');
+            const otherButton = other.querySelector('.analytics-module-toggle');
+            const otherBody = other.querySelector('.analytics-module-body');
+            if (otherButton) otherButton.setAttribute('aria-expanded', 'false');
+            if (otherBody) otherBody.hidden = true;
+          }});
+        }}
+        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        body.hidden = expanded;
+        module.classList.toggle('expanded', !expanded);
       }});
     }});
 
@@ -2595,6 +3191,7 @@ def main() -> None:
     snapshot_data = build_snapshot_data(guild_name, report_mode, guild_rows, members_by_guild, simulation, snapshot_date)
     history_snapshots = load_history_snapshots(guild_name, report_mode)
     history_analysis = build_history_analysis(snapshot_data, history_snapshots)
+    history_analysis["snapshot_analytics"] = build_snapshot_analytics(snapshot_data, history_snapshots, simulation)
 
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
     html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
