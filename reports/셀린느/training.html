@@ -359,19 +359,19 @@
         .simulation-table .simulation-score-cell, .simulation-table .simulation-rank-change-cell, .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) { font-variant-numeric: tabular-nums; font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif; }
         .simulation-table .simulation-score-cell { color: var(--accent-3); font-weight: 800; }
         .simulation-table .simulation-rank-change-cell { white-space: nowrap; }
-        /* Boss Ranking */
-        .boss-ranking-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }
-        .boss-ranking-tab { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.75); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }
-        .boss-ranking-tab.boss-ranking-tab-active { background: linear-gradient(180deg, rgba(212,125,90,0.16), rgba(212,125,90,0.10)); color: var(--accent-3); border-color: rgba(173,101,64,0.22); }
-        .boss-ranking-table-wrap { overflow: auto; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,0.74); margin-top: 10px; }
-        .boss-ranking-table { width: 100%; border-collapse: collapse; min-width: 520px; }
-        .boss-ranking-table th, .boss-ranking-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 12px; vertical-align: middle; }
-        .boss-ranking-table th { color: var(--muted); background: rgba(255,255,255,0.8); }
-        .boss-ranking-table tbody tr:last-child td { border-bottom: 0; }
-        .boss-ranking-table tbody tr[hidden] { display: none; }
-        .boss-rank-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; padding: 6px 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 700; }
-        .boss-guild-cell { font-weight: 700; }
-        .boss-row-copy { color: var(--muted); font-size: 11px; margin-top: 2px; }
+        /* Tobeol Ranking */
+        .tobeol-ranking-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }
+        .tobeol-ranking-tab { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.75); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }
+        .tobeol-ranking-tab.tobeol-ranking-tab-active { background: linear-gradient(180deg, rgba(212,125,90,0.16), rgba(212,125,90,0.10)); color: var(--accent-3); border-color: rgba(173,101,64,0.22); }
+        .tobeol-ranking-table-wrap { overflow: auto; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,0.74); margin-top: 10px; }
+        .tobeol-ranking-table { width: 100%; border-collapse: collapse; min-width: 520px; }
+        .tobeol-ranking-table th, .tobeol-ranking-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 12px; vertical-align: middle; }
+        .tobeol-ranking-table th { color: var(--muted); background: rgba(255,255,255,0.8); }
+        .tobeol-ranking-table tbody tr:last-child td { border-bottom: 0; }
+        .tobeol-ranking-table tbody tr[hidden] { display: none; }
+        .tobeol-rank-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; padding: 6px 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 700; }
+        .tobeol-guild-cell { font-weight: 700; }
+        .tobeol-row-copy { color: var(--muted); font-size: 11px; margin-top: 2px; }
         /* #4: Modal system */
         .modal-backdrop {
           display: none;
@@ -2689,7 +2689,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>무치z, 디올핑, 카뚝</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>비숍 +8, 섀도어 +6, 아크메이지(썬,콜) +5</strong></li>
+                      <li><span>직업 분포 변화</span><strong>비숍 +8, 섀도어 +6, 다크나이트 +5</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3709,7 +3709,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>가숭혁, 살뽀시, 26상탗</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +6, 비숍 +3</strong></li>
+                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +9, 섀도어 +6, 다크나이트 +3</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -4716,7 +4716,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>싸뤽, 신궁쨩, 실민</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>비숍 +7, 다크나이트 +6, 신궁 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>비숍 +7, 다크나이트 +6, 섀도어 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -15140,7 +15140,7 @@
           <div class="analytics-chapter-body" hidden>
             
         <section class="analytics-module ">
-          <button type="button" class="analytics-module-toggle" aria-expanded="false" data-module="boss-ranking">
+          <button type="button" class="analytics-module-toggle" aria-expanded="false" data-module="tobeol-ranking">
             <div>
               <p class="eyebrow">Snapshot Module</p>
               <h4>서버 2 토벌전 랭킹</h4>
@@ -15217,188 +15217,188 @@
           <p class='simulation-copy'>해당 없음</p>
         </article>
         </div>
-    <div class="boss-ranking-tabs"><button type="button" class="boss-ranking-tab boss-ranking-tab-active" data-boss-guild="전체">전체</button><button type="button" class="boss-ranking-tab" data-boss-guild="더샾">더샾</button><button type="button" class="boss-ranking-tab" data-boss-guild="딸기키우기">딸기키우기</button><button type="button" class="boss-ranking-tab" data-boss-guild="셀린느">셀린느</button><button type="button" class="boss-ranking-tab" data-boss-guild="LUXURY">LUXURY</button><button type="button" class="boss-ranking-tab" data-boss-guild="호러">호러</button><button type="button" class="boss-ranking-tab" data-boss-guild="이콩">이콩</button><button type="button" class="boss-ranking-tab" data-boss-guild="item">item</button></div>
-    <div class="boss-ranking-table-wrap">
-      <table class="boss-ranking-table">
+    <div class="tobeol-ranking-tabs"><button type="button" class="tobeol-ranking-tab tobeol-ranking-tab-active" data-tobeol-guild="전체">전체</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="더샾">더샾</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="딸기키우기">딸기키우기</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="셀린느">셀린느</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="LUXURY">LUXURY</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="호러">호러</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="이콩">이콩</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="item">item</button></div>
+    <div class="tobeol-ranking-table-wrap">
+      <table class="tobeol-ranking-table">
         <thead><tr><th>순위</th><th>길드</th><th>닉네임</th><th>토벌전 점수</th><th>좋아요</th></tr></thead>
-        <tbody id="boss-ranking-tbody"><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#1</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>스타냥이</strong><div class="boss-row-copy">Lv.113 · 신궁</div></td>
+        <tbody id="tobeol-ranking-tbody"><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#1</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>스타냥이</strong><div class="tobeol-row-copy">Lv.113 · 신궁</div></td>
           <td>6603억 854만</td>
           <td>♥ 2,196</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#4</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>돈스</strong><div class="boss-row-copy">Lv.109 · 비숍</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#4</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>돈스</strong><div class="tobeol-row-copy">Lv.109 · 비숍</div></td>
           <td>3157억 9719만</td>
           <td>♥ 666</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#6</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>진자이</strong><div class="boss-row-copy">Lv.110 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#6</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>진자이</strong><div class="tobeol-row-copy">Lv.110 · 아크메이지(썬,콜)</div></td>
           <td>1933억 7773만</td>
           <td>♥ 569</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#8</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>빌런투킬</strong><div class="boss-row-copy">Lv.109 · 팔라딘</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#8</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>빌런투킬</strong><div class="tobeol-row-copy">Lv.109 · 팔라딘</div></td>
           <td>1659억 1180만</td>
           <td>♥ 229</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#13</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>스타캐치</strong><div class="boss-row-copy">Lv.108 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#13</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>스타캐치</strong><div class="tobeol-row-copy">Lv.108 · 섀도어</div></td>
           <td>1462억 806만</td>
           <td>♥ 1,000</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#16</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>말레이히어로</strong><div class="boss-row-copy">Lv.109 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#16</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>말레이히어로</strong><div class="tobeol-row-copy">Lv.109 · 히어로</div></td>
           <td>1116억 3309만</td>
           <td>♥ 113</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#17</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>스타뎀</strong><div class="boss-row-copy">Lv.107 · 다크나이트</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#17</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>스타뎀</strong><div class="tobeol-row-copy">Lv.107 · 다크나이트</div></td>
           <td>1079억 6257만</td>
           <td>♥ 346</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#21</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>여사</strong><div class="boss-row-copy">Lv.107 · 다크나이트</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#21</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>여사</strong><div class="tobeol-row-copy">Lv.107 · 다크나이트</div></td>
           <td>905억 556만</td>
           <td>♥ 1,091</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#22</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>꽃을든남자</strong><div class="boss-row-copy">Lv.105 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#22</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>꽃을든남자</strong><div class="tobeol-row-copy">Lv.105 · 히어로</div></td>
           <td>871억 5844만</td>
           <td>♥ 1,023</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#23</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>부엉이없다</strong><div class="boss-row-copy">Lv.104 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#23</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>부엉이없다</strong><div class="tobeol-row-copy">Lv.104 · 섀도어</div></td>
           <td>827억 5207만</td>
           <td>♥ 784</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#26</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>약어</strong><div class="boss-row-copy">Lv.105 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#26</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>약어</strong><div class="tobeol-row-copy">Lv.105 · 신궁</div></td>
           <td>690억 56만</td>
           <td>♥ 2,076</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#28</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>쾌감</strong><div class="boss-row-copy">Lv.106 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#28</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>쾌감</strong><div class="tobeol-row-copy">Lv.106 · 섀도어</div></td>
           <td>613억 2413만</td>
           <td>♥ 578</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#30</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>하후돈</strong><div class="boss-row-copy">Lv.105 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#30</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>하후돈</strong><div class="tobeol-row-copy">Lv.105 · 섀도어</div></td>
           <td>562억 8612만</td>
           <td>♥ 43</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#33</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>잼포즈</strong><div class="boss-row-copy">Lv.104 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#33</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>잼포즈</strong><div class="tobeol-row-copy">Lv.104 · 아크메이지(썬,콜)</div></td>
           <td>491억 8342만</td>
           <td>♥ 476</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#34</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>프리프리</strong><div class="boss-row-copy">Lv.105 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#34</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>프리프리</strong><div class="tobeol-row-copy">Lv.105 · 섀도어</div></td>
           <td>449억 4712만</td>
           <td>♥ 1,170</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#35</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>두근푸근연근</strong><div class="boss-row-copy">Lv.103 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#35</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>두근푸근연근</strong><div class="tobeol-row-copy">Lv.103 · 히어로</div></td>
           <td>427억 8903만</td>
           <td>♥ 196</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#37</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>소소채2</strong><div class="boss-row-copy">Lv.102 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#37</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>소소채2</strong><div class="tobeol-row-copy">Lv.102 · 섀도어</div></td>
           <td>409억 4005만</td>
           <td>♥ 138</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#40</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>POSCO</strong><div class="boss-row-copy">Lv.105 · 다크나이트</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#40</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>POSCO</strong><div class="tobeol-row-copy">Lv.105 · 다크나이트</div></td>
           <td>387억 6561만</td>
           <td>♥ 667</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#43</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>단풍노비</strong><div class="boss-row-copy">Lv.105 · 비숍</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#43</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>단풍노비</strong><div class="tobeol-row-copy">Lv.105 · 비숍</div></td>
           <td>354억 2862만</td>
           <td>♥ 277</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#49</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>대방어조아</strong><div class="boss-row-copy">Lv.103 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#49</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>대방어조아</strong><div class="tobeol-row-copy">Lv.103 · 섀도어</div></td>
           <td>321억 8776만</td>
           <td>♥ 256</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#53</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>루넨</strong><div class="boss-row-copy">Lv.104 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#53</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>루넨</strong><div class="tobeol-row-copy">Lv.104 · 섀도어</div></td>
           <td>300억 8643만</td>
           <td>♥ 169</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#58</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>제로슈가</strong><div class="boss-row-copy">Lv.103 · 아크메이지(불,독)</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#58</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>제로슈가</strong><div class="tobeol-row-copy">Lv.103 · 아크메이지(불,독)</div></td>
           <td>280억 3701만</td>
           <td>♥ 1,029</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#88</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>김치싸대기</strong><div class="boss-row-copy">Lv.103 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#88</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>김치싸대기</strong><div class="tobeol-row-copy">Lv.103 · 히어로</div></td>
           <td>189억 9462만</td>
           <td>♥ 31</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#89</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>몽호</strong><div class="boss-row-copy">Lv.103 · 다크나이트</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#89</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>몽호</strong><div class="tobeol-row-copy">Lv.103 · 다크나이트</div></td>
           <td>186억 138만</td>
           <td>♥ 54</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#106</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>포뇨야</strong><div class="boss-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#106</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>포뇨야</strong><div class="tobeol-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
           <td>164억 9304만</td>
           <td>♥ 128</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#112</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>junoflo</strong><div class="boss-row-copy">Lv.102 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#112</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>junoflo</strong><div class="tobeol-row-copy">Lv.102 · 섀도어</div></td>
           <td>160억 9406만</td>
           <td>♥ 1,032</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#113</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>혜영</strong><div class="boss-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#113</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>혜영</strong><div class="tobeol-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
           <td>160억 6525만</td>
           <td>♥ 2,177</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#126</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>악의꽃</strong><div class="boss-row-copy">Lv.102 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#126</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>악의꽃</strong><div class="tobeol-row-copy">Lv.102 · 신궁</div></td>
           <td>146억 9635만</td>
           <td>♥ 184</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#196</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>울힝</strong><div class="boss-row-copy">Lv.102 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#196</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>울힝</strong><div class="tobeol-row-copy">Lv.102 · 아크메이지(썬,콜)</div></td>
           <td>116억 4721만</td>
           <td>♥ 813</td>
-        </tr><tr data-boss-guild="셀린느">
-          <td><span class="boss-rank-chip">#773</span></td>
-          <td class="boss-guild-cell">셀린느</td>
-          <td><strong>할룽</strong><div class="boss-row-copy">Lv.104 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#773</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>할룽</strong><div class="tobeol-row-copy">Lv.104 · 아크메이지(썬,콜)</div></td>
           <td>45억 8492만</td>
           <td>♥ 158</td>
         </tr></tbody>
@@ -15668,16 +15668,16 @@
           });
         });
     
-        document.querySelectorAll('.boss-ranking-tab').forEach((btn) => {
+        document.querySelectorAll('.tobeol-ranking-tab').forEach((btn) => {
           btn.addEventListener('click', () => {
             const wrap = btn.closest('.analytics-module-body');
             if (!wrap) return;
-            const guild = btn.dataset.bossGuild;
-            wrap.querySelectorAll('.boss-ranking-tab').forEach((b) => {
-              b.classList.toggle('boss-ranking-tab-active', b === btn);
+            const guild = btn.dataset.tobeolGuild;
+            wrap.querySelectorAll('.tobeol-ranking-tab').forEach((b) => {
+              b.classList.toggle('tobeol-ranking-tab-active', b === btn);
             });
-            wrap.querySelectorAll('#boss-ranking-tbody tr[data-boss-guild]').forEach((tr) => {
-              tr.hidden = guild !== '전체' && tr.dataset.bossGuild !== guild;
+            wrap.querySelectorAll('#tobeol-ranking-tbody tr[data-tobeol-guild]').forEach((tr) => {
+              tr.hidden = guild !== '전체' && tr.dataset.tobeolGuild !== guild;
             });
           });
         });

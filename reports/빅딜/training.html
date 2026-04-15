@@ -359,19 +359,19 @@
         .simulation-table .simulation-score-cell, .simulation-table .simulation-rank-change-cell, .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) { font-variant-numeric: tabular-nums; font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif; }
         .simulation-table .simulation-score-cell { color: var(--accent-3); font-weight: 800; }
         .simulation-table .simulation-rank-change-cell { white-space: nowrap; }
-        /* Boss Ranking */
-        .boss-ranking-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }
-        .boss-ranking-tab { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.75); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }
-        .boss-ranking-tab.boss-ranking-tab-active { background: linear-gradient(180deg, rgba(212,125,90,0.16), rgba(212,125,90,0.10)); color: var(--accent-3); border-color: rgba(173,101,64,0.22); }
-        .boss-ranking-table-wrap { overflow: auto; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,0.74); margin-top: 10px; }
-        .boss-ranking-table { width: 100%; border-collapse: collapse; min-width: 520px; }
-        .boss-ranking-table th, .boss-ranking-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 12px; vertical-align: middle; }
-        .boss-ranking-table th { color: var(--muted); background: rgba(255,255,255,0.8); }
-        .boss-ranking-table tbody tr:last-child td { border-bottom: 0; }
-        .boss-ranking-table tbody tr[hidden] { display: none; }
-        .boss-rank-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; padding: 6px 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 700; }
-        .boss-guild-cell { font-weight: 700; }
-        .boss-row-copy { color: var(--muted); font-size: 11px; margin-top: 2px; }
+        /* Tobeol Ranking */
+        .tobeol-ranking-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }
+        .tobeol-ranking-tab { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.75); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }
+        .tobeol-ranking-tab.tobeol-ranking-tab-active { background: linear-gradient(180deg, rgba(212,125,90,0.16), rgba(212,125,90,0.10)); color: var(--accent-3); border-color: rgba(173,101,64,0.22); }
+        .tobeol-ranking-table-wrap { overflow: auto; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,0.74); margin-top: 10px; }
+        .tobeol-ranking-table { width: 100%; border-collapse: collapse; min-width: 520px; }
+        .tobeol-ranking-table th, .tobeol-ranking-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 12px; vertical-align: middle; }
+        .tobeol-ranking-table th { color: var(--muted); background: rgba(255,255,255,0.8); }
+        .tobeol-ranking-table tbody tr:last-child td { border-bottom: 0; }
+        .tobeol-ranking-table tbody tr[hidden] { display: none; }
+        .tobeol-rank-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; padding: 6px 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 700; }
+        .tobeol-guild-cell { font-weight: 700; }
+        .tobeol-row-copy { color: var(--muted); font-size: 11px; margin-top: 2px; }
         /* #4: Modal system */
         .modal-backdrop {
           display: none;
@@ -4156,7 +4156,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>뀨래, 호겡, 우주킥</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 아크메이지(썬,콜) +4, 히어로 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 아크메이지(썬,콜) +4, 신궁 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -4653,7 +4653,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>선바, 뽀대챠밍, 신궝</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +7, 섀도어 +7, 비숍 +6</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +7, 아크메이지(썬,콜) +7, 비숍 +6</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -14540,7 +14540,7 @@
           <div class="analytics-chapter-body" hidden>
             
         <section class="analytics-module ">
-          <button type="button" class="analytics-module-toggle" aria-expanded="false" data-module="boss-ranking">
+          <button type="button" class="analytics-module-toggle" aria-expanded="false" data-module="tobeol-ranking">
             <div>
               <p class="eyebrow">Snapshot Module</p>
               <h4>서버 2 토벌전 랭킹</h4>
@@ -14617,362 +14617,362 @@
           <p class='simulation-copy'>해당 없음</p>
         </article>
         </div>
-    <div class="boss-ranking-tabs"><button type="button" class="boss-ranking-tab boss-ranking-tab-active" data-boss-guild="전체">전체</button><button type="button" class="boss-ranking-tab" data-boss-guild="빅딜">빅딜</button><button type="button" class="boss-ranking-tab" data-boss-guild="숑숑">숑숑</button><button type="button" class="boss-ranking-tab" data-boss-guild="0FeroCity">0FeroCity</button><button type="button" class="boss-ranking-tab" data-boss-guild="풍년순대국밥">풍년순대국밥</button><button type="button" class="boss-ranking-tab" data-boss-guild="또래">또래</button><button type="button" class="boss-ranking-tab" data-boss-guild="알바천국">알바천국</button><button type="button" class="boss-ranking-tab" data-boss-guild="부계둘">부계둘</button></div>
-    <div class="boss-ranking-table-wrap">
-      <table class="boss-ranking-table">
+    <div class="tobeol-ranking-tabs"><button type="button" class="tobeol-ranking-tab tobeol-ranking-tab-active" data-tobeol-guild="전체">전체</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="빅딜">빅딜</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="숑숑">숑숑</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="0FeroCity">0FeroCity</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="풍년순대국밥">풍년순대국밥</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="또래">또래</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="알바천국">알바천국</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="부계둘">부계둘</button></div>
+    <div class="tobeol-ranking-table-wrap">
+      <table class="tobeol-ranking-table">
         <thead><tr><th>순위</th><th>길드</th><th>닉네임</th><th>토벌전 점수</th><th>좋아요</th></tr></thead>
-        <tbody id="boss-ranking-tbody"><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#59</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>숑이</strong><div class="boss-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
+        <tbody id="tobeol-ranking-tbody"><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#59</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>숑이</strong><div class="tobeol-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
           <td>274억 1092만</td>
           <td>♥ 907</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#81</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>큐샤프</strong><div class="boss-row-copy">Lv.103 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#81</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>큐샤프</strong><div class="tobeol-row-copy">Lv.103 · 신궁</div></td>
           <td>200억 2191만</td>
           <td>♥ 827</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#86</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>망겜감별사</strong><div class="boss-row-copy">Lv.103 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#86</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>망겜감별사</strong><div class="tobeol-row-copy">Lv.103 · 섀도어</div></td>
           <td>191억 5796만</td>
           <td>♥ 627</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#123</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>단풍카우</strong><div class="boss-row-copy">Lv.103 · 다크나이트</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#123</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>단풍카우</strong><div class="tobeol-row-copy">Lv.103 · 다크나이트</div></td>
           <td>148억 6988만</td>
           <td>♥ 468</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#125</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>주존사</strong><div class="boss-row-copy">Lv.102 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#125</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>주존사</strong><div class="tobeol-row-copy">Lv.102 · 히어로</div></td>
           <td>147억 884만</td>
           <td>♥ 298</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#128</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>소독약</strong><div class="boss-row-copy">Lv.102 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#128</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>소독약</strong><div class="tobeol-row-copy">Lv.102 · 섀도어</div></td>
           <td>142억 5463만</td>
           <td>♥ 132</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#187</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>졸귀</strong><div class="boss-row-copy">Lv.101 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#187</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>졸귀</strong><div class="tobeol-row-copy">Lv.101 · 섀도어</div></td>
           <td>118억 5461만</td>
           <td>♥ 216</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#193</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>굴러가는일상</strong><div class="boss-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#193</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>굴러가는일상</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
           <td>117억 2540만</td>
           <td>♥ 28</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#201</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>휘정</strong><div class="boss-row-copy">Lv.100 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#201</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>휘정</strong><div class="tobeol-row-copy">Lv.100 · 신궁</div></td>
           <td>115억 4210만</td>
           <td>♥ 66</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#206</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>무피</strong><div class="boss-row-copy">Lv.102 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#206</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>무피</strong><div class="tobeol-row-copy">Lv.102 · 섀도어</div></td>
           <td>113억 9180만</td>
           <td>♥ 344</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#207</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>야가다</strong><div class="boss-row-copy">Lv.102 · 보우마스터</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#207</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>야가다</strong><div class="tobeol-row-copy">Lv.102 · 보우마스터</div></td>
           <td>113억 8890만</td>
           <td>♥ 58</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#213</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>슈웃</strong><div class="boss-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#213</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>슈웃</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
           <td>112억 9992만</td>
           <td>♥ 87</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#217</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>엘라임</strong><div class="boss-row-copy">Lv.100 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#217</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>엘라임</strong><div class="tobeol-row-copy">Lv.100 · 히어로</div></td>
           <td>111억 1203만</td>
           <td>♥ 557</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#239</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>아르미느</strong><div class="boss-row-copy">Lv.101 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#239</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>아르미느</strong><div class="tobeol-row-copy">Lv.101 · 히어로</div></td>
           <td>106억 7326만</td>
           <td>♥ 12</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#249</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>캐서린</strong><div class="boss-row-copy">Lv.101 · 다크나이트</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#249</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>캐서린</strong><div class="tobeol-row-copy">Lv.101 · 다크나이트</div></td>
           <td>104억 7192만</td>
           <td>♥ 226</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#261</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>킹몬</strong><div class="boss-row-copy">Lv.101 · 다크나이트</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#261</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>킹몬</strong><div class="tobeol-row-copy">Lv.101 · 다크나이트</div></td>
           <td>102억 8572만</td>
           <td>♥ 156</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#264</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>포스코퓨처엠</strong><div class="boss-row-copy">Lv.100 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#264</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>포스코퓨처엠</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
           <td>101억 6526만</td>
           <td>♥ 131</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#298</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>뻥뻥</strong><div class="boss-row-copy">Lv.98 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#298</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>뻥뻥</strong><div class="tobeol-row-copy">Lv.98 · 신궁</div></td>
           <td>95억 9651만</td>
           <td>♥ 50</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#325</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>임나연</strong><div class="boss-row-copy">Lv.101 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#325</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>임나연</strong><div class="tobeol-row-copy">Lv.101 · 섀도어</div></td>
           <td>89억 9400만</td>
           <td>♥ 876</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#346</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>므고</strong><div class="boss-row-copy">Lv.100 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#346</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>므고</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
           <td>85억 5242만</td>
           <td>♥ 20</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#366</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>강린</strong><div class="boss-row-copy">Lv.100 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#366</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>강린</strong><div class="tobeol-row-copy">Lv.100 · 히어로</div></td>
           <td>81억 5365만</td>
           <td>♥ 353</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#376</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>쭌파파</strong><div class="boss-row-copy">Lv.99 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#376</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>쭌파파</strong><div class="tobeol-row-copy">Lv.99 · 섀도어</div></td>
           <td>80억 5981만</td>
           <td>♥ 64</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#388</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>바세린</strong><div class="boss-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#388</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>바세린</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
           <td>78억 9662만</td>
           <td>♥ 135</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#395</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>민들레꽃</strong><div class="boss-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#395</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>민들레꽃</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
           <td>77억 6775만</td>
           <td>♥ 40</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#401</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>쟈라</strong><div class="boss-row-copy">Lv.100 · 나이트로드</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#401</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>쟈라</strong><div class="tobeol-row-copy">Lv.100 · 나이트로드</div></td>
           <td>76억 6490만</td>
           <td>♥ 569</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#407</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>쟁반짜장</strong><div class="boss-row-copy">Lv.100 · 나이트로드</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#407</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>쟁반짜장</strong><div class="tobeol-row-copy">Lv.100 · 나이트로드</div></td>
           <td>76억 492만</td>
           <td>♥ 86</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#412</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>흑두부</strong><div class="boss-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#412</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>흑두부</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
           <td>74억 9546만</td>
           <td>♥ 27</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#426</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>우후</strong><div class="boss-row-copy">Lv.100 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#426</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>우후</strong><div class="tobeol-row-copy">Lv.100 · 히어로</div></td>
           <td>72억 9433만</td>
           <td>♥ 2</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#449</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>YAMAMOTO</strong><div class="boss-row-copy">Lv.100 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#449</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>YAMAMOTO</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
           <td>69억 5515만</td>
           <td>♥ 163</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#474</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>강철고튠데</strong><div class="boss-row-copy">Lv.99 · 나이트로드</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#474</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>강철고튠데</strong><div class="tobeol-row-copy">Lv.99 · 나이트로드</div></td>
           <td>67억 5213만</td>
           <td>♥ 103</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#501</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>미진생</strong><div class="boss-row-copy">Lv.99 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#501</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>미진생</strong><div class="tobeol-row-copy">Lv.99 · 아크메이지(썬,콜)</div></td>
           <td>65억 173만</td>
           <td>♥ 574</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#527</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>덕르코프</strong><div class="boss-row-copy">Lv.98 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#527</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>덕르코프</strong><div class="tobeol-row-copy">Lv.98 · 섀도어</div></td>
           <td>62억 4478만</td>
           <td>♥ 75</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#541</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>하숑</strong><div class="boss-row-copy">Lv.98 · 보우마스터</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#541</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>하숑</strong><div class="tobeol-row-copy">Lv.98 · 보우마스터</div></td>
           <td>60억 6172만</td>
           <td>♥ 790</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#553</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>제스프리</strong><div class="boss-row-copy">Lv.97 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#553</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>제스프리</strong><div class="tobeol-row-copy">Lv.97 · 신궁</div></td>
           <td>59억 6929만</td>
           <td>♥ 106</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#565</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>아르젠타</strong><div class="boss-row-copy">Lv.97 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#565</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>아르젠타</strong><div class="tobeol-row-copy">Lv.97 · 아크메이지(썬,콜)</div></td>
           <td>59억 731만</td>
           <td>♥ 55</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#568</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>파산</strong><div class="boss-row-copy">Lv.101 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#568</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>파산</strong><div class="tobeol-row-copy">Lv.101 · 섀도어</div></td>
           <td>58억 8811만</td>
           <td>♥ 637</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#580</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>데드캣</strong><div class="boss-row-copy">Lv.100 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#580</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>데드캣</strong><div class="tobeol-row-copy">Lv.100 · 신궁</div></td>
           <td>57억 8만</td>
           <td>♥ 67</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#598</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>픽홀로</strong><div class="boss-row-copy">Lv.100 · 나이트로드</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#598</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>픽홀로</strong><div class="tobeol-row-copy">Lv.100 · 나이트로드</div></td>
           <td>55억 7232만</td>
           <td>♥ 20</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#610</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>꾸르꾸르</strong><div class="boss-row-copy">Lv.99 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#610</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>꾸르꾸르</strong><div class="tobeol-row-copy">Lv.99 · 섀도어</div></td>
           <td>54억 6007만</td>
           <td>♥ 57</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#708</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>여눈</strong><div class="boss-row-copy">Lv.97 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#708</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>여눈</strong><div class="tobeol-row-copy">Lv.97 · 섀도어</div></td>
           <td>49억 132만</td>
           <td>♥ 35</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#730</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>양산호수공원</strong><div class="boss-row-copy">Lv.97 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#730</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>양산호수공원</strong><div class="tobeol-row-copy">Lv.97 · 섀도어</div></td>
           <td>47억 8111만</td>
           <td>♥ 311</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#732</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>Uhani</strong><div class="boss-row-copy">Lv.97 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#732</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>Uhani</strong><div class="tobeol-row-copy">Lv.97 · 섀도어</div></td>
           <td>47억 7166만</td>
           <td>♥ 31</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#751</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>플로우00</strong><div class="boss-row-copy">Lv.99 · 보우마스터</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#751</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>플로우00</strong><div class="tobeol-row-copy">Lv.99 · 보우마스터</div></td>
           <td>46억 8044만</td>
           <td>♥ 179</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#757</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>베르1</strong><div class="boss-row-copy">Lv.100 · 다크나이트</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#757</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>베르1</strong><div class="tobeol-row-copy">Lv.100 · 다크나이트</div></td>
           <td>46억 4251만</td>
           <td>♥ 206</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#786</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>겨울바다</strong><div class="boss-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#786</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>겨울바다</strong><div class="tobeol-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
           <td>45억 2098만</td>
           <td>♥ 38</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#813</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>스파토이</strong><div class="boss-row-copy">Lv.98 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#813</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>스파토이</strong><div class="tobeol-row-copy">Lv.98 · 신궁</div></td>
           <td>44억 1601만</td>
           <td>♥ 585</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#820</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>Rania</strong><div class="boss-row-copy">Lv.100 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#820</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>Rania</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
           <td>43억 9492만</td>
           <td>♥ 134</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#862</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>가이아의격노</strong><div class="boss-row-copy">Lv.98 · 보우마스터</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#862</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>가이아의격노</strong><div class="tobeol-row-copy">Lv.98 · 보우마스터</div></td>
           <td>42억 2020만</td>
           <td>♥ 222</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#899</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>별렉스b</strong><div class="boss-row-copy">Lv.99 · 히어로</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#899</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>별렉스b</strong><div class="tobeol-row-copy">Lv.99 · 히어로</div></td>
           <td>41억 1482만</td>
           <td>♥ 108</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#944</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>빡박이</strong><div class="boss-row-copy">Lv.99 · 아크메이지(불,독)</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#944</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>빡박이</strong><div class="tobeol-row-copy">Lv.99 · 아크메이지(불,독)</div></td>
           <td>39억 6244만</td>
           <td>♥ 132</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#951</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>potato</strong><div class="boss-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#951</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>potato</strong><div class="tobeol-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
           <td>39억 4266만</td>
           <td>♥ 35</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#1015</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>불보독지</strong><div class="boss-row-copy">Lv.97 · 아크메이지(불,독)</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#1015</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>불보독지</strong><div class="tobeol-row-copy">Lv.97 · 아크메이지(불,독)</div></td>
           <td>37억 5867만</td>
           <td>♥ -24</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#1086</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>깅궁둥</strong><div class="boss-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#1086</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>깅궁둥</strong><div class="tobeol-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
           <td>35억 6859만</td>
           <td>♥ 171</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#1108</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>비스밤</strong><div class="boss-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#1108</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>비스밤</strong><div class="tobeol-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
           <td>35억 919만</td>
           <td>♥ 29</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#1239</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>반도</strong><div class="boss-row-copy">Lv.100 · 나이트로드</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#1239</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>반도</strong><div class="tobeol-row-copy">Lv.100 · 나이트로드</div></td>
           <td>32억 2451만</td>
           <td>♥ 72</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#1489</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>양설유</strong><div class="boss-row-copy">Lv.97 · 신궁</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#1489</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>양설유</strong><div class="tobeol-row-copy">Lv.97 · 신궁</div></td>
           <td>27억 4669만</td>
           <td>♥ 10</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#1556</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>여븨</strong><div class="boss-row-copy">Lv.100 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#1556</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>여븨</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
           <td>26억 5801만</td>
           <td>♥ 51</td>
-        </tr><tr data-boss-guild="숑숑">
-          <td><span class="boss-rank-chip">#1622</span></td>
-          <td class="boss-guild-cell">숑숑</td>
-          <td><strong>도레스</strong><div class="boss-row-copy">Lv.98 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="숑숑">
+          <td><span class="tobeol-rank-chip">#1622</span></td>
+          <td class="tobeol-guild-cell">숑숑</td>
+          <td><strong>도레스</strong><div class="tobeol-row-copy">Lv.98 · 섀도어</div></td>
           <td>25억 5301만</td>
           <td>♥ 137</td>
-        </tr><tr data-boss-guild="빅딜">
-          <td><span class="boss-rank-chip">#1792</span></td>
-          <td class="boss-guild-cell">빅딜</td>
-          <td><strong>욤지</strong><div class="boss-row-copy">Lv.96 · 섀도어</div></td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#1792</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>욤지</strong><div class="tobeol-row-copy">Lv.96 · 섀도어</div></td>
           <td>23억 3315만</td>
           <td>♥ 213</td>
         </tr></tbody>
@@ -15242,16 +15242,16 @@
           });
         });
     
-        document.querySelectorAll('.boss-ranking-tab').forEach((btn) => {
+        document.querySelectorAll('.tobeol-ranking-tab').forEach((btn) => {
           btn.addEventListener('click', () => {
             const wrap = btn.closest('.analytics-module-body');
             if (!wrap) return;
-            const guild = btn.dataset.bossGuild;
-            wrap.querySelectorAll('.boss-ranking-tab').forEach((b) => {
-              b.classList.toggle('boss-ranking-tab-active', b === btn);
+            const guild = btn.dataset.tobeolGuild;
+            wrap.querySelectorAll('.tobeol-ranking-tab').forEach((b) => {
+              b.classList.toggle('tobeol-ranking-tab-active', b === btn);
             });
-            wrap.querySelectorAll('#boss-ranking-tbody tr[data-boss-guild]').forEach((tr) => {
-              tr.hidden = guild !== '전체' && tr.dataset.bossGuild !== guild;
+            wrap.querySelectorAll('#tobeol-ranking-tbody tr[data-tobeol-guild]').forEach((tr) => {
+              tr.hidden = guild !== '전체' && tr.dataset.tobeolGuild !== guild;
             });
           });
         });
