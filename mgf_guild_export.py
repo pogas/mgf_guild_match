@@ -272,7 +272,7 @@ def build_mode_filenames(guild_name: str, report_mode: str) -> tuple[str, str, s
     if report_mode == "league":
         return (
             f"{file_stem}_league_mgf_report.xlsx",
-            "index.html",
+            "league.html",
             "snapshot.json",
         )
     return (
@@ -2569,8 +2569,8 @@ def build_tobeol_html_report(
     <header class="hero">
       <div class="hero-copy">
         <div class="mode-tabs">
-          <a class="mode-tab active" href="tobeol.html">길드 리포트</a>
-          <a class="mode-tab" href="index.html">대항전 리포트</a>
+          <a class="mode-tab active" href="index.html">길드 리포트</a>
+          <a class="mode-tab" href="league.html">대항전 리포트</a>
           <a class="mode-tab" href="training.html">수련장 리포트</a>
         </div>
         <p class="eyebrow">✦ MAPLE GUILD REPORT CONCEPT</p>
@@ -2620,12 +2620,12 @@ def build_html_report(
         (
             "tobeol",
             "길드 리포트",
-            "tobeol.html",
+            "index.html",
         ),
         (
             "league",
             "대항전 리포트",
-            "index.html",
+            "league.html",
         ),
         (
             "training",
@@ -3689,7 +3689,7 @@ def main() -> None:
 
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
     html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
-    tobeol_html_path = build_tobeol_html_report(guild_name, html_output_path.parent / "tobeol.html")
+    tobeol_html_path = build_tobeol_html_report(guild_name, html_output_path.parent / "index.html")
     snapshot_path = write_snapshot_json(snapshot_data, snapshot_output_path)
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
