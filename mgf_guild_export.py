@@ -64,6 +64,8 @@ TRAINING_JOB_COEFFICIENTS_4TH: dict[str, float] = {
 # 하위 호환 단일 계수 dict (레벨 정보 없을 때 fallback — 4차 기준)
 TRAINING_JOB_COEFFICIENTS = TRAINING_JOB_COEFFICIENTS_4TH
 
+BOSS_RANKING_CACHE_PATH = _HERE / "reports" / "boss_ranking_s2.json"
+
 
 def clean_text(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
@@ -1028,6 +1030,114 @@ def render_simulation_rank_change_badge(change: dict[str, Any] | None, *, compac
     return f'<span class="simulation-rank-change-badge tone-{tone}"{title}>{label}</span>'
 
 
+def _parse_boss_rows(soup: BeautifulSoup, page: int) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for table in soup.select("table.rank-table"):
+        for tr in table.select("tbody tr"):
+            guild_tag = tr.select_one("a.badge-guild")
+            rank_tag = tr.select_one("span.rank-total")
+            if not guild_tag or not rank_tag:
+                continue
+            nickname_tag = tr.select_one("span.nickname")
+            badge_pop = tr.select_one("span.badge-pop")
+            level_tag = tr.select_one("span.level")
+            job_tag = tr.select_one("span.job-name")
+            score_tag = tr.select_one("span.score-kor")
+            rows.append({
+                "rank": _safe_int(rank_tag.get_text(strip=True)),
+                "nickname": clean_text(nickname_tag.get_text()) if nickname_tag else "",
+                "guild": guild_tag.get_text(strip=True),
+                "likes": badge_pop.get_text(strip=True).replace("♥", "").strip() if badge_pop else "",
+                "level": level_tag.get_text(strip=True) if level_tag else "",
+                "job": job_tag.get_text(strip=True) if job_tag else "",
+                "score": score_tag.get_text(strip=True) if score_tag else "",
+                "page": page,
+            })
+    return rows
+
+
+def fetch_boss_ranking(
+    guild_names: list[str],
+    server: int = 2,
+    cache_max_age_hours: int = 12,
+) -> list[dict[str, Any]]:
+    """mgf.gg 서버 토벌전 랭킹을 수집해 길드명 기준으로 필터해 반환.
+    결과는 BOSS_RANKING_CACHE_PATH에 캐시하며 cache_max_age_hours 이내면 재사용."""
+    target_guilds = set(guild_names)
+
+    if BOSS_RANKING_CACHE_PATH.exists():
+        try:
+            cached = json.loads(BOSS_RANKING_CACHE_PATH.read_text(encoding="utf-8"))
+            cached_time = datetime.fromisoformat(str(cached.get("fetched_at", "2000-01-01")))
+            if (datetime.now() - cached_time).total_seconds() < cache_max_age_hours * 3600:
+                rows: list[dict[str, Any]] = cached.get("rows", [])
+                return sorted(
+                    [r for r in rows if r.get("guild") in target_guilds],
+                    key=lambda x: _safe_int(x.get("rank", 999999)),
+                )
+        except Exception:
+            pass
+
+    base_url = f"{BASE_URL}/ranking/guild_boss.php"
+    all_rows: list[dict[str, Any]] = []
+    try:
+        r = requests.get(base_url, params={"server": server, "page": 1}, timeout=20)
+        r.raise_for_status()
+        soup = BeautifulSoup(r.content, "html.parser")
+        pg_end = soup.select_one("a.pg_end")
+        max_page = _safe_int(str(pg_end["href"]).split("page=")[-1]) if pg_end else 1  # type: ignore[index]
+        all_rows.extend(_parse_boss_rows(soup, 1))
+        print(f"Boss ranking: fetching {max_page} pages for server {server}...")
+        for page in range(2, max_page + 1):
+            try:
+                pr = requests.get(base_url, params={"server": server, "page": page}, timeout=20)
+                pr.raise_for_status()
+                if "데이터가 없습니다" in pr.text:
+                    break
+                all_rows.extend(_parse_boss_rows(BeautifulSoup(pr.content, "html.parser"), page))
+            except Exception:
+                break
+        BOSS_RANKING_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        BOSS_RANKING_CACHE_PATH.write_text(
+            json.dumps(
+                {"fetched_at": datetime.now().isoformat(), "rows": all_rows},
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        print(f"Boss ranking: cached {len(all_rows)} total rows → {BOSS_RANKING_CACHE_PATH}")
+    except Exception as exc:
+        print(f"Boss ranking: fetch failed ({exc})")
+
+    return sorted(
+        [r for r in all_rows if r.get("guild") in target_guilds],
+        key=lambda x: _safe_int(x.get("rank", 999999)),
+    )
+
+
+def _build_boss_ranking_analytics(guild_names: list[str]) -> dict[str, Any]:
+    rows = fetch_boss_ranking(guild_names)
+    by_guild: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        by_guild.setdefault(str(row.get("guild", "")), []).append(row)
+    guild_summaries = [
+        {
+            "guild_name": name,
+            "count": len(by_guild.get(name, [])),
+            "best_rank": by_guild[name][0]["rank"] if by_guild.get(name) else None,
+            "best_nickname": by_guild[name][0]["nickname"] if by_guild.get(name) else None,
+            "best_score": by_guild[name][0]["score"] if by_guild.get(name) else None,
+        }
+        for name in guild_names
+    ]
+    return {
+        "guild_summaries": guild_summaries,
+        "total_found": len(rows),
+        "all_rows": rows,
+    }
+
+
 def build_snapshot_analytics(
     current_snapshot: dict[str, Any],
     history_snapshots: list[dict[str, Any]],
@@ -1237,6 +1347,7 @@ def build_snapshot_analytics(
         "predictions": prediction_rows,
         "projected_cut": projected_cut,
         "history_window_days": len(timeline_snapshots),
+        "boss_ranking": _build_boss_ranking_analytics(list(current_snapshot.get("guilds", {}).keys())),
     }
 
 
@@ -1445,6 +1556,56 @@ def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
     ) + '</section>'
 
 
+def _render_boss_ranking_html(boss_ranking: dict[str, Any]) -> str:
+    guild_summaries: list[dict[str, Any]] = boss_ranking.get("guild_summaries", [])
+    all_rows: list[dict[str, Any]] = boss_ranking.get("all_rows", [])
+    if not all_rows:
+        return '<p class="simulation-copy">토벌전 랭킹 데이터가 없습니다. 리포트를 다시 생성하면 자동 수집됩니다.</p>'
+
+    summary_html = '<div class="analytics-grid analytics-grid-2">' + "".join(
+        f"""
+        <article class="info-panel analytics-stat-card">
+          <h5>{escape(str(card["guild_name"]))}</h5>
+          <div class="analytics-mini-grid">
+            <span>발견 {int(card["count"])}명</span>
+            <span>최고 순위 {"#" + str(int(card["best_rank"])) if card.get("best_rank") else "-"}</span>
+          </div>
+          {"<p class='simulation-copy'>" + escape(str(card["best_nickname"])) + " · " + escape(str(card["best_score"])) + "</p>" if card.get("best_nickname") else "<p class='simulation-copy'>해당 없음</p>"}
+        </article>
+        """
+        for card in guild_summaries
+    ) + "</div>"
+
+    guild_names = [str(c["guild_name"]) for c in guild_summaries]
+    tab_buttons = "".join(
+        f'<button type="button" class="boss-ranking-tab{"" if i > 0 else " boss-ranking-tab-active"}" data-boss-guild="{escape(g)}">{escape(g)}</button>'
+        for i, g in enumerate(["전체"] + guild_names)
+    )
+
+    rows_html = "".join(
+        f"""<tr data-boss-guild="{escape(str(row["guild"]))}">
+          <td><span class="boss-rank-chip">#{int(row["rank"])}</span></td>
+          <td class="boss-guild-cell">{escape(str(row["guild"]))}</td>
+          <td><strong>{escape(str(row["nickname"]))}</strong><div class="boss-row-copy">{escape(str(row["level"]))} · {escape(str(row["job"]))}</div></td>
+          <td>{escape(str(row["score"]))}</td>
+          <td>♥ {escape(str(row["likes"]))}</td>
+        </tr>"""
+        for row in all_rows
+    )
+
+    return f"""
+    {summary_html}
+    <div class="boss-ranking-tabs">{tab_buttons}</div>
+    <div class="boss-ranking-table-wrap">
+      <table class="boss-ranking-table">
+        <thead><tr><th>순위</th><th>길드</th><th>닉네임</th><th>토벌전 점수</th><th>좋아요</th></tr></thead>
+        <tbody id="boss-ranking-tbody">{rows_html}</tbody>
+      </table>
+    </div>
+    <p class="simulation-copy" style="margin-top:10px;font-size:11px">mgf.gg 서버 2 기준 · 캐시 12시간</p>
+    """
+
+
 def render_snapshot_overview_section(history_analysis: dict[str, Any]) -> str:
     analytics = history_analysis.get("snapshot_analytics", {})
     cards = analytics.get("overview_cards", [])
@@ -1647,6 +1808,20 @@ def render_snapshot_analytics_modal(history_analysis: dict[str, Any], report_mod
         + render_module("timeline", "스냅샷 기반 히스토리 타임라인", "최근 히스토리를 날짜별 카드로 되짚어 본다.", f"{int(analytics.get('history_window_days', 0))}개 기록", timeline_html)
         + render_module("prediction", "미래 점수 예측 / 컷 예측", "현재 보유 스냅샷으로 다음 컷을 보수적으로 추정한다.", "통계 추정치", prediction_html),
     )
+    boss_ranking_data: dict[str, Any] = analytics.get("boss_ranking", {})
+    boss_total = int(boss_ranking_data.get("total_found", 0))
+    chapter_4 = render_chapter(
+        "chapter-external",
+        "외부 랭킹 · 서버 2 토벌전",
+        "mgf.gg 서버 2 토벌전 랭킹에서 우리 길드 멤버만 확인한다.",
+        render_module(
+            "boss-ranking",
+            "서버 2 토벌전 랭킹",
+            "mgf.gg 전체 순위 중 우리 길드 멤버만 추려서 본다.",
+            f"총 {boss_total}명" if boss_total else "데이터 없음",
+            _render_boss_ranking_html(boss_ranking_data),
+        ),
+    )
 
     overview_html = ''.join(
         f"""
@@ -1677,6 +1852,7 @@ def render_snapshot_analytics_modal(history_analysis: dict[str, Any], report_mod
             {chapter_1}
             {chapter_2}
             {chapter_3}
+            {chapter_4}
           </div>
         </section>
       </div>
@@ -2713,6 +2889,19 @@ def build_html_report(
     .simulation-table .simulation-score-cell, .simulation-table .simulation-rank-change-cell, .simulation-table td:nth-child(5), .simulation-table td:nth-child(6), .simulation-table td:nth-child(7) {{ font-variant-numeric: tabular-nums; font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif; }}
     .simulation-table .simulation-score-cell {{ color: var(--accent-3); font-weight: 800; }}
     .simulation-table .simulation-rank-change-cell {{ white-space: nowrap; }}
+    /* Boss Ranking */
+    .boss-ranking-tabs {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }}
+    .boss-ranking-tab {{ display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.75); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }}
+    .boss-ranking-tab.boss-ranking-tab-active {{ background: linear-gradient(180deg, rgba(212,125,90,0.16), rgba(212,125,90,0.10)); color: var(--accent-3); border-color: rgba(173,101,64,0.22); }}
+    .boss-ranking-table-wrap {{ overflow: auto; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,0.74); margin-top: 10px; }}
+    .boss-ranking-table {{ width: 100%; border-collapse: collapse; min-width: 520px; }}
+    .boss-ranking-table th, .boss-ranking-table td {{ padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 12px; vertical-align: middle; }}
+    .boss-ranking-table th {{ color: var(--muted); background: rgba(255,255,255,0.8); }}
+    .boss-ranking-table tbody tr:last-child td {{ border-bottom: 0; }}
+    .boss-ranking-table tbody tr[hidden] {{ display: none; }}
+    .boss-rank-chip {{ display: inline-flex; align-items: center; justify-content: center; min-width: 48px; padding: 6px 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 700; }}
+    .boss-guild-cell {{ font-weight: 700; }}
+    .boss-row-copy {{ color: var(--muted); font-size: 11px; margin-top: 2px; }}
     /* #4: Modal system */
     .modal-backdrop {{
       display: none;
@@ -3126,6 +3315,20 @@ def build_html_report(
         button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         body.hidden = expanded;
         module.classList.toggle('expanded', !expanded);
+      }});
+    }});
+
+    document.querySelectorAll('.boss-ranking-tab').forEach((btn) => {{
+      btn.addEventListener('click', () => {{
+        const wrap = btn.closest('.analytics-module-body');
+        if (!wrap) return;
+        const guild = btn.dataset.bossGuild;
+        wrap.querySelectorAll('.boss-ranking-tab').forEach((b) => {{
+          b.classList.toggle('boss-ranking-tab-active', b === btn);
+        }});
+        wrap.querySelectorAll('#boss-ranking-tbody tr[data-boss-guild]').forEach((tr) => {{
+          tr.hidden = guild !== '\uc804\uccb4' && tr.dataset.bossGuild !== guild;
+        }});
       }});
     }});
 
