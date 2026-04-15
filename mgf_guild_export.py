@@ -1347,7 +1347,6 @@ def build_snapshot_analytics(
         "predictions": prediction_rows,
         "projected_cut": projected_cut,
         "history_window_days": len(timeline_snapshots),
-        "tobeol_ranking": _build_tobeol_ranking_analytics(list(current_snapshot.get("guilds", {}).keys())),
     }
 
 
@@ -1808,20 +1807,6 @@ def render_snapshot_analytics_modal(history_analysis: dict[str, Any], report_mod
         + render_module("timeline", "스냅샷 기반 히스토리 타임라인", "최근 히스토리를 날짜별 카드로 되짚어 본다.", f"{int(analytics.get('history_window_days', 0))}개 기록", timeline_html)
         + render_module("prediction", "미래 점수 예측 / 컷 예측", "현재 보유 스냅샷으로 다음 컷을 보수적으로 추정한다.", "통계 추정치", prediction_html),
     )
-    tobeol_ranking_data: dict[str, Any] = analytics.get("tobeol_ranking", {})
-    tobeol_total = int(tobeol_ranking_data.get("total_found", 0))
-    chapter_4 = render_chapter(
-        "chapter-external",
-        "외부 랭킹 · 서버 2 토벌전",
-        "mgf.gg 서버 2 토벌전 랭킹에서 우리 길드 멤버만 확인한다.",
-        render_module(
-            "tobeol-ranking",
-            "서버 2 토벌전 랭킹",
-            "mgf.gg 전체 순위 중 우리 길드 멤버만 추려서 본다.",
-            f"총 {tobeol_total}명" if tobeol_total else "데이터 없음",
-            _render_tobeol_ranking_html(tobeol_ranking_data),
-        ),
-    )
 
     overview_html = ''.join(
         f"""
@@ -1852,7 +1837,6 @@ def render_snapshot_analytics_modal(history_analysis: dict[str, Any], report_mod
             {chapter_1}
             {chapter_2}
             {chapter_3}
-            {chapter_4}
           </div>
         </section>
       </div>
@@ -2477,6 +2461,152 @@ def render_guild_modals(
     return "".join(modals)
 
 
+def build_tobeol_html_report(
+    guild_seed_name: str,
+    html_output_path: Path,
+) -> Path:
+    font_face_map = build_font_face_map(html_output_path)
+    font_light_path = font_face_map.get("light", "")
+    font_bold_path = font_face_map.get("bold", "")
+    guild_mark_map = build_guild_mark_map([guild_seed_name], html_output_path)
+    hero_guild_mark_html = render_guild_mark(guild_seed_name, guild_mark_map, "hero-title-mark")
+    tobeol_ranking = _build_tobeol_ranking_analytics([guild_seed_name])
+    ranking_html = _render_tobeol_ranking_html(tobeol_ranking)
+    html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{escape(guild_seed_name)} 길드 토벌전 랭킹</title>
+  <style>
+    @font-face {{
+      font-family: "Maplestory";
+      src: url("{escape(font_light_path)}") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }}
+    @font-face {{
+      font-family: "Maplestory";
+      src: url("{escape(font_bold_path)}") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }}
+    :root {{
+      --bg: #f7f3ec;
+      --bg-alt: #fffaf3;
+      --sky-top: #e4f3ff;
+      --sky-bottom: #f9f3e6;
+      --cloud: rgba(255, 255, 255, 0.76);
+      --panel: rgba(255, 252, 247, 0.92);
+      --line: rgba(110, 84, 60, 0.12);
+      --text: #2e241d;
+      --muted: #7a6658;
+      --accent: #d47d5a;
+      --accent-2: #88b17c;
+      --accent-3: #ad6540;
+      --shadow: 0 18px 44px rgba(78, 58, 42, 0.12);
+      --radius: 22px;
+    }}
+    * {{ box-sizing: border-box; }}
+    html {{ scroll-behavior: smooth; }}
+    body {{
+      margin: 0;
+      font-family: "Maplestory", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(105, 184, 232, 0.32), transparent 30%),
+        radial-gradient(circle at 78% 8%, rgba(216, 170, 82, 0.16), transparent 22%),
+        radial-gradient(circle at 50% 60%, rgba(139, 199, 152, 0.10), transparent 40%),
+        linear-gradient(180deg, var(--sky-top) 0%, #f4faff 22%, #faf6ee 60%, var(--sky-bottom) 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }}
+    input, button {{ font: inherit; }}
+    a {{ color: inherit; text-decoration: none; }}
+    .page {{ width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1; }}
+    .hero {{ position: relative; overflow: hidden; padding: 36px; border: 1px solid var(--line); border-radius: 36px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(250,243,232,0.92)); box-shadow: 0 28px 60px rgba(93,66,40,0.18); }}
+    .hero-copy {{ max-width: 100%; }}
+    .mode-tabs {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }}
+    .mode-tab {{ display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }}
+    .mode-tab.active {{ background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }}
+    .eyebrow {{ display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 8px 14px; border-radius: 999px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-3); font-size: 12px; font-weight: 800; background: linear-gradient(180deg, rgba(255,245,220,0.96), rgba(249,231,182,0.9)); border: 1px solid rgba(184,123,44,0.26); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); }}
+    .hero h1 {{ margin: 0; font-family: "Maplestory", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: clamp(26px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.02em; word-break: keep-all; }}
+    .hero-title-row {{ display: flex; align-items: center; gap: 16px; }}
+    .hero-title-mark {{ width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; border-radius: 12px; }}
+    .hero p.lead {{ max-width: 760px; color: var(--muted); font-size: 15px; line-height: 1.75; margin: 16px 0 0; }}
+    .tobeol-body {{ margin-top: 32px; }}
+    .tobeol-section-head {{ margin: 0 0 4px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }}
+    .summary-card, .info-panel {{ background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(10px); }}
+    .info-panel {{ padding: 20px 22px; }}
+    .info-panel h5 {{ margin: 0 0 10px; font-size: 14px; font-weight: 800; }}
+    .analytics-grid {{ display: grid; gap: 14px; }}
+    .analytics-grid-2 {{ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }}
+    .analytics-mini-grid {{ display: flex; flex-wrap: wrap; gap: 8px; }}
+    .analytics-mini-grid span {{ display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 999px; background: rgba(212,125,90,0.10); color: var(--accent-3); font-size: 12px; font-weight: 700; }}
+    .analytics-stat-card p {{ margin: 8px 0 0; color: var(--muted); font-size: 12px; }}
+    .simulation-copy {{ margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }}
+    /* Tobeol Ranking */
+    .tobeol-ranking-tabs {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }}
+    .tobeol-ranking-tab {{ display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.75); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }}
+    .tobeol-ranking-tab.tobeol-ranking-tab-active {{ background: linear-gradient(180deg, rgba(212,125,90,0.16), rgba(212,125,90,0.10)); color: var(--accent-3); border-color: rgba(173,101,64,0.22); }}
+    .tobeol-ranking-table-wrap {{ overflow: auto; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,0.74); margin-top: 10px; }}
+    .tobeol-ranking-table {{ width: 100%; border-collapse: collapse; min-width: 520px; }}
+    .tobeol-ranking-table th, .tobeol-ranking-table td {{ padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 12px; vertical-align: middle; }}
+    .tobeol-ranking-table th {{ color: var(--muted); background: rgba(255,255,255,0.8); }}
+    .tobeol-ranking-table tbody tr:last-child td {{ border-bottom: 0; }}
+    .tobeol-ranking-table tbody tr[hidden] {{ display: none; }}
+    .tobeol-rank-chip {{ display: inline-flex; align-items: center; justify-content: center; min-width: 48px; padding: 6px 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 700; }}
+    .tobeol-guild-cell {{ font-weight: 700; }}
+    .tobeol-row-copy {{ color: var(--muted); font-size: 11px; margin-top: 2px; }}
+    .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
+    @media (max-width: 720px) {{ .hero {{ padding: 20px; border-radius: 28px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 28px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .analytics-grid-2 {{ grid-template-columns: 1fr; }} }}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="mode-tabs">
+          <a class="mode-tab active" href="tobeol.html">길드 리포트</a>
+          <a class="mode-tab" href="index.html">대항전 리포트</a>
+          <a class="mode-tab" href="training.html">수련장 리포트</a>
+        </div>
+        <p class="eyebrow">✦ MAPLE GUILD REPORT CONCEPT</p>
+        <div class="hero-title-row">
+          {hero_guild_mark_html}
+          <h1>{escape(guild_seed_name)} 길드 토벌전 랭킹</h1>
+        </div>
+        <p class="lead">mgf.gg 서버 2 토벌전 랭킹에서 {escape(guild_seed_name)} 멤버를 확인합니다.</p>
+      </div>
+    </header>
+    <div class="tobeol-body">
+      <p class="tobeol-section-head">서버 2 토벌전 랭킹</p>
+      {ranking_html}
+    </div>
+    <footer class="footer">mgf.gg 서버 2 기준 · 캐시 12시간</footer>
+  </div>
+  <script>
+    document.querySelectorAll('.tobeol-ranking-tab').forEach((btn) => {{
+      btn.addEventListener('click', () => {{
+        const guild = btn.dataset.tobeolGuild;
+        document.querySelectorAll('.tobeol-ranking-tab').forEach((b) => {{
+          b.classList.toggle('tobeol-ranking-tab-active', b === btn);
+        }});
+        document.querySelectorAll('#tobeol-ranking-tbody tr[data-tobeol-guild]').forEach((tr) => {{
+          tr.hidden = guild !== '\uc804\uccb4' && tr.dataset.tobeolGuild !== guild;
+        }});
+      }});
+    }});
+  </script>
+</body>
+</html>"""
+    html_output_path.parent.mkdir(parents=True, exist_ok=True)
+    html_output_path.write_text(html, encoding="utf-8")
+    return html_output_path
+
+
 def build_html_report(
     guild_seed_name: str,
     report_mode: str,
@@ -2487,6 +2617,11 @@ def build_html_report(
 ) -> Path:
     # #1 fix: build nav_links outside the f-string to avoid double-brace escaping
     mode_tabs = [
+        (
+            "tobeol",
+            "길드 리포트",
+            "tobeol.html",
+        ),
         (
             "league",
             "대항전 리포트",
@@ -3554,6 +3689,7 @@ def main() -> None:
 
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
     html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
+    tobeol_html_path = build_tobeol_html_report(guild_name, html_output_path.parent / "tobeol.html")
     snapshot_path = write_snapshot_json(snapshot_data, snapshot_output_path)
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
@@ -3564,6 +3700,7 @@ def main() -> None:
     print(f"Snapshot mode: {args.snapshot_mode}")
     print(f"Created: {workbook_path}")
     print(f"Created: {html_report_path}")
+    print(f"Created: {tobeol_html_path}")
     print(f"Created: {snapshot_path}")
     print(f"Guild sheets: {1 + len(members_by_guild)}")
     print(f"Guild count: {len(guild_rows)}")
