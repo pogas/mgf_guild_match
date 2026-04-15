@@ -65,6 +65,7 @@ TRAINING_JOB_COEFFICIENTS_4TH: dict[str, float] = {
 TRAINING_JOB_COEFFICIENTS = TRAINING_JOB_COEFFICIENTS_4TH
 
 TOBEOL_RANKING_CACHE_PATH = _HERE / "reports" / "tobeol_ranking_s2.json"
+TOBEOL_SNAPSHOT_NAME = "tobeol_snapshot.json"
 
 
 def clean_text(value: str) -> str:
@@ -300,6 +301,16 @@ def build_output_paths(guild_name: str, report_mode: str, snapshot_mode: str, sn
     return output_path, html_output_path, snapshot_path
 
 
+def build_tobeol_snapshot_path(guild_name: str, snapshot_mode: str, snapshot_date: str | None) -> Path:
+    guild_dir = _HERE / "reports" / safe_file_stem(guild_name)
+    if snapshot_mode == "history":
+        dated_dir = guild_dir / "history" / resolve_snapshot_date(snapshot_date)
+        dated_dir.mkdir(parents=True, exist_ok=True)
+        return dated_dir / TOBEOL_SNAPSHOT_NAME
+    guild_dir.mkdir(parents=True, exist_ok=True)
+    return guild_dir / TOBEOL_SNAPSHOT_NAME
+
+
 def cleanup_old_history(guild_name: str, report_mode: str, retain_days: int) -> list[Path]:
     if retain_days <= 0:
         return []
@@ -397,6 +408,14 @@ def format_metric_delta(value: int, use_man_units: bool) -> str:
         sign = "+" if value > 0 else "-" if value < 0 else ""
         return f"{sign}{format_man_units(abs(value))}"
     return format_delta(value, "점")
+
+
+def format_rank_delta(value: int) -> str:
+    if value > 0:
+        return f"+{value}위"
+    if value < 0:
+        return f"{value}위"
+    return "변동 없음"
 
 
 def _safe_int(value: Any, default: int = 0) -> int:
@@ -889,6 +908,19 @@ def load_history_snapshots(guild_name: str, report_mode: str) -> list[dict[str, 
     return snapshots
 
 
+def load_tobeol_history_snapshots(guild_name: str) -> list[dict[str, Any]]:
+    history_dir = _HERE / "reports" / safe_file_stem(guild_name) / "history"
+    if not history_dir.exists():
+        return []
+    snapshots: list[dict[str, Any]] = []
+    for snapshot_file in sorted(history_dir.glob(f"*/{TOBEOL_SNAPSHOT_NAME}")):
+        try:
+            snapshots.append(json.loads(snapshot_file.read_text(encoding="utf-8")))
+        except Exception:
+            continue
+    return snapshots
+
+
 def build_sparkline(values: list[int], width: int = 120, height: int = 36) -> str:
     if not values:
         return ""
@@ -1136,6 +1168,220 @@ def _build_tobeol_ranking_analytics(guild_names: list[str]) -> dict[str, Any]:
         "total_found": len(rows),
         "all_rows": rows,
     }
+
+
+def build_tobeol_snapshot_data(
+    guild_seed_name: str,
+    snapshot_date: str,
+    tobeol_ranking: dict[str, Any],
+) -> dict[str, Any]:
+    rows = sorted(
+        list(tobeol_ranking.get("all_rows", [])),
+        key=lambda row: _safe_int(row.get("rank", 999999)),
+    )
+    member_map: dict[str, Any] = {}
+    top10_keys: list[str] = []
+    for index, row in enumerate(rows):
+        member_key = "::".join(
+            [
+                clean_text(str(row.get("nickname", ""))),
+                clean_text(str(row.get("job", ""))),
+                clean_text(str(row.get("level", ""))),
+            ]
+        )
+        member_map[member_key] = {
+            "nickname": str(row.get("nickname", "")),
+            "job": str(row.get("job", "")),
+            "level": str(row.get("level", "")),
+            "rank": _safe_int(row.get("rank", 0)),
+            "score": str(row.get("score", "")),
+            "likes": str(row.get("likes", "")),
+        }
+        if index < 10:
+            top10_keys.append(member_key)
+
+    best_row = rows[0] if rows else {}
+    rank_values = [_safe_int(row.get("rank", 0)) for row in rows if _safe_int(row.get("rank", 0)) > 0]
+
+    return {
+        "guild_seed_name": guild_seed_name,
+        "report_mode": "tobeol",
+        "snapshot_date": snapshot_date,
+        "guilds": {
+            guild_seed_name: {
+                "guild_name": guild_seed_name,
+                "count": len(rows),
+                "best_rank": _safe_int(best_row.get("rank", 0)),
+                "best_nickname": str(best_row.get("nickname", "")),
+                "best_score": str(best_row.get("score", "")),
+                "avg_rank": round(sum(rank_values) / len(rank_values), 1) if rank_values else 0,
+                "members": member_map,
+                "top10_keys": top10_keys,
+            }
+        },
+    }
+
+
+def build_tobeol_history_analysis(current_snapshot: dict[str, Any], history_snapshots: list[dict[str, Any]]) -> dict[str, Any]:
+    guild_name = str(current_snapshot.get("guild_seed_name", ""))
+    compatible_history = [
+        snapshot
+        for snapshot in history_snapshots
+        if _safe_snapshot_mode(snapshot, "tobeol") == "tobeol"
+    ]
+    previous_snapshot = compatible_history[-1] if compatible_history else None
+    timeline_snapshots = compatible_history[-6:] + [current_snapshot]
+    current_guild = current_snapshot.get("guilds", {}).get(guild_name, {})
+    previous_guild = previous_snapshot.get("guilds", {}).get(guild_name, {}) if previous_snapshot else {}
+    current_members = current_guild.get("members", {})
+    previous_members = previous_guild.get("members", {}) if previous_guild else {}
+
+    joined_keys = [key for key in current_members if key not in previous_members]
+    departed_keys = [key for key in previous_members if key not in current_members]
+
+    rank_changes: list[dict[str, Any]] = []
+    for key, current_member in current_members.items():
+        previous_member = previous_members.get(key)
+        if not previous_member:
+            continue
+        rank_delta = _safe_int(previous_member.get("rank", 0)) - _safe_int(current_member.get("rank", 0))
+        if rank_delta != 0:
+            rank_changes.append(
+                {
+                    "nickname": str(current_member.get("nickname", "")),
+                    "delta": rank_delta,
+                    "current_rank": _safe_int(current_member.get("rank", 0)),
+                    "previous_rank": _safe_int(previous_member.get("rank", 0)),
+                    "current_score": str(current_member.get("score", "")),
+                    "previous_score": str(previous_member.get("score", "")),
+                }
+            )
+    rank_changes.sort(key=lambda item: item["delta"], reverse=True)
+
+    guild_timeline = [snapshot for snapshot in timeline_snapshots if guild_name in snapshot.get("guilds", {})]
+    trend_labels = [str(snapshot.get("snapshot_date", ""))[5:].replace("-", "/") for snapshot in guild_timeline]
+    count_values = [_safe_int(snapshot.get("guilds", {}).get(guild_name, {}).get("count", 0)) for snapshot in guild_timeline]
+    best_rank_values = [
+        _safe_int(snapshot.get("guilds", {}).get(guild_name, {}).get("best_rank", 0))
+        for snapshot in guild_timeline
+        if _safe_int(snapshot.get("guilds", {}).get(guild_name, {}).get("best_rank", 0)) > 0
+    ]
+    inverted_best_rank_values = []
+    if best_rank_values:
+        worst_rank = max(best_rank_values)
+        inverted_best_rank_values = [worst_rank - value for value in best_rank_values]
+
+    current_best_rank = _safe_int(current_guild.get("best_rank", 0))
+    previous_best_rank = _safe_int(previous_guild.get("best_rank", 0)) if previous_guild else 0
+
+    retained_top10_count = len(set(current_guild.get("top10_keys", [])) & set(previous_guild.get("top10_keys", []))) if previous_guild else 0
+
+    return {
+        "has_previous": previous_snapshot is not None,
+        "previous_date": str(previous_snapshot.get("snapshot_date", "")) if previous_snapshot else "",
+        "current_date": str(current_snapshot.get("snapshot_date", "")),
+        "current_guild": current_guild,
+        "current_count": _safe_int(current_guild.get("count", 0)),
+        "count_delta": _safe_int(current_guild.get("count", 0)) - _safe_int(previous_guild.get("count", 0)) if previous_guild else 0,
+        "current_best_rank": current_best_rank,
+        "best_rank_delta": previous_best_rank - current_best_rank if previous_best_rank and current_best_rank else 0,
+        "retained_top10_count": retained_top10_count,
+        "joined_members": [str(current_members[key].get("nickname", "")) for key in joined_keys],
+        "departed_members": [str(previous_members[key].get("nickname", "")) for key in departed_keys],
+        "rank_movers": rank_changes[:8],
+        "trend_labels": trend_labels,
+        "count_values_trend": count_values,
+        "best_rank_values_trend": best_rank_values,
+        "count_trend_svg": build_sparkline(count_values),
+        "best_rank_trend_svg": build_sparkline(inverted_best_rank_values) if inverted_best_rank_values else "",
+    }
+
+
+def render_tobeol_history_section(history_analysis: dict[str, Any]) -> str:
+    if not history_analysis.get("has_previous"):
+        return """
+        <section class="auto-summary-grid tobeol-history-summary">
+          <article class="auto-summary-card auto-summary-card-empty">
+            <p class="summary-label">토벌전 히스토리 비교 준비 중</p>
+            <strong class="summary-value">스냅샷 2회 이상 필요</strong>
+            <p class="summary-help">다음 자동 갱신부터 토벌전 랭커 수, 최고 순위, 신규 진입/이탈 비교가 누적됩니다.</p>
+          </article>
+        </section>
+        """
+
+    current_guild = history_analysis.get("current_guild", {})
+    current_best_rank = _safe_int(history_analysis.get("current_best_rank", 0))
+    best_rank_text = f"#{current_best_rank}" if current_best_rank else "-"
+    cards = [
+        ("비교 기준일", history_analysis.get("previous_date", "-"), f"현재 스냅샷 {escape(str(history_analysis.get('current_date', '')))}"),
+        ("랭커 수", f"{_safe_int(history_analysis.get('current_count', 0))}명", f"직전 대비 {format_delta(_safe_int(history_analysis.get('count_delta', 0)), '명')}"),
+        ("최고 순위", best_rank_text, format_rank_delta(_safe_int(history_analysis.get("best_rank_delta", 0)))),
+        ("TOP10 유지", f"{_safe_int(history_analysis.get('retained_top10_count', 0))}명", f"신규 {len(history_analysis.get('joined_members', []))}명 · 이탈 {len(history_analysis.get('departed_members', []))}명"),
+    ]
+    summary_html = '<section class="auto-summary-grid tobeol-history-summary">' + ''.join(
+        f"""
+        <article class="auto-summary-card">
+          <p class="summary-label">{escape(str(label))}</p>
+          <strong class="summary-value">{escape(str(value))}</strong>
+          <p class="summary-help">{escape(str(help_text))}</p>
+        </article>
+        """
+        for label, value, help_text in cards
+    ) + "</section>"
+
+    movement_html = ''.join(
+        f'<li><span>{escape(str(name))}</span><strong>NEW</strong></li>' for name in history_analysis.get("joined_members", [])[:8]
+    ) or '<li><span>변동 없음</span><strong>-</strong></li>'
+    departed_html = ''.join(
+        f'<li><span>{escape(str(name))}</span><strong>OUT</strong></li>' for name in history_analysis.get("departed_members", [])[:8]
+    ) or '<li><span>변동 없음</span><strong>-</strong></li>'
+    mover_html = ''.join(
+        f'<li><span>{escape(str(item["nickname"]))}</span><strong>{format_rank_delta(_safe_int(item["delta"], 0))}</strong></li>'
+        for item in history_analysis.get("rank_movers", [])
+    ) or '<li><span>순위 변동 없음</span><strong>-</strong></li>'
+
+    trend_count_html = history_analysis.get("count_trend_svg", "") or '<div class="history-empty">데이터 없음</div>'
+    trend_rank_html = history_analysis.get("best_rank_trend_svg", "") or '<div class="history-empty">데이터 없음</div>'
+    best_nickname = str(current_guild.get("best_nickname", ""))
+    best_score = str(current_guild.get("best_score", ""))
+
+    detail_html = f"""
+    <section class="analytics-grid analytics-grid-2 tobeol-history-grid">
+      <article class="history-panel">
+        <h5>토벌전 추이</h5>
+        <div class="trend-chart-grid">
+          <div class="trend-chart-card">
+            <span>랭커 수</span>
+            <div class="trend-chart">{trend_count_html}</div>
+            <p class="simulation-copy">{escape(' → '.join(history_analysis.get('trend_labels', [])) or '기록 없음')}</p>
+          </div>
+          <div class="trend-chart-card">
+            <span>최고 순위</span>
+            <div class="trend-chart trend-chart-secondary">{trend_rank_html}</div>
+            <p class="simulation-copy">현재 최고 {escape(best_rank_text)} · {escape(best_nickname)}{(' · ' + best_score) if best_score else ''}</p>
+          </div>
+        </div>
+      </article>
+      <article class="history-panel analytics-list-card">
+        <h5>랭커 출입 변동</h5>
+        <div class="analytics-list-split">
+          <div>
+            <strong>신규 진입 {len(history_analysis.get('joined_members', []))}명</strong>
+            <ul class="history-list history-list-compact">{movement_html}</ul>
+          </div>
+          <div>
+            <strong>이탈 {len(history_analysis.get('departed_members', []))}명</strong>
+            <ul class="history-list history-list-compact">{departed_html}</ul>
+          </div>
+        </div>
+      </article>
+      <article class="history-panel analytics-list-card">
+        <h5>순위 변동 상위</h5>
+        <ul class="history-list history-list-compact">{mover_html}</ul>
+      </article>
+    </section>
+    """
+    return summary_html + detail_html
 
 
 def build_snapshot_analytics(
@@ -2464,13 +2710,15 @@ def render_guild_modals(
 def build_tobeol_html_report(
     guild_seed_name: str,
     html_output_path: Path,
+    tobeol_ranking: dict[str, Any],
+    tobeol_history_analysis: dict[str, Any],
 ) -> Path:
     font_face_map = build_font_face_map(html_output_path)
     font_light_path = font_face_map.get("light", "")
     font_bold_path = font_face_map.get("bold", "")
     guild_mark_map = build_guild_mark_map([guild_seed_name], html_output_path)
     hero_guild_mark_html = render_guild_mark(guild_seed_name, guild_mark_map, "hero-title-mark")
-    tobeol_ranking = _build_tobeol_ranking_analytics([guild_seed_name])
+    history_html = render_tobeol_history_section(tobeol_history_analysis)
     ranking_html = _render_tobeol_ranking_html(tobeol_ranking)
     html = f"""<!DOCTYPE html>
 <html lang="ko">
@@ -2547,6 +2795,27 @@ def build_tobeol_html_report(
     .analytics-mini-grid span {{ display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 999px; background: rgba(212,125,90,0.10); color: var(--accent-3); font-size: 12px; font-weight: 700; }}
     .analytics-stat-card p {{ margin: 8px 0 0; color: var(--muted); font-size: 12px; }}
     .simulation-copy {{ margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }}
+    .auto-summary-grid {{ display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin: 0 0 16px; }}
+    .auto-summary-card, .history-panel {{ background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(10px); }}
+    .auto-summary-card {{ padding: 18px 20px; }}
+    .auto-summary-card-empty {{ background: rgba(255, 252, 247, 0.86); }}
+    .summary-label {{ margin: 0 0 8px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }}
+    .summary-value {{ display: block; font-size: clamp(18px, 3vw, 28px); line-height: 1.2; }}
+    .summary-help {{ margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }}
+    .history-panel {{ padding: 20px 22px; }}
+    .history-panel h5 {{ margin: 0 0 12px; font-size: 14px; font-weight: 800; }}
+    .analytics-list-split {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }}
+    .history-list {{ list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }}
+    .history-list li {{ display: flex; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 14px; background: rgba(255,255,255,0.72); border: 1px solid var(--line); font-size: 12px; }}
+    .history-list li span {{ min-width: 0; word-break: break-all; }}
+    .history-list li strong {{ flex-shrink: 0; color: var(--accent-3); }}
+    .trend-chart-grid {{ display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    .trend-chart-card {{ padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.74); border: 1px solid var(--line); }}
+    .trend-chart-card > span {{ display: block; font-size: 12px; color: var(--muted); margin-bottom: 8px; }}
+    .trend-chart {{ height: 42px; color: var(--accent-3); }}
+    .trend-chart svg {{ width: 100%; height: 100%; display: block; }}
+    .trend-chart-secondary {{ color: var(--accent-2); }}
+    .history-empty {{ display: flex; align-items: center; justify-content: center; height: 42px; color: var(--muted); font-size: 12px; }}
     /* Tobeol Ranking */
     .tobeol-ranking-tabs {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }}
     .tobeol-ranking-tab {{ display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.75); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }}
@@ -2561,7 +2830,7 @@ def build_tobeol_html_report(
     .tobeol-guild-cell {{ font-weight: 700; }}
     .tobeol-row-copy {{ color: var(--muted); font-size: 11px; margin-top: 2px; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
-    @media (max-width: 720px) {{ .hero {{ padding: 20px; border-radius: 28px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 28px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .analytics-grid-2 {{ grid-template-columns: 1fr; }} }}
+    @media (max-width: 720px) {{ .hero {{ padding: 20px; border-radius: 28px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 28px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .analytics-grid-2, .trend-chart-grid, .analytics-list-split {{ grid-template-columns: 1fr; }} }}
   </style>
 </head>
 <body>
@@ -2582,6 +2851,7 @@ def build_tobeol_html_report(
       </div>
     </header>
     <div class="tobeol-body">
+      {history_html}
       <p class="tobeol-section-head">서버 2 토벌전 랭킹</p>
       {ranking_html}
     </div>
@@ -3686,11 +3956,19 @@ def main() -> None:
     history_snapshots = load_history_snapshots(guild_name, report_mode)
     history_analysis = build_history_analysis(snapshot_data, history_snapshots)
     history_analysis["snapshot_analytics"] = build_snapshot_analytics(snapshot_data, history_snapshots, simulation)
+    tobeol_ranking = _build_tobeol_ranking_analytics([guild_name])
+    tobeol_snapshot_data = build_tobeol_snapshot_data(guild_name, snapshot_date, tobeol_ranking)
+    tobeol_history_snapshots = load_tobeol_history_snapshots(guild_name)
+    tobeol_history_analysis = build_tobeol_history_analysis(tobeol_snapshot_data, tobeol_history_snapshots)
 
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
     html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
-    tobeol_html_path = build_tobeol_html_report(guild_name, html_output_path.parent / "index.html")
+    tobeol_html_path = build_tobeol_html_report(guild_name, html_output_path.parent / "index.html", tobeol_ranking, tobeol_history_analysis)
     snapshot_path = write_snapshot_json(snapshot_data, snapshot_output_path)
+    tobeol_snapshot_path = write_snapshot_json(
+        tobeol_snapshot_data,
+        build_tobeol_snapshot_path(guild_name, args.snapshot_mode, args.snapshot_date),
+    )
 
     total_members = sum(len(rows) for rows in members_by_guild.values())
     deleted_history_paths = cleanup_old_history(guild_name, report_mode, args.retain_history_days)
@@ -3702,6 +3980,7 @@ def main() -> None:
     print(f"Created: {html_report_path}")
     print(f"Created: {tobeol_html_path}")
     print(f"Created: {snapshot_path}")
+    print(f"Created: {tobeol_snapshot_path}")
     print(f"Guild sheets: {1 + len(members_by_guild)}")
     print(f"Guild count: {len(guild_rows)}")
     print(f"Member count: {total_members}")
