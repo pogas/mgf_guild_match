@@ -2390,7 +2390,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analys
           <div class="simulation-overview">
             <div>
               <p class="eyebrow">Guild War Projection</p>
-              <h3>매칭 길드 5개 전원을 합산한 대항전 예상 시뮬레이션</h3>
+              <h3>대항전 예상 시뮬레이터</h3>
               <p class="simulation-copy">모든 길드원을 전투력 순으로 다시 정렬한 뒤, 제공된 순위별 점수표를 적용해 길드별 총합 점수를 계산했다.</p>
             </div>
           </div>
