@@ -1069,7 +1069,7 @@
       "global_rank": "28",
       "server_rank": "1위",
       "simulation_rank": 2,
-      "simulation_score": 231329642,
+      "simulation_score": 231632836,
       "members": {
         "스타냥이": {
           "nickname": "스타냥이",
@@ -1095,20 +1095,20 @@
           "combat_power_value": 229116970043,
           "rank_in_guild": 3
         },
+        "스타캐치": {
+          "nickname": "스타캐치",
+          "job_name": "섀도어",
+          "level": 109,
+          "combat_power": "1407조 6499억 5640만",
+          "combat_power_value": 140764995640,
+          "rank_in_guild": 4
+        },
         "말레이히어로": {
           "nickname": "말레이히어로",
           "job_name": "다크나이트",
           "level": 109,
           "combat_power": "1394조 1932억 8825만",
           "combat_power_value": 139419328825,
-          "rank_in_guild": 4
-        },
-        "스타캐치": {
-          "nickname": "스타캐치",
-          "job_name": "섀도어",
-          "level": 109,
-          "combat_power": "1351조 3377억 9806만",
-          "combat_power_value": 135133779806,
           "rank_in_guild": 5
         },
         "빌런투킬": {
@@ -1155,8 +1155,8 @@
           "nickname": "부엉이없다",
           "job_name": "섀도어",
           "level": 104,
-          "combat_power": "162조 1649억 2915만",
-          "combat_power_value": 16216492915,
+          "combat_power": "162조 5886억 9598만",
+          "combat_power_value": 16258869598,
           "rank_in_guild": 11
         },
         "프리프리": {
@@ -1219,8 +1219,8 @@
           "nickname": "할룽",
           "job_name": "아크메이지(썬,콜)",
           "level": 104,
-          "combat_power": "42조 7791억 4344만",
-          "combat_power_value": 4277914344,
+          "combat_power": "43조 9302억 789만",
+          "combat_power_value": 4393020789,
           "rank_in_guild": 19
         },
         "루넨": {
@@ -1255,13 +1255,21 @@
           "combat_power_value": 3539621100,
           "rank_in_guild": 23
         },
+        "악의꽃": {
+          "nickname": "악의꽃",
+          "job_name": "신궁",
+          "level": 102,
+          "combat_power": "32조 6412억 5256만",
+          "combat_power_value": 3264125256,
+          "rank_in_guild": 24
+        },
         "대방어조아": {
           "nickname": "대방어조아",
           "job_name": "섀도어",
           "level": 103,
           "combat_power": "32조 3503억 166만",
           "combat_power_value": 3235030166,
-          "rank_in_guild": 24
+          "rank_in_guild": 25
         },
         "울힝": {
           "nickname": "울힝",
@@ -1269,7 +1277,7 @@
           "level": 102,
           "combat_power": "30조 2709억 4719만",
           "combat_power_value": 3027094719,
-          "rank_in_guild": 25
+          "rank_in_guild": 26
         },
         "제로슈가": {
           "nickname": "제로슈가",
@@ -1277,7 +1285,7 @@
           "level": 104,
           "combat_power": "29조 9578억 9214만",
           "combat_power_value": 2995789214,
-          "rank_in_guild": 26
+          "rank_in_guild": 27
         },
         "혜영": {
           "nickname": "혜영",
@@ -1285,14 +1293,6 @@
           "level": 103,
           "combat_power": "29조 2978억 7327만",
           "combat_power_value": 2929787327,
-          "rank_in_guild": 27
-        },
-        "악의꽃": {
-          "nickname": "악의꽃",
-          "job_name": "신궁",
-          "level": 102,
-          "combat_power": "28조 3643억 3420만",
-          "combat_power_value": 2836433420,
           "rank_in_guild": 28
         },
         "몽호": {
@@ -1308,8 +1308,8 @@
         "스타냥이",
         "돈스",
         "진자이",
-        "말레이히어로",
         "스타캐치",
+        "말레이히어로",
         "빌런투킬",
         "스타뎀",
         "여사",
@@ -1320,8 +1320,8 @@
         "신궁": 3,
         "비숍": 2,
         "아크메이지(썬,콜)": 6,
-        "다크나이트": 5,
         "섀도어": 8,
+        "다크나이트": 5,
         "팔라딘": 1,
         "히어로": 3,
         "아크메이지(불,독)": 1
