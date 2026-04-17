@@ -66,6 +66,15 @@ TRAINING_JOB_COEFFICIENTS = TRAINING_JOB_COEFFICIENTS_4TH
 
 TOBEOL_RANKING_CACHE_PATH = _HERE / "reports" / "tobeol_ranking_s2.json"
 TOBEOL_SNAPSHOT_NAME = "tobeol_snapshot.json"
+EMPTY_HISTORY_VALUE = "스냅샷 2회 이상 필요"
+EMPTY_HISTORY_FALLBACK_ITEM = '<li><span>변동 없음</span><strong>-</strong></li>'
+TOBEOL_UNRANKED_LABEL = "미등재"
+TOBEOL_UNRANKED_MEMBER_SUFFIX = "미등재"
+TOBEOL_LIKE_PREFIX = "♥ "
+LABEL_JOIN = "JOIN"
+LABEL_LEAVE = "LEAVE"
+LABEL_NEW = "NEW"
+LABEL_OUT = "OUT"
 
 
 def clean_text(value: str) -> str:
@@ -416,6 +425,20 @@ def format_rank_delta(value: int) -> str:
     if value < 0:
         return f"{value}위"
     return "변동 없음"
+
+
+def trend_pill_tone_class(value: int | float) -> str:
+    return "tone-up" if value >= 0 else "tone-down"
+
+
+def render_summary_card_html(label: str, value: str, help_text: str, extra_classes: str = "summary-card") -> str:
+    return f"""
+        <article class="{escape(extra_classes)}">
+          <p class="summary-label">{escape(str(label))}</p>
+          <strong class="summary-value">{escape(str(value))}</strong>
+          <p class="summary-help">{escape(str(help_text))}</p>
+        </article>
+        """
 
 
 def _safe_int(value: Any, default: int = 0) -> int:
@@ -1193,7 +1216,7 @@ def build_tobeol_display_ranking(
                 "likes": "",
                 "level": level_text,
                 "job": str(member.get("job_name", "")),
-                "score": "미등재",
+                "score": TOBEOL_UNRANKED_LABEL,
                 "page": None,
                 "is_unranked": True,
             }
@@ -1356,15 +1379,16 @@ def build_tobeol_history_analysis(current_snapshot: dict[str, Any], history_snap
 
 def render_tobeol_history_section(history_analysis: dict[str, Any]) -> str:
     if not history_analysis.get("has_previous"):
-        return """
-        <section class="auto-summary-grid tobeol-history-summary">
-          <article class="auto-summary-card auto-summary-card-empty">
-            <p class="summary-label">토벌전 히스토리 비교 준비 중</p>
-            <strong class="summary-value">스냅샷 2회 이상 필요</strong>
-            <p class="summary-help">다음 자동 갱신부터 토벌전 랭커 수, 최고 순위, 신규 진입/이탈 비교가 누적됩니다.</p>
-          </article>
-        </section>
-        """
+        return (
+            '<section class="auto-summary-grid tobeol-history-summary">'
+            + render_summary_card_html(
+                "토벌전 히스토리 비교 준비 중",
+                EMPTY_HISTORY_VALUE,
+                "다음 자동 갱신부터 토벌전 랭커 수, 최고 순위, 신규 진입/이탈 비교가 누적됩니다.",
+                "auto-summary-card auto-summary-card-empty",
+            )
+            + "</section>"
+        )
 
     current_guild = history_analysis.get("current_guild", {})
     current_best_rank = _safe_int(history_analysis.get("current_best_rank", 0))
@@ -1376,22 +1400,16 @@ def render_tobeol_history_section(history_analysis: dict[str, Any]) -> str:
         ("TOP10 유지", f"{_safe_int(history_analysis.get('retained_top10_count', 0))}명", f"신규 {len(history_analysis.get('joined_members', []))}명 · 이탈 {len(history_analysis.get('departed_members', []))}명"),
     ]
     summary_html = '<section class="auto-summary-grid tobeol-history-summary">' + ''.join(
-        f"""
-        <article class="auto-summary-card">
-          <p class="summary-label">{escape(str(label))}</p>
-          <strong class="summary-value">{escape(str(value))}</strong>
-          <p class="summary-help">{escape(str(help_text))}</p>
-        </article>
-        """
+        render_summary_card_html(label, value, help_text, "auto-summary-card")
         for label, value, help_text in cards
     ) + "</section>"
 
     movement_html = ''.join(
-        f'<li><span>{escape(str(name))}</span><strong>NEW</strong></li>' for name in history_analysis.get("joined_members", [])[:8]
-    ) or '<li><span>변동 없음</span><strong>-</strong></li>'
+        f'<li><span>{escape(str(name))}</span><strong>{LABEL_NEW}</strong></li>' for name in history_analysis.get("joined_members", [])[:8]
+    ) or EMPTY_HISTORY_FALLBACK_ITEM
     departed_html = ''.join(
-        f'<li><span>{escape(str(name))}</span><strong>OUT</strong></li>' for name in history_analysis.get("departed_members", [])[:8]
-    ) or '<li><span>변동 없음</span><strong>-</strong></li>'
+        f'<li><span>{escape(str(name))}</span><strong>{LABEL_OUT}</strong></li>' for name in history_analysis.get("departed_members", [])[:8]
+    ) or EMPTY_HISTORY_FALLBACK_ITEM
     mover_html = ''.join(
         f'<li><span>{escape(str(item["nickname"]))}</span><strong>{format_rank_delta(_safe_int(item["delta"], 0))}</strong></li>'
         for item in history_analysis.get("rank_movers", [])
@@ -1814,30 +1832,22 @@ def render_summary_cards(guild_rows: list[dict[str, Any]], members_by_guild: dic
         ("기준일", escape(updated_on), "페이지 노출 기준 데이터"),
     ]
 
-    return "".join(
-        f"""
-        <article class=\"summary-card\">
-          <p class=\"summary-label\">{label}</p>
-          <strong class=\"summary-value\">{value}</strong>
-          <p class=\"summary-help\">{help_text}</p>
-        </article>
-        """
-        for label, value, help_text in cards
-    )
+    return "".join(render_summary_card_html(label, value, help_text) for label, value, help_text in cards)
 
 
 def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
     copy = get_report_copy(str(history_analysis.get("report_mode", "league")))
     if not history_analysis.get("has_previous"):
-        return """
-        <section class="auto-summary-grid">
-          <article class="auto-summary-card auto-summary-card-empty">
-            <p class="summary-label">히스토리 비교 준비 중</p>
-            <strong class="summary-value">스냅샷 2회 이상 필요</strong>
-            <p class="summary-help">내일부터 길드원 증감, 전투력 변화, 시뮬레이션 변화 요약이 자동으로 표시된다.</p>
-          </article>
-        </section>
-        """
+        return (
+            '<section class="auto-summary-grid">'
+            + render_summary_card_html(
+                "히스토리 비교 준비 중",
+                EMPTY_HISTORY_VALUE,
+                "내일부터 길드원 증감, 전투력 변화, 시뮬레이션 변화 요약이 자동으로 표시된다.",
+                "auto-summary-card auto-summary-card-empty",
+            )
+            + "</section>"
+        )
 
     summary = history_analysis["summary"]
     cards = [
@@ -1847,13 +1857,7 @@ def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
         ("상위권 고정도 최고", summary["stable_guild"] or "-", f"TOP10 유지 {summary['stable_retained']}명" if summary["stable_guild"] else "데이터 없음"),
     ]
     return '<section class="auto-summary-grid">' + ''.join(
-        f"""
-        <article class="auto-summary-card">
-          <p class="summary-label">{escape(label)}</p>
-          <strong class="summary-value">{escape(str(value))}</strong>
-          <p class="summary-help">{escape(str(help_text))}</p>
-        </article>
-        """
+        render_summary_card_html(label, value, help_text, "auto-summary-card")
         for label, value, help_text in cards
     ) + '</section>'
 
@@ -1872,7 +1876,7 @@ def _render_tobeol_ranking_html(tobeol_ranking: dict[str, Any]) -> str:
             <span>랭커 {int(card["count"])}명 / 전체 {int(card.get("total_members", card["count"]))}명</span>
             <span>최고 순위 {"#" + str(int(card["best_rank"])) if card.get("best_rank") else "-"}</span>
           </div>
-          {"<p class='simulation-copy'>" + escape(str(card["best_nickname"])) + " · " + escape(str(card["best_score"])) + (" · 미등재 " + str(int(card.get("unranked_count", 0))) + "명" if int(card.get("unranked_count", 0)) > 0 else "") + "</p>" if card.get("best_nickname") else "<p class='simulation-copy'>해당 없음</p>"}
+          {"<p class='simulation-copy'>" + escape(str(card["best_nickname"])) + " · " + escape(str(card["best_score"])) + (" · " + TOBEOL_UNRANKED_MEMBER_SUFFIX + " " + str(int(card.get("unranked_count", 0))) + "명" if int(card.get("unranked_count", 0)) > 0 else "") + "</p>" if card.get("best_nickname") else "<p class='simulation-copy'>해당 없음</p>"}
         </article>
         """
         for card in guild_summaries
@@ -1886,11 +1890,11 @@ def _render_tobeol_ranking_html(tobeol_ranking: dict[str, Any]) -> str:
 
     rows_html = "".join(
         f"""<tr data-tobeol-guild="{escape(str(row["guild"]))}"{' class="tobeol-unranked-row"' if row.get("is_unranked") else ''}>
-          <td><span class="tobeol-rank-chip{' tobeol-rank-chip-muted' if row.get("is_unranked") else ''}">{'#' + str(int(row['rank'])) if row.get('rank') is not None else '미등재'}</span></td>
+          <td><span class="tobeol-rank-chip{' tobeol-rank-chip-muted' if row.get("is_unranked") else ''}">{'#' + str(int(row['rank'])) if row.get('rank') is not None else TOBEOL_UNRANKED_LABEL}</span></td>
           <td class="tobeol-guild-cell">{escape(str(row["guild"]))}</td>
           <td><strong>{escape(str(row["nickname"]))}</strong><div class="tobeol-row-copy">{escape(str(row["level"]))} · {escape(str(row["job"]))}</div></td>
           <td>{escape(str(row["score"]))}</td>
-          <td>{'♥ ' + escape(str(row['likes'])) if str(row.get('likes', '')).strip() else '-'}</td>
+          <td>{TOBEOL_LIKE_PREFIX + escape(str(row['likes'])) if str(row.get('likes', '')).strip() else '-'}</td>
         </tr>"""
         for row in all_rows
     )
@@ -1904,7 +1908,7 @@ def _render_tobeol_ranking_html(tobeol_ranking: dict[str, Any]) -> str:
         <tbody id="tobeol-ranking-tbody">{rows_html}</tbody>
       </table>
     </div>
-    <p class="simulation-copy" style="margin-top:10px;font-size:11px">mgf.gg 서버 2 기준 · 캐시 12시간</p>
+    <p class="simulation-copy simulation-copy-muted">mgf.gg 서버 2 기준 · 캐시 12시간</p>
     """
 
 
@@ -1991,11 +1995,11 @@ def render_snapshot_analytics_modal(history_analysis: dict[str, Any], report_mod
           <div class="analytics-list-split">
             <div>
               <strong>신규 {int(card['joined_count'])}명</strong>
-              <ul class="history-list history-list-compact">{''.join(f'<li><span>{escape(name)}</span><strong>JOIN</strong></li>' for name in card['joined'][:8]) or '<li><span>변동 없음</span><strong>-</strong></li>'}</ul>
+              <ul class="history-list history-list-compact">{''.join(f'<li><span>{escape(name)}</span><strong>{LABEL_JOIN}</strong></li>' for name in card['joined'][:8]) or EMPTY_HISTORY_FALLBACK_ITEM}</ul>
             </div>
             <div>
               <strong>이탈 {int(card['departed_count'])}명</strong>
-              <ul class="history-list history-list-compact">{''.join(f'<li><span>{escape(name)}</span><strong>LEAVE</strong></li>' for name in card['departed'][:8]) or '<li><span>변동 없음</span><strong>-</strong></li>'}</ul>
+              <ul class="history-list history-list-compact">{''.join(f'<li><span>{escape(name)}</span><strong>{LABEL_LEAVE}</strong></li>' for name in card['departed'][:8]) or EMPTY_HISTORY_FALLBACK_ITEM}</ul>
             </div>
           </div>
         </article>
@@ -2182,8 +2186,8 @@ def render_compare_cards(
                 <span class="rank-badge rank-badge-server">{escape(describe_rank_tier(str(guild_row['server_rank']), '서버'))}</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill {'positive' if guild_history.get('guild_power_delta', 0) >= 0 else 'negative'}">총전투력 {format_percent_delta(float(guild_history.get('guild_power_delta_pct', 0)))} </span>
-                <span class="trend-pill {'positive' if guild_history.get('simulation_score_delta', 0) >= 0 else 'negative'}">{escape(copy['simulation_metric'])} {format_metric_delta(int(guild_history.get('simulation_score_delta', 0)), copy['simulation_metric_short'] == '예상 지표')}</span>
+                <span class="trend-pill {trend_pill_tone_class(guild_history.get('guild_power_delta', 0))}">총전투력 {format_percent_delta(float(guild_history.get('guild_power_delta_pct', 0)))} </span>
+                <span class="trend-pill {trend_pill_tone_class(guild_history.get('simulation_score_delta', 0))}">{escape(copy['simulation_metric'])} {format_metric_delta(int(guild_history.get('simulation_score_delta', 0)), copy['simulation_metric_short'] == '예상 지표')}</span>
                 <span class="trend-pill neutral">TOP10 유지 {int(guild_history.get('retained_top10_count', 0))}명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>{width_pct}%</strong></div>
@@ -2854,6 +2858,7 @@ def build_tobeol_html_report(
     .analytics-mini-grid span {{ display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 999px; background: rgba(212,125,90,0.10); color: var(--accent-3); font-size: 12px; font-weight: 700; }}
     .analytics-stat-card p {{ margin: 8px 0 0; color: var(--muted); font-size: 12px; }}
     .simulation-copy {{ margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }}
+    .simulation-copy-muted {{ margin-top: 10px; font-size: 11px; }}
     .auto-summary-grid {{ display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin: 0 0 16px; }}
     .auto-summary-card, .history-panel {{ background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(10px); }}
     .auto-summary-card {{ padding: 18px 20px; }}
@@ -3191,8 +3196,8 @@ def build_html_report(
     .rank-badge-server {{ background: rgba(136,177,124,0.14); color: #55734f; }}
     .trend-pill-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }}
     .trend-pill {{ display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid rgba(110,84,60,0.08); }}
-    .trend-pill.positive {{ background: rgba(136,177,124,0.14); color: #55734f; }}
-    .trend-pill.negative {{ background: rgba(212,125,90,0.14); color: var(--accent-3); }}
+    .trend-pill.positive, .trend-pill.tone-up {{ background: rgba(136,177,124,0.14); color: #55734f; }}
+    .trend-pill.negative, .trend-pill.tone-down {{ background: rgba(212,125,90,0.14); color: var(--accent-3); }}
     .trend-pill.neutral {{ background: rgba(255,255,255,0.72); color: var(--text); }}
     .bar-label-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 700; }}
     .bar-label-row strong {{ color: var(--text); font-size: 12px; }}
@@ -3256,6 +3261,7 @@ def build_html_report(
     .simulation-overview {{ display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; padding: 20px; border-radius: 26px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(248,239,225,0.92)); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 18px 36px rgba(78,58,42,0.08); }}
     .simulation-overview h3 {{ margin: 6px 0 0; font-size: 30px; }}
     .simulation-copy {{ margin: 14px 0 0; color: var(--muted); line-height: 1.7; }}
+    .simulation-copy-muted {{ margin-top: 10px; font-size: 11px; }}
     .score-rule-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }}
     .job-coefficient-section {{ margin-top: 18px; padding: 18px; border-radius: 24px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 14px 28px rgba(78,58,42,0.06); }}
     .job-coefficient-toggle, .simulation-rank-toggle {{ width: 100%; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; padding: 0; }}
