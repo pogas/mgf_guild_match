@@ -1170,6 +1170,63 @@ def _build_tobeol_ranking_analytics(guild_names: list[str]) -> dict[str, Any]:
     }
 
 
+def build_tobeol_display_ranking(
+    guild_seed_name: str,
+    tobeol_ranking: dict[str, Any],
+    guild_members: list[dict[str, Any]],
+) -> dict[str, Any]:
+    ranked_rows = list(tobeol_ranking.get("all_rows", []))
+    ranked_lookup = {clean_text(str(row.get("nickname", ""))): row for row in ranked_rows}
+    display_rows: list[dict[str, Any]] = list(ranked_rows)
+
+    for member in guild_members:
+        nickname = clean_text(str(member.get("nickname", "")))
+        if not nickname or nickname in ranked_lookup:
+            continue
+        level_value = member.get("level", 0)
+        level_text = f"Lv.{int(level_value)}" if str(level_value).isdigit() else ""
+        display_rows.append(
+            {
+                "rank": None,
+                "nickname": str(member.get("nickname", "")),
+                "guild": guild_seed_name,
+                "likes": "",
+                "level": level_text,
+                "job": str(member.get("job_name", "")),
+                "score": "미등재",
+                "page": None,
+                "is_unranked": True,
+            }
+        )
+
+    display_rows.sort(
+        key=lambda row: (
+            1 if row.get("rank") is None else 0,
+            _safe_int(row.get("rank", 999999), 999999),
+            clean_text(str(row.get("nickname", ""))),
+        )
+    )
+
+    guild_summaries = []
+    for card in tobeol_ranking.get("guild_summaries", []):
+        guild_name = str(card.get("guild_name", ""))
+        total_members = len([member for member in guild_members if guild_name == guild_seed_name]) if guild_name == guild_seed_name else int(card.get("count", 0))
+        ranked_count = int(card.get("count", 0))
+        guild_summaries.append(
+            {
+                **card,
+                "total_members": total_members,
+                "unranked_count": max(total_members - ranked_count, 0),
+            }
+        )
+
+    return {
+        **tobeol_ranking,
+        "all_rows": display_rows,
+        "guild_summaries": guild_summaries,
+    }
+
+
 def build_tobeol_snapshot_data(
     guild_seed_name: str,
     snapshot_date: str,
@@ -1812,10 +1869,10 @@ def _render_tobeol_ranking_html(tobeol_ranking: dict[str, Any]) -> str:
         <article class="info-panel analytics-stat-card">
           <h5>{escape(str(card["guild_name"]))}</h5>
           <div class="analytics-mini-grid">
-            <span>발견 {int(card["count"])}명</span>
+            <span>랭커 {int(card["count"])}명 / 전체 {int(card.get("total_members", card["count"]))}명</span>
             <span>최고 순위 {"#" + str(int(card["best_rank"])) if card.get("best_rank") else "-"}</span>
           </div>
-          {"<p class='simulation-copy'>" + escape(str(card["best_nickname"])) + " · " + escape(str(card["best_score"])) + "</p>" if card.get("best_nickname") else "<p class='simulation-copy'>해당 없음</p>"}
+          {"<p class='simulation-copy'>" + escape(str(card["best_nickname"])) + " · " + escape(str(card["best_score"])) + (" · 미등재 " + str(int(card.get("unranked_count", 0))) + "명" if int(card.get("unranked_count", 0)) > 0 else "") + "</p>" if card.get("best_nickname") else "<p class='simulation-copy'>해당 없음</p>"}
         </article>
         """
         for card in guild_summaries
@@ -1828,12 +1885,12 @@ def _render_tobeol_ranking_html(tobeol_ranking: dict[str, Any]) -> str:
     )
 
     rows_html = "".join(
-        f"""<tr data-tobeol-guild="{escape(str(row["guild"]))}">
-          <td><span class="tobeol-rank-chip">#{int(row["rank"])}</span></td>
+        f"""<tr data-tobeol-guild="{escape(str(row["guild"]))}"{' class="tobeol-unranked-row"' if row.get("is_unranked") else ''}>
+          <td><span class="tobeol-rank-chip{' tobeol-rank-chip-muted' if row.get("is_unranked") else ''}">{'#' + str(int(row['rank'])) if row.get('rank') is not None else '미등재'}</span></td>
           <td class="tobeol-guild-cell">{escape(str(row["guild"]))}</td>
           <td><strong>{escape(str(row["nickname"]))}</strong><div class="tobeol-row-copy">{escape(str(row["level"]))} · {escape(str(row["job"]))}</div></td>
           <td>{escape(str(row["score"]))}</td>
-          <td>♥ {escape(str(row["likes"]))}</td>
+          <td>{'♥ ' + escape(str(row['likes'])) if str(row.get('likes', '')).strip() else '-'}</td>
         </tr>"""
         for row in all_rows
     )
@@ -2712,6 +2769,7 @@ def build_tobeol_html_report(
     html_output_path: Path,
     tobeol_ranking: dict[str, Any],
     tobeol_history_analysis: dict[str, Any],
+    guild_members: list[dict[str, Any]],
 ) -> Path:
     font_face_map = build_font_face_map(html_output_path)
     font_light_path = font_face_map.get("light", "")
@@ -2719,7 +2777,8 @@ def build_tobeol_html_report(
     guild_mark_map = build_guild_mark_map([guild_seed_name], html_output_path)
     hero_guild_mark_html = render_guild_mark(guild_seed_name, guild_mark_map, "hero-title-mark")
     history_html = render_tobeol_history_section(tobeol_history_analysis)
-    ranking_html = _render_tobeol_ranking_html(tobeol_ranking)
+    display_ranking = build_tobeol_display_ranking(guild_seed_name, tobeol_ranking, guild_members)
+    ranking_html = _render_tobeol_ranking_html(display_ranking)
     html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -2827,6 +2886,8 @@ def build_tobeol_html_report(
     .tobeol-ranking-table tbody tr:last-child td {{ border-bottom: 0; }}
     .tobeol-ranking-table tbody tr[hidden] {{ display: none; }}
     .tobeol-rank-chip {{ display: inline-flex; align-items: center; justify-content: center; min-width: 48px; padding: 6px 10px; border-radius: 999px; background: rgba(212,125,90,0.14); color: var(--accent-3); font-size: 12px; font-weight: 700; }}
+    .tobeol-rank-chip-muted {{ background: rgba(122,102,88,0.12); color: var(--muted); }}
+    .tobeol-unranked-row td {{ background: rgba(255,252,247,0.82); }}
     .tobeol-guild-cell {{ font-weight: 700; }}
     .tobeol-row-copy {{ color: var(--muted); font-size: 11px; margin-top: 2px; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
@@ -3963,7 +4024,13 @@ def main() -> None:
 
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
     html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
-    tobeol_html_path = build_tobeol_html_report(guild_name, html_output_path.parent / "index.html", tobeol_ranking, tobeol_history_analysis)
+    tobeol_html_path = build_tobeol_html_report(
+        guild_name,
+        html_output_path.parent / "index.html",
+        tobeol_ranking,
+        tobeol_history_analysis,
+        members_by_guild.get(guild_name, []),
+    )
     snapshot_path = write_snapshot_json(snapshot_data, snapshot_output_path)
     tobeol_snapshot_path = write_snapshot_json(
         tobeol_snapshot_data,
