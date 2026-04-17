@@ -195,8 +195,8 @@
     .rank-badge-server { background: rgba(136,177,124,0.14); color: #55734f; }
     .trend-pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .trend-pill { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid rgba(110,84,60,0.08); }
-    .trend-pill.positive { background: rgba(136,177,124,0.14); color: #55734f; }
-    .trend-pill.negative { background: rgba(212,125,90,0.14); color: var(--accent-3); }
+    .trend-pill.positive, .trend-pill.tone-up { background: rgba(136,177,124,0.14); color: #55734f; }
+    .trend-pill.negative, .trend-pill.tone-down { background: rgba(212,125,90,0.14); color: var(--accent-3); }
     .trend-pill.neutral { background: rgba(255,255,255,0.72); color: var(--text); }
     .bar-label-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 700; }
     .bar-label-row strong { color: var(--text); font-size: 12px; }
@@ -260,6 +260,7 @@
     .simulation-overview { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; padding: 20px; border-radius: 26px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(248,239,225,0.92)); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 18px 36px rgba(78,58,42,0.08); }
     .simulation-overview h3 { margin: 6px 0 0; font-size: 30px; }
     .simulation-copy { margin: 14px 0 0; color: var(--muted); line-height: 1.7; }
+    .simulation-copy-muted { margin-top: 10px; font-size: 11px; }
     .score-rule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
     .job-coefficient-section { margin-top: 18px; padding: 18px; border-radius: 24px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 14px 28px rgba(78,58,42,0.06); }
     .job-coefficient-toggle, .simulation-rank-toggle { width: 100%; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; padding: 0; }
@@ -614,8 +615,8 @@
                 <span class="rank-badge rank-badge-server">서버 TOP3</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill negative">총전투력 -10.1% </span>
-                <span class="trend-pill negative">수련장 지표 -1,706억 9,405만</span>
+                <span class="trend-pill tone-down">총전투력 -10.1% </span>
+                <span class="trend-pill tone-down">수련장 지표 -1,706억 9,405만</span>
                 <span class="trend-pill neutral">TOP10 유지 8명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>98.4%</strong></div>
@@ -670,8 +671,8 @@
                 <span class="rank-badge rank-badge-server">서버 TOP3</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +3.1% </span>
-                <span class="trend-pill positive">수련장 지표 +501억 2,242만</span>
+                <span class="trend-pill tone-up">총전투력 +3.1% </span>
+                <span class="trend-pill tone-up">수련장 지표 +501억 2,242만</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>96.1%</strong></div>
@@ -726,8 +727,8 @@
                 <span class="rank-badge rank-badge-server">서버 1위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +2.8% </span>
-                <span class="trend-pill positive">수련장 지표 +1,182억 6,561만</span>
+                <span class="trend-pill tone-up">총전투력 +2.8% </span>
+                <span class="trend-pill tone-up">수련장 지표 +1,182억 6,561만</span>
                 <span class="trend-pill neutral">TOP10 유지 9명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>100.0%</strong></div>
@@ -782,8 +783,8 @@
                 <span class="rank-badge rank-badge-server">서버 1위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>97.3%</strong></div>
@@ -838,8 +839,8 @@
                 <span class="rank-badge rank-badge-server">서버 1위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +10.0% </span>
-                <span class="trend-pill negative">수련장 지표 -100억 2,379만</span>
+                <span class="trend-pill tone-up">총전투력 +10.0% </span>
+                <span class="trend-pill tone-down">수련장 지표 -100억 2,379만</span>
                 <span class="trend-pill neutral">TOP10 유지 9명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>96.2%</strong></div>
@@ -894,8 +895,8 @@
                 <span class="rank-badge rank-badge-server">서버 1위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>95.9%</strong></div>
@@ -950,8 +951,8 @@
                 <span class="rank-badge rank-badge-server">서버 1위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>86.1%</strong></div>
@@ -4222,7 +4223,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>변동 없음</strong></li>
                       <li><span>이탈 길드원</span><strong>junoflo</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 -1, 히어로 -1, 다크나이트 +1</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 -1, 다크나이트 +1, 히어로 -1</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -5229,7 +5230,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>김도움, 용려니, 켘켘3</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +8, 아크메이지(썬,콜) +5, 비숍 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +8, 아크메이지(썬,콜) +5, 다크나이트 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
