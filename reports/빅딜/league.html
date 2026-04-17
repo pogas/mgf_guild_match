@@ -195,8 +195,8 @@
     .rank-badge-server { background: rgba(136,177,124,0.14); color: #55734f; }
     .trend-pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .trend-pill { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid rgba(110,84,60,0.08); }
-    .trend-pill.positive { background: rgba(136,177,124,0.14); color: #55734f; }
-    .trend-pill.negative { background: rgba(212,125,90,0.14); color: var(--accent-3); }
+    .trend-pill.positive, .trend-pill.tone-up { background: rgba(136,177,124,0.14); color: #55734f; }
+    .trend-pill.negative, .trend-pill.tone-down { background: rgba(212,125,90,0.14); color: var(--accent-3); }
     .trend-pill.neutral { background: rgba(255,255,255,0.72); color: var(--text); }
     .bar-label-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 700; }
     .bar-label-row strong { color: var(--text); font-size: 12px; }
@@ -260,6 +260,7 @@
     .simulation-overview { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; padding: 20px; border-radius: 26px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(248,239,225,0.92)); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 18px 36px rgba(78,58,42,0.08); }
     .simulation-overview h3 { margin: 6px 0 0; font-size: 30px; }
     .simulation-copy { margin: 14px 0 0; color: var(--muted); line-height: 1.7; }
+    .simulation-copy-muted { margin-top: 10px; font-size: 11px; }
     .score-rule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
     .job-coefficient-section { margin-top: 18px; padding: 18px; border-radius: 24px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 14px 28px rgba(78,58,42,0.06); }
     .job-coefficient-toggle, .simulation-rank-toggle { width: 100%; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; padding: 0; }
@@ -582,7 +583,7 @@
         
         <article class="auto-summary-card snapshot-overview-card" data-modal="snapshot-analytics">
           <p class="summary-label">다음 컷 예측</p>
-          <strong class="summary-value">4,554,971점</strong>
+          <strong class="summary-value">4,575,640점</strong>
           <p class="summary-help">현재 히스토리 기반 다음 스냅샷 1위 예상 점수</p>
           <span class="card-jump">스냅샷 분석 열기 ↘</span>
         </article>
@@ -607,15 +608,15 @@
                     <h3>빅딜</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 380 · 서버 12위</span>
+                <span class="rank-pill">전체 381 · 서버 12위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 380위</span>
+                <span class="rank-badge rank-badge-global">전체 381위</span>
                 <span class="rank-badge rank-badge-server">서버 TOP30</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +7.9% </span>
-                <span class="trend-pill positive">대항전 점수 +323,500점</span>
+                <span class="trend-pill tone-up">총전투력 +7.9% </span>
+                <span class="trend-pill tone-up">대항전 점수 +323,500점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>92.8%</strong></div>
@@ -670,8 +671,8 @@
                 <span class="rank-badge rank-badge-server">서버 TOP30</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +17.3% </span>
-                <span class="trend-pill negative">대항전 점수 -561,100점</span>
+                <span class="trend-pill tone-up">총전투력 +17.3% </span>
+                <span class="trend-pill tone-down">대항전 점수 -561,100점</span>
                 <span class="trend-pill neutral">TOP10 유지 9명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>100.0%</strong></div>
@@ -719,15 +720,15 @@
                     <h3>숑숑</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 389 · 서버 13위</span>
+                <span class="rank-pill">전체 390 · 서버 13위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 389위</span>
+                <span class="rank-badge rank-badge-global">전체 390위</span>
                 <span class="rank-badge rank-badge-server">서버 TOP30</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +5.9% </span>
-                <span class="trend-pill positive">대항전 점수 +119,900점</span>
+                <span class="trend-pill tone-up">총전투력 +5.9% </span>
+                <span class="trend-pill tone-up">대항전 점수 +119,900점</span>
                 <span class="trend-pill neutral">TOP10 유지 9명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>89.6%</strong></div>
@@ -782,8 +783,8 @@
                 <span class="rank-badge rank-badge-server">서버 TOP10</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +12.5% </span>
-                <span class="trend-pill positive">대항전 점수 +59,800점</span>
+                <span class="trend-pill tone-up">총전투력 +12.5% </span>
+                <span class="trend-pill tone-up">대항전 점수 +59,800점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>97.2%</strong></div>
@@ -838,8 +839,8 @@
                 <span class="rank-badge rank-badge-server">서버 32위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +15.6% </span>
-                <span class="trend-pill positive">대항전 점수 +86,700점</span>
+                <span class="trend-pill tone-up">총전투력 +15.6% </span>
+                <span class="trend-pill tone-up">대항전 점수 +86,700점</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>98.3%</strong></div>
@@ -1747,7 +1748,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.8</dd></div>
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
                       <div><dt>길드 전투력</dt><dd>171조 6820억 7377만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>380 / 12위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>381 / 12위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.99.6</dd></div>
                     </dl>
                   </article>
@@ -1764,7 +1765,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 380위</strong>
+                    <strong>전체 381위</strong>
                     <em>서버 TOP30</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
@@ -1812,13 +1813,13 @@
                     <h3>7일 추세</h3>
                     <div class="trend-chart-card">
                       <span>총 전투력</span>
-                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,32.77 20.0,34.0 40.0,32.77 60.0,32.77 80.0,15.88 100.0,10.76 120.0,2.0" /></svg></div>
-                      <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span><span>04/15</span><span>04/16</span><span>04/17</span></div>
+                      <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 24.0,32.77 48.0,32.77 72.0,15.88 96.0,10.76 120.0,2.0" /></svg></div>
+                      <div class="trend-axis"><span>04/11</span><span>04/12</span><span>04/13</span><span>04/15</span><span>04/16</span><span>04/17</span></div>
                     </div>
                     <div class="trend-chart-card">
                       <span>대항전 점수</span>
-                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 20.0,26.17 40.0,26.65 60.0,34.0 80.0,8.67 100.0,14.86 120.0,2.0" /></svg></div>
-                      <div class="trend-axis"><span>04/10</span><span>04/11</span><span>04/12</span><span>04/13</span><span>04/15</span><span>04/16</span><span>04/17</span></div>
+                      <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,26.17 24.0,26.65 48.0,34.0 72.0,8.67 96.0,14.86 120.0,2.0" /></svg></div>
+                      <div class="trend-axis"><span>04/11</span><span>04/12</span><span>04/13</span><span>04/15</span><span>04/16</span><span>04/17</span></div>
                     </div>
                   </article>
                 </div>
@@ -2715,7 +2716,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.8</dd></div>
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
                       <div><dt>길드 전투력</dt><dd>165조 7814억 6486만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>389 / 13위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>390 / 13위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.99.9</dd></div>
                     </dl>
                   </article>
@@ -2732,7 +2733,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 389위</strong>
+                    <strong>전체 390위</strong>
                     <em>서버 TOP30</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
@@ -3786,7 +3787,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>나폴리맛동산</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +1, 아크메이지(썬,콜) +1, 나이트로드 -1</strong></li>
+                      <li><span>직업 분포 변화</span><strong>아크메이지(썬,콜) +1, 나이트로드 -1, 섀도어 +1</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -10216,11 +10217,11 @@
         
         <article class="summary-card analytics-summary-card">
           <p class="summary-label">다음 컷 예측</p>
-          <strong class="summary-value">4,554,971점</strong>
+          <strong class="summary-value">4,575,640점</strong>
           <p class="summary-help">현재 히스토리 기반 다음 스냅샷 1위 예상 점수</p>
         </article>
         </section>
-          <div class="analytics-warning">히스토리 7개 스냅샷 기준 · 예측/효율은 참고용 추정치</div>
+          <div class="analytics-warning">히스토리 6개 스냅샷 기준 · 예측/효율은 참고용 추정치</div>
           <div class="analytics-chapter-stack">
             
         <section class="analytics-chapter expanded">
@@ -10242,7 +10243,7 @@
               <p class="simulation-copy">길드별 최근 추세를 빠르게 확인한다.</p>
             </div>
             <div class="analytics-module-toggle-meta">
-              <span class="job-coefficient-summary">7일 창</span>
+              <span class="job-coefficient-summary">6일 창</span>
               <span class="simulation-section-toggle-label">상세 보기</span>
             </div>
           </button>
@@ -10255,8 +10256,8 @@
             <span>인원 +1명</span>
             <span>예상 점수 +323,500점</span>
           </div>
-          <div class="trend-chart-card"><span>총 전투력</span><div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,32.77 20.0,34.0 40.0,32.77 60.0,32.77 80.0,15.88 100.0,10.76 120.0,2.0" /></svg></div></div>
-          <div class="trend-chart-card"><span>대항전 점수</span><div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 20.0,26.17 40.0,26.65 60.0,34.0 80.0,8.67 100.0,14.86 120.0,2.0" /></svg></div></div>
+          <div class="trend-chart-card"><span>총 전투력</span><div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 24.0,32.77 48.0,32.77 72.0,15.88 96.0,10.76 120.0,2.0" /></svg></div></div>
+          <div class="trend-chart-card"><span>대항전 점수</span><div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,26.17 24.0,26.65 48.0,34.0 72.0,8.67 96.0,14.86 120.0,2.0" /></svg></div></div>
         </article>
         
         <article class="info-panel analytics-stat-card">
@@ -10611,27 +10612,27 @@
             <div class="analytics-grid analytics-grid-2">
         <article class="history-panel analytics-list-card">
           <h5>채금</h5>
-          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>역뢰 · 히어로 </strong><p>+9조 6,091억 5,317만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>쭈딘 · 히어로 </strong><p>+5조 334억 6,796만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>퀸이 · 섀도어 </strong><p>+3조 3,318억 259만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>나는숭이 · 섀도어 </strong><p>+4,226억 9,542만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>팽됴리 · 아크메이지(썬,콜) </strong><p>+2,328억 9,017만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div></div>
+          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>역뢰 · 히어로 </strong><p>+9조 6,091억 5,317만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>쭈딘 · 히어로 </strong><p>+5조 334억 6,796만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>퀸이 · 섀도어 </strong><p>+3조 3,318억 259만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>나는숭이 · 섀도어 </strong><p>+4,226억 9,542만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>팽됴리 · 아크메이지(썬,콜) </strong><p>+2,328억 9,017만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div></div>
         </article>
         
         <article class="history-panel analytics-list-card">
           <h5>쌈뽕</h5>
-          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>깔개73호 · 히어로 </strong><p>+17조 1,817억 8,252만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>다정파파 · 섀도어 </strong><p>+2조 9,849억 7,055만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>장정근 · 비숍 </strong><p>+1조 51억 536만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>남과장 · 히어로 </strong><p>+6,963억 4,583만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>건브 · 다크나이트 </strong><p>+4,270억 1,971만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div></div>
+          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>깔개73호 · 히어로 </strong><p>+17조 1,817억 8,252만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>다정파파 · 섀도어 </strong><p>+2조 9,849억 7,055만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>장정근 · 비숍 </strong><p>+1조 51억 536만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>남과장 · 히어로 </strong><p>+6,963억 4,583만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>건브 · 다크나이트 </strong><p>+4,270억 1,971만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div></div>
         </article>
         
         <article class="history-panel analytics-list-card">
           <h5>Kali</h5>
-          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>올망건빵 · 아크메이지(썬,콜) </strong><p>+1조 316억 2,434만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>Pixy · 섀도어 </strong><p>+7,379억 3,147만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>롱노즈 · 신궁 </strong><p>+6,710억 6,988만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>거푸 · 히어로 </strong><p>+4,882억 4,652만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>IMABORNHATER · 아크메이지(썬,콜) </strong><p>+4,855억 4,373만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div></div>
+          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>올망건빵 · 아크메이지(썬,콜) </strong><p>+1조 316억 2,434만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>Pixy · 섀도어 </strong><p>+7,379억 3,147만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>롱노즈 · 신궁 </strong><p>+6,710억 6,988만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>거푸 · 히어로 </strong><p>+4,882억 4,652만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>IMABORNHATER · 아크메이지(썬,콜) </strong><p>+4,855억 4,373만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div></div>
         </article>
         
         <article class="history-panel analytics-list-card">
           <h5>숑숑</h5>
-          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>숑이 · 아크메이지(썬,콜) </strong><p>+2조 4,831억 7,074만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>캐서린 · 다크나이트 </strong><p>+1조 2,921억 1,275만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>임나연 · 섀도어 </strong><p>+9,147억 5,548만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>파산 · 섀도어 </strong><p>+6,479억 2,406만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>스파토이 · 신궁 </strong><p>+6,100억 426만 · 누락 5회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div></div>
+          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>숑이 · 아크메이지(썬,콜) </strong><p>+2조 4,831억 7,074만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>캐서린 · 다크나이트 </strong><p>+1조 2,921억 1,275만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>임나연 · 섀도어 </strong><p>+9,147억 5,548만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>파산 · 섀도어 </strong><p>+6,479억 2,406만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>스파토이 · 신궁 </strong><p>+6,100억 426만 · 누락 4회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 180.0,2.0" /></svg></div></div></div>
         </article>
         
         <article class="history-panel analytics-list-card">
           <h5>빅딜</h5>
-          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>망겜감별사 · 섀도어 </strong><p>+7조 4,464억 2,044만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,37.54 30.0,38.0 60.0,38.0 90.0,37.54 120.0,24.88 150.0,24.88 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>야가다 · 보우마스터 </strong><p>+3조 7,397억 7,015만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,32.17 30.0,38.0 60.0,38.0 90.0,32.17 120.0,11.36 150.0,11.36 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>단풍카우 · 다크나이트 </strong><p>+3조 7,327억 1,903만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,36.59 30.0,38.0 60.0,36.65 90.0,36.59 120.0,13.95 150.0,13.22 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>큐샤프 · 신궁 </strong><p>+3조 3,766억 4,682만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 30.0,38.0 60.0,38.0 90.0,38.0 120.0,2.0 150.0,2.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>엘라임 · 히어로 </strong><p>+1조 3,536억 7,185만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,19.72 30.0,38.0 60.0,31.33 90.0,19.72 120.0,15.99 150.0,15.99 180.0,2.0" /></svg></div></div></div>
+          <div class="analytics-person-list"><div class="analytics-person-item"><div><strong>망겜감별사 · 섀도어 </strong><p>+7조 5,427억 7,946만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 36.0,38.0 72.0,37.54 108.0,24.88 144.0,24.88 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>야가다 · 보우마스터 </strong><p>+4조 4,628억 4,937만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 36.0,38.0 72.0,32.17 108.0,11.36 144.0,11.36 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>단풍카우 · 다크나이트 </strong><p>+3조 8,847억 8,871만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 36.0,36.65 72.0,36.59 108.0,13.95 144.0,13.22 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>큐샤프 · 신궁 </strong><p>+3조 3,766억 4,682만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 36.0,38.0 72.0,38.0 108.0,2.0 144.0,2.0 180.0,2.0" /></svg></div></div><div class="analytics-person-item"><div><strong>엘라임 · 히어로 </strong><p>+2조 7,496억 1,111만 · 누락 0회</p></div><div class="trend-chart"><svg viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,38.0 36.0,31.33 72.0,19.72 108.0,15.99 144.0,15.99 180.0,2.0" /></svg></div></div></div>
         </article>
         </div>
           </div>
@@ -10645,18 +10646,12 @@
               <p class="simulation-copy">최근 히스토리를 날짜별 카드로 되짚어 본다.</p>
             </div>
             <div class="analytics-module-toggle-meta">
-              <span class="job-coefficient-summary">7개 기록</span>
+              <span class="job-coefficient-summary">6개 기록</span>
               <span class="simulation-section-toggle-label">상세 보기</span>
             </div>
           </button>
           <div class="analytics-module-body" hidden>
             <div class="analytics-timeline">
-        <article class="score-rule-card analytics-timeline-card">
-          <span>2026-04-10</span>
-          <strong>127조 3,213억 5,790만</strong>
-          <em>인원 29명 · 시뮬 3,734,800점</em>
-        </article>
-        
         <article class="score-rule-card analytics-timeline-card">
           <span>2026-04-11</span>
           <strong>125조 5,532억 9,483만</strong>
@@ -10712,10 +10707,10 @@
             <div class="analytics-grid analytics-grid-2">
         <article class="comparison-callout comparison-callout-focus">
           <span>빅딜</span>
-          <strong>4,554,971점</strong>
-          <em>예상 범위 4,395,614점 ~ 4,714,328점 · 7개 스냅샷 기반</em>
+          <strong>4,575,640점</strong>
+          <em>예상 범위 4,404,878점 ~ 4,746,402점 · 6개 스냅샷 기반</em>
         </article>
-        <article class="comparison-callout comparison-callout-core"><span>다음 컷 예상</span><strong>4,554,971점</strong><em>현재 보유 히스토리 기준 추정치</em></article></div>
+        <article class="comparison-callout comparison-callout-core"><span>다음 컷 예상</span><strong>4,575,640점</strong><em>현재 보유 히스토리 기준 추정치</em></article></div>
           </div>
         </section>
         

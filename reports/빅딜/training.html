@@ -195,8 +195,8 @@
     .rank-badge-server { background: rgba(136,177,124,0.14); color: #55734f; }
     .trend-pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .trend-pill { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid rgba(110,84,60,0.08); }
-    .trend-pill.positive { background: rgba(136,177,124,0.14); color: #55734f; }
-    .trend-pill.negative { background: rgba(212,125,90,0.14); color: var(--accent-3); }
+    .trend-pill.positive, .trend-pill.tone-up { background: rgba(136,177,124,0.14); color: #55734f; }
+    .trend-pill.negative, .trend-pill.tone-down { background: rgba(212,125,90,0.14); color: var(--accent-3); }
     .trend-pill.neutral { background: rgba(255,255,255,0.72); color: var(--text); }
     .bar-label-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 12px; font-weight: 700; }
     .bar-label-row strong { color: var(--text); font-size: 12px; }
@@ -260,6 +260,7 @@
     .simulation-overview { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; padding: 20px; border-radius: 26px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(248,239,225,0.92)); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 18px 36px rgba(78,58,42,0.08); }
     .simulation-overview h3 { margin: 6px 0 0; font-size: 30px; }
     .simulation-copy { margin: 14px 0 0; color: var(--muted); line-height: 1.7; }
+    .simulation-copy-muted { margin-top: 10px; font-size: 11px; }
     .score-rule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
     .job-coefficient-section { margin-top: 18px; padding: 18px; border-radius: 24px; background: rgba(255,255,255,0.64); border: 1px solid rgba(110,84,60,0.08); box-shadow: 0 14px 28px rgba(78,58,42,0.06); }
     .job-coefficient-toggle, .simulation-rank-toggle { width: 100%; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; padding: 0; }
@@ -607,15 +608,15 @@
                     <h3>빅딜</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 380 · 서버 12위</span>
+                <span class="rank-pill">전체 381 · 서버 12위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 380위</span>
+                <span class="rank-badge rank-badge-global">전체 381위</span>
                 <span class="rank-badge rank-badge-server">서버 TOP30</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 +7.9% </span>
-                <span class="trend-pill positive">수련장 지표 +418억 3,394만</span>
+                <span class="trend-pill tone-up">총전투력 +7.9% </span>
+                <span class="trend-pill tone-up">수련장 지표 +418억 3,394만</span>
                 <span class="trend-pill neutral">TOP10 유지 10명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>99.8%</strong></div>
@@ -663,15 +664,15 @@
                     <h3>초코나라</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 386 · 서버 8위</span>
+                <span class="rank-pill">전체 387 · 서버 8위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 386위</span>
+                <span class="rank-badge rank-badge-global">전체 387위</span>
                 <span class="rank-badge rank-badge-server">서버 TOP10</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>97.4%</strong></div>
@@ -719,15 +720,15 @@
                     <h3>블랙소울</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 379 · 서버 8위</span>
+                <span class="rank-pill">전체 380 · 서버 8위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 379위</span>
+                <span class="rank-badge rank-badge-global">전체 380위</span>
                 <span class="rank-badge rank-badge-server">서버 TOP10</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>100.0%</strong></div>
@@ -775,15 +776,15 @@
                     <h3>다다익선</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 385 · 서버 7위</span>
+                <span class="rank-pill">전체 386 · 서버 7위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 385위</span>
+                <span class="rank-badge rank-badge-global">전체 386위</span>
                 <span class="rank-badge rank-badge-server">서버 TOP10</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>98.5%</strong></div>
@@ -831,15 +832,15 @@
                     <h3>비련</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 384 · 서버 34위</span>
+                <span class="rank-pill">전체 385 · 서버 34위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 384위</span>
+                <span class="rank-badge rank-badge-global">전체 385위</span>
                 <span class="rank-badge rank-badge-server">서버 34위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>98.5%</strong></div>
@@ -887,15 +888,15 @@
                     <h3>밀크런</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 381 · 서버 33위</span>
+                <span class="rank-pill">전체 382 · 서버 33위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 381위</span>
+                <span class="rank-badge rank-badge-global">전체 382위</span>
                 <span class="rank-badge rank-badge-server">서버 33위</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>99.2%</strong></div>
@@ -943,15 +944,15 @@
                     <h3>털미녀</h3>
                   </div>
                 </div>
-                <span class="rank-pill">전체 382 · 서버 7위</span>
+                <span class="rank-pill">전체 383 · 서버 7위</span>
               </div>
               <div class="rank-badge-row">
-                <span class="rank-badge rank-badge-global">전체 382위</span>
+                <span class="rank-badge rank-badge-global">전체 383위</span>
                 <span class="rank-badge rank-badge-server">서버 TOP10</span>
               </div>
               <div class="trend-pill-row">
-                <span class="trend-pill positive">총전투력 0.0% </span>
-                <span class="trend-pill positive">수련장 지표 0만</span>
+                <span class="trend-pill tone-up">총전투력 0.0% </span>
+                <span class="trend-pill tone-up">수련장 지표 0만</span>
                 <span class="trend-pill neutral">TOP10 유지 0명</span>
               </div>
               <div class="bar-label-row"><span>길드 총 전투력</span><strong>99.1%</strong></div>
@@ -2221,7 +2222,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.8</dd></div>
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
                       <div><dt>길드 전투력</dt><dd>171조 6820억 7377만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>380 / 12위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>381 / 12위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.99.6</dd></div>
                     </dl>
                   </article>
@@ -2238,7 +2239,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 380위</strong>
+                    <strong>전체 381위</strong>
                     <em>서버 TOP30</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
@@ -2731,7 +2732,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.8</dd></div>
                       <div><dt>길드원 수</dt><dd>29명</dd></div>
                       <div><dt>길드 전투력</dt><dd>167조 6081억 6238만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>386 / 8위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>387 / 8위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.99.8</dd></div>
                     </dl>
                   </article>
@@ -2748,7 +2749,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 386위</strong>
+                    <strong>전체 387위</strong>
                     <em>서버 TOP10</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
@@ -3228,7 +3229,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.7</dd></div>
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
                       <div><dt>길드 전투력</dt><dd>171조 9975억 7642만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>379 / 8위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>380 / 8위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.97.7</dd></div>
                     </dl>
                   </article>
@@ -3245,7 +3246,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 379위</strong>
+                    <strong>전체 380위</strong>
                     <em>서버 TOP10</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
@@ -3279,7 +3280,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>상현별, 말랑콩닥, 안루핑</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 신궁 +6, 다크나이트 +4</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +10, 신궁 +6, 비숍 +4</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -3738,7 +3739,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.7</dd></div>
                       <div><dt>길드원 수</dt><dd>31명</dd></div>
                       <div><dt>길드 전투력</dt><dd>169조 3419억 6601만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>385 / 7위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>386 / 7위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.97.8</dd></div>
                     </dl>
                   </article>
@@ -3755,7 +3756,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 385위</strong>
+                    <strong>전체 386위</strong>
                     <em>서버 TOP10</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
@@ -4261,7 +4262,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.8</dd></div>
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
                       <div><dt>길드 전투력</dt><dd>169조 4868억 8921만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>384 / 34위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>385 / 34위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.98.0</dd></div>
                     </dl>
                   </article>
@@ -4278,7 +4279,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 384위</strong>
+                    <strong>전체 385위</strong>
                     <em>서버 34위</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
@@ -4771,7 +4772,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.7</dd></div>
                       <div><dt>길드원 수</dt><dd>29명</dd></div>
                       <div><dt>길드 전투력</dt><dd>170조 6962억 3265만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>381 / 33위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>382 / 33위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.95.2</dd></div>
                     </dl>
                   </article>
@@ -4788,7 +4789,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 381위</strong>
+                    <strong>전체 382위</strong>
                     <em>서버 33위</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
@@ -4822,7 +4823,7 @@
                     <ul class="history-list">
                       <li><span>신규 길드원</span><strong>동띠, 나무키우기, 꽁대</strong></li>
                       <li><span>이탈 길드원</span><strong>변동 없음</strong></li>
-                      <li><span>직업 분포 변화</span><strong>섀도어 +8, 아크메이지(썬,콜) +7, 비숍 +7</strong></li>
+                      <li><span>직업 분포 변화</span><strong>섀도어 +8, 비숍 +7, 아크메이지(썬,콜) +7</strong></li>
                     </ul>
                   </article>
                   <article class="history-panel">
@@ -5268,7 +5269,7 @@
                       <div><dt>길드 레벨</dt><dd>Lv.6</dd></div>
                       <div><dt>길드원 수</dt><dd>30명</dd></div>
                       <div><dt>길드 전투력</dt><dd>170조 4450억 2099만</dd></div>
-                      <div><dt>전체 / 서버 순위</dt><dd>382 / 7위</dd></div>
+                      <div><dt>전체 / 서버 순위</dt><dd>383 / 7위</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.95.1</dd></div>
                     </dl>
                   </article>
@@ -5285,7 +5286,7 @@
                 <div class="modal-comparison-grid">
                   <article class="comparison-callout comparison-callout-rank">
                     <span>순위 포지션</span>
-                    <strong>전체 382위</strong>
+                    <strong>전체 383위</strong>
                     <em>서버 TOP10</em>
                   </article>
                   <article class="comparison-callout comparison-callout-focus">
