@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design Lab A - Report First</title>
+  <style>
+    :root {
+      --bg: #f7f3ec; --bg-alt:#fffaf3; --sky-top:#e4f3ff; --sky-bottom:#f9f3e6; --panel:rgba(255,252,247,.94);
+      --line: rgba(110,84,60,.12); --text:#2e241d; --muted:#7a6658; --accent:#d47d5a; --accent-2:#88b17c; --accent-3:#ad6540;
+      --shadow:0 18px 44px rgba(78,58,42,.12); --radius:24px; --max:1280px;
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:"Maplestory","Malgun Gothic",sans-serif;color:var(--text);background:linear-gradient(180deg,var(--sky-top),var(--bg) 24%,var(--sky-bottom));}
+    .shell{max-width:var(--max);margin:0 auto;padding:24px}.topnav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.topnav a{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line);text-decoration:none;color:var(--text);font-size:13px;font-weight:700}.topnav a.active{background:rgba(212,125,90,.14);color:var(--accent-3)}
+    .hero{display:grid;grid-template-columns:1.35fr .95fr;gap:18px;padding:28px;border:1px solid var(--line);border-radius:32px;background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,249,243,.94));box-shadow:var(--shadow)}
+    .eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:rgba(212,125,90,.12);color:var(--accent-3);font-size:12px;font-weight:800;margin-bottom:12px}.hero h1{margin:0;font-size:clamp(30px,4vw,52px);line-height:1.18}.lead{margin:14px 0 0;max-width:60ch;color:var(--muted);line-height:1.7}
+    .meta{display:grid;gap:10px}.meta-row{display:grid;grid-template-columns:110px 1fr;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.meta-row strong{font-size:13px}.meta-row span{color:var(--muted);font-size:13px}
+    .grid{display:grid;gap:16px;margin-top:18px}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.card{padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 10px 26px rgba(78,58,42,.06)}
+    .card h2,.card h3{margin:0 0 10px}.summary{display:grid;gap:16px;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:18px}.summary .value{font-size:30px;font-weight:800;line-height:1.1}.summary p{margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.6}
+    .callout{padding:18px 20px;border-radius:22px;background:linear-gradient(135deg,rgba(255,247,239,.96),rgba(255,251,245,.96));border:1px solid rgba(212,125,90,.18)}
+    .rank-list{display:grid;gap:10px}.rank-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid var(--line)}.rank-chip{display:inline-flex;justify-content:center;padding:8px 10px;border-radius:999px;background:rgba(212,125,90,.14);color:var(--accent-3);font-weight:800;font-size:12px}.rank-meta small{display:block;color:var(--muted);margin-top:4px}.score{font-weight:800;color:var(--accent-3)}
+    table{width:100%;border-collapse:collapse} caption{text-align:left;padding-bottom:10px;font-weight:800} th,td{padding:11px 12px;border-bottom:1px solid var(--line)} th{text-align:left;color:var(--muted);font-size:12px;background:rgba(255,255,255,.7)} td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .trend{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mini{padding:14px;border-radius:18px;background:rgba(255,255,255,.7);border:1px solid var(--line)} .spark{height:58px;background:linear-gradient(180deg,rgba(136,177,124,.1),transparent);border-radius:14px;position:relative;overflow:hidden}.spark:after{content:"";position:absolute;inset:12px;background:linear-gradient(90deg,transparent 0 10%,rgba(136,177,124,.7) 10% 30%,rgba(212,125,90,.7) 30% 55%,rgba(136,177,124,.7) 55% 100%);clip-path:polygon(0 70%,12% 62%,28% 40%,45% 46%,63% 24%,78% 32%,100% 12%,100% 100%,0 100%)}
+    @media (max-width:980px){.hero,.summary,.grid-3,.trend{grid-template-columns:1fr 1fr}} @media (max-width:720px){.shell{padding:16px}.hero,.summary,.grid-3,.trend{grid-template-columns:1fr}.meta-row{grid-template-columns:1fr;gap:6px}.rank-item{grid-template-columns:56px 1fr}.score{grid-column:2}.lead{max-width:none}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topnav"><a class="active" href="./design-lab-report-first.html">A 리포트형</a><a href="./design-lab-callout-first.html">B 콜아웃형</a><a href="./design-lab-comparison-first.html">C 비교형</a><a href="./design-lab-final.html">최종안</a></nav>
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Design Lab A · Report First</span>
+        <h1>눈이 덜 피로한<br />길드 리포트 구조</h1>
+        <p class="lead">강한 장식보다 <strong>읽는 순서</strong>를 먼저 설계한 안입니다. 상단에서 “이번 리포트가 무엇인지”를 짧게 설명하고, 그 아래로 핵심 요약 → 랭킹 → 추이 순서로 자연스럽게 내려가게 만듭니다.</p>
+      </div>
+      <div class="meta">
+        <div class="meta-row"><strong>기준 길드</strong><span>빅딜 · 셀린느</span></div>
+        <div class="meta-row"><strong>업데이트</strong><span>2026-04-17 12:05 · 자동 갱신</span></div>
+        <div class="meta-row"><strong>핵심 목표</strong><span>요약을 먼저 읽고, 필요한 표만 깊게 보는 구조</span></div>
+        <div class="meta-row"><strong>강점</strong><span>긴 체류 시간, 히스토리 해석, 초보 사용자 친화적</span></div>
+      </div>
+    </section>
+
+    <section class="summary">
+      <article class="card"><h3>핵심 변동</h3><div class="value">+3</div><p>길드원 순증 3명. 첫 카드에서 “이번에 무슨 일이 있었는지”를 바로 보여줍니다.</p></article>
+      <article class="card"><h3>가장 먼저 볼 지표</h3><div class="value">1위</div><p>수련장 예상 순위를 숫자 한 개로 먼저 노출합니다.</p></article>
+      <article class="card"><h3>전투력 변화</h3><div class="value">+4.8%</div><p>복잡한 원시 수치보다 추세 해석을 우선합니다.</p></article>
+      <article class="card"><h3>TOP10 유지</h3><div class="value">8명</div><p>유지율을 따로 빼서 비교 안정성을 빠르게 읽게 합니다.</p></article>
+    </section>
+
+    <div class="grid grid-3">
+      <article class="card callout"><h2>이번 리포트 한 줄 요약</h2><p>빅딜은 수련장 예상 1위를 유지했고, 셀린느는 상위권 안정성이 더 높습니다. 사용자는 이 한 문장만 읽어도 오늘의 흐름을 이해할 수 있습니다.</p></article>
+      <article class="card"><h2>왜 보기 편한가</h2><p>카드를 많이 두기보다 <strong>한 섹션에 하나의 역할</strong>만 주었습니다. 시선 이동이 짧고, 정보 우선순위가 명확합니다.</p></article>
+      <article class="card"><h2>모바일 전략</h2><p>표보다 요약과 순위 카드가 먼저 오고, 세부 표는 아래에 둬서 폰에서도 첫 화면 이해가 가능합니다.</p></article>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1.1fr .9fr;">
+      <article class="card">
+        <h2>상단 랭킹 프리뷰</h2>
+        <div class="rank-list">
+          <div class="rank-item"><span class="rank-chip">#1</span><div class="rank-meta"><strong>빅딜</strong><small>예상 점수 91,227,844</small></div><span class="score">+4.8%</span></div>
+          <div class="rank-item"><span class="rank-chip">#2</span><div class="rank-meta"><strong>셀린느</strong><small>예상 점수 88,913,220</small></div><span class="score">+3.1%</span></div>
+          <div class="rank-item"><span class="rank-chip">#3</span><div class="rank-meta"><strong>딸기키우기</strong><small>상대 길드 추격</small></div><span class="score">-0.9%</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <h2>추이 읽기</h2>
+        <div class="trend">
+          <div class="mini"><strong>랭킹 안정성</strong><div class="spark"></div></div>
+          <div class="mini"><strong>전투력 흐름</strong><div class="spark"></div></div>
+        </div>
+      </article>
+    </div>
+
+    <article class="card" style="margin-top:18px;">
+      <table>
+        <caption>상세 비교표는 아래로 내립니다</caption>
+        <thead><tr><th>길드</th><th>설명</th><th class="num">예상 점수</th><th class="num">TOP10 유지</th></tr></thead>
+        <tbody>
+          <tr><td>빅딜</td><td>요약에서 먼저 읽고, 세부 비교는 여기서 확인</td><td class="num">91,227,844</td><td class="num">8명</td></tr>
+          <tr><td>셀린느</td><td>상위권 방어력 강점</td><td class="num">88,913,220</td><td class="num">10명</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+</body>
+</html>
