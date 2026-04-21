@@ -441,6 +441,99 @@ def render_summary_card_html(label: str, value: str, help_text: str, extra_class
         """
 
 
+def build_report_primary_summary_card(report_mode: str, history_analysis: dict[str, Any]) -> tuple[str, str, str, str]:
+    copy = get_report_copy(report_mode)
+    label = "오늘 핵심 변화"
+    if history_analysis.get("has_previous"):
+        summary = history_analysis.get("summary", {})
+        previous_date = str(history_analysis.get("previous_date", "-") or "-")
+        total_joined = int(summary.get("total_joined", 0))
+        total_departed = int(summary.get("total_departed", 0))
+        best_sim_guild = str(summary.get("best_sim_guild", "") or "")
+        best_sim_delta = int(summary.get("best_sim_delta", 0))
+        best_power_guild = str(summary.get("best_power_guild", "") or "")
+        best_power_delta = int(summary.get("best_power_delta", 0))
+
+        if best_sim_guild and best_sim_delta != 0:
+            value = f"{best_sim_guild} {copy['simulation_metric']} 최대 상승 {format_metric_delta(best_sim_delta, copy['simulation_metric_short'] == '예상 지표')}"
+            help_text = f"{previous_date} 대비 길드원 +{total_joined} / -{total_departed}"
+        elif total_joined or total_departed:
+            value = f"길드원 +{total_joined} / -{total_departed}"
+            if best_power_guild and best_power_delta != 0:
+                help_text = f"{previous_date} 대비 {best_power_guild} 전투력 최대 상승 {format_metric_delta(best_power_delta, True)}"
+            else:
+                help_text = f"{previous_date} 대비 전체 길드원 이동"
+        elif best_power_guild and best_power_delta != 0:
+            value = f"{best_power_guild} 전투력 최대 상승 {format_metric_delta(best_power_delta, True)}"
+            help_text = f"{previous_date} 대비 총 전투력 변화"
+        else:
+            value = "직전 대비 큰 변동 없음"
+            help_text = f"{previous_date} 대비 길드원 수와 핵심 지표에 큰 변화가 없습니다."
+    else:
+        value = f"{copy['simulation_metric']} 첫 스냅샷 확인"
+        help_text = f"직전 비교 기록이 아직 없어 현재 매칭 기준 핵심 지표만 먼저 보여줍니다."
+
+    return (label, value, help_text, "summary-card summary-card-primary")
+
+
+def build_report_summary_cards(
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    history_analysis: dict[str, Any],
+    report_mode: str,
+) -> list[tuple[str, str, str, str]]:
+    total_members = sum(len(rows) for rows in members_by_guild.values())
+    total_power = sum(power_to_man_units(str(row.get("guild_power", ""))) for row in guild_rows)
+    all_members = [member for members in members_by_guild.values() for member in members]
+    top_member = max(all_members, key=lambda item: power_to_man_units(str(item.get("combat_power", "")))) if all_members else None
+    avg_level_values = [int(member["level"]) for member in all_members if str(member.get("level", "")).isdigit()]
+    avg_level = round(sum(avg_level_values) / len(avg_level_values), 1) if avg_level_values else 0
+    updated_on = next((row.get("data_date", "") for row in guild_rows if row.get("data_date")), "")
+
+    return [
+        build_report_primary_summary_card(report_mode, history_analysis),
+        ("매칭 길드", f"{len(guild_rows)}개", "현재 그룹에 포함된 길드 수", "summary-card"),
+        ("길드원 총합", f"{total_members}명", "매칭 길드 전체 길드원 수", "summary-card"),
+        ("평균 레벨", f"Lv.{avg_level}", "전체 길드원 평균 레벨", "summary-card"),
+        ("길드 총 전투력", format_man_units(total_power), "길드 전투력 합산", "summary-card"),
+        (
+            "최고 전투력 멤버",
+            f"{escape(top_member['nickname']) if top_member else '-'}",
+            f"{escape(top_member['combat_power']) if top_member else '-'} · {escape(top_member['guild_name']) if top_member else '-'}",
+            "summary-card",
+        ),
+        ("기준일", escape(updated_on), "페이지 노출 기준 데이터", "summary-card"),
+    ]
+
+
+def render_report_hero_meta(guild_seed_name: str, report_mode: str, guild_rows: list[dict[str, Any]], history_analysis: dict[str, Any]) -> str:
+    copy = get_report_copy(report_mode)
+    updated_on = next((str(row.get("data_date", "")) for row in guild_rows if row.get("data_date")), "-")
+    summary = history_analysis.get("summary", {})
+    member_delta = (
+        f"+{int(summary.get('total_joined', 0))} / -{int(summary.get('total_departed', 0))}"
+        if history_analysis.get("has_previous")
+        else "첫 스냅샷 기준"
+    )
+    best_guild = str(summary.get("best_sim_guild", "") or guild_seed_name)
+    cards = [
+        ("리포트 기준", f"{guild_seed_name} · {REPORT_MODE_LABELS[report_mode]}", f"매칭 길드 {len(guild_rows)}개 비교"),
+        ("업데이트 기준일", updated_on, "자동 생성 시점 공개 데이터"),
+        ("핵심 비교 길드", best_guild, f"{copy['simulation_metric']} 흐름이 가장 두드러진 길드"),
+        ("길드원 증감", member_delta, "직전 기록과 비교한 전체 증감"),
+    ]
+    return "".join(
+        f"""
+        <article class="hero-meta-card">
+          <strong>{escape(str(label))}</strong>
+          <span>{escape(str(value))}</span>
+          <small>{escape(str(help_text))}</small>
+        </article>
+        """
+        for label, value, help_text in cards
+    )
+
+
 def _safe_int(value: Any, default: int = 0) -> int:
     try:
         return int(value)
@@ -1810,29 +1903,30 @@ def write_sheet(
         worksheet.set_column(col_idx, col_idx, min(max(max_length + 2, 12), 50))
 
 
-def render_summary_cards(guild_rows: list[dict[str, Any]], members_by_guild: dict[str, list[dict[str, Any]]]) -> str:
-    total_members = sum(len(rows) for rows in members_by_guild.values())
-    total_power = sum(power_to_man_units(str(row.get("guild_power", ""))) for row in guild_rows)
-    all_members = [member for members in members_by_guild.values() for member in members]
-    top_member = max(all_members, key=lambda item: power_to_man_units(str(item.get("combat_power", "")))) if all_members else None
-    avg_level_values = [int(member["level"]) for member in all_members if str(member.get("level", "")).isdigit()]
-    avg_level = round(sum(avg_level_values) / len(avg_level_values), 1) if avg_level_values else 0
-    updated_on = next((row.get("data_date", "") for row in guild_rows if row.get("data_date")), "")
+def render_summary_cards(
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    history_analysis: dict[str, Any],
+    report_mode: str,
+) -> str:
+    cards = build_report_summary_cards(guild_rows, members_by_guild, history_analysis, report_mode)[:4]
 
-    cards = [
-        ("매칭 길드", f"{len(guild_rows)}개", "현재 그룹에 포함된 길드 수"),
-        ("길드원 총합", f"{total_members}명", "5개 길드 전체 길드원 수"),
-        ("길드 총 전투력", format_man_units(total_power), "길드 전투력 합산"),
-        ("평균 레벨", f"Lv.{avg_level}", "전체 길드원 평균 레벨"),
-        (
-            "최고 전투력 멤버",
-            f"{escape(top_member['nickname']) if top_member else '-'}",
-            f"{escape(top_member['combat_power']) if top_member else '-'} · {escape(top_member['guild_name']) if top_member else '-'}",
-        ),
-        ("기준일", escape(updated_on), "페이지 노출 기준 데이터"),
-    ]
+    return "".join(render_summary_card_html(label, value, help_text, classes) for label, value, help_text, classes in cards)
 
-    return "".join(render_summary_card_html(label, value, help_text) for label, value, help_text in cards)
+
+def render_secondary_summary_cards(
+    guild_rows: list[dict[str, Any]],
+    members_by_guild: dict[str, list[dict[str, Any]]],
+    history_analysis: dict[str, Any],
+    report_mode: str,
+) -> str:
+    cards = build_report_summary_cards(guild_rows, members_by_guild, history_analysis, report_mode)[4:]
+    if not cards:
+        return ""
+    return '<div class="summary-grid summary-grid-secondary">' + ''.join(
+        render_summary_card_html(label, value, help_text, classes)
+        for label, value, help_text, classes in cards
+    ) + '</div>'
 
 
 def render_auto_summary_section(history_analysis: dict[str, Any]) -> str:
@@ -2783,6 +2877,21 @@ def build_tobeol_html_report(
     history_html = render_tobeol_history_section(tobeol_history_analysis)
     display_ranking = build_tobeol_display_ranking(guild_seed_name, tobeol_ranking, guild_members)
     ranking_html = _render_tobeol_ranking_html(display_ranking)
+    primary_summary = next(iter(display_ranking.get("guild_summaries", [])), {})
+    hero_meta_html = "".join(
+        f"""
+        <article class="hero-meta-card">
+          <strong>{escape(str(label))}</strong>
+          <span>{escape(str(value))}</span>
+          <small>{escape(str(help_text))}</small>
+        </article>
+        """
+        for label, value, help_text in [
+            ("길드 기준", guild_seed_name, f"랭커 {int(primary_summary.get('count', 0))}명 / 전체 {int(primary_summary.get('total_members', len(guild_members)))}명"),
+            ("최고 순위", f"#{int(primary_summary.get('best_rank', 0))}" if primary_summary.get('best_rank') else "-", str(primary_summary.get('best_nickname', '해당 없음'))),
+            ("히스토리 기준", str(tobeol_history_analysis.get('previous_date', '') or '첫 비교 전'), "직전 토벌전 기록과 비교"),
+        ]
+    )
     html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -2837,8 +2946,13 @@ def build_tobeol_html_report(
     input, button {{ font: inherit; }}
     a {{ color: inherit; text-decoration: none; }}
     .page {{ width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1; }}
-    .hero {{ position: relative; overflow: hidden; padding: 36px; border: 1px solid var(--line); border-radius: 36px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(250,243,232,0.92)); box-shadow: 0 28px 60px rgba(93,66,40,0.18); }}
+    .hero {{ position: relative; overflow: hidden; display:grid; grid-template-columns:1.2fr .8fr; gap:18px; padding: 30px; border: 1px solid var(--line); border-radius: 32px; background: linear-gradient(180deg, rgba(255,252,247,0.98), rgba(250,243,232,0.94)); box-shadow: 0 24px 52px rgba(93,66,40,0.16); }}
     .hero-copy {{ max-width: 100%; }}
+    .hero-side {{ display:grid; gap:12px; align-content:start; }}
+    .hero-meta-card {{ padding:14px 16px; border-radius:18px; background: rgba(255,255,255,0.74); border:1px solid var(--line); box-shadow:0 8px 20px rgba(78,58,42,0.05); }}
+    .hero-meta-card strong {{ display:block; font-size:13px; }}
+    .hero-meta-card span {{ display:block; margin-top:6px; font-size:16px; font-weight:800; line-height:1.35; }}
+    .hero-meta-card small {{ display:block; margin-top:6px; color:var(--muted); font-size:12px; line-height:1.55; }}
     .mode-tabs {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }}
     .mode-tab {{ display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }}
     .mode-tab.active {{ background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }}
@@ -2846,7 +2960,7 @@ def build_tobeol_html_report(
     .hero h1 {{ margin: 0; font-family: "Maplestory", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: clamp(26px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.02em; word-break: keep-all; }}
     .hero-title-row {{ display: flex; align-items: center; gap: 16px; }}
     .hero-title-mark {{ width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; border-radius: 12px; }}
-    .hero p.lead {{ max-width: 760px; color: var(--muted); font-size: 15px; line-height: 1.75; margin: 16px 0 0; }}
+    .hero p.lead {{ max-width: 58ch; color: var(--muted); font-size: 15px; line-height: 1.72; margin: 14px 0 0; }}
     .tobeol-body {{ margin-top: 32px; }}
     .tobeol-section-head {{ margin: 0 0 4px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }}
     .summary-card, .info-panel {{ background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(10px); }}
@@ -2896,6 +3010,7 @@ def build_tobeol_html_report(
     .tobeol-guild-cell {{ font-weight: 700; }}
     .tobeol-row-copy {{ color: var(--muted); font-size: 11px; margin-top: 2px; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
+    @media (max-width: 980px) {{ .hero {{ grid-template-columns:1fr; }} }}
     @media (max-width: 720px) {{ .hero {{ padding: 20px; border-radius: 28px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 28px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .analytics-grid-2, .trend-chart-grid, .analytics-list-split {{ grid-template-columns: 1fr; }} }}
   </style>
 </head>
@@ -2915,6 +3030,7 @@ def build_tobeol_html_report(
         </div>
         <p class="lead">mgf.gg 서버 2 토벌전 랭킹에서 {escape(guild_seed_name)} 멤버를 확인합니다.</p>
       </div>
+      <aside class="hero-side">{hero_meta_html}</aside>
     </header>
     <div class="tobeol-body">
       {history_html}
@@ -2985,10 +3101,12 @@ def build_html_report(
     font_light_path = font_face_map.get("light", "")
     font_bold_path = font_face_map.get("bold", "")
     hero_guild_mark_html = render_guild_mark(guild_seed_name, guild_mark_map, "hero-title-mark")
-    summary_cards_html = render_summary_cards(guild_rows, members_by_guild)
+    summary_cards_html = render_summary_cards(guild_rows, members_by_guild, history_analysis, report_mode)
+    secondary_summary_cards_html = render_secondary_summary_cards(guild_rows, members_by_guild, history_analysis, report_mode)
     auto_summary_html = render_auto_summary_section(history_analysis)
     snapshot_overview_html = render_snapshot_overview_section(history_analysis)
     compare_cards_html = render_compare_cards(guild_rows, members_by_guild, history_analysis, guild_mark_map)
+    hero_meta_html = render_report_hero_meta(guild_seed_name, report_mode, guild_rows, history_analysis)
     if report_mode == "league":
         score_table = parse_score_table(SCORE_TABLE_PATH)
         simulation = build_guild_war_simulation(members_by_guild, score_table)
@@ -3085,11 +3203,14 @@ def build_html_report(
     .hero {{
       position: relative;
       overflow: hidden;
-      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      padding: 30px;
       border: 1px solid var(--line);
-      border-radius: 36px;
-      background: linear-gradient(135deg, rgba(255, 252, 247, 0.98), rgba(250, 243, 232, 0.92));
-      box-shadow: 0 28px 60px rgba(93, 66, 40, 0.18);
+      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(255,252,247,0.98), rgba(250,243,232,0.94));
+      box-shadow: 0 24px 52px rgba(93, 66, 40, 0.16);
     }}
     .hero::after {{
       content: "";
@@ -3110,6 +3231,12 @@ def build_html_report(
       pointer-events: none;
     }}
     .hero-copy {{ max-width: 100%; }}
+    .hero-main {{ display: grid; gap: 16px; }}
+    .hero-side {{ display: grid; gap: 12px; align-content: start; }}
+    .hero-meta-card {{ padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,0.74); border: 1px solid var(--line); box-shadow: 0 8px 20px rgba(78,58,42,0.05); }}
+    .hero-meta-card strong {{ display: block; font-size: 13px; }}
+    .hero-meta-card span {{ display: block; margin-top: 6px; font-size: 16px; font-weight: 800; line-height: 1.35; }}
+    .hero-meta-card small {{ display: block; margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.55; }}
     .mode-tabs {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }}
     .mode-tab {{ display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }}
     .mode-tab.active {{ background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }}
@@ -3117,8 +3244,8 @@ def build_html_report(
     .hero h1 {{ margin: 0; font-family: "Maplestory", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: clamp(28px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.02em; max-width: none; word-break: keep-all; }}
     .hero-title-row {{ display: flex; align-items: center; gap: 16px; }}
     .hero-title-mark {{ width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; border-radius: 12px; }}
-    .hero p.lead {{ max-width: 760px; color: var(--muted); font-size: 16px; line-height: 1.75; margin: 16px 0 0; }}
-    .hero-nav {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }}
+    .hero p.lead {{ max-width: 58ch; color: var(--muted); font-size: 15px; line-height: 1.72; margin: 14px 0 0; }}
+    .hero-nav {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; grid-column: 1 / -1; }}
     .hero-nav a {{
       padding: 10px 14px;
       border-radius: 999px;
@@ -3130,10 +3257,11 @@ def build_html_report(
       cursor: pointer;
     }}
     .hero-nav a:hover {{ background: rgba(212,125,90,0.12); border-color: rgba(212,125,90,0.22); }}
-    .section-tabs {{ display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 0; }}
-    .section-tabs a {{ display: inline-flex; align-items: center; min-height: 46px; padding: 13px 20px; border-radius: 999px; background: linear-gradient(180deg, #cb8a42, #a96426); border: 0; color: #fff9f0; font-size: 14px; font-weight: 800; box-shadow: 0 12px 24px rgba(169,100,38,0.24); transition: transform .18s ease, box-shadow .18s ease; }}
-    .section-tabs a:hover {{ transform: translateY(-1px); box-shadow: 0 16px 28px rgba(169,100,38,0.28); }}
-    .summary-grid {{ display: grid; gap: 16px; margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }}
+    .section-tabs {{ display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 0; }}
+    .section-tabs a {{ display: inline-flex; align-items: center; min-height: 40px; padding: 10px 16px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--text); font-size: 13px; font-weight: 800; box-shadow: 0 8px 16px rgba(78,58,42,0.05); transition: transform .18s ease, border-color .18s ease, background .18s ease; }}
+    .section-tabs a:hover {{ transform: translateY(-1px); background: rgba(212,125,90,0.10); border-color: rgba(212,125,90,0.18); }}
+    .summary-grid {{ display: grid; gap: 16px; margin-top: 18px; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-column: 1 / -1; }}
+    .summary-grid-secondary {{ margin-top: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }}
     .auto-summary-grid {{ display: grid; gap: 16px; margin-top: 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }}
     .auto-summary-card {{ padding: 20px 22px; background: rgba(255,252,247,0.78); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }}
     .auto-summary-card-empty {{ grid-column: 1 / -1; }}
@@ -3145,23 +3273,27 @@ def build_html_report(
       backdrop-filter: blur(10px);
     }}
     .summary-card {{ position: relative; overflow: hidden; padding: 22px; min-height: 152px; background: rgba(255, 251, 244, 0.84); }}
+    .summary-card-primary {{ grid-column: span 2; background: linear-gradient(135deg, rgba(255,246,239,0.98), rgba(255,251,245,0.96)); border-color: rgba(212,125,90,0.20); }}
     .summary-card::before {{ content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.36), rgba(255,255,255,0)); pointer-events: none; }}
     .summary-label {{ margin: 0; font-size: 13px; color: var(--muted); }}
     .summary-value {{ display: block; margin-top: 14px; font-size: 28px; line-height: 1.15; }}
     .summary-help {{ margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }}
-    .section-title {{ margin: 44px 0 16px; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }}
+    .section-title {{ margin: 44px 0 8px; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }}
+    .section-copy {{ margin: 0 0 16px; color: var(--muted); font-size: 13px; line-height: 1.65; }}
+    .summary-extra {{ grid-column: 1 / -1; padding: 18px 20px; border-radius: 22px; background: rgba(255,255,255,0.72); border: 1px solid var(--line); box-shadow: 0 10px 24px rgba(78,58,42,0.05); }}
+    .summary-extra-toggle {{ width: 100%; display:flex; justify-content:space-between; gap:12px; align-items:center; border:0; background:transparent; color:inherit; text-align:left; cursor:pointer; padding:0; }}
+    .summary-extra-toggle strong {{ display:block; font-size:16px; }}
+    .summary-extra-toggle span {{ display:inline-flex; align-items:center; gap:6px; color:var(--accent-3); font-size:12px; font-weight:800; }}
+    .summary-extra-toggle span::after {{ content:"▾"; font-size:12px; transition:transform .18s ease; }}
+    .summary-extra.open .summary-extra-toggle span::after {{ transform: rotate(180deg); }}
+    .summary-extra-body {{ margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(110,84,60,0.08); }}
     .mobile-section-toggle {{ display: none; width: 100%; margin: 18px 0 0; padding: 16px 18px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,0.76); color: var(--text); text-align: left; box-shadow: var(--shadow); }}
     .mobile-section-toggle strong {{ display: block; font-size: 16px; }}
     .mobile-section-toggle span {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
     .mobile-section-toggle span::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
     .mobile-section-panel.expanded .mobile-section-toggle span::after {{ transform: rotate(180deg); }}
     .mobile-section-body {{ display: block; }}
-    .hero-stats-toggle {{ display: none; width: 100%; margin-top: 20px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,0.68); color: var(--text); text-align: left; cursor: pointer; box-shadow: 0 8px 20px rgba(78,58,42,0.07); }}
-    .hero-stats-toggle strong {{ display: block; font-size: 14px; font-weight: 800; }}
-    .hero-stats-toggle span {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--accent-3); font-size: 12px; font-weight: 800; }}
-    .hero-stats-toggle span::after {{ content: "▾"; font-size: 12px; transition: transform .18s ease; }}
-    .hero-stats-toggle.open span::after {{ transform: rotate(180deg); }}
-    .hero-stats-body {{ display: block; }}
+    .hero-stats-body {{ display: grid; gap: 18px; grid-column: 1 / -1; }}
     /* #2: Guild Comparison — 가로 스크롤 한 열 레이아웃 */
     .compare-scroll-wrap {{
       display: flex;
@@ -3480,41 +3612,51 @@ def build_html_report(
     .power-col {{ font-variant-numeric: tabular-nums; color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
     @media (max-width: 980px) {{ .section-grid, .simulation-overview, .modal-comparison-grid, .modal-history-grid, .snapshot-overview-grid, .analytics-grid-2, .analytics-list-split {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }} .section-head, .table-toolbar, .analytics-module-toggle {{ flex-direction: column; align-items: start; }} .analytics-person-item {{ grid-template-columns: 1fr; }} }}
-    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; border-radius: 28px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} .member-table th, .member-table td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 30px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .simulation-modal-box, .modal-box {{ padding: 20px; border-radius: 26px; }} .training-simulation-table, .guild-war-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} .section-title {{ display: none; }} .mobile-section-toggle {{ display: block; }} .mobile-section-panel:not(.expanded) .mobile-section-body {{ display: none; }} .hero-stats-toggle {{ display: block; }} .hero-stats-body:not(.open) {{ display: none; }} .guild-card-title-row {{ gap: 10px; }} .guild-card-mark {{ width: 34px; height: 34px; }} .modal-title-row {{ gap: 10px; }} .modal-guild-mark {{ width: 46px; height: 46px; }} .section-tabs a {{ width: 100%; justify-content: center; }} .analytics-timeline {{ grid-template-columns: 1fr; }} .analytics-module {{ padding: 14px; }} }}
+    @media (max-width: 980px) {{ .hero {{ grid-template-columns: 1fr; }} .summary-grid, .summary-grid-secondary {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} .summary-card-primary {{ grid-column: 1 / -1; }} }}
+    @media (max-width: 720px) {{ .page {{ width: min(100% - 20px, 1320px); }} .hero {{ padding: 20px; border-radius: 28px; }} .guild-metrics {{ grid-template-columns: 1fr; }} .job-coefficient-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }} .member-table th, .member-table td {{ padding: 12px; font-size: 13px; }} .member-search {{ min-width: 0; width: 100%; }} .guild-card {{ flex: 0 0 260px; }} .detail-compare-card {{ flex: 0 0 250px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 30px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .simulation-modal-box, .modal-box {{ padding: 20px; border-radius: 26px; }} .training-simulation-table, .guild-war-simulation-table {{ display: none; }} .simulation-mobile-card-list {{ display: grid; }} .simulation-member-score {{ padding: 9px 11px; }} .simulation-member-score strong {{ font-size: 16px; }} .simulation-member-meta {{ grid-template-columns: 1fr; }} .simulation-rank-grid {{ grid-template-columns: 1fr; }} .simulation-rank-card {{ padding: 16px; }} .simulation-rank-score {{ font-size: 24px; }} .job-coefficient-head {{ flex-direction: column; align-items: flex-start; }} .section-title {{ display: none; }} .mobile-section-toggle {{ display: block; }} .mobile-section-panel:not(.expanded) .mobile-section-body {{ display: none; }} .summary-grid, .summary-grid-secondary {{ grid-template-columns: 1fr; }} .guild-card-title-row {{ gap: 10px; }} .guild-card-mark {{ width: 34px; height: 34px; }} .modal-title-row {{ gap: 10px; }} .modal-guild-mark {{ width: 46px; height: 46px; }} .section-tabs a {{ width: 100%; justify-content: center; }} .analytics-timeline {{ grid-template-columns: 1fr; }} .analytics-module {{ padding: 14px; }} }}
   </style>
 </head>
 <body>
   <div class="page">
     <header class="hero">
-      <div class="hero-copy">
-        <div class="mode-tabs">{mode_tabs_html}</div>
-         <p class="eyebrow">✦ MAPLE GUILD REPORT CONCEPT</p>
-         <div class="hero-title-row">
-           {hero_guild_mark_html}
-           <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
-         </div>
-         <p class="lead">{escape(copy['lead'])}</p>
-         <div class="section-tabs">
-            <a data-modal="guild-war-simulation" href="#">{escape(copy['simulation_nav'])}</a>
-            <a data-modal="snapshot-analytics" href="#">스냅샷 분석</a>
+      <div class="hero-main">
+        <div class="hero-copy">
+          <div class="mode-tabs">{mode_tabs_html}</div>
+          <p class="eyebrow">✦ MAPLE GUILD REPORT CONCEPT</p>
+          <div class="hero-title-row">
+            {hero_guild_mark_html}
+            <h1>{escape(guild_seed_name)} {escape(report_label)} 리포트</h1>
           </div>
-       </div>
+          <p class="lead">{escape(copy['lead'])}</p>
+          <div class="section-tabs">
+             <a data-modal="guild-war-simulation" href="#">{escape(copy['simulation_nav'])}</a>
+             <a data-modal="snapshot-analytics" href="#">스냅샷 분석</a>
+          </div>
+        </div>
+      </div>
+      <aside class="hero-side">{hero_meta_html}</aside>
       <nav class="hero-nav">{nav_links}</nav>
-      <button type="button" class="hero-stats-toggle" aria-expanded="false">
-        <strong>리포트 요약 통계</strong>
-        <span>접기 / 펴기</span>
-      </button>
       <div class="hero-stats-body" id="hero-stats-body">
-       <section class="summary-grid">{summary_cards_html}</section>
-       {auto_summary_html}
-       {snapshot_overview_html}
+        <section class="summary-grid">{summary_cards_html}</section>
+        <section class="summary-extra" id="summary-extra-panel">
+          <button type="button" class="summary-extra-toggle" aria-expanded="false">
+            <strong>추가 요약 보기</strong>
+            <span>펼치기</span>
+          </button>
+          <div class="summary-extra-body" hidden>
+            {secondary_summary_cards_html}
+            {auto_summary_html}
+            {snapshot_overview_html}
+          </div>
+        </section>
       </div>
     </header>
 
     <section class="mobile-section-panel" id="guild-comparison-section">
-      <h2 class="section-title" id="guild-comparison">Guild Comparison</h2>
+      <h2 class="section-title" id="guild-comparison">핵심 비교 레일</h2>
+      <p class="section-copy">상단 카드에서 흐름을 읽고, 여기서 길드별 차이를 바로 스캔합니다.</p>
       <button type="button" class="mobile-section-toggle" data-target="guild-comparison-body" aria-expanded="false">
-        <strong>Guild Comparison</strong>
+        <strong>핵심 비교 레일</strong>
         <span>상세 보기</span>
       </button>
       <div class="mobile-section-body" id="guild-comparison-body">
@@ -3523,9 +3665,10 @@ def build_html_report(
     </section>
 
     <section class="mobile-section-panel" id="guild-detail-comparison-section">
-      <h2 class="section-title" id="guild-detail-comparison">Guild Detail Comparison</h2>
+      <h2 class="section-title" id="guild-detail-comparison">길드 상세 비교</h2>
+      <p class="section-copy">랭킹/요약 다음 단계에서 각 길드의 멤버 구성을 표처럼 읽기 편하게 비교합니다.</p>
       <button type="button" class="mobile-section-toggle" data-target="guild-detail-comparison-body" aria-expanded="false">
-        <strong>Guild Detail Comparison</strong>
+        <strong>길드 상세 비교</strong>
         <span>상세 보기</span>
       </button>
       <div class="mobile-section-body" id="guild-detail-comparison-body">
@@ -3674,6 +3817,18 @@ def build_html_report(
       btn.addEventListener('click', (e) => {{
         e.preventDefault();
         openModal(btn.dataset.modal);
+      }});
+    }});
+
+    document.querySelectorAll('.summary-extra-toggle').forEach((button) => {{
+      button.addEventListener('click', () => {{
+        const section = button.closest('.summary-extra');
+        const body = section?.querySelector('.summary-extra-body');
+        if (!section || !body) return;
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        body.hidden = expanded;
+        section.classList.toggle('open', !expanded);
       }});
     }});
 
