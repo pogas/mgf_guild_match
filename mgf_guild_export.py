@@ -33,6 +33,30 @@ REPORT_MODE_LABELS = {
 #   3차(Lv.60~99) / 4차(Lv.100+) 별도 적용
 TRAINING_LEVEL_EXPONENT = 0.5
 TRAINING_POWER_EXPONENT = 0.23
+TRAINING_SCORE_GLOBAL_MULTIPLIER = 1.0
+TRAINING_POWER_BUCKET_LOW_MAX = 493228657
+TRAINING_POWER_BUCKET_MID_MAX = 58345491044
+TRAINING_POWER_BUCKET_MULTIPLIERS = {
+    "low": 0.88,
+    "mid": 1.127,
+    "high": 0.939,
+}
+TRAINING_TIER_MULTIPLIERS = {
+    "3rd": 1.0497226721862407,
+    "4th": 1.0,
+}
+TRAINING_JOB_ADJUSTMENTS = {
+    "나이트로드": 1.15,
+    "다크나이트": 0.9695971200455037,
+    "보우마스터": 1.15,
+    "비숍": 0.9945688058709196,
+    "섀도어": 0.8995376095841514,
+    "신궁": 1.043629444462388,
+    "아크메이지(불,독)": 1.15,
+    "아크메이지(썬,콜)": 0.8527737569106176,
+    "팔라딘": 0.9441345820775653,
+    "히어로": 0.9827547747860125,
+}
 # 3차 전직 기준 계수 (Lv.60~99) — 커뮤니티 3차 밸런스: 비숍 11.685 = 1.0 기준
 TRAINING_JOB_COEFFICIENTS_3RD: dict[str, float] = {
     "비숍": 255000.0,          # 11.685 / 11.685 = 1.000
@@ -655,14 +679,36 @@ def get_training_job_coefficient(job_name: str) -> tuple[float, str]:
     return result if result is not None else (1.0, "기본")
 
 
+def get_training_tier_label(level: int | None = None) -> str:
+    if level is not None and level >= 100:
+        return "4th"
+    return "3rd"
+
+
+def get_training_bucket_multiplier(combat_power_value: int) -> float:
+    if combat_power_value < TRAINING_POWER_BUCKET_LOW_MAX:
+        return TRAINING_POWER_BUCKET_MULTIPLIERS["low"]
+    if combat_power_value < TRAINING_POWER_BUCKET_MID_MAX:
+        return TRAINING_POWER_BUCKET_MULTIPLIERS["mid"]
+    return TRAINING_POWER_BUCKET_MULTIPLIERS["high"]
+
+
+def get_training_job_adjustment(coefficient_label: str) -> float:
+    return TRAINING_JOB_ADJUSTMENTS.get(coefficient_label, 1.0)
+
+
 def estimate_training_score(level: int, combat_power_value: int, job_name: str) -> int:
     """레벨 + 전투력 + 직업 기반 수련장 예상 점수 추정.
     3차(Lv.60~99) / 4차(Lv.100+) 계수 자동 선택.
     """
     safe_level = max(level, 1)
     safe_power_eok = max(combat_power_value / 100_000_000, 1)
-    coefficient, _ = get_training_job_coefficient_by_tier(job_name, level)
-    return round(coefficient * (safe_level ** TRAINING_LEVEL_EXPONENT) * (safe_power_eok ** TRAINING_POWER_EXPONENT))
+    coefficient, coefficient_label = get_training_job_coefficient_by_tier(job_name, level)
+    raw_score = coefficient * (safe_level ** TRAINING_LEVEL_EXPONENT) * (safe_power_eok ** TRAINING_POWER_EXPONENT)
+    bucket_multiplier = get_training_bucket_multiplier(combat_power_value)
+    tier_multiplier = TRAINING_TIER_MULTIPLIERS[get_training_tier_label(level)]
+    job_adjustment = get_training_job_adjustment(coefficient_label)
+    return round(raw_score * TRAINING_SCORE_GLOBAL_MULTIPLIER * bucket_multiplier * tier_multiplier * job_adjustment)
 
 
 def next_available_path(path: Path) -> Path:
@@ -854,7 +900,10 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
             estimated_metric_value = estimate_training_score(level, combat_power_value, job_name)
         else:
             # 레벨 정보 없을 때 점수 규모를 맞춘 전투력 기반 fallback
-            estimated_metric_value = round((max(combat_power_value / 100_000_000, 1) ** TRAINING_POWER_EXPONENT) * coefficient)
+            bucket_multiplier = get_training_bucket_multiplier(combat_power_value)
+            tier_multiplier = TRAINING_TIER_MULTIPLIERS[get_training_tier_label(None)]
+            job_adjustment = get_training_job_adjustment(coefficient_label)
+            estimated_metric_value = round((max(combat_power_value / 100_000_000, 1) ** TRAINING_POWER_EXPONENT) * coefficient * TRAINING_SCORE_GLOBAL_MULTIPLIER * bucket_multiplier * tier_multiplier * job_adjustment)
         projected_members.append(
             {
                 "guild_name": guild_name,
