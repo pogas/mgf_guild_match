@@ -1,0 +1,34 @@
+{
+  "matched_rows": 310,
+  "bucket_thresholds": {
+    "low_max_exclusive": 480325155,
+    "mid_max_exclusive": 60554634344
+  },
+  "bucket_summary": {
+    "low": {
+      "count": 103,
+      "mape": 0.31374662974025014,
+      "bias": -0.10857990331710023,
+      "median_ratio": 1.0413094307176662
+    },
+    "mid": {
+      "count": 103,
+      "mape": 0.2962505435283484,
+      "bias": -0.10485052957174819,
+      "median_ratio": 1.1582517274089867
+    },
+    "high": {
+      "count": 104,
+      "mape": 0.22356960916960594,
+      "bias": -0.028979792952521462,
+      "median_ratio": 1.039475759722905
+    }
+  },
+  "global_mape": 0.27768047806549895,
+  "best_bucket_mape": 0.27434845543418884,
+  "best_bucket_multipliers": {
+    "low": 0.9213094307176662,
+    "mid": 1.0382517274089866,
+    "high": 0.974475759722905
+  }
+}
