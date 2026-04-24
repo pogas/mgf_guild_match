@@ -52,8 +52,13 @@
     input, button { font: inherit; }
     a { color: inherit; text-decoration: none; }
     .page { width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1; }
-    .hero { position: relative; overflow: hidden; padding: 36px; border: 1px solid var(--line); border-radius: 36px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(250,243,232,0.92)); box-shadow: 0 28px 60px rgba(93,66,40,0.18); }
+    .hero { position: relative; overflow: hidden; display:grid; grid-template-columns:1.2fr .8fr; gap:18px; padding: 30px; border: 1px solid var(--line); border-radius: 32px; background: linear-gradient(180deg, rgba(255,252,247,0.98), rgba(250,243,232,0.94)); box-shadow: 0 24px 52px rgba(93,66,40,0.16); }
     .hero-copy { max-width: 100%; }
+    .hero-side { display:grid; gap:12px; align-content:start; }
+    .hero-meta-card { padding:14px 16px; border-radius:18px; background: rgba(255,255,255,0.74); border:1px solid var(--line); box-shadow:0 8px 20px rgba(78,58,42,0.05); }
+    .hero-meta-card strong { display:block; font-size:13px; }
+    .hero-meta-card span { display:block; margin-top:6px; font-size:16px; font-weight:800; line-height:1.35; }
+    .hero-meta-card small { display:block; margin-top:6px; color:var(--muted); font-size:12px; line-height:1.55; }
     .mode-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
     .mode-tab { display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }
     .mode-tab.active { background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }
@@ -61,7 +66,7 @@
     .hero h1 { margin: 0; font-family: "Maplestory", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: clamp(26px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.02em; word-break: keep-all; }
     .hero-title-row { display: flex; align-items: center; gap: 16px; }
     .hero-title-mark { width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; border-radius: 12px; }
-    .hero p.lead { max-width: 760px; color: var(--muted); font-size: 15px; line-height: 1.75; margin: 16px 0 0; }
+    .hero p.lead { max-width: 58ch; color: var(--muted); font-size: 15px; line-height: 1.72; margin: 14px 0 0; }
     .tobeol-body { margin-top: 32px; }
     .tobeol-section-head { margin: 0 0 4px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }
     .summary-card, .info-panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(10px); }
@@ -111,6 +116,7 @@
     .tobeol-guild-cell { font-weight: 700; }
     .tobeol-row-copy { color: var(--muted); font-size: 11px; margin-top: 2px; }
     .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }
+    @media (max-width: 980px) { .hero { grid-template-columns:1fr; } }
     @media (max-width: 720px) { .hero { padding: 20px; border-radius: 28px; } .hero h1 { font-size: clamp(20px, 5.2vw, 28px); white-space: normal; } .hero-title-mark { width: 48px; height: 48px; } .analytics-grid-2, .trend-chart-grid, .analytics-list-split { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -130,18 +136,37 @@
         </div>
         <p class="lead">mgf.gg 서버 2 토벌전 랭킹에서 셀린느 멤버를 확인합니다.</p>
       </div>
+      <aside class="hero-side">
+        <article class="hero-meta-card">
+          <strong>길드 기준</strong>
+          <span>셀린느</span>
+          <small>랭커 30명 / 전체 30명</small>
+        </article>
+        
+        <article class="hero-meta-card">
+          <strong>최고 순위</strong>
+          <span>#1</span>
+          <small>스타냥이</small>
+        </article>
+        
+        <article class="hero-meta-card">
+          <strong>히스토리 기준</strong>
+          <span>2026-04-24</span>
+          <small>직전 토벌전 기록과 비교</small>
+        </article>
+        </aside>
     </header>
     <div class="tobeol-body">
       <section class="auto-summary-grid tobeol-history-summary">
         <article class="auto-summary-card">
           <p class="summary-label">비교 기준일</p>
-          <strong class="summary-value">2026-04-17</strong>
-          <p class="summary-help">현재 스냅샷 2026-04-17</p>
+          <strong class="summary-value">2026-04-24</strong>
+          <p class="summary-help">현재 스냅샷 2026-04-24</p>
         </article>
         
         <article class="auto-summary-card">
           <p class="summary-label">랭커 수</p>
-          <strong class="summary-value">29명</strong>
+          <strong class="summary-value">30명</strong>
           <p class="summary-help">직전 대비 0명</p>
         </article>
         
@@ -163,13 +188,13 @@
         <div class="trend-chart-grid">
           <div class="trend-chart-card">
             <span>랭커 수</span>
-            <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 60.0,34.0 120.0,34.0" /></svg></div>
-            <p class="simulation-copy">04/16 → 04/17 → 04/17</p>
+            <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 20.0,34.0 40.0,34.0 60.0,34.0 80.0,34.0 100.0,34.0 120.0,34.0" /></svg></div>
+            <p class="simulation-copy">04/19 → 04/20 → 04/21 → 04/22 → 04/23 → 04/24 → 04/24</p>
           </div>
           <div class="trend-chart-card">
             <span>최고 순위</span>
-            <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 60.0,34.0 120.0,34.0" /></svg></div>
-            <p class="simulation-copy">현재 최고 #1 · 스타냥이 · 6603억 854만</p>
+            <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 20.0,34.0 40.0,34.0 60.0,34.0 80.0,34.0 100.0,34.0 120.0,34.0" /></svg></div>
+            <p class="simulation-copy">현재 최고 #1 · 스타냥이 · 7660억 9706만</p>
           </div>
         </div>
       </article>
@@ -198,10 +223,10 @@
         <article class="info-panel analytics-stat-card">
           <h5>셀린느</h5>
           <div class="analytics-mini-grid">
-            <span>랭커 29명 / 전체 29명</span>
+            <span>랭커 30명 / 전체 30명</span>
             <span>최고 순위 #1</span>
           </div>
-          <p class='simulation-copy'>스타냥이 · 6603억 854만</p>
+          <p class='simulation-copy'>스타냥이 · 7660억 9706만</p>
         </article>
         </div>
     <div class="tobeol-ranking-tabs"><button type="button" class="tobeol-ranking-tab tobeol-ranking-tab-active" data-tobeol-guild="전체">전체</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="셀린느">셀린느</button></div>
@@ -211,177 +236,183 @@
         <tbody id="tobeol-ranking-tbody"><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#1</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>스타냥이</strong><div class="tobeol-row-copy">Lv.113 · 신궁</div></td>
-          <td>6603억 854만</td>
-          <td>♥ 2,197</td>
+          <td><strong>스타냥이</strong><div class="tobeol-row-copy">Lv.114 · 신궁</div></td>
+          <td>7660억 9706만</td>
+          <td>♥ 2,219</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#4</span></td>
+          <td><span class="tobeol-rank-chip">#2</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>돈스</strong><div class="tobeol-row-copy">Lv.109 · 비숍</div></td>
-          <td>3157억 9719만</td>
-          <td>♥ 666</td>
+          <td><strong>돈스</strong><div class="tobeol-row-copy">Lv.111 · 비숍</div></td>
+          <td>4083억 4718만</td>
+          <td>♥ 947</td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#5</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>말레이히어로</strong><div class="tobeol-row-copy">Lv.110 · 히어로</div></td>
+          <td>2791억 1752만</td>
+          <td>♥ 131</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#6</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>진자이</strong><div class="tobeol-row-copy">Lv.110 · 아크메이지(썬,콜)</div></td>
-          <td>1933억 7773만</td>
-          <td>♥ 612</td>
+          <td><strong>진자이</strong><div class="tobeol-row-copy">Lv.111 · 아크메이지(썬,콜)</div></td>
+          <td>2708억 9087만</td>
+          <td>♥ 844</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#8</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
           <td><strong>빌런투킬</strong><div class="tobeol-row-copy">Lv.109 · 팔라딘</div></td>
-          <td>1798억 3592만</td>
-          <td>♥ 264</td>
+          <td>2125억 1984만</td>
+          <td>♥ 385</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#12</span></td>
+          <td><span class="tobeol-rank-chip">#9</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
           <td><strong>스타캐치</strong><div class="tobeol-row-copy">Lv.109 · 섀도어</div></td>
-          <td>1534억 4509만</td>
-          <td>♥ 1,006</td>
-        </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#17</span></td>
-          <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>말레이히어로</strong><div class="tobeol-row-copy">Lv.109 · 다크나이트</div></td>
-          <td>1116억 3309만</td>
-          <td>♥ 113</td>
+          <td>2059억 6964만</td>
+          <td>♥ 1,016</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#18</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>스타뎀</strong><div class="tobeol-row-copy">Lv.108 · 다크나이트</div></td>
-          <td>1079억 6257만</td>
-          <td>♥ 356</td>
+          <td><strong>여사</strong><div class="tobeol-row-copy">Lv.108 · 다크나이트</div></td>
+          <td>1088억 1126만</td>
+          <td>♥ 1,163</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#21</span></td>
+          <td><span class="tobeol-rank-chip">#20</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>꽃을든남자</strong><div class="tobeol-row-copy">Lv.105 · 히어로</div></td>
-          <td>905억 3599만</td>
-          <td>♥ 1,072</td>
+          <td><strong>니달리신</strong><div class="tobeol-row-copy">Lv.106 · 비숍</div></td>
+          <td>1072억 6579만</td>
+          <td>♥ 234</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#22</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>여사</strong><div class="tobeol-row-copy">Lv.107 · 다크나이트</div></td>
-          <td>905억 556만</td>
-          <td>♥ 1,102</td>
+          <td><strong>부엉이없다</strong><div class="tobeol-row-copy">Lv.105 · 섀도어</div></td>
+          <td>1049억 9223만</td>
+          <td>♥ 1,086</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#23</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>부엉이없다</strong><div class="tobeol-row-copy">Lv.104 · 섀도어</div></td>
-          <td>827억 5207만</td>
-          <td>♥ 828</td>
+          <td><strong>꽃을든남자</strong><div class="tobeol-row-copy">Lv.106 · 히어로</div></td>
+          <td>1045억 4372만</td>
+          <td>♥ 1,368</td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#24</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>스타뎀</strong><div class="tobeol-row-copy">Lv.108 · 다크나이트</div></td>
+          <td>1020억 3597만</td>
+          <td>♥ 358</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#26</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>약어</strong><div class="tobeol-row-copy">Lv.105 · 신궁</div></td>
-          <td>716억 9022만</td>
-          <td>♥ 2,088</td>
+          <td><strong>단풍노비</strong><div class="tobeol-row-copy">Lv.107 · 비숍</div></td>
+          <td>912억 9946만</td>
+          <td>♥ 363</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#28</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>쾌감</strong><div class="tobeol-row-copy">Lv.106 · 섀도어</div></td>
-          <td>613억 2413만</td>
-          <td>♥ 578</td>
+          <td><strong>약어</strong><div class="tobeol-row-copy">Lv.106 · 신궁</div></td>
+          <td>862억 7970만</td>
+          <td>♥ 2,143</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#30</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>하후돈</strong><div class="tobeol-row-copy">Lv.105 · 섀도어</div></td>
-          <td>562억 8612만</td>
+          <td><strong>쾌감</strong><div class="tobeol-row-copy">Lv.106 · 섀도어</div></td>
+          <td>770억 7925만</td>
+          <td>♥ 617</td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#32</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>하후돈</strong><div class="tobeol-row-copy">Lv.106 · 섀도어</div></td>
+          <td>724억 1875만</td>
           <td>♥ 43</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#31</span></td>
+          <td><span class="tobeol-rank-chip">#34</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>소소채2</strong><div class="tobeol-row-copy">Lv.103 · 섀도어</div></td>
-          <td>536억 4424만</td>
-          <td>♥ 150</td>
-        </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#33</span></td>
-          <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>잼포즈</strong><div class="tobeol-row-copy">Lv.104 · 아크메이지(썬,콜)</div></td>
-          <td>513억 300만</td>
-          <td>♥ 523</td>
+          <td><strong>잼포즈</strong><div class="tobeol-row-copy">Lv.105 · 아크메이지(썬,콜)</div></td>
+          <td>614억 4809만</td>
+          <td>♥ 757</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#35</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>프리프리</strong><div class="tobeol-row-copy">Lv.105 · 섀도어</div></td>
-          <td>449억 4712만</td>
-          <td>♥ 1,174</td>
-        </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#36</span></td>
-          <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>두근푸근연근</strong><div class="tobeol-row-copy">Lv.103 · 히어로</div></td>
-          <td>427억 8903만</td>
-          <td>♥ 197</td>
+          <td><strong>두근푸근연근</strong><div class="tobeol-row-copy">Lv.104 · 히어로</div></td>
+          <td>606억 9380만</td>
+          <td>♥ 270</td>
         </tr><tr data-tobeol-guild="셀린느">
           <td><span class="tobeol-rank-chip">#40</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>프리프리</strong><div class="tobeol-row-copy">Lv.106 · 섀도어</div></td>
+          <td>459억 492만</td>
+          <td>♥ 1,187</td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#41</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>소소채2</strong><div class="tobeol-row-copy">Lv.104 · 섀도어</div></td>
+          <td>438억 2108만</td>
+          <td>♥ 166</td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#48</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
           <td><strong>POSCO</strong><div class="tobeol-row-copy">Lv.105 · 다크나이트</div></td>
           <td>387억 6561만</td>
-          <td>♥ 668</td>
+          <td>♥ 703</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#43</span></td>
+          <td><span class="tobeol-rank-chip">#49</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>단풍노비</strong><div class="tobeol-row-copy">Lv.106 · 비숍</div></td>
-          <td>354억 2862만</td>
-          <td>♥ 291</td>
-        </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#51</span></td>
-          <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>대방어조아</strong><div class="tobeol-row-copy">Lv.103 · 섀도어</div></td>
-          <td>321억 8776만</td>
-          <td>♥ 256</td>
-        </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#54</span></td>
-          <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>루넨</strong><div class="tobeol-row-copy">Lv.104 · 섀도어</div></td>
-          <td>300억 8643만</td>
+          <td><strong>루넨</strong><div class="tobeol-row-copy">Lv.105 · 섀도어</div></td>
+          <td>386억 4066만</td>
           <td>♥ 169</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#58</span></td>
+          <td><span class="tobeol-rank-chip">#56</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>대방어조아</strong><div class="tobeol-row-copy">Lv.104 · 섀도어</div></td>
+          <td>342억 1731만</td>
+          <td>♥ 258</td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#61</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
           <td><strong>제로슈가</strong><div class="tobeol-row-copy">Lv.104 · 아크메이지(불,독)</div></td>
-          <td>280억 3701만</td>
-          <td>♥ 1,041</td>
+          <td>320억 6201만</td>
+          <td>♥ 1,097</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#81</span></td>
+          <td><span class="tobeol-rank-chip">#75</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>몽호</strong><div class="tobeol-row-copy">Lv.103 · 다크나이트</div></td>
+          <td><strong>포뇨야</strong><div class="tobeol-row-copy">Lv.104 · 아크메이지(썬,콜)</div></td>
+          <td>256억 602만</td>
+          <td>♥ 134</td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#102</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>몽호</strong><div class="tobeol-row-copy">Lv.104 · 다크나이트</div></td>
           <td>209억 9191만</td>
           <td>♥ 54</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#92</span></td>
+          <td><span class="tobeol-rank-chip">#108</span></td>
+          <td class="tobeol-guild-cell">셀린느</td>
+          <td><strong>혜영</strong><div class="tobeol-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
+          <td>200억 1312만</td>
+          <td>♥ 2,514</td>
+        </tr><tr data-tobeol-guild="셀린느">
+          <td><span class="tobeol-rank-chip">#115</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
           <td><strong>김치싸대기</strong><div class="tobeol-row-copy">Lv.103 · 히어로</div></td>
           <td>189억 9462만</td>
           <td>♥ 31</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#114</span></td>
-          <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>포뇨야</strong><div class="tobeol-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
-          <td>164억 9304만</td>
-          <td>♥ 128</td>
-        </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#118</span></td>
-          <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>혜영</strong><div class="tobeol-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
-          <td>160억 6525만</td>
-          <td>♥ 2,253</td>
-        </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#131</span></td>
+          <td><span class="tobeol-rank-chip">#126</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
           <td><strong>악의꽃</strong><div class="tobeol-row-copy">Lv.102 · 신궁</div></td>
-          <td>146억 9635만</td>
-          <td>♥ 189</td>
+          <td>167억 7635만</td>
+          <td>♥ 203</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#206</span></td>
+          <td><span class="tobeol-rank-chip">#204</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>울힝</strong><div class="tobeol-row-copy">Lv.102 · 아크메이지(썬,콜)</div></td>
-          <td>116억 4721만</td>
-          <td>♥ 846</td>
+          <td><strong>울힝</strong><div class="tobeol-row-copy">Lv.103 · 아크메이지(썬,콜)</div></td>
+          <td>128억 3505만</td>
+          <td>♥ 946</td>
         </tr><tr data-tobeol-guild="셀린느">
-          <td><span class="tobeol-rank-chip">#797</span></td>
+          <td><span class="tobeol-rank-chip">#2267</span></td>
           <td class="tobeol-guild-cell">셀린느</td>
-          <td><strong>할룽</strong><div class="tobeol-row-copy">Lv.104 · 아크메이지(썬,콜)</div></td>
-          <td>45억 8492만</td>
-          <td>♥ 160</td>
+          <td><strong>할룽</strong><div class="tobeol-row-copy">Lv.105 · 아크메이지(썬,콜)</div></td>
+          <td>20억 9779만</td>
+          <td>♥ 210</td>
         </tr></tbody>
       </table>
     </div>
