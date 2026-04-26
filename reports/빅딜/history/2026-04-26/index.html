@@ -52,8 +52,13 @@
     input, button { font: inherit; }
     a { color: inherit; text-decoration: none; }
     .page { width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1; }
-    .hero { position: relative; overflow: hidden; padding: 36px; border: 1px solid var(--line); border-radius: 36px; background: linear-gradient(135deg, rgba(255,252,247,0.98), rgba(250,243,232,0.92)); box-shadow: 0 28px 60px rgba(93,66,40,0.18); }
+    .hero { position: relative; overflow: hidden; display:grid; grid-template-columns:1.2fr .8fr; gap:18px; padding: 30px; border: 1px solid var(--line); border-radius: 32px; background: linear-gradient(180deg, rgba(255,252,247,0.98), rgba(250,243,232,0.94)); box-shadow: 0 24px 52px rgba(93,66,40,0.16); }
     .hero-copy { max-width: 100%; }
+    .hero-side { display:grid; gap:12px; align-content:start; }
+    .hero-meta-card { padding:14px 16px; border-radius:18px; background: rgba(255,255,255,0.74); border:1px solid var(--line); box-shadow:0 8px 20px rgba(78,58,42,0.05); }
+    .hero-meta-card strong { display:block; font-size:13px; }
+    .hero-meta-card span { display:block; margin-top:6px; font-size:16px; font-weight:800; line-height:1.35; }
+    .hero-meta-card small { display:block; margin-top:6px; color:var(--muted); font-size:12px; line-height:1.55; }
     .mode-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
     .mode-tab { display: inline-flex; align-items: center; min-height: 38px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.78); border: 1px solid rgba(110,84,60,0.1); color: var(--muted); font-size: 13px; font-weight: 800; }
     .mode-tab.active { background: rgba(212,125,90,0.16); color: var(--accent-3); border-color: rgba(212,125,90,0.18); }
@@ -61,7 +66,7 @@
     .hero h1 { margin: 0; font-family: "Maplestory", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: clamp(26px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.02em; word-break: keep-all; }
     .hero-title-row { display: flex; align-items: center; gap: 16px; }
     .hero-title-mark { width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; border-radius: 12px; }
-    .hero p.lead { max-width: 760px; color: var(--muted); font-size: 15px; line-height: 1.75; margin: 16px 0 0; }
+    .hero p.lead { max-width: 58ch; color: var(--muted); font-size: 15px; line-height: 1.72; margin: 14px 0 0; }
     .tobeol-body { margin-top: 32px; }
     .tobeol-section-head { margin: 0 0 4px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-3); font-weight: 700; }
     .summary-card, .info-panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(10px); }
@@ -111,6 +116,7 @@
     .tobeol-guild-cell { font-weight: 700; }
     .tobeol-row-copy { color: var(--muted); font-size: 11px; margin-top: 2px; }
     .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }
+    @media (max-width: 980px) { .hero { grid-template-columns:1fr; } }
     @media (max-width: 720px) { .hero { padding: 20px; border-radius: 28px; } .hero h1 { font-size: clamp(20px, 5.2vw, 28px); white-space: normal; } .hero-title-mark { width: 48px; height: 48px; } .analytics-grid-2, .trend-chart-grid, .analytics-list-split { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -130,24 +136,43 @@
         </div>
         <p class="lead">mgf.gg 서버 2 토벌전 랭킹에서 빅딜 멤버를 확인합니다.</p>
       </div>
+      <aside class="hero-side">
+        <article class="hero-meta-card">
+          <strong>길드 기준</strong>
+          <span>빅딜</span>
+          <small>랭커 30명 / 전체 30명</small>
+        </article>
+        
+        <article class="hero-meta-card">
+          <strong>최고 순위</strong>
+          <span>#62</span>
+          <small>망겜감별사</small>
+        </article>
+        
+        <article class="hero-meta-card">
+          <strong>히스토리 기준</strong>
+          <span>2026-04-26</span>
+          <small>직전 토벌전 기록과 비교</small>
+        </article>
+        </aside>
     </header>
     <div class="tobeol-body">
       <section class="auto-summary-grid tobeol-history-summary">
         <article class="auto-summary-card">
           <p class="summary-label">비교 기준일</p>
-          <strong class="summary-value">2026-04-19</strong>
-          <p class="summary-help">현재 스냅샷 2026-04-19</p>
+          <strong class="summary-value">2026-04-26</strong>
+          <p class="summary-help">현재 스냅샷 2026-04-26</p>
         </article>
         
         <article class="auto-summary-card">
           <p class="summary-label">랭커 수</p>
-          <strong class="summary-value">29명</strong>
+          <strong class="summary-value">30명</strong>
           <p class="summary-help">직전 대비 0명</p>
         </article>
         
         <article class="auto-summary-card">
           <p class="summary-label">최고 순위</p>
-          <strong class="summary-value">#76</strong>
+          <strong class="summary-value">#62</strong>
           <p class="summary-help">변동 없음</p>
         </article>
         
@@ -163,13 +188,13 @@
         <div class="trend-chart-grid">
           <div class="trend-chart-card">
             <span>랭커 수</span>
-            <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 30.0,2.0 60.0,3.52 90.0,3.52 120.0,3.52" /></svg></div>
-            <p class="simulation-copy">04/16 → 04/17 → 04/18 → 04/19 → 04/19</p>
+            <div class="trend-chart"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 20.0,34.0 40.0,34.0 60.0,34.0 80.0,34.0 100.0,34.0 120.0,34.0" /></svg></div>
+            <p class="simulation-copy">04/21 → 04/22 → 04/23 → 04/24 → 04/25 → 04/26 → 04/26</p>
           </div>
           <div class="trend-chart-card">
             <span>최고 순위</span>
-            <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 30.0,2.0 60.0,10.73 90.0,22.36 120.0,22.36" /></svg></div>
-            <p class="simulation-copy">현재 최고 #76 · 큐샤프 · 233억 4668만</p>
+            <div class="trend-chart trend-chart-secondary"><svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0.0,34.0 20.0,2.0 40.0,4.13 60.0,4.13 80.0,8.4 100.0,10.53 120.0,10.53" /></svg></div>
+            <p class="simulation-copy">현재 최고 #62 · 망겜감별사 · 328억 741만</p>
           </div>
         </div>
       </article>
@@ -198,10 +223,10 @@
         <article class="info-panel analytics-stat-card">
           <h5>빅딜</h5>
           <div class="analytics-mini-grid">
-            <span>랭커 29명 / 전체 29명</span>
-            <span>최고 순위 #76</span>
+            <span>랭커 30명 / 전체 30명</span>
+            <span>최고 순위 #62</span>
           </div>
-          <p class='simulation-copy'>큐샤프 · 233억 4668만</p>
+          <p class='simulation-copy'>망겜감별사 · 328억 741만</p>
         </article>
         </div>
     <div class="tobeol-ranking-tabs"><button type="button" class="tobeol-ranking-tab tobeol-ranking-tab-active" data-tobeol-guild="전체">전체</button><button type="button" class="tobeol-ranking-tab" data-tobeol-guild="빅딜">빅딜</button></div>
@@ -209,179 +234,185 @@
       <table class="tobeol-ranking-table">
         <thead><tr><th>순위</th><th>길드</th><th>닉네임</th><th>토벌전 점수</th><th>좋아요</th></tr></thead>
         <tbody id="tobeol-ranking-tbody"><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#76</span></td>
+          <td><span class="tobeol-rank-chip">#62</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>큐샤프</strong><div class="tobeol-row-copy">Lv.103 · 신궁</div></td>
-          <td>233억 4668만</td>
-          <td>♥ 1,001</td>
+          <td><strong>망겜감별사</strong><div class="tobeol-row-copy">Lv.104 · 섀도어</div></td>
+          <td>328억 741만</td>
+          <td>♥ 955</td>
         </tr><tr data-tobeol-guild="빅딜">
           <td><span class="tobeol-rank-chip">#79</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>망겜감별사</strong><div class="tobeol-row-copy">Lv.103 · 섀도어</div></td>
-          <td>231억 6355만</td>
-          <td>♥ 775</td>
+          <td><strong>큐샤프</strong><div class="tobeol-row-copy">Lv.103 · 신궁</div></td>
+          <td>258억 6369만</td>
+          <td>♥ 1,164</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#115</span></td>
+          <td><span class="tobeol-rank-chip">#125</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
           <td><strong>단풍카우</strong><div class="tobeol-row-copy">Lv.103 · 다크나이트</div></td>
-          <td>172억 8610만</td>
-          <td>♥ 554</td>
+          <td>181억 6805만</td>
+          <td>♥ 643</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#161</span></td>
+          <td><span class="tobeol-rank-chip">#181</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>킹몬</strong><div class="tobeol-row-copy">Lv.101 · 다크나이트</div></td>
-          <td>135억 9858만</td>
-          <td>♥ 158</td>
+          <td><strong>킹몬</strong><div class="tobeol-row-copy">Lv.102 · 다크나이트</div></td>
+          <td>142억 808만</td>
+          <td>♥ 160</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#207</span></td>
+          <td><span class="tobeol-rank-chip">#211</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
           <td><strong>엘라임</strong><div class="tobeol-row-copy">Lv.101 · 히어로</div></td>
-          <td>120억 5529만</td>
-          <td>♥ 597</td>
+          <td>130억 8934만</td>
+          <td>♥ 642</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#222</span></td>
+          <td><span class="tobeol-rank-chip">#237</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>굴러가는일상</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
-          <td>117억 2540만</td>
+          <td><strong>야가다</strong><div class="tobeol-row-copy">Lv.103 · 보우마스터</div></td>
+          <td>123억 4066만</td>
+          <td>♥ 60</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#277</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>굴러가는일상</strong><div class="tobeol-row-copy">Lv.101 · 아크메이지(썬,콜)</div></td>
+          <td>115억 7137만</td>
           <td>♥ 28</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#240</span></td>
+          <td><span class="tobeol-rank-chip">#286</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>야가다</strong><div class="tobeol-row-copy">Lv.102 · 보우마스터</div></td>
-          <td>113억 8890만</td>
-          <td>♥ 59</td>
+          <td><strong>KR#TAKIN9CP37</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
+          <td>113억 8684만</td>
+          <td>♥ 82</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#262</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>포스코퓨처엠</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
-          <td>109억 442만</td>
-          <td>♥ 131</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#268</span></td>
+          <td><span class="tobeol-rank-chip">#287</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
           <td><strong>아르미느</strong><div class="tobeol-row-copy">Lv.101 · 히어로</div></td>
-          <td>107억 8886만</td>
+          <td>113억 8274만</td>
           <td>♥ 12</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#279</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>쭌파파</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
-          <td>105억 7247만</td>
-          <td>♥ 64</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#336</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>뻥뻥</strong><div class="tobeol-row-copy">Lv.99 · 신궁</div></td>
-          <td>95억 9651만</td>
-          <td>♥ 50</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#378</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>민들레꽃</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
-          <td>89억 9824만</td>
-          <td>♥ 43</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#401</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>므고</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
-          <td>85억 5242만</td>
-          <td>♥ 20</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#480</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>흑두부</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
-          <td>74억 9546만</td>
-          <td>♥ 27</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#495</span></td>
+          <td><span class="tobeol-rank-chip">#290</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
           <td><strong>우후</strong><div class="tobeol-row-copy">Lv.100 · 히어로</div></td>
-          <td>72억 9433만</td>
+          <td>113억 3812만</td>
           <td>♥ 2</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#516</span></td>
+          <td><span class="tobeol-rank-chip">#293</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>양정팔</strong><div class="tobeol-row-copy">Lv.101 · 히어로</div></td>
+          <td>113억 149만</td>
+          <td>♥ 123</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#304</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>포스코퓨처엠</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
+          <td>110억 8735만</td>
+          <td>♥ 133</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#317</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>쭌파파</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
+          <td>109억 2095만</td>
+          <td>♥ 64</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#373</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>뻥뻥</strong><div class="tobeol-row-copy">Lv.99 · 신궁</div></td>
+          <td>103억 7636만</td>
+          <td>♥ 50</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#405</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>민들레꽃</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
+          <td>100억 2859만</td>
+          <td>♥ 48</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#428</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>므고</strong><div class="tobeol-row-copy">Lv.101 · 섀도어</div></td>
+          <td>95억 1829만</td>
+          <td>♥ 21</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#484</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
           <td><strong>강철고튠데</strong><div class="tobeol-row-copy">Lv.100 · 나이트로드</div></td>
-          <td>69억 3679만</td>
+          <td>87억 3159만</td>
           <td>♥ 104</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#520</span></td>
+          <td><span class="tobeol-rank-chip">#496</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>여븨</strong><div class="tobeol-row-copy">Lv.101 · 섀도어</div></td>
-          <td>69억 365만</td>
-          <td>♥ 53</td>
+          <td><strong>흑두부</strong><div class="tobeol-row-copy">Lv.100 · 아크메이지(썬,콜)</div></td>
+          <td>85억 8608만</td>
+          <td>♥ 29</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#590</span></td>
+          <td><span class="tobeol-rank-chip">#524</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>덕르코프</strong><div class="tobeol-row-copy">Lv.98 · 섀도어</div></td>
-          <td>62억 4478만</td>
-          <td>♥ 75</td>
+          <td><strong>자유이용껀</strong><div class="tobeol-row-copy">Lv.98 · 섀도어</div></td>
+          <td>82억 6009만</td>
+          <td>♥ 170</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#592</span></td>
+          <td><span class="tobeol-rank-chip">#579</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>꾸르꾸르</strong><div class="tobeol-row-copy">Lv.99 · 섀도어</div></td>
-          <td>62억 3122만</td>
-          <td>♥ 61</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#620</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>제스프리</strong><div class="tobeol-row-copy">Lv.97 · 신궁</div></td>
-          <td>59억 6929만</td>
-          <td>♥ 106</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#621</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>자유이용껀</strong><div class="tobeol-row-copy">Lv.97 · 섀도어</div></td>
-          <td>59억 6441만</td>
-          <td>♥ 162</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#634</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>아르젠타</strong><div class="tobeol-row-copy">Lv.97 · 아크메이지(썬,콜)</div></td>
-          <td>59억 731만</td>
+          <td><strong>아르젠타</strong><div class="tobeol-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
+          <td>76억 5769만</td>
           <td>♥ 55</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#641</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>제스프리</strong><div class="tobeol-row-copy">Lv.98 · 신궁</div></td>
+          <td>69억 4598만</td>
+          <td>♥ 108</td>
         </tr><tr data-tobeol-guild="빅딜">
           <td><span class="tobeol-rank-chip">#648</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>비스밤</strong><div class="tobeol-row-copy">Lv.98 · 아크메이지(썬,콜)</div></td>
-          <td>57억 5783만</td>
-          <td>♥ 29</td>
+          <td><strong>덕르코프</strong><div class="tobeol-row-copy">Lv.99 · 섀도어</div></td>
+          <td>68억 8090만</td>
+          <td>♥ 75</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#675</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>데드캣</strong><div class="tobeol-row-copy">Lv.100 · 신궁</div></td>
-          <td>55억 2492만</td>
-          <td>♥ 67</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#781</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>여눈</strong><div class="tobeol-row-copy">Lv.97 · 섀도어</div></td>
-          <td>49억 132만</td>
-          <td>♥ 35</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#829</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>플로우00</strong><div class="tobeol-row-copy">Lv.100 · 보우마스터</div></td>
-          <td>46억 8044만</td>
-          <td>♥ 182</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#830</span></td>
-          <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>불보독지</strong><div class="tobeol-row-copy">Lv.98 · 아크메이지(불,독)</div></td>
-          <td>46억 6901만</td>
-          <td>♥ -21</td>
-        </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#1336</span></td>
+          <td><span class="tobeol-rank-chip">#674</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
           <td><strong>반도</strong><div class="tobeol-row-copy">Lv.100 · 나이트로드</div></td>
-          <td>32억 2451만</td>
+          <td>65억 8358만</td>
           <td>♥ 76</td>
         </tr><tr data-tobeol-guild="빅딜">
-          <td><span class="tobeol-rank-chip">#1879</span></td>
+          <td><span class="tobeol-rank-chip">#708</span></td>
           <td class="tobeol-guild-cell">빅딜</td>
-          <td><strong>욤지</strong><div class="tobeol-row-copy">Lv.96 · 섀도어</div></td>
-          <td>23억 3315만</td>
-          <td>♥ 213</td>
+          <td><strong>비스밤</strong><div class="tobeol-row-copy">Lv.99 · 아크메이지(썬,콜)</div></td>
+          <td>62억 5218만</td>
+          <td>♥ 29</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#710</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>꾸르꾸르</strong><div class="tobeol-row-copy">Lv.100 · 섀도어</div></td>
+          <td>62억 3122만</td>
+          <td>♥ 64</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#725</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>데드캣</strong><div class="tobeol-row-copy">Lv.100 · 신궁</div></td>
+          <td>60억 6546만</td>
+          <td>♥ 67</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#763</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>여눈</strong><div class="tobeol-row-copy">Lv.98 · 섀도어</div></td>
+          <td>58억 3243만</td>
+          <td>♥ 36</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#776</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>플로우00</strong><div class="tobeol-row-copy">Lv.100 · 보우마스터</div></td>
+          <td>57억 7031만</td>
+          <td>♥ 189</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#1432</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>여븨</strong><div class="tobeol-row-copy">Lv.101 · 섀도어</div></td>
+          <td>34억 6705만</td>
+          <td>♥ 58</td>
+        </tr><tr data-tobeol-guild="빅딜">
+          <td><span class="tobeol-rank-chip">#2079</span></td>
+          <td class="tobeol-guild-cell">빅딜</td>
+          <td><strong>불보독지</strong><div class="tobeol-row-copy">Lv.99 · 아크메이지(불,독)</div></td>
+          <td>23억 9825만</td>
+          <td>♥ 2</td>
         </tr></tbody>
       </table>
     </div>
