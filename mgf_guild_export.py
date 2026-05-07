@@ -401,6 +401,20 @@ def parse_rank_number(value: str) -> int | None:
     return int(match.group(1)) if match else None
 
 
+def parse_member_count_text(value: str) -> int | None:
+    return parse_rank_number(value)
+
+
+def get_official_member_count(guild_row: dict[str, Any], members: list[dict[str, Any]]) -> int:
+    return parse_member_count_text(str(guild_row.get("member_count", ""))) or len(members)
+
+
+def format_member_count_summary(official_count: int, listed_count: int) -> str:
+    if official_count > listed_count:
+        return f"{official_count}명 (상세 {listed_count}명)"
+    return f"{official_count}명"
+
+
 def describe_rank_tier(rank_value: str, label: str) -> str:
     rank_number = parse_rank_number(rank_value)
     if rank_number is None:
@@ -506,7 +520,10 @@ def build_report_summary_cards(
     history_analysis: dict[str, Any],
     report_mode: str,
 ) -> list[tuple[str, str, str, str]]:
-    total_members = sum(len(rows) for rows in members_by_guild.values())
+    total_members = sum(
+        get_official_member_count(row, members_by_guild.get(str(row.get("guild_name", "")), []))
+        for row in guild_rows
+    )
     total_power = sum(power_to_man_units(str(row.get("guild_power", ""))) for row in guild_rows)
     all_members = [member for members in members_by_guild.values() for member in members]
     top_member = max(all_members, key=lambda item: power_to_man_units(str(item.get("combat_power", "")))) if all_members else None
@@ -726,6 +743,8 @@ def build_guild_summary(guild_row: dict[str, Any], members: list[dict[str, Any]]
     member_powers = [power_to_man_units(str(member.get("combat_power", ""))) for member in members]
     top_member = max(members, key=lambda item: power_to_man_units(str(item.get("combat_power", "")))) if members else None
     guild_power_value = power_to_man_units(str(guild_row.get("guild_power", "")))
+    official_member_count = get_official_member_count(guild_row, members)
+    listed_member_count = len(members)
     sorted_member_powers = sorted(member_powers, reverse=True)
     avg_power_per_member_value = round(sum(member_powers) / len(member_powers)) if member_powers else 0
     if member_powers:
@@ -748,7 +767,10 @@ def build_guild_summary(guild_row: dict[str, Any], members: list[dict[str, Any]]
     top_member_gap_value = top1_power_value - sorted_member_powers[1] if len(sorted_member_powers) > 1 else top1_power_value
     return {
         "guild_name": guild_row["guild_name"],
-        "member_count_int": len(members),
+        "member_count_int": official_member_count,
+        "listed_member_count_int": listed_member_count,
+        "member_count_gap_int": max(official_member_count - listed_member_count, 0),
+        "member_count_text": format_member_count_summary(official_member_count, listed_member_count),
         "guild_power_value": guild_power_value,
         "avg_level": round(sum(levels) / len(levels), 1) if levels else 0,
         "top_member_name": top_member["nickname"] if top_member else "",
@@ -1037,6 +1059,8 @@ def build_snapshot_data(
             "guild_name": guild_name,
             "guild_power_value": int(summary["guild_power_value"]),
             "member_count": int(summary["member_count_int"]),
+            "listed_member_count": int(summary["listed_member_count_int"]),
+            "member_count_gap": int(summary["member_count_gap_int"]),
             "avg_level": float(summary["avg_level"]),
             "global_rank": str(guild_row.get("global_rank", "")),
             "server_rank": str(guild_row.get("server_rank", "")),
@@ -1166,13 +1190,14 @@ def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: 
         guild_power_delta_pct = round((guild_power_delta / previous_power_value) * 100, 1) if previous_power_value else 0
         simulation_score_delta = int(current_guild.get("simulation_score", 0)) - int(previous_guild.get("simulation_score", 0)) if previous_guild else 0
         simulation_rank_delta = int(previous_guild.get("simulation_rank", 0)) - int(current_guild.get("simulation_rank", 0)) if previous_guild else 0
+        member_count_delta = int(current_guild.get("member_count", 0)) - int(previous_guild.get("member_count", 0)) if previous_guild else 0
 
         guild_analysis[guild_name] = {
             "joined_members": [current_members[key]["nickname"] for key in joined_keys],
             "departed_members": [previous_members[key]["nickname"] for key in departed_keys],
             "joined_count": len(joined_keys),
             "departed_count": len(departed_keys),
-            "member_count_delta": len(joined_keys) - len(departed_keys),
+            "member_count_delta": member_count_delta,
             "guild_power_delta": guild_power_delta,
             "guild_power_delta_pct": guild_power_delta_pct,
             "simulation_score_delta": simulation_score_delta,
@@ -2361,7 +2386,7 @@ def render_compare_cards(
               </div>
               <dl class="guild-metrics">
                 <div><dt>길드 전투력</dt><dd>{escape(str(guild_row['guild_power']))}</dd></div>
-                <div><dt>길드원 수</dt><dd>{summary['member_count_int']}명</dd></div>
+                <div><dt>길드원 수</dt><dd>{escape(str(summary['member_count_text']))}</dd></div>
                 <div><dt>평균 레벨</dt><dd>Lv.{summary['avg_level']}</dd></div>
                 <div><dt>TOP 멤버</dt><dd>{escape(str(summary['top_member_name']))}</dd></div>
               </dl>
@@ -2406,6 +2431,7 @@ def render_detail_comparison_section(
     for guild_row in guild_rows:
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
+        summary = build_guild_summary(guild_row, members)
         anchor = anchor_id(guild_name)
         member_rows = "".join(
             f"""
@@ -2430,7 +2456,7 @@ def render_detail_comparison_section(
                 <a class="mini-link" data-modal="{escape(anchor)}" href="#">상세 보기</a>
               </div>
               <div class="detail-compare-meta">
-                <span>길드원 {len(members)}명</span>
+                <span>길드원 {escape(str(summary['member_count_text']))}</span>
                 <span>{escape(str(guild_row['guild_power']))}</span>
               </div>
               <table class="detail-compare-table">
@@ -2806,7 +2832,7 @@ def render_guild_modals(
                     <dl>
                       <div><dt>길드 마스터</dt><dd>{escape(str(guild_row['guild_master_name']))}</dd></div>
                       <div><dt>길드 레벨</dt><dd>{escape(str(guild_row['guild_level']))}</dd></div>
-                      <div><dt>길드원 수</dt><dd>{summary['member_count_int']}명</dd></div>
+                      <div><dt>길드원 수</dt><dd>{escape(str(summary['member_count_text']))}</dd></div>
                       <div><dt>길드 전투력</dt><dd>{escape(str(guild_row['guild_power']))}</dd></div>
                       <div><dt>전체 / 서버 순위</dt><dd>{escape(str(guild_row['global_rank']))} / {escape(str(guild_row['server_rank']))}</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.{summary['avg_level']}</dd></div>
@@ -4247,7 +4273,7 @@ def main() -> None:
         build_tobeol_snapshot_path(guild_name, args.snapshot_mode, args.snapshot_date),
     )
 
-    total_members = sum(len(rows) for rows in members_by_guild.values())
+    total_members = sum(get_official_member_count(row, members_by_guild.get(str(row.get("guild_name", "")), [])) for row in guild_rows)
     deleted_history_paths = cleanup_old_history(guild_name, report_mode, args.retain_history_days)
     print(f"Guild seed: {guild_name}")
     print(f"Report mode: {report_mode}")
@@ -4265,8 +4291,12 @@ def main() -> None:
         print("Deleted old history:")
         for path in deleted_history_paths:
             print(f"- {path}")
-    for guild_name, rows in members_by_guild.items():
-        print(f"- {guild_name}: {len(rows)} members")
+    for guild_row in guild_rows:
+        guild_name = str(guild_row["guild_name"])
+        rows = members_by_guild.get(guild_name, [])
+        official_count = get_official_member_count(guild_row, rows)
+        suffix = f" ({len(rows)} listed)" if official_count != len(rows) else ""
+        print(f"- {guild_name}: {official_count} members{suffix}")
 
 
 if __name__ == "__main__":

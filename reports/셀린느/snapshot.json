@@ -5,13 +5,15 @@
   "guilds": {
     "셀린느": {
       "guild_name": "셀린느",
-      "guild_power_value": 6657830924574,
+      "guild_power_value": 6952663858996,
       "member_count": 30,
+      "listed_member_count": 30,
+      "member_count_gap": 0,
       "avg_level": 107.6,
-      "global_rank": "28",
+      "global_rank": "26",
       "server_rank": "1위",
       "simulation_rank": 1,
-      "simulation_score": 4958600,
+      "simulation_score": 4959600,
       "members": {
         "스타냥이": {
           "nickname": "스타냥이",
@@ -225,8 +227,8 @@
           "nickname": "김치싸대기",
           "job_name": "히어로",
           "level": 104,
-          "combat_power": "55조 7049억 3694만",
-          "combat_power_value": 5570493694,
+          "combat_power": "55조 8372억 8110만",
+          "combat_power_value": 5583728110,
           "rank_in_guild": 27
         },
         "악의꽃": {
@@ -281,6 +283,8 @@
       "guild_name": "리안",
       "guild_power_value": 4884987357125,
       "member_count": 28,
+      "listed_member_count": 28,
+      "member_count_gap": 0,
       "avg_level": 106.7,
       "global_rank": "35",
       "server_rank": "2위",
@@ -538,7 +542,9 @@
     "더샾": {
       "guild_name": "더샾",
       "guild_power_value": 4624494388228,
-      "member_count": 25,
+      "member_count": 26,
+      "listed_member_count": 25,
+      "member_count_gap": 1,
       "avg_level": 107.3,
       "global_rank": "36",
       "server_rank": "3위",
@@ -772,12 +778,14 @@
     "RAINBOW": {
       "guild_name": "RAINBOW",
       "guild_power_value": 5051122653073,
-      "member_count": 29,
+      "member_count": 30,
+      "listed_member_count": 29,
+      "member_count_gap": 1,
       "avg_level": 105.9,
       "global_rank": "33",
       "server_rank": "2위",
       "simulation_rank": 4,
-      "simulation_score": 3870700,
+      "simulation_score": 3869700,
       "members": {
         "람볼기니": {
           "nickname": "람볼기니",
@@ -1038,6 +1046,8 @@
       "guild_name": "샴페인",
       "guild_power_value": 4066212659271,
       "member_count": 29,
+      "listed_member_count": 29,
+      "member_count_gap": 0,
       "avg_level": 100.3,
       "global_rank": "38",
       "server_rank": "1위",
