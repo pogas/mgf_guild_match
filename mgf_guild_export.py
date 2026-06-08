@@ -1083,6 +1083,10 @@ def write_snapshot_json(snapshot_data: dict[str, Any], snapshot_path: Path) -> P
     return snapshot_path
 
 
+def normalize_generated_html(html: str) -> str:
+    return "\n".join(line.rstrip() for line in html.splitlines()) + "\n"
+
+
 def load_history_snapshots(guild_name: str, report_mode: str) -> list[dict[str, Any]]:
     history_dir = _HERE / "reports" / safe_file_stem(guild_name) / "history"
     if not history_dir.exists():
@@ -1129,10 +1133,12 @@ def build_sparkline(values: list[int], width: int = 120, height: int = 36) -> st
 
 def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: list[dict[str, Any]]) -> dict[str, Any]:
     report_mode = str(current_snapshot.get("report_mode", "league"))
+    current_date = str(current_snapshot.get("snapshot_date", ""))
     compatible_history = [
         snapshot
         for snapshot in history_snapshots
         if _safe_snapshot_mode(snapshot, report_mode) == report_mode
+        and (not current_date or str(snapshot.get("snapshot_date", "")) < current_date)
     ]
     previous_snapshot = compatible_history[-1] if compatible_history else None
     trend_snapshots = compatible_history[-6:] + [current_snapshot]
@@ -1471,10 +1477,12 @@ def build_tobeol_snapshot_data(
 
 def build_tobeol_history_analysis(current_snapshot: dict[str, Any], history_snapshots: list[dict[str, Any]]) -> dict[str, Any]:
     guild_name = str(current_snapshot.get("guild_seed_name", ""))
+    current_date = str(current_snapshot.get("snapshot_date", ""))
     compatible_history = [
         snapshot
         for snapshot in history_snapshots
         if _safe_snapshot_mode(snapshot, "tobeol") == "tobeol"
+        and (not current_date or str(snapshot.get("snapshot_date", "")) < current_date)
     ]
     previous_snapshot = compatible_history[-1] if compatible_history else None
     timeline_snapshots = compatible_history[-6:] + [current_snapshot]
@@ -1633,11 +1641,13 @@ def build_snapshot_analytics(
 ) -> dict[str, Any]:
     report_mode = str(current_snapshot.get("report_mode", "league"))
     guild_seed_name = str(current_snapshot.get("guild_seed_name", ""))
+    current_date = str(current_snapshot.get("snapshot_date", ""))
     history_analysis = build_history_analysis(current_snapshot, history_snapshots)
     compatible_history = [
         snapshot
         for snapshot in history_snapshots
         if _safe_snapshot_mode(snapshot, report_mode) == report_mode
+        and (not current_date or str(snapshot.get("snapshot_date", "")) < current_date)
     ]
     timeline_snapshots = compatible_history[-6:] + [current_snapshot]
     seed_timeline = []
@@ -3130,7 +3140,7 @@ def build_tobeol_html_report(
 </body>
 </html>"""
     html_output_path.parent.mkdir(parents=True, exist_ok=True)
-    html_output_path.write_text(html, encoding="utf-8")
+    html_output_path.write_text(normalize_generated_html(html), encoding="utf-8")
     return html_output_path
 
 
@@ -4107,7 +4117,7 @@ def build_html_report(
     target_path = html_output_path
     while True:
         try:
-            target_path.write_text(html, encoding="utf-8")
+            target_path.write_text(normalize_generated_html(html), encoding="utf-8")
             return target_path
         except PermissionError:
             target_path = next_available_path(target_path)
