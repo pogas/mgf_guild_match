@@ -13,7 +13,7 @@
       "global_rank": "361",
       "server_rank": "4위",
       "simulation_rank": 1,
-      "simulation_score": 5053600,
+      "simulation_score": 5055600,
       "members": {
         "개나리십장생": {
           "nickname": "개나리십장생",
@@ -47,13 +47,21 @@
           "combat_power_value": 9550936850,
           "rank_in_guild": 4
         },
+        "바넷사": {
+          "nickname": "바넷사",
+          "job_name": "아크메이지(불,독)",
+          "level": 104,
+          "combat_power": "61조 5543억 6122만",
+          "combat_power_value": 6155436122,
+          "rank_in_guild": 5
+        },
         "워터붐": {
           "nickname": "워터붐",
           "job_name": "비숍",
           "level": 105,
           "combat_power": "60조 5184억 9082만",
           "combat_power_value": 6051849082,
-          "rank_in_guild": 5
+          "rank_in_guild": 6
         },
         "강궁수": {
           "nickname": "강궁수",
@@ -61,14 +69,6 @@
           "level": 104,
           "combat_power": "58조 2210억 5944만",
           "combat_power_value": 5822105944,
-          "rank_in_guild": 6
-        },
-        "바넷사": {
-          "nickname": "바넷사",
-          "job_name": "아크메이지(불,독)",
-          "level": 104,
-          "combat_power": "57조 3104억 9275만",
-          "combat_power_value": 5731049275,
           "rank_in_guild": 7
         },
         "배가양": {
@@ -139,8 +139,8 @@
           "nickname": "결뢰",
           "job_name": "아크메이지(썬,콜)",
           "level": 105,
-          "combat_power": "34조 3652억 8215만",
-          "combat_power_value": 3436528215,
+          "combat_power": "34조 4934억 6699만",
+          "combat_power_value": 3449346699,
           "rank_in_guild": 16
         },
         "함함홍": {
@@ -155,8 +155,8 @@
           "nickname": "양갸",
           "job_name": "아크메이지(불,독)",
           "level": 103,
-          "combat_power": "25조 8142억 9264만",
-          "combat_power_value": 2581429264,
+          "combat_power": "26조 6834억 425만",
+          "combat_power_value": 2668340425,
           "rank_in_guild": 18
         },
         "쩰롭": {
@@ -261,9 +261,9 @@
         "해린아사랑해",
         "깡련",
         "회귀령",
+        "바넷사",
         "워터붐",
         "강궁수",
-        "바넷사",
         "배가양",
         "dicer",
         "대충하자비숍"
@@ -271,8 +271,8 @@
       "job_counts": {
         "보우마스터": 2,
         "비숍": 8,
-        "신궁": 6,
         "아크메이지(불,독)": 2,
+        "신궁": 6,
         "다크나이트": 2,
         "섀도어": 4,
         "아크메이지(썬,콜)": 4,
@@ -817,7 +817,7 @@
       "global_rank": "352",
       "server_rank": "22위",
       "simulation_rank": 4,
-      "simulation_score": 3923100,
+      "simulation_score": 3921100,
       "members": {
         "쥬페": {
           "nickname": "쥬페",
