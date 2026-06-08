@@ -1,0 +1,57 @@
+name: Queue Character Refresh
+
+on:
+  schedule:
+    # 00:00 KST = 15:00 UTC, run every day before the 12:05 KST report refresh.
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Optional max character count. 0 means all.'
+        required: false
+        default: '0'
+      delay:
+        description: 'Delay between mgf.gg queue requests in seconds.'
+        required: false
+        default: '1.25'
+      dry_run:
+        description: 'Print targets without sending requests.'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: queue-character-refresh
+  cancel-in-progress: false
+
+jobs:
+  queue-refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Queue mgf.gg character refresh requests
+        env:
+          REFRESH_LIMIT: ${{ github.event.inputs.limit || '0' }}
+          REFRESH_DELAY: ${{ github.event.inputs.delay || '1.25' }}
+          REFRESH_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          args=(
+            --limit "$REFRESH_LIMIT"
+            --delay "$REFRESH_DELAY"
+          )
+          if [ "$REFRESH_DRY_RUN" = "true" ]; then
+            args+=(--dry-run)
+          fi
+          python queue_character_refresh.py "${args[@]}"
