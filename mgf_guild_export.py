@@ -411,8 +411,15 @@ def get_official_member_count(guild_row: dict[str, Any], members: list[dict[str,
 
 def format_member_count_summary(official_count: int, listed_count: int) -> str:
     if official_count > listed_count:
-        return f"{official_count}명 (상세 {listed_count}명)"
+        return f"공식 {official_count}명 · 상세 {listed_count}명"
     return f"{official_count}명"
+
+
+def format_member_count_quality_note(official_count: int, listed_count: int) -> str:
+    gap = official_count - listed_count
+    if gap > 0:
+        return f"MGF 상세 페이지에 {listed_count}명만 노출되어 계산 지표는 상세 {listed_count}명 기준입니다. 미노출 {gap}명은 집계에 포함되지 않습니다."
+    return "공식 인원과 상세 목록 인원이 일치합니다."
 
 
 def describe_rank_tier(rank_value: str, label: str) -> str:
@@ -524,6 +531,8 @@ def build_report_summary_cards(
         get_official_member_count(row, members_by_guild.get(str(row.get("guild_name", "")), []))
         for row in guild_rows
     )
+    listed_members = sum(len(members_by_guild.get(str(row.get("guild_name", "")), [])) for row in guild_rows)
+    member_gap = max(total_members - listed_members, 0)
     total_power = sum(power_to_man_units(str(row.get("guild_power", ""))) for row in guild_rows)
     all_members = [member for members in members_by_guild.values() for member in members]
     top_member = max(all_members, key=lambda item: power_to_man_units(str(item.get("combat_power", "")))) if all_members else None
@@ -534,8 +543,8 @@ def build_report_summary_cards(
     return [
         build_report_primary_summary_card(report_mode, history_analysis),
         ("매칭 길드", f"{len(guild_rows)}개", "현재 그룹에 포함된 길드 수", "summary-card"),
-        ("길드원 총합", f"{total_members}명", "매칭 길드 전체 길드원 수", "summary-card"),
-        ("평균 레벨", f"Lv.{avg_level}", "전체 길드원 평균 레벨", "summary-card"),
+        ("길드원 총합", f"공식 {total_members}명", f"상세 수집 {listed_members}명 · 미노출 {member_gap}명", "summary-card"),
+        ("평균 레벨", f"Lv.{avg_level}", f"상세 수집 {listed_members}명 기준", "summary-card"),
         ("길드 총 전투력", format_man_units(total_power), "길드 전투력 합산", "summary-card"),
         (
             "최고 전투력 멤버",
@@ -2343,6 +2352,7 @@ def render_compare_cards(
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
         summary = build_guild_summary(guild_row, members)
+        quality_note = format_member_count_quality_note(summary["member_count_int"], summary["listed_member_count_int"])
         guild_history = history_analysis.get("guilds", {}).get(guild_name, {})
         width_pct = round(summary["guild_power_value"] / max_power * 100, 1) if max_power else 0
         anchor = anchor_id(guild_name)
@@ -2400,6 +2410,7 @@ def render_compare_cards(
                 <div><dt>평균 레벨</dt><dd>Lv.{summary['avg_level']}</dd></div>
                 <div><dt>TOP 멤버</dt><dd>{escape(str(summary['top_member_name']))}</dd></div>
               </dl>
+              <p class="guild-note">{escape(quality_note)}</p>
               <p class="guild-note">{escape(str(guild_row['guild_notice']))}</p>
               <span class="card-jump">길드 상세 보기 ↘</span>
             </div>
@@ -2442,6 +2453,7 @@ def render_detail_comparison_section(
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
         summary = build_guild_summary(guild_row, members)
+        quality_note = format_member_count_quality_note(summary["member_count_int"], summary["listed_member_count_int"])
         anchor = anchor_id(guild_name)
         member_rows = "".join(
             f"""
@@ -2469,6 +2481,7 @@ def render_detail_comparison_section(
                 <span>길드원 {escape(str(summary['member_count_text']))}</span>
                 <span>{escape(str(guild_row['guild_power']))}</span>
               </div>
+              <p class="simulation-copy simulation-copy-muted">{escape(quality_note)}</p>
               <table class="detail-compare-table">
                 <thead><tr><th>닉네임</th><th>전투력</th></tr></thead>
                 <tbody>{member_rows}</tbody>
@@ -2819,6 +2832,7 @@ def render_guild_modals(
         guild_name = str(guild_row["guild_name"])
         members = members_by_guild[guild_name]
         summary = build_guild_summary(guild_row, members)
+        quality_note = format_member_count_quality_note(summary["member_count_int"], summary["listed_member_count_int"])
         guild_history = history_analysis.get("guilds", {}).get(guild_name, {})
         anchor = anchor_id(guild_name)
         modals.append(
@@ -2846,6 +2860,7 @@ def render_guild_modals(
                       <div><dt>길드 전투력</dt><dd>{escape(str(guild_row['guild_power']))}</dd></div>
                       <div><dt>전체 / 서버 순위</dt><dd>{escape(str(guild_row['global_rank']))} / {escape(str(guild_row['server_rank']))}</dd></div>
                       <div><dt>평균 레벨</dt><dd>Lv.{summary['avg_level']}</dd></div>
+                      <div><dt>계산 기준</dt><dd>{escape(quality_note)}</dd></div>
                     </dl>
                   </article>
                   <article class="info-panel emphasis">
