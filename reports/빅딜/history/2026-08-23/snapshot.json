@@ -1163,20 +1163,20 @@
           "combat_power_value": 38314605140,
           "rank_in_guild": 11
         },
+        "드노": {
+          "nickname": "드노",
+          "job_name": "나이트로드",
+          "level": 109,
+          "combat_power": "362조 805억 8599만",
+          "combat_power_value": 36208058599,
+          "rank_in_guild": 12
+        },
         "강대리": {
           "nickname": "강대리",
           "job_name": "신궁",
           "level": 107,
           "combat_power": "361조 9110억 9580만",
           "combat_power_value": 36191109580,
-          "rank_in_guild": 12
-        },
-        "드노": {
-          "nickname": "드노",
-          "job_name": "나이트로드",
-          "level": 109,
-          "combat_power": "361조 2872억 3621만",
-          "combat_power_value": 36128723621,
           "rank_in_guild": 13
         },
         "쿠키아빠": {
@@ -1247,8 +1247,8 @@
         "섀도어": 4,
         "바이퍼": 1,
         "아크메이지(썬,콜)": 2,
-        "신궁": 1,
-        "나이트로드": 2
+        "나이트로드": 2,
+        "신궁": 1
       }
     }
   }
