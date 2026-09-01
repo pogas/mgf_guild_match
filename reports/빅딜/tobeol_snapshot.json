@@ -1,15 +1,15 @@
 {
   "guild_seed_name": "빅딜",
   "report_mode": "tobeol",
-  "snapshot_date": "2026-08-31",
+  "snapshot_date": "2026-09-01",
   "guilds": {
     "빅딜": {
       "guild_name": "빅딜",
-      "count": 22,
+      "count": 23,
       "best_rank": 78,
       "best_nickname": "김치싸대기",
       "best_score": "196억 6617만",
-      "avg_rank": 454.3,
+      "avg_rank": 463.7,
       "members": {
         "김치싸대기::히어로::Lv.113": {
           "nickname": "김치싸대기",
@@ -107,13 +107,13 @@
           "score": "87억 11만",
           "likes": "306"
         },
-        "비스밤::비숍::Lv.108": {
+        "비스밤::비숍::Lv.109": {
           "nickname": "비스밤",
           "job": "비숍",
-          "level": "Lv.108",
+          "level": "Lv.109",
           "rank": 357,
           "score": "85억 8405만",
-          "likes": "43"
+          "likes": "44"
         },
         "막차탄토끼::히어로::Lv.110": {
           "nickname": "막차탄토끼",
@@ -155,18 +155,26 @@
           "score": "58억 2323만",
           "likes": "200"
         },
-        "좀치는형님::비숍::Lv.108": {
+        "좀치는형님::비숍::Lv.109": {
           "nickname": "좀치는형님",
           "job": "비숍",
-          "level": "Lv.108",
+          "level": "Lv.109",
           "rank": 658,
           "score": "49억 563만",
-          "likes": "68"
+          "likes": "69"
         },
-        "박준우2::비숍::Lv.107": {
+        "솔인::팔라딘::Lv.107": {
+          "nickname": "솔인",
+          "job": "팔라딘",
+          "level": "Lv.107",
+          "rank": 669,
+          "score": "48억 2267만",
+          "likes": "172"
+        },
+        "박준우2::비숍::Lv.108": {
           "nickname": "박준우2",
           "job": "비숍",
-          "level": "Lv.107",
+          "level": "Lv.108",
           "rank": 1024,
           "score": "32억 3997만",
           "likes": "107"
@@ -177,7 +185,7 @@
           "level": "Lv.109",
           "rank": 1269,
           "score": "25억 2986만",
-          "likes": "92"
+          "likes": "94"
         },
         "꼬북빵야::비숍::Lv.107": {
           "nickname": "꼬북빵야",
@@ -185,7 +193,7 @@
           "level": "Lv.107",
           "rank": 1480,
           "score": "20억 4284만",
-          "likes": "128"
+          "likes": "131"
         }
       },
       "top10_keys": [
