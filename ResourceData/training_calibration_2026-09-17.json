@@ -1,20 +1,20 @@
 {
-  "intercept_log": 15.93526158332343,
-  "power_exponent": 0.05449528018984175,
+  "intercept_log": 15.931548921968938,
+  "power_exponent": 0.04926384795299234,
   "level_exponent": 12,
   "job_factors": {
-    "나이트로드": 0.9763407389762737,
-    "다크나이트": 1.0454173653943695,
-    "바이퍼": 1.049375721755732,
-    "보우마스터": 1.3273892014524473,
-    "비숍": 1.154026178540107,
-    "섀도어": 0.8013135915792395,
-    "신궁": 1.046080010686399,
-    "아크메이지(불,독)": 1.022467242035148,
-    "아크메이지(썬,콜)": 0.9767396847329188,
-    "캡틴": 1.167286689776457,
-    "팔라딘": 0.8654161071546848,
-    "히어로": 0.7207186652635629
+    "나이트로드": 0.9603784532740306,
+    "다크나이트": 0.9043721172982183,
+    "바이퍼": 1.0508699180756478,
+    "보우마스터": 1.3323599736092528,
+    "비숍": 1.2067482541514707,
+    "섀도어": 0.811219731270426,
+    "신궁": 1.013669712525072,
+    "아크메이지(불,독)": 1.0289340515541339,
+    "아크메이지(썬,콜)": 0.9425391625912061,
+    "캡틴": 1.1572319281028831,
+    "팔라딘": 0.9482016950442509,
+    "히어로": 0.7787178980181535
   },
   "regularization": 1,
   "schema_version": 1,
@@ -26,20 +26,20 @@
   "score_unit": "points",
   "power_reference_man": 100000000000,
   "level_reference": 110,
-  "sample_count": 348,
-  "extracted_count": 354,
+  "sample_count": 508,
+  "extracted_count": 514,
   "job_sample_counts": {
-    "팔라딘": 16,
-    "비숍": 178,
-    "보우마스터": 26,
-    "아크메이지(썬,콜)": 14,
-    "신궁": 9,
-    "캡틴": 11,
-    "바이퍼": 23,
-    "나이트로드": 24,
-    "다크나이트": 7,
-    "히어로": 15,
-    "섀도어": 21,
+    "팔라딘": 30,
+    "비숍": 257,
+    "보우마스터": 36,
+    "아크메이지(썬,콜)": 16,
+    "신궁": 13,
+    "캡틴": 14,
+    "바이퍼": 33,
+    "나이트로드": 40,
+    "다크나이트": 12,
+    "히어로": 23,
+    "섀도어": 30,
     "아크메이지(불,독)": 4
   },
   "minimum_job_samples": 3,
@@ -49,50 +49,50 @@
   ],
   "power_range_man": [
     465013861,
-    7924879914848442
+    8852102290051943
   ],
-  "source_sha256": "b9a27c12a6f93c5aba0ebbb5bd548f1c350bafd2bb66a29ecaa3a3286d211473",
+  "source_sha256": "901bc219049f3a4a262e42e7faf41244cd9cc08304df2f6f4cfc44a6fa48cc5d",
   "formula": "exp(intercept_log)*(power_man/power_reference_man)^power_exponent*(level/level_reference)^level_exponent*job_factor",
   "validation": {
     "method": "nested 5-fold guild-grouped CV; 4-fold inner model selection",
     "new": {
-      "count": 348,
-      "log_rmse": 0.3309903569312747,
-      "median_abs_percent_error": 20.811151756046492,
-      "mean_abs_percent_error": 28.154193740501775,
-      "p90_abs_percent_error": 54.9424475104653
+      "count": 508,
+      "log_rmse": 0.31118126120550677,
+      "median_abs_percent_error": 19.49967704790222,
+      "mean_abs_percent_error": 26.377852527497854,
+      "p90_abs_percent_error": 52.447890246584286
     },
     "legacy": {
-      "count": 348,
-      "log_rmse": 3.8119947969118204,
-      "median_abs_percent_error": 28.173573232685843,
-      "mean_abs_percent_error": 50.08859132437462,
-      "p90_abs_percent_error": 110.17071690773237
+      "count": 508,
+      "log_rmse": 3.707063996663952,
+      "median_abs_percent_error": 26.254656603942433,
+      "mean_abs_percent_error": 45.769009009023236,
+      "p90_abs_percent_error": 99.9996100275743
     },
     "by_source": {
       "image": {
         "new": {
-          "count": 159,
-          "log_rmse": 0.24625998125398316,
-          "median_abs_percent_error": 16.04990347605063,
-          "mean_abs_percent_error": 19.780197994510413,
-          "p90_abs_percent_error": 36.59923387122647
+          "count": 319,
+          "log_rmse": 0.25468473312696976,
+          "median_abs_percent_error": 15.932701181941077,
+          "mean_abs_percent_error": 20.639719193688745,
+          "p90_abs_percent_error": 37.156369522825806
         },
         "legacy": {
-          "count": 159,
-          "log_rmse": 3.5047695914810415,
-          "median_abs_percent_error": 20.68562608455067,
-          "mean_abs_percent_error": 31.22408066191194,
-          "p90_abs_percent_error": 99.99947298997498
+          "count": 319,
+          "log_rmse": 3.4863228467919214,
+          "median_abs_percent_error": 22.132214270353924,
+          "mean_abs_percent_error": 33.80707091205465,
+          "p90_abs_percent_error": 99.99934858958993
         }
       },
       "xlsx": {
         "new": {
           "count": 189,
-          "log_rmse": 0.388203118303,
-          "median_abs_percent_error": 29.5387410267975,
-          "mean_abs_percent_error": 35.19898381252626,
-          "p90_abs_percent_error": 64.48584921803266
+          "log_rmse": 0.38832051169289505,
+          "median_abs_percent_error": 27.027996584877144,
+          "mean_abs_percent_error": 36.062850059165086,
+          "p90_abs_percent_error": 64.15846676391467
         },
         "legacy": {
           "count": 189,
@@ -105,111 +105,147 @@
     },
     "by_job": {
       "팔라딘": {
-        "count": 16,
-        "log_rmse": 0.47182226117497844,
-        "median_abs_percent_error": 29.387433282045233,
-        "mean_abs_percent_error": 44.690405914098605,
-        "p90_abs_percent_error": 100.99015321047911
+        "count": 30,
+        "log_rmse": 0.37711407271561476,
+        "median_abs_percent_error": 24.886664406221076,
+        "mean_abs_percent_error": 33.05188328263242,
+        "p90_abs_percent_error": 63.57545986708282
       },
       "비숍": {
-        "count": 178,
-        "log_rmse": 0.31863735657885184,
-        "median_abs_percent_error": 20.045341826801,
-        "mean_abs_percent_error": 26.826116574508752,
-        "p90_abs_percent_error": 49.43267120160856
+        "count": 257,
+        "log_rmse": 0.30750081949281094,
+        "median_abs_percent_error": 19.974459369861,
+        "mean_abs_percent_error": 26.20133104958182,
+        "p90_abs_percent_error": 52.21570969694973
       },
       "보우마스터": {
-        "count": 26,
-        "log_rmse": 0.2144559004230907,
-        "median_abs_percent_error": 15.301359072961807,
-        "mean_abs_percent_error": 16.493477682244016,
-        "p90_abs_percent_error": 32.31542431812327
+        "count": 36,
+        "log_rmse": 0.22844677006525435,
+        "median_abs_percent_error": 11.522061532261175,
+        "mean_abs_percent_error": 16.876109316312895,
+        "p90_abs_percent_error": 26.723298667789923
       },
       "아크메이지(썬,콜)": {
-        "count": 14,
-        "log_rmse": 0.30680516901403226,
-        "median_abs_percent_error": 23.394579738917177,
-        "mean_abs_percent_error": 26.872226478848628,
-        "p90_abs_percent_error": 57.11311551373254
+        "count": 16,
+        "log_rmse": 0.28784558598504717,
+        "median_abs_percent_error": 21.44214122804844,
+        "mean_abs_percent_error": 25.127944278781243,
+        "p90_abs_percent_error": 52.6876699482133
       },
       "신궁": {
-        "count": 9,
-        "log_rmse": 0.2928796726824665,
-        "median_abs_percent_error": 22.523593416931973,
-        "mean_abs_percent_error": 22.687156927826294,
-        "p90_abs_percent_error": 39.1225062890817
+        "count": 13,
+        "log_rmse": 0.39047708072070964,
+        "median_abs_percent_error": 21.266854862607133,
+        "mean_abs_percent_error": 34.529326374315254,
+        "p90_abs_percent_error": 52.88171659259806
       },
       "캡틴": {
-        "count": 11,
-        "log_rmse": 0.19878272185342147,
-        "median_abs_percent_error": 15.208466348509553,
-        "mean_abs_percent_error": 16.66491506907107,
-        "p90_abs_percent_error": 31.223483035542298
+        "count": 14,
+        "log_rmse": 0.2336191713259776,
+        "median_abs_percent_error": 17.49851742584388,
+        "mean_abs_percent_error": 20.169709722932453,
+        "p90_abs_percent_error": 31.683559298615453
       },
       "바이퍼": {
-        "count": 23,
-        "log_rmse": 0.4201015497002288,
-        "median_abs_percent_error": 19.561467460984105,
-        "mean_abs_percent_error": 35.3933047758491,
-        "p90_abs_percent_error": 98.56506669257989
+        "count": 33,
+        "log_rmse": 0.36629452736294404,
+        "median_abs_percent_error": 24.10126649200166,
+        "mean_abs_percent_error": 30.86459838947993,
+        "p90_abs_percent_error": 67.3944891284783
       },
       "나이트로드": {
-        "count": 24,
-        "log_rmse": 0.33383421774858657,
-        "median_abs_percent_error": 19.988946436778438,
-        "mean_abs_percent_error": 30.746032242515085,
-        "p90_abs_percent_error": 45.381375568316784
+        "count": 40,
+        "log_rmse": 0.2693887194385738,
+        "median_abs_percent_error": 16.291415471162306,
+        "mean_abs_percent_error": 22.88988362893944,
+        "p90_abs_percent_error": 36.804803911436906
       },
       "다크나이트": {
-        "count": 7,
-        "log_rmse": 0.37055116705128627,
-        "median_abs_percent_error": 29.512450687031677,
-        "mean_abs_percent_error": 32.82768505436561,
-        "p90_abs_percent_error": 50.2904171692385
+        "count": 12,
+        "log_rmse": 0.37006993983236536,
+        "median_abs_percent_error": 31.034526485356555,
+        "mean_abs_percent_error": 31.866375785821795,
+        "p90_abs_percent_error": 47.2111767358722
       },
       "히어로": {
-        "count": 15,
-        "log_rmse": 0.3459435541753708,
-        "median_abs_percent_error": 31.416166370088604,
-        "mean_abs_percent_error": 35.263004770323306,
-        "p90_abs_percent_error": 58.53474742789273
+        "count": 23,
+        "log_rmse": 0.3099818464835113,
+        "median_abs_percent_error": 21.861728950630532,
+        "mean_abs_percent_error": 29.65489051568459,
+        "p90_abs_percent_error": 53.48910858533412
       },
       "섀도어": {
-        "count": 21,
-        "log_rmse": 0.38048425242222134,
-        "median_abs_percent_error": 28.60418607402737,
-        "mean_abs_percent_error": 34.9336409493883,
-        "p90_abs_percent_error": 54.294286082573386
+        "count": 30,
+        "log_rmse": 0.3256309737860603,
+        "median_abs_percent_error": 20.133506341902752,
+        "mean_abs_percent_error": 28.21468245830952,
+        "p90_abs_percent_error": 46.833777023152265
       },
       "아크메이지(불,독)": {
         "count": 4,
-        "log_rmse": 0.2451026531518013,
-        "median_abs_percent_error": 17.528656618996152,
-        "mean_abs_percent_error": 17.68199942914616,
-        "p90_abs_percent_error": 31.21826135263948
+        "log_rmse": 0.27764157652895954,
+        "median_abs_percent_error": 23.762927883322067,
+        "mean_abs_percent_error": 22.194931465546127,
+        "p90_abs_percent_error": 36.390938594405924
       }
     },
     "source_holdout": {
       "image": {
-        "count": 159,
-        "log_rmse": 0.3413315614446788,
-        "median_abs_percent_error": 25.186357901925117,
-        "mean_abs_percent_error": 24.738569704912134,
-        "p90_abs_percent_error": 42.829746281481604
+        "count": 319,
+        "log_rmse": 0.3421876363331335,
+        "median_abs_percent_error": 22.576868056611332,
+        "mean_abs_percent_error": 24.884521871684655,
+        "p90_abs_percent_error": 44.43665747349767
       },
       "xlsx": {
         "count": 189,
-        "log_rmse": 1.4638309248998014,
-        "median_abs_percent_error": 308.12989493547167,
-        "mean_abs_percent_error": 347.8663940636043,
-        "p90_abs_percent_error": 639.666917341874
+        "log_rmse": 0.6016144332436981,
+        "median_abs_percent_error": 52.35875929657774,
+        "mean_abs_percent_error": 73.7489113138441,
+        "p90_abs_percent_error": 162.34714755237724
+      }
+    },
+    "guild_grouping": "Verified profile guild when available, so guild rename/glyph differences do not split one guild across folds.",
+    "fitted": {
+      "count": 508,
+      "log_rmse": 0.2988116689543614,
+      "median_abs_percent_error": 18.82579231406171,
+      "mean_abs_percent_error": 25.190384582431687,
+      "p90_abs_percent_error": 48.698331755830914
+    },
+    "additional_samples_comparison": {
+      "method": "Previous fixed model versus new guild-held-out predictions on newly added characters only; previous model may have seen other members of their guilds.",
+      "previous": {
+        "count": 160,
+        "log_rmse": 0.29207547716029786,
+        "median_abs_percent_error": 18.71426745987561,
+        "mean_abs_percent_error": 24.134040882332343,
+        "p90_abs_percent_error": 41.85265759951517
+      },
+      "new_held_out": {
+        "count": 160,
+        "log_rmse": 0.2809225400114678,
+        "median_abs_percent_error": 17.516197046107106,
+        "mean_abs_percent_error": 23.395797081762684,
+        "p90_abs_percent_error": 45.09212615587734
       }
     }
   },
   "limitations": [
     "Sample measurement date unconfirmed; power uses 9/17 retrieval with each profile source date preserved.",
-    "Screenshots are top-ranked and Excel covers a different score/level range; selection bias remains.",
+    "Screenshots include global top 220 and selected guild-match ranks 10-114. Excel covers a different score/level range; selection bias remains.",
     "Fewer than 3 samples per job and Lv<100 are not fitted. Unsupported jobs use pooled factor 1, outside-range estimates flagged.",
     "Validation is across guilds, not future measurement dates."
-  ]
+  ],
+  "revision": 3,
+  "nickname_aliases": {
+    "익맹이": "밉상b",
+    "아이스꾸임": "익맹"
+  },
+  "source_counts": {
+    "xlsx": 195,
+    "image": 319
+  },
+  "image_file_count": 65,
+  "duplicate_rows_removed": 6
 }

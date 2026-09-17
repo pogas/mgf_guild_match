@@ -1,0 +1,202 @@
+[
+  {
+    "original": {
+      "source": "스크린샷 2026-09-16 214612.png",
+      "source_row": 80,
+      "rank": 80,
+      "guild": "시도",
+      "server": "Scania 29",
+      "nickname": "We짱구",
+      "job_raw": "비숍",
+      "sample_level": 121,
+      "observed_text": "※ 5006만 886",
+      "observed_score": 50060886,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "source_group": "global_ranking",
+      "source_kind": "image"
+    },
+    "duplicate": {
+      "source": "스크린샷 2026-09-16 214621.png",
+      "source_row": 81,
+      "rank": 81,
+      "guild": "시도",
+      "server": "Scania 29",
+      "nickname": "We짱구",
+      "job_raw": "비숍",
+      "sample_level": 121,
+      "observed_text": "※ 5006만 886",
+      "observed_score": 50060886,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "source_group": "global_ranking",
+      "source_kind": "image"
+    }
+  },
+  {
+    "original": {
+      "source": "스크린샷 2026-09-16 214621.png",
+      "source_row": 85,
+      "rank": 85,
+      "guild": "유니크",
+      "server": "Scania 1",
+      "nickname": "차김치",
+      "job_raw": "다크나이트",
+      "sample_level": 125,
+      "observed_text": "※ 4984만 3575",
+      "observed_score": 49843575,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "source_group": "global_ranking",
+      "source_kind": "image"
+    },
+    "duplicate": {
+      "source": "스크린샷 2026-09-16 215005.png",
+      "source_row": 10,
+      "rank": 10,
+      "guild": "유니크",
+      "server": "Scania 1",
+      "nickname": "차김치",
+      "job_raw": "다크나이트",
+      "sample_level": 125,
+      "observed_text": "※ 4984만 3575",
+      "observed_score": 49843575,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "nickname_ocr": "차김치",
+      "source_group": "guild_match_ranking",
+      "source_kind": "image"
+    }
+  },
+  {
+    "original": {
+      "source": "스크린샷 2026-09-16 214723.png",
+      "source_row": 126,
+      "rank": 126,
+      "guild": "HERMES",
+      "server": "Scania 3",
+      "nickname": "급발진1",
+      "job_raw": "비숍",
+      "sample_level": 121,
+      "observed_text": "※ 4598만 6805",
+      "observed_score": 45986805,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "source_group": "global_ranking",
+      "source_kind": "image"
+    },
+    "duplicate": {
+      "source": "스크린샷 2026-09-16 215005.png",
+      "source_row": 11,
+      "rank": 11,
+      "guild": "HERMES",
+      "server": "Scania 3",
+      "nickname": "급발진1",
+      "job_raw": "비숍",
+      "sample_level": 121,
+      "observed_text": "※ 4598만 6805",
+      "observed_score": 45986805,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "nickname_ocr": "급발진1",
+      "source_group": "guild_match_ranking",
+      "source_kind": "image"
+    }
+  },
+  {
+    "original": {
+      "source": "스크린샷 2026-09-16 214828.png",
+      "source_row": 167,
+      "rank": 167,
+      "guild": "빠따",
+      "server": "Scania 12",
+      "nickname": "꽁칟뿡야",
+      "job_raw": "비숍",
+      "sample_level": 119,
+      "observed_text": "※ 4299만 1284",
+      "observed_score": 42991284,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "nickname_ocr": "꽁칟뿡야",
+      "source_group": "global_ranking",
+      "source_kind": "image"
+    },
+    "duplicate": {
+      "source": "스크린샷 2026-09-16 215005.png",
+      "source_row": 12,
+      "rank": 12,
+      "guild": "빠따",
+      "server": "Scania 12",
+      "nickname": "꽁칟뿡야",
+      "job_raw": "비숍",
+      "sample_level": 119,
+      "observed_text": "※ 4299만 1284",
+      "observed_score": 42991284,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "nickname_ocr": "꽁칟뿡야",
+      "source_group": "guild_match_ranking",
+      "source_kind": "image"
+    }
+  },
+  {
+    "original": {
+      "source": "스크린샷 2026-09-16 214828.png",
+      "source_row": 169,
+      "rank": 169,
+      "guild": "빠따",
+      "server": "Scania 12",
+      "nickname": "다씨",
+      "job_raw": "섀도어",
+      "sample_level": 125,
+      "observed_text": "※ 4289만 5779",
+      "observed_score": 42895779,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "nickname_ocr": "다씨",
+      "source_group": "global_ranking",
+      "source_kind": "image"
+    },
+    "duplicate": {
+      "source": "스크린샷 2026-09-16 215005.png",
+      "source_row": 13,
+      "rank": 13,
+      "guild": "빠따",
+      "server": "Scania 12",
+      "nickname": "다씨",
+      "job_raw": "섀도어",
+      "sample_level": 125,
+      "observed_text": "X4289만 5779",
+      "observed_score": 42895779,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "nickname_ocr": "다씨",
+      "source_group": "guild_match_ranking",
+      "source_kind": "image"
+    }
+  },
+  {
+    "original": {
+      "source": "스크린샷 2026-09-16 214913.png",
+      "source_row": 202,
+      "rank": 202,
+      "guild": "유니크",
+      "server": "Scania 1",
+      "nickname": "차수진",
+      "job_raw": "비숍",
+      "sample_level": 120,
+      "observed_text": "※ 4126만 89",
+      "observed_score": 41260089,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "nickname_ocr": "차수진",
+      "source_group": "global_ranking",
+      "source_kind": "image"
+    },
+    "duplicate": {
+      "source": "스크린샷 2026-09-16 215005.png",
+      "source_row": 14,
+      "rank": 14,
+      "guild": "유니크",
+      "server": "Scania 1",
+      "nickname": "차수진",
+      "job_raw": "비숍",
+      "sample_level": 120,
+      "observed_text": "※ 4126만 89",
+      "observed_score": 41260089,
+      "extraction": "Vision OCR; numeric and level fields visually checked against source",
+      "nickname_ocr": "차수진",
+      "source_group": "guild_match_ranking",
+      "source_kind": "image"
+    }
+  }
+]

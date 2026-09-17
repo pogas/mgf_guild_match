@@ -1,0 +1,215 @@
+{
+  "intercept_log": 15.93526158332343,
+  "power_exponent": 0.05449528018984175,
+  "level_exponent": 12,
+  "job_factors": {
+    "나이트로드": 0.9763407389762737,
+    "다크나이트": 1.0454173653943695,
+    "바이퍼": 1.049375721755732,
+    "보우마스터": 1.3273892014524473,
+    "비숍": 1.154026178540107,
+    "섀도어": 0.8013135915792395,
+    "신궁": 1.046080010686399,
+    "아크메이지(불,독)": 1.022467242035148,
+    "아크메이지(썬,콜)": 0.9767396847329188,
+    "캡틴": 1.167286689776457,
+    "팔라딘": 0.8654161071546848,
+    "히어로": 0.7207186652635629
+  },
+  "regularization": 1,
+  "schema_version": 1,
+  "model_date": "2026-09-17",
+  "sample_date": null,
+  "sample_date_note": "Unconfirmed; screenshots named 2026-09-16",
+  "profile_retrieved_date": "2026-09-17",
+  "power_unit": "man",
+  "score_unit": "points",
+  "power_reference_man": 100000000000,
+  "level_reference": 110,
+  "sample_count": 348,
+  "extracted_count": 354,
+  "job_sample_counts": {
+    "팔라딘": 16,
+    "비숍": 178,
+    "보우마스터": 26,
+    "아크메이지(썬,콜)": 14,
+    "신궁": 9,
+    "캡틴": 11,
+    "바이퍼": 23,
+    "나이트로드": 24,
+    "다크나이트": 7,
+    "히어로": 15,
+    "섀도어": 21,
+    "아크메이지(불,독)": 4
+  },
+  "minimum_job_samples": 3,
+  "level_range": [
+    101,
+    131
+  ],
+  "power_range_man": [
+    465013861,
+    7924879914848442
+  ],
+  "source_sha256": "b9a27c12a6f93c5aba0ebbb5bd548f1c350bafd2bb66a29ecaa3a3286d211473",
+  "formula": "exp(intercept_log)*(power_man/power_reference_man)^power_exponent*(level/level_reference)^level_exponent*job_factor",
+  "validation": {
+    "method": "nested 5-fold guild-grouped CV; 4-fold inner model selection",
+    "new": {
+      "count": 348,
+      "log_rmse": 0.3309903569312747,
+      "median_abs_percent_error": 20.811151756046492,
+      "mean_abs_percent_error": 28.154193740501775,
+      "p90_abs_percent_error": 54.9424475104653
+    },
+    "legacy": {
+      "count": 348,
+      "log_rmse": 3.8119947969118204,
+      "median_abs_percent_error": 28.173573232685843,
+      "mean_abs_percent_error": 50.08859132437462,
+      "p90_abs_percent_error": 110.17071690773237
+    },
+    "by_source": {
+      "image": {
+        "new": {
+          "count": 159,
+          "log_rmse": 0.24625998125398316,
+          "median_abs_percent_error": 16.04990347605063,
+          "mean_abs_percent_error": 19.780197994510413,
+          "p90_abs_percent_error": 36.59923387122647
+        },
+        "legacy": {
+          "count": 159,
+          "log_rmse": 3.5047695914810415,
+          "median_abs_percent_error": 20.68562608455067,
+          "mean_abs_percent_error": 31.22408066191194,
+          "p90_abs_percent_error": 99.99947298997498
+        }
+      },
+      "xlsx": {
+        "new": {
+          "count": 189,
+          "log_rmse": 0.388203118303,
+          "median_abs_percent_error": 29.5387410267975,
+          "mean_abs_percent_error": 35.19898381252626,
+          "p90_abs_percent_error": 64.48584921803266
+        },
+        "legacy": {
+          "count": 189,
+          "log_rmse": 4.052454827923253,
+          "median_abs_percent_error": 47.33443495384713,
+          "mean_abs_percent_error": 65.95873521501782,
+          "p90_abs_percent_error": 132.2455092598973
+        }
+      }
+    },
+    "by_job": {
+      "팔라딘": {
+        "count": 16,
+        "log_rmse": 0.47182226117497844,
+        "median_abs_percent_error": 29.387433282045233,
+        "mean_abs_percent_error": 44.690405914098605,
+        "p90_abs_percent_error": 100.99015321047911
+      },
+      "비숍": {
+        "count": 178,
+        "log_rmse": 0.31863735657885184,
+        "median_abs_percent_error": 20.045341826801,
+        "mean_abs_percent_error": 26.826116574508752,
+        "p90_abs_percent_error": 49.43267120160856
+      },
+      "보우마스터": {
+        "count": 26,
+        "log_rmse": 0.2144559004230907,
+        "median_abs_percent_error": 15.301359072961807,
+        "mean_abs_percent_error": 16.493477682244016,
+        "p90_abs_percent_error": 32.31542431812327
+      },
+      "아크메이지(썬,콜)": {
+        "count": 14,
+        "log_rmse": 0.30680516901403226,
+        "median_abs_percent_error": 23.394579738917177,
+        "mean_abs_percent_error": 26.872226478848628,
+        "p90_abs_percent_error": 57.11311551373254
+      },
+      "신궁": {
+        "count": 9,
+        "log_rmse": 0.2928796726824665,
+        "median_abs_percent_error": 22.523593416931973,
+        "mean_abs_percent_error": 22.687156927826294,
+        "p90_abs_percent_error": 39.1225062890817
+      },
+      "캡틴": {
+        "count": 11,
+        "log_rmse": 0.19878272185342147,
+        "median_abs_percent_error": 15.208466348509553,
+        "mean_abs_percent_error": 16.66491506907107,
+        "p90_abs_percent_error": 31.223483035542298
+      },
+      "바이퍼": {
+        "count": 23,
+        "log_rmse": 0.4201015497002288,
+        "median_abs_percent_error": 19.561467460984105,
+        "mean_abs_percent_error": 35.3933047758491,
+        "p90_abs_percent_error": 98.56506669257989
+      },
+      "나이트로드": {
+        "count": 24,
+        "log_rmse": 0.33383421774858657,
+        "median_abs_percent_error": 19.988946436778438,
+        "mean_abs_percent_error": 30.746032242515085,
+        "p90_abs_percent_error": 45.381375568316784
+      },
+      "다크나이트": {
+        "count": 7,
+        "log_rmse": 0.37055116705128627,
+        "median_abs_percent_error": 29.512450687031677,
+        "mean_abs_percent_error": 32.82768505436561,
+        "p90_abs_percent_error": 50.2904171692385
+      },
+      "히어로": {
+        "count": 15,
+        "log_rmse": 0.3459435541753708,
+        "median_abs_percent_error": 31.416166370088604,
+        "mean_abs_percent_error": 35.263004770323306,
+        "p90_abs_percent_error": 58.53474742789273
+      },
+      "섀도어": {
+        "count": 21,
+        "log_rmse": 0.38048425242222134,
+        "median_abs_percent_error": 28.60418607402737,
+        "mean_abs_percent_error": 34.9336409493883,
+        "p90_abs_percent_error": 54.294286082573386
+      },
+      "아크메이지(불,독)": {
+        "count": 4,
+        "log_rmse": 0.2451026531518013,
+        "median_abs_percent_error": 17.528656618996152,
+        "mean_abs_percent_error": 17.68199942914616,
+        "p90_abs_percent_error": 31.21826135263948
+      }
+    },
+    "source_holdout": {
+      "image": {
+        "count": 159,
+        "log_rmse": 0.3413315614446788,
+        "median_abs_percent_error": 25.186357901925117,
+        "mean_abs_percent_error": 24.738569704912134,
+        "p90_abs_percent_error": 42.829746281481604
+      },
+      "xlsx": {
+        "count": 189,
+        "log_rmse": 1.4638309248998014,
+        "median_abs_percent_error": 308.12989493547167,
+        "mean_abs_percent_error": 347.8663940636043,
+        "p90_abs_percent_error": 639.666917341874
+      }
+    }
+  },
+  "limitations": [
+    "Sample measurement date unconfirmed; power uses 9/17 retrieval with each profile source date preserved.",
+    "Screenshots are top-ranked and Excel covers a different score/level range; selection bias remains.",
+    "Fewer than 3 samples per job and Lv<100 are not fitted. Unsupported jobs use pooled factor 1, outside-range estimates flagged.",
+    "Validation is across guilds, not future measurement dates."
+  ]
+}

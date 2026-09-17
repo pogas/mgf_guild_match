@@ -1,6 +1,6 @@
-﻿nickname,guild,job_name,level,observed_score,combat_power,exclusion_reason,possible_nickname_matches
-웅냥,대학원,나이트로드,34,14662839,29만,job_mismatch;level_below_third_job,응냥
-망충돌기,버번,캡틴,,14462631,,missing_profile,망충둘기
-오우셋,인형나라,바이퍼,,12098355,,missing_profile,오우솃
-헤미니현미니,인형나라,비숍,,7227582,,missing_profile,혜미니현미니
-찬믕,낭쥐,비숍,,3964614,,missing_profile,
+﻿source,source_sheet,source_row,rank,guild,nickname,job_raw,observed_score,sample_level,source_kind,job_name,profile_level,profile_job,profile_guild,profile_server,profile_source_url,profile_retrieved_at,profile_data_date,combat_power,combat_power_man,sample_date,sample_date_note,level_source,level,fit_eligible,exclusion_reason,guild_for_fit,observed_performance,legacy_prediction,added_in_refresh,possible_nickname_matches,server,observed_text,extraction,source_group,profile_note,nickname_ocr,matched_nickname,identity_match_source
+수련장.xlsx,시트1,20,19,대학원,웅냥,나이트로드,14662839,,xlsx,나이트로드,34,"아크메이지(썬,콜)",,Scania 3,https://mgf.gg/ranking/?server=&job=&recent=1&stx=%EC%9B%85%EB%83%A5,2026-09-17T12:45:38.353544+09:00,02.23,29만,29,,not confirmed; screenshot filenames 2026-09-16,profile,34,False,job_mismatch;level_below_third_job,대학원,14662839,,False,응냥,,,,,,,,
+수련장.xlsx,시트1,21,20,버번,망충돌기,캡틴,14462631,,xlsx,캡틴,,,,,,,,,0,,not confirmed; screenshot filenames 2026-09-16,profile,,False,missing_profile,버번,14462631,,False,망충둘기,,,,,,,,
+수련장.xlsx,시트1,38,37,인형나라,오우셋,바이퍼,12098355,,xlsx,바이퍼,,,,,,,,,0,,not confirmed; screenshot filenames 2026-09-16,profile,,False,missing_profile,인형나라,12098355,,False,오우솃,,,,,,,,
+수련장.xlsx,시트1,93,92,인형나라,헤미니현미니,비숍,7227582,,xlsx,비숍,,,,,,,,,0,,not confirmed; screenshot filenames 2026-09-16,profile,,False,missing_profile,인형나라,7227582,,False,혜미니현미니,,,,,,,,
+수련장.xlsx,시트1,165,164,낭쥐,찬믕,비숍,3964614,,xlsx,비숍,,,,,,,,,0,,not confirmed; screenshot filenames 2026-09-16,profile,,False,missing_profile,낭쥐,3964614,,False,,,,,,,,,

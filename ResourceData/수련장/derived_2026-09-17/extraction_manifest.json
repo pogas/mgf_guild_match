@@ -1,0 +1,335 @@
+{
+  "image_count": 65,
+  "image_rows": 325,
+  "xlsx_rows": 195,
+  "duplicate_rows": 6,
+  "unique_samples": 514,
+  "new_unique_samples": 160,
+  "sources": [
+    {
+      "file": "스크린샷 2026-09-16 213923.png",
+      "sha256": "4b85fe2de59a7c7908a1e94a6b6aabe77ecfbf5ef53fd4d8adaa170551ec3b58",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214341.png",
+      "sha256": "bbdee766cad0a4bbff035e765413a69b20f9d0ce16756eddd9b0ff907fe5ec42",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214347.png",
+      "sha256": "ac261f98ffa7b69c23e7a74892f8f929e4ba7c4e88ef3114ded1b5d84d81b73e",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214353.png",
+      "sha256": "4f989a7a6ffee1d25893c6b92313e8269c351b5089726cc83b7330c25bee3a53",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214401.png",
+      "sha256": "eb04b3e4087c1e7b3a1c4e6155d75fbcf738eef59db22a8994baf9971dd9115f",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214407.png",
+      "sha256": "4e4e59537ba7a4b76cdce0035a029de18d538089a8a4571557d9526e01c11a58",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214418.png",
+      "sha256": "c898803c8bb4e8bf5031aac3422ec097c0594507091cbf036283f59684c209b5",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214428.png",
+      "sha256": "fad2c804b3d76923bf6ba7edda13292bd3c9461b75eea331af14a16967d33994",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214433.png",
+      "sha256": "51a6bea41d8e4e7930a52e7b9b9d38524098e5cfea9d84ae551d6f54bdf24226",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214440.png",
+      "sha256": "962baf59ebce310091e97356abed36fe924c8353cf5f241d9bbdeb1d2893481e",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214448.png",
+      "sha256": "5629151e8a8bef34448c439891b4dc3dba8840f4c022d57cae7f445d71086771",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214457.png",
+      "sha256": "c625f96cc2e57d8580a3a13e32bb9115754502c6d5b7e6a8cd2fdb7d4076bbbf",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214506.png",
+      "sha256": "b1ef36148a581b16a32186810111a6cc1ac1afe517a6827a1d8af01c8232329d",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214514.png",
+      "sha256": "2063080c4fbbb2e1d4bd31aeb8ff6054d145971352961e6656b66f1dd949d890",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214605.png",
+      "sha256": "b61e8856d65f0e91e45236849a3639d590d5e39041a2a13d39b06251c720220c",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214612.png",
+      "sha256": "2612e8e5520281e9d3bcffbde60f1d51aec7450066758aef40a885a015862410",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214621.png",
+      "sha256": "b4c9ee0cd73a7f6ad6947673c837bc285d8b17f2c5460af7a9394c0fcf403a44",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214629.png",
+      "sha256": "3f5ee2ff37095533859e7278551a2aea93a32c6a258ffa94a6cc4f9bc94fc4c1",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214635.png",
+      "sha256": "8cd767c92415129dbdfc10b9fba341caf1182e01aa15cf7ab1f267066541113b",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214642.png",
+      "sha256": "773c1f3e886d7f03c8f4982b4083a817612adb668cc0f4defbf72a1affcc59d6",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214650.png",
+      "sha256": "aa502586cf90887e0d5350e62db0c73888879679dc4287754eafa1685edf6623",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214658.png",
+      "sha256": "bca79ba15fbb4c12dd9260d7cd484e7b769a4b85cc3108221d886e4aec53316d",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214704.png",
+      "sha256": "c9bbe79b891e59922d026767207787dad942ee6029863cb76bc82d5e4d3d5971",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214710.png",
+      "sha256": "4aa515c1344966713248e8e819859d7f91f79e69b927f56b46de57d352f27fa8",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214717.png",
+      "sha256": "f17abb93e0dc97e2e84a766b8c7e1dada1d5777463265eafcdf897b6764487d2",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214723.png",
+      "sha256": "7abc78d14e1bd123267327336b61c6fb593932cb99f3d9afb04f718bba149290",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214730.png",
+      "sha256": "aa63c154fed361d71164f76a91e43e23120b9f9f177a3ccf1239883eb17679f3",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214735.png",
+      "sha256": "8dc2101c0730f42d80580569d8cc726b9961101f50c03b4432c2a6f23f96c00f",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214746.png",
+      "sha256": "65eeac01c1c53b3dc2c8261d5da83e9b25d81cca3878389c843aefa9f20648c0",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214752.png",
+      "sha256": "48e6e373ae9735204144ddfd30658f24e31875c8048aec322bfbaac569e85fda",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214804.png",
+      "sha256": "50491805903a2b6e4a5efbda1cbeea7d5509c2c334da83283a77547a4d69cc1f",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214815.png",
+      "sha256": "785f98df2f1ff5e6e0c58871d08eb1d0886d9c2317b7679b6024f791171cc66a",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214822.png",
+      "sha256": "ee2be89d288957a39cd44c8975b9cca2a3cabb0662de308c68c99ba9c8802cb8",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214828.png",
+      "sha256": "9eea496eca6155fcfa0d04f3655d6e2e5eafcb5de430188eea1bf08a5fac4827",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214836.png",
+      "sha256": "3491c60adb2b4611d194d89c1c85ccf1a290e8a5466eaa00120dfaf55e212532",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214843.png",
+      "sha256": "f509f5a502e861650414c535d371699783421e468a924285371c02f3d3ff2d02",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214850.png",
+      "sha256": "b57ef426e146cf9d065056ea0cb1aa2469a48b0bac74c1e00fa5b7e64a10b22e",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214855.png",
+      "sha256": "836c754263d4e9a31342b3adeceac051a3f1e8d207a51e8734c16f8df388e44c",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214901.png",
+      "sha256": "ec8e88d32d913738d886f551208e05e0d41dac1dfd675eab64e5ad566ef4931f",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214907.png",
+      "sha256": "ba27472ce34c14d8c42bff45ef9034090c006d55d4d352695df31e2fc8b578ae",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214913.png",
+      "sha256": "160f7b5183cec284c9cc00952012dd1adc3866210996901da95420397041fec7",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214919.png",
+      "sha256": "bc0a3bdbe34ef867d591097dd7978d827cea908eb35a484a9654900033a7f7ff",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214928.png",
+      "sha256": "1f12f26864fefe93bd3e03c11d5df930209c4fa6ebdc65e84c56d34807144100",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 214934.png",
+      "sha256": "2fe47866eb75ca322dff75fbddae30e230f6939b6f236baae7f67912e95e28a7",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215005.png",
+      "sha256": "4dc51252be6b05f53cff392742e52135d79fc982a382b76136d51853faba9a69",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215013.png",
+      "sha256": "c4b70c1dfcf1c0b8c49e0cb218be3e2f1e143808ace0924933e140f9f53ccefc",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215025.png",
+      "sha256": "60f5fd1a4a752a55a61c6652c9d10aa80b23d103f57aec5b26eff965d6d73ebb",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215030.png",
+      "sha256": "d95a822f4dd473d885fee92b7a5cc114c755385f72736767e9aedd9092c6c644",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215037.png",
+      "sha256": "20ebf4cba5e675f21560f62b6d0ac66f5fbd135ecd94d02be404bc3e75ed8050",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215044.png",
+      "sha256": "ef36e059819d18bc557bb949b11f385ba25fca170ee9bdf6523c410327c4ac0d",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215051.png",
+      "sha256": "7058007fd3d23e338a577a04e1597cf348c95dbde3e07189cbda4c6c22b62364",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215057.png",
+      "sha256": "aa292428040db7b036b465b658b21315b8f6d5aa720992a459acb93cdd55f7ba",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215103.png",
+      "sha256": "d8f2d668d2dcc06ed31f36466f625ffe70069f8bb34abd37453cb0dbc28798ac",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215115.png",
+      "sha256": "ff241598ceb37947658a52a69c9bc74794c96e8b789dd177ae35870540a30d78",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215124.png",
+      "sha256": "51baa66ef2049683136f275798b3094a026e995f210421aebb04f10263f9b420",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215131.png",
+      "sha256": "263dd1bd41abf3ca6d4bd17b4d79f2bad6a2f3fcce88b9deef8efab1a0cc6dee",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215137.png",
+      "sha256": "c857737d9ab21b685f238928846cedf5fa03dedcb86676b7b00bd09d8abe2d9c",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215513.png",
+      "sha256": "8f6654e9272e110ad68878d06a97f8757133f45e0ec1f4c2af420a9674b010a9",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215851.png",
+      "sha256": "612f99438d963a10db6a0660df18db5efbec9c67aab934584403036406923928",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 215857.png",
+      "sha256": "19953072bba49d432d74c3ede0bc399ea91e906d3a3841a4a1c91dead549a293",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 220446.png",
+      "sha256": "4c8e9dbc43d108c8e4d2fd1a7a1b149a8a6e6b69a2ba0ddd8deb463c0a31bdde",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 220509.png",
+      "sha256": "86250cbf9f6752bf30ebcff723c754ab1bdcb3762df282a28db415665d2b25d8",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 220515.png",
+      "sha256": "dd345687486ae40fa7f01032c2216f8b5acdcbb53a100dd44fe9922506ab7028",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 220522.png",
+      "sha256": "d1bbe631b209a1b8a9f4b02ba273824e8b4b1bc22d177906bb95fb96a2659c78",
+      "rows": 5
+    },
+    {
+      "file": "스크린샷 2026-09-16 220528.png",
+      "sha256": "be1019433f7a3ab42c8b8c8d2bee2d42d5905f6ae01e57b40df2c6de5f70d61e",
+      "rows": 5
+    }
+  ]
+}

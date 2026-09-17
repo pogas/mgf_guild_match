@@ -3,191 +3,191 @@
     {
       "level_exponent": 0,
       "ridge": 1,
-      "count": 348,
-      "log_rmse": 0.3354951109253229,
-      "median_abs_percent_error": 21.51859261569416,
-      "mean_abs_percent_error": 28.88167875602773,
-      "p90_abs_percent_error": 55.16480819397217
+      "count": 508,
+      "log_rmse": 0.32480125964431233,
+      "median_abs_percent_error": 19.75794358166999,
+      "mean_abs_percent_error": 27.762660202124863,
+      "p90_abs_percent_error": 53.193936365114745
     },
     {
       "level_exponent": 0,
       "ridge": 5,
-      "count": 348,
-      "log_rmse": 0.3357011302067669,
-      "median_abs_percent_error": 21.494430224705784,
-      "mean_abs_percent_error": 28.928046766794502,
-      "p90_abs_percent_error": 53.734502485179746
+      "count": 508,
+      "log_rmse": 0.32429566500729873,
+      "median_abs_percent_error": 19.35145676173432,
+      "mean_abs_percent_error": 27.75984619603295,
+      "p90_abs_percent_error": 53.032034550079665
     },
     {
       "level_exponent": 0,
       "ridge": 15,
-      "count": 348,
-      "log_rmse": 0.34053362897952644,
-      "median_abs_percent_error": 21.544574858079823,
-      "mean_abs_percent_error": 29.40893656006117,
-      "p90_abs_percent_error": 55.32724180118061
+      "count": 508,
+      "log_rmse": 0.32700936564100574,
+      "median_abs_percent_error": 19.06709756190131,
+      "mean_abs_percent_error": 28.174584055942976,
+      "p90_abs_percent_error": 55.495886137846576
     },
     {
       "level_exponent": 0.5,
       "ridge": 1,
-      "count": 348,
-      "log_rmse": 0.3340714910229404,
-      "median_abs_percent_error": 21.35057682884532,
-      "mean_abs_percent_error": 28.75183264538359,
-      "p90_abs_percent_error": 54.47006845816505
+      "count": 508,
+      "log_rmse": 0.32340479067587513,
+      "median_abs_percent_error": 19.416442897493564,
+      "mean_abs_percent_error": 27.650331808781992,
+      "p90_abs_percent_error": 52.066946509300635
     },
     {
       "level_exponent": 0.5,
       "ridge": 5,
-      "count": 348,
-      "log_rmse": 0.3343348553040335,
-      "median_abs_percent_error": 21.412351630723602,
-      "mean_abs_percent_error": 28.805654458586634,
-      "p90_abs_percent_error": 52.9865527536913
+      "count": 508,
+      "log_rmse": 0.32296735460155984,
+      "median_abs_percent_error": 19.3522751752935,
+      "mean_abs_percent_error": 27.648512739670895,
+      "p90_abs_percent_error": 53.13847514085376
     },
     {
       "level_exponent": 0.5,
       "ridge": 15,
-      "count": 348,
-      "log_rmse": 0.33925171188178965,
-      "median_abs_percent_error": 21.59456275737429,
-      "mean_abs_percent_error": 29.301543584788874,
-      "p90_abs_percent_error": 55.23585720064189
+      "count": 508,
+      "log_rmse": 0.32569328267752523,
+      "median_abs_percent_error": 18.963813369886218,
+      "mean_abs_percent_error": 28.0498316079811,
+      "p90_abs_percent_error": 55.61406740222251
     },
     {
       "level_exponent": 1,
       "ridge": 1,
-      "count": 348,
-      "log_rmse": 0.33273609401250925,
-      "median_abs_percent_error": 21.198816068958017,
-      "mean_abs_percent_error": 28.632948017892435,
-      "p90_abs_percent_error": 53.516737267714774
+      "count": 508,
+      "log_rmse": 0.32205271298593763,
+      "median_abs_percent_error": 19.549283861862065,
+      "mean_abs_percent_error": 27.538606050818125,
+      "p90_abs_percent_error": 52.039863360667496
     },
     {
       "level_exponent": 1,
       "ridge": 5,
-      "count": 348,
-      "log_rmse": 0.33303097699509815,
-      "median_abs_percent_error": 21.243376522892905,
-      "mean_abs_percent_error": 28.699680531196,
-      "p90_abs_percent_error": 52.75060661805683
+      "count": 508,
+      "log_rmse": 0.3216616681744829,
+      "median_abs_percent_error": 19.096226724685856,
+      "mean_abs_percent_error": 27.540174074531603,
+      "p90_abs_percent_error": 53.25131699120808
     },
     {
       "level_exponent": 1,
       "ridge": 15,
-      "count": 348,
-      "log_rmse": 0.33806745761460144,
-      "median_abs_percent_error": 21.165038724959988,
-      "mean_abs_percent_error": 29.205457442914906,
-      "p90_abs_percent_error": 55.14205233403757
+      "count": 508,
+      "log_rmse": 0.32446834974273947,
+      "median_abs_percent_error": 19.00082042202055,
+      "mean_abs_percent_error": 27.942036102238273,
+      "p90_abs_percent_error": 56.06104257125742
     },
     {
       "level_exponent": 2,
       "ridge": 1,
-      "count": 348,
-      "log_rmse": 0.33024252963903966,
-      "median_abs_percent_error": 21.248396261962853,
-      "mean_abs_percent_error": 28.434923159799098,
-      "p90_abs_percent_error": 52.73671707104084
+      "count": 508,
+      "log_rmse": 0.3195477032706943,
+      "median_abs_percent_error": 19.42343634959932,
+      "mean_abs_percent_error": 27.325330651234346,
+      "p90_abs_percent_error": 52.16013983586145
     },
     {
       "level_exponent": 2,
       "ridge": 5,
-      "count": 348,
-      "log_rmse": 0.33072540286916513,
-      "median_abs_percent_error": 21.07182093724047,
-      "mean_abs_percent_error": 28.531838461701973,
-      "p90_abs_percent_error": 51.73154362539031
+      "count": 508,
+      "log_rmse": 0.31923410934323376,
+      "median_abs_percent_error": 19.08016497087172,
+      "mean_abs_percent_error": 27.354192304490066,
+      "p90_abs_percent_error": 53.2828800363184
     },
     {
       "level_exponent": 2,
       "ridge": 15,
-      "count": 348,
-      "log_rmse": 0.3358104707668202,
-      "median_abs_percent_error": 21.088124852309413,
-      "mean_abs_percent_error": 29.011585301893593,
-      "p90_abs_percent_error": 55.07146552066177
+      "count": 508,
+      "log_rmse": 0.3221054029066143,
+      "median_abs_percent_error": 19.28128653249765,
+      "mean_abs_percent_error": 27.72027138790241,
+      "p90_abs_percent_error": 55.60609694112826
     },
     {
       "level_exponent": 4,
       "ridge": 1,
-      "count": 348,
-      "log_rmse": 0.3258924981396967,
-      "median_abs_percent_error": 20.676132510437263,
-      "mean_abs_percent_error": 28.091682073932756,
-      "p90_abs_percent_error": 51.18776345381725
+      "count": 508,
+      "log_rmse": 0.3153266423065019,
+      "median_abs_percent_error": 19.272423650441585,
+      "mean_abs_percent_error": 26.974779402292004,
+      "p90_abs_percent_error": 52.2141347835271
     },
     {
       "level_exponent": 4,
       "ridge": 5,
-      "count": 348,
-      "log_rmse": 0.32664281354259683,
-      "median_abs_percent_error": 20.720699267796387,
-      "mean_abs_percent_error": 28.20782019453752,
-      "p90_abs_percent_error": 50.53022674479395
+      "count": 508,
+      "log_rmse": 0.3151274902479465,
+      "median_abs_percent_error": 19.217661301572598,
+      "mean_abs_percent_error": 27.02986752238138,
+      "p90_abs_percent_error": 52.17851285801978
     },
     {
       "level_exponent": 4,
       "ridge": 15,
-      "count": 348,
-      "log_rmse": 0.3319175180052845,
-      "median_abs_percent_error": 21.203956497165116,
-      "mean_abs_percent_error": 28.64689855147475,
-      "p90_abs_percent_error": 55.21392782752537
+      "count": 508,
+      "log_rmse": 0.31825264930029584,
+      "median_abs_percent_error": 19.119004343480817,
+      "mean_abs_percent_error": 27.384176905599123,
+      "p90_abs_percent_error": 54.109729445439584
     },
     {
       "level_exponent": 8,
       "ridge": 1,
-      "count": 348,
-      "log_rmse": 0.32051005835495394,
-      "median_abs_percent_error": 20.980707693836326,
-      "mean_abs_percent_error": 27.55653348277578,
-      "p90_abs_percent_error": 52.39169271618134
+      "count": 508,
+      "log_rmse": 0.30990812291073094,
+      "median_abs_percent_error": 19.610181046478125,
+      "mean_abs_percent_error": 26.518993808140962,
+      "p90_abs_percent_error": 51.746573978468135
     },
     {
       "level_exponent": 8,
       "ridge": 5,
-      "count": 348,
-      "log_rmse": 0.32152497515603,
-      "median_abs_percent_error": 20.743937232238142,
-      "mean_abs_percent_error": 27.677107403786195,
-      "p90_abs_percent_error": 52.30006729830655
+      "count": 508,
+      "log_rmse": 0.3098250456704828,
+      "median_abs_percent_error": 19.356535179668327,
+      "mean_abs_percent_error": 26.586329880204573,
+      "p90_abs_percent_error": 52.32218819800517
     },
     {
       "level_exponent": 8,
       "ridge": 15,
-      "count": 348,
-      "log_rmse": 0.3269631310356914,
-      "median_abs_percent_error": 20.3291668219996,
-      "mean_abs_percent_error": 28.056321452952567,
-      "p90_abs_percent_error": 54.18938644344189
+      "count": 508,
+      "log_rmse": 0.313042046718622,
+      "median_abs_percent_error": 19.80631048114592,
+      "mean_abs_percent_error": 26.894326267232817,
+      "p90_abs_percent_error": 54.45401064730745
     },
     {
       "level_exponent": 12,
       "ridge": 1,
-      "count": 348,
-      "log_rmse": 0.3198532873685892,
-      "median_abs_percent_error": 21.21437172360161,
-      "mean_abs_percent_error": 27.27377888439696,
-      "p90_abs_percent_error": 52.5208420535187
+      "count": 508,
+      "log_rmse": 0.3085742630389899,
+      "median_abs_percent_error": 20.06707059771725,
+      "mean_abs_percent_error": 26.254806295866796,
+      "p90_abs_percent_error": 52.67476800791216
     },
     {
       "level_exponent": 12,
       "ridge": 5,
-      "count": 348,
-      "log_rmse": 0.32095783627491714,
-      "median_abs_percent_error": 21.269061240294164,
-      "mean_abs_percent_error": 27.341728768961886,
-      "p90_abs_percent_error": 53.70962207499226
+      "count": 508,
+      "log_rmse": 0.3086324564295684,
+      "median_abs_percent_error": 19.406988124151432,
+      "mean_abs_percent_error": 26.315869371229144,
+      "p90_abs_percent_error": 53.063048038496454
     },
     {
       "level_exponent": 12,
       "ridge": 15,
-      "count": 348,
-      "log_rmse": 0.32651328871730423,
-      "median_abs_percent_error": 20.418720499591547,
-      "mean_abs_percent_error": 27.701944896474153,
-      "p90_abs_percent_error": 56.87054881410497
+      "count": 508,
+      "log_rmse": 0.311855865285608,
+      "median_abs_percent_error": 19.920341258226692,
+      "mean_abs_percent_error": 26.634079860257625,
+      "p90_abs_percent_error": 56.22114220457616
     }
   ],
   "folds": [
@@ -196,121 +196,143 @@
       "guilds": [
         "1984",
         "Cookies",
-        "LUXURY",
-        "item",
+        "TRIUMPH",
         "꿀돼지",
+        "달빛아이들",
         "대학원",
-        "둥글",
-        "몰랑",
-        "브리또",
-        "블링블리",
-        "빕스",
-        "설묘",
-        "셀린느",
-        "영환보초",
-        "유희",
-        "점프킹",
-        "찬찬푸줏간",
+        "딸기키우기",
+        "로즈단",
+        "별하나달하나",
+        "빠따",
+        "스나",
+        "쌈닭",
+        "어벤저스",
+        "유니크",
+        "유랑",
+        "유설",
+        "이콩",
+        "첫눈",
+        "친구들",
         "칸스",
         "할배",
-        "화조"
+        "흑사"
       ],
       "level_exponent": 8,
-      "ridge": 1
+      "ridge": 5
     },
     {
       "fold": 1,
       "guilds": [
         "66서버",
-        "FAIR",
+        "JustMusic",
+        "LUXURY",
         "Play",
-        "z존S2",
+        "item",
         "고점",
         "나야햄토리",
         "냐락",
-        "들개무리",
-        "바하무트",
+        "달콩",
+        "마라",
         "버번",
-        "샴페인",
-        "싸이월드",
-        "우럭아왜우럭",
-        "유니크",
-        "주연",
-        "주차",
-        "지존",
+        "비글",
+        "셀린느",
+        "스포",
+        "연격",
+        "이니셜D",
+        "찬찬푸줏간",
+        "채금",
+        "초코나라",
+        "콩콩",
+        "포옹",
+        "헤라",
+        "화조"
+      ],
+      "level_exponent": 12,
+      "ridge": 5
+    },
+    {
+      "fold": 2,
+      "guilds": [
+        "FAIR",
+        "HERMES",
+        "Kaia",
+        "zl존S2",
+        "고양이손바닥",
+        "귀여미",
+        "난투",
+        "더위사냥",
+        "동물들의낙원",
+        "몰랑",
+        "빕스",
+        "아너",
+        "영환보초",
+        "유희",
+        "인형나라",
+        "임시보호소",
+        "점프킹",
+        "츄르비",
         "칙촉",
         "팔일",
+        "헤라클레스",
         "호러"
       ],
       "level_exponent": 12,
       "ridge": 1
     },
     {
-      "fold": 2,
-      "guilds": [
-        "CRES",
-        "JustMusic",
-        "괴콩",
-        "난투",
-        "딸기키우기",
-        "떼굴떼굴",
-        "반짝",
-        "배리",
-        "시도",
-        "쌈닭",
-        "이니셜D",
-        "이콩",
-        "인형나라",
-        "첫눈",
-        "초하",
-        "총군",
-        "팡야",
-        "패벽",
-        "환불런",
-        "히안"
-      ],
-      "level_exponent": 8,
-      "ridge": 5
-    },
-    {
       "fold": 3,
       "guilds": [
-        "HERMES",
-        "Kaia",
-        "고양이손바닥",
+        "MP물약",
         "교실",
         "냥냥파크",
-        "마라",
-        "별하나달하나",
+        "다콩",
+        "들개무리",
+        "리안",
+        "바하무트",
+        "반짝",
+        "브리또",
+        "블링블리",
         "빅딜",
-        "어벤저스",
-        "임시보호소",
-        "초코나라",
-        "친구들",
+        "샴페인",
+        "악동",
+        "우럭아왜우럭",
+        "장협",
+        "주차",
+        "총군",
+        "츄억",
         "칠사모",
-        "포옹"
+        "팡야",
+        "패벽",
+        "회색"
       ],
       "level_exponent": 12,
-      "ridge": 1
+      "ridge": 5
     },
     {
       "fold": 4,
       "guilds": [
-        "MP물약",
-        "귀여미",
+        "CRES",
+        "Puppyz",
         "기일드",
-        "더위사냥",
-        "동물들의낙원",
-        "리안",
+        "노숙",
+        "둥글",
+        "떼굴떼굴",
         "모두있음",
-        "비글",
+        "배리",
         "뿌용뿌용",
-        "연격",
-        "유설",
-        "장협",
-        "츄르비",
+        "설묘",
+        "순항",
+        "시도",
+        "싸이월드",
+        "앨빈",
+        "운화",
+        "주연",
+        "지존",
+        "초하",
+        "카피바라네",
         "풀하우스",
-        "흑사"
+        "환불런",
+        "히안"
       ],
       "level_exponent": 12,
       "ridge": 5
@@ -324,8 +346,8 @@
       "job": "팔라딘",
       "observed_score": 23937912,
       "legacy_prediction": 18940215,
-      "held_out_prediction": 10446291,
-      "fitted_prediction": 11486298
+      "held_out_prediction": 11964655,
+      "fitted_prediction": 12367420
     },
     {
       "nickname": "디매트로돈",
@@ -334,8 +356,8 @@
       "job": "비숍",
       "observed_score": 23086563,
       "legacy_prediction": 14718053,
-      "held_out_prediction": 12065438,
-      "fitted_prediction": 12439931
+      "held_out_prediction": 12755186,
+      "fitted_prediction": 12908294
     },
     {
       "nickname": "강댜",
@@ -344,8 +366,8 @@
       "job": "비숍",
       "observed_score": 21431409,
       "legacy_prediction": 22313779,
-      "held_out_prediction": 19611275,
-      "fitted_prediction": 18794705
+      "held_out_prediction": 19835302,
+      "fitted_prediction": 19324414
     },
     {
       "nickname": "몬스터태호",
@@ -354,8 +376,8 @@
       "job": "보우마스터",
       "observed_score": 19915089,
       "legacy_prediction": 17412267,
-      "held_out_prediction": 15095740,
-      "fitted_prediction": 15763309
+      "held_out_prediction": 14580322,
+      "fitted_prediction": 15555506
     },
     {
       "nickname": "채윰이",
@@ -364,8 +386,8 @@
       "job": "비숍",
       "observed_score": 18674679,
       "legacy_prediction": 14478008,
-      "held_out_prediction": 12011408,
-      "fitted_prediction": 12391557
+      "held_out_prediction": 12496802,
+      "fitted_prediction": 12862909
     },
     {
       "nickname": "라다크",
@@ -374,8 +396,8 @@
       "job": "보우마스터",
       "observed_score": 18493257,
       "legacy_prediction": 10517461,
-      "held_out_prediction": 14381553,
-      "fitted_prediction": 15546738
+      "held_out_prediction": 13618263,
+      "fitted_prediction": 15520293
     },
     {
       "nickname": "덕구키우기",
@@ -384,8 +406,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 18105933,
       "legacy_prediction": 13445452,
-      "held_out_prediction": 15167555,
-      "fitted_prediction": 15314309
+      "held_out_prediction": 14525146,
+      "fitted_prediction": 14583839
     },
     {
       "nickname": "빵녕",
@@ -394,8 +416,8 @@
       "job": "비숍",
       "observed_score": 17751063,
       "legacy_prediction": 20483226,
-      "held_out_prediction": 19250445,
-      "fitted_prediction": 18417364
+      "held_out_prediction": 19517440,
+      "fitted_prediction": 18973343
     },
     {
       "nickname": "윤꼬밍",
@@ -404,8 +426,8 @@
       "job": "비숍",
       "observed_score": 17520405,
       "legacy_prediction": 15090128,
-      "held_out_prediction": 11405979,
-      "fitted_prediction": 11248844
+      "held_out_prediction": 11525067,
+      "fitted_prediction": 11664546
     },
     {
       "nickname": "김훈한",
@@ -414,8 +436,8 @@
       "job": "보우마스터",
       "observed_score": 16468440,
       "legacy_prediction": 10267344,
-      "held_out_prediction": 12490670,
-      "fitted_prediction": 13908969
+      "held_out_prediction": 13983403,
+      "fitted_prediction": 13891508
     },
     {
       "nickname": "꿀꿀맛",
@@ -424,8 +446,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 16333536,
       "legacy_prediction": 10713421,
-      "held_out_prediction": 11161636,
-      "fitted_prediction": 11781327
+      "held_out_prediction": 11126876,
+      "fitted_prediction": 11275240
     },
     {
       "nickname": "Slurry",
@@ -434,8 +456,8 @@
       "job": "신궁",
       "observed_score": 16235007,
       "legacy_prediction": 16275902,
-      "held_out_prediction": 12578300,
-      "fitted_prediction": 14603097
+      "held_out_prediction": 12782332,
+      "fitted_prediction": 13979866
     },
     {
       "nickname": "디메트로돈",
@@ -444,8 +466,8 @@
       "job": "비숍",
       "observed_score": 15941121,
       "legacy_prediction": 11385805,
-      "held_out_prediction": 9830481,
-      "fitted_prediction": 10522615
+      "held_out_prediction": 10860419,
+      "fitted_prediction": 10981611
     },
     {
       "nickname": "뿌용뿌용뿡뿡",
@@ -454,8 +476,8 @@
       "job": "캡틴",
       "observed_score": 15636921,
       "legacy_prediction": 95,
-      "held_out_prediction": 18791973,
-      "fitted_prediction": 19337896
+      "held_out_prediction": 18746527,
+      "fitted_prediction": 18819600
     },
     {
       "nickname": "E2E승",
@@ -464,8 +486,8 @@
       "job": "비숍",
       "observed_score": 15411573,
       "legacy_prediction": 11670052,
-      "held_out_prediction": 9355553,
-      "fitted_prediction": 9505241
+      "held_out_prediction": 9742441,
+      "fitted_prediction": 9913277
     },
     {
       "nickname": "초퍄",
@@ -474,8 +496,8 @@
       "job": "바이퍼",
       "observed_score": 15174147,
       "legacy_prediction": 50,
-      "held_out_prediction": 10042700,
-      "fitted_prediction": 10904273
+      "held_out_prediction": 10030347,
+      "fitted_prediction": 10874127
     },
     {
       "nickname": "뜨머푸",
@@ -484,8 +506,8 @@
       "job": "보우마스터",
       "observed_score": 14833953,
       "legacy_prediction": 9408451,
-      "held_out_prediction": 10375894,
-      "fitted_prediction": 10998377
+      "held_out_prediction": 11079830,
+      "fitted_prediction": 11004163
     },
     {
       "nickname": "환직",
@@ -494,8 +516,8 @@
       "job": "신궁",
       "observed_score": 14782968,
       "legacy_prediction": 11636994,
-      "held_out_prediction": 9236784,
-      "fitted_prediction": 10929268
+      "held_out_prediction": 9400065,
+      "fitted_prediction": 10540854
     },
     {
       "nickname": "우리집욕조",
@@ -504,8 +526,8 @@
       "job": "나이트로드",
       "observed_score": 14286729,
       "legacy_prediction": 11967780,
-      "held_out_prediction": 12388741,
-      "fitted_prediction": 13228778
+      "held_out_prediction": 12516248,
+      "fitted_prediction": 12892332
     },
     {
       "nickname": "괴챠반",
@@ -514,8 +536,8 @@
       "job": "바이퍼",
       "observed_score": 13791870,
       "legacy_prediction": 66,
-      "held_out_prediction": 12053337,
-      "fitted_prediction": 11665453
+      "held_out_prediction": 12179892,
+      "fitted_prediction": 11558090
     },
     {
       "nickname": "쀏뀱쪍",
@@ -524,8 +546,8 @@
       "job": "캡틴",
       "observed_score": 13322019,
       "legacy_prediction": 50,
-      "held_out_prediction": 9162421,
-      "fitted_prediction": 10442676
+      "held_out_prediction": 9933992,
+      "fitted_prediction": 10351190
     },
     {
       "nickname": "오배건만",
@@ -534,8 +556,8 @@
       "job": "바이퍼",
       "observed_score": 13302999,
       "legacy_prediction": 41,
-      "held_out_prediction": 5284129,
-      "fitted_prediction": 5796410
+      "held_out_prediction": 5404837,
+      "fitted_prediction": 5827116
     },
     {
       "nickname": "자루니",
@@ -544,8 +566,8 @@
       "job": "비숍",
       "observed_score": 13254807,
       "legacy_prediction": 10920676,
-      "held_out_prediction": 9043099,
-      "fitted_prediction": 9356941
+      "held_out_prediction": 9419806,
+      "fitted_prediction": 9773352
     },
     {
       "nickname": "뚝불장군님",
@@ -554,8 +576,8 @@
       "job": "비숍",
       "observed_score": 13229466,
       "legacy_prediction": 15226785,
-      "held_out_prediction": 13203766,
-      "fitted_prediction": 13937419
+      "held_out_prediction": 13734576,
+      "fitted_prediction": 14452449
     },
     {
       "nickname": "KR#TAKIN9CP37",
@@ -564,8 +586,8 @@
       "job": "나이트로드",
       "observed_score": 12848922,
       "legacy_prediction": 10519040,
-      "held_out_prediction": 10559703,
-      "fitted_prediction": 10397074
+      "held_out_prediction": 10162681,
+      "fitted_prediction": 10160382
     },
     {
       "nickname": "야가다",
@@ -574,8 +596,8 @@
       "job": "보우마스터",
       "observed_score": 12668550,
       "legacy_prediction": 10667814,
-      "held_out_prediction": 13300025,
-      "fitted_prediction": 14035639
+      "held_out_prediction": 13005141,
+      "fitted_prediction": 14005824
     },
     {
       "nickname": "꿀벌재미니",
@@ -584,8 +606,8 @@
       "job": "비숍",
       "observed_score": 12660294,
       "legacy_prediction": 11493709,
-      "held_out_prediction": 11810481,
-      "fitted_prediction": 11732036
+      "held_out_prediction": 12144429,
+      "fitted_prediction": 12242409
     },
     {
       "nickname": "양쿼카",
@@ -594,8 +616,8 @@
       "job": "비숍",
       "observed_score": 12543624,
       "legacy_prediction": 11898325,
-      "held_out_prediction": 8519876,
-      "fitted_prediction": 9144866
+      "held_out_prediction": 9471437,
+      "fitted_prediction": 9572885
     },
     {
       "nickname": "시간별",
@@ -604,8 +626,8 @@
       "job": "비숍",
       "observed_score": 12494430,
       "legacy_prediction": 21074977,
-      "held_out_prediction": 13406032,
-      "fitted_prediction": 13544415
+      "held_out_prediction": 13850627,
+      "fitted_prediction": 13940063
     },
     {
       "nickname": "흑두부",
@@ -614,8 +636,8 @@
       "job": "비숍",
       "observed_score": 12444249,
       "legacy_prediction": 15833778,
-      "held_out_prediction": 11193423,
-      "fitted_prediction": 11377788
+      "held_out_prediction": 11646768,
+      "fitted_prediction": 11785354
     },
     {
       "nickname": "돼짱",
@@ -624,8 +646,8 @@
       "job": "비숍",
       "observed_score": 12394503,
       "legacy_prediction": 11369497,
-      "held_out_prediction": 8317893,
-      "fitted_prediction": 9046886
+      "held_out_prediction": 9381065,
+      "fitted_prediction": 9480118
     },
     {
       "nickname": "구엉이",
@@ -634,8 +656,8 @@
       "job": "보우마스터",
       "observed_score": 12374679,
       "legacy_prediction": 9776003,
-      "held_out_prediction": 11355704,
-      "fitted_prediction": 12358617
+      "held_out_prediction": 12439186,
+      "fitted_prediction": 12355617
     },
     {
       "nickname": "Kopite",
@@ -644,8 +666,8 @@
       "job": "나이트로드",
       "observed_score": 12193251,
       "legacy_prediction": 10359932,
-      "held_out_prediction": 10416495,
-      "fitted_prediction": 10359595
+      "held_out_prediction": 10086777,
+      "fitted_prediction": 10127267
     },
     {
       "nickname": "뿌용뿌용뽕뽕",
@@ -654,8 +676,8 @@
       "job": "다크나이트",
       "observed_score": 12164925,
       "legacy_prediction": 17384489,
-      "held_out_prediction": 15755092,
-      "fitted_prediction": 14754357
+      "held_out_prediction": 13843541,
+      "fitted_prediction": 12596449
     },
     {
       "nickname": "Ai사냥",
@@ -664,8 +686,8 @@
       "job": "바이퍼",
       "observed_score": 11761443,
       "legacy_prediction": 47,
-      "held_out_prediction": 9204566,
-      "fitted_prediction": 8675695
+      "held_out_prediction": 8660686,
+      "fitted_prediction": 8662021
     },
     {
       "nickname": "뿌용뿌용까꿍",
@@ -674,8 +696,8 @@
       "job": "비숍",
       "observed_score": 11748048,
       "legacy_prediction": 14679705,
-      "held_out_prediction": 13876028,
-      "fitted_prediction": 13817110
+      "held_out_prediction": 14214806,
+      "fitted_prediction": 14339624
     },
     {
       "nickname": "칠사모",
@@ -684,8 +706,8 @@
       "job": "비숍",
       "observed_score": 11549676,
       "legacy_prediction": 13707945,
-      "held_out_prediction": 9685513,
-      "fitted_prediction": 9874722
+      "held_out_prediction": 10113232,
+      "fitted_prediction": 10260985
     },
     {
       "nickname": "예짜까",
@@ -694,8 +716,8 @@
       "job": "신궁",
       "observed_score": 11413065,
       "legacy_prediction": 10737570,
-      "held_out_prediction": 7022227,
-      "fitted_prediction": 8290059
+      "held_out_prediction": 7154321,
+      "fitted_prediction": 8041752
     },
     {
       "nickname": "김치싸대기",
@@ -704,8 +726,8 @@
       "job": "히어로",
       "observed_score": 11366076,
       "legacy_prediction": 19454186,
-      "held_out_prediction": 10366875,
-      "fitted_prediction": 10356180
+      "held_out_prediction": 11481822,
+      "fitted_prediction": 11023901
     },
     {
       "nickname": "공주라귱",
@@ -714,8 +736,8 @@
       "job": "나이트로드",
       "observed_score": 10941099,
       "legacy_prediction": 8936707,
-      "held_out_prediction": 8677996,
-      "fitted_prediction": 8992021
+      "held_out_prediction": 8778031,
+      "fitted_prediction": 8819059
     },
     {
       "nickname": "굴러가는일상",
@@ -724,8 +746,8 @@
       "job": "비숍",
       "observed_score": 10888227,
       "legacy_prediction": 18287113,
-      "held_out_prediction": 12923242,
-      "fitted_prediction": 13096637
+      "held_out_prediction": 13399543,
+      "fitted_prediction": 13522777
     },
     {
       "nickname": "갈매기",
@@ -734,8 +756,8 @@
       "job": "비숍",
       "observed_score": 10817049,
       "legacy_prediction": 12304900,
-      "held_out_prediction": 8759889,
-      "fitted_prediction": 8270093
+      "held_out_prediction": 9049711,
+      "fitted_prediction": 8649657
     },
     {
       "nickname": "윤성33",
@@ -744,8 +766,8 @@
       "job": "비숍",
       "observed_score": 10752837,
       "legacy_prediction": 10609646,
-      "held_out_prediction": 6227552,
-      "fitted_prediction": 6407628
+      "held_out_prediction": 6572403,
+      "fitted_prediction": 6722930
     },
     {
       "nickname": "빠떼루미야옹",
@@ -754,8 +776,8 @@
       "job": "비숍",
       "observed_score": 10628547,
       "legacy_prediction": 14836174,
-      "held_out_prediction": 13029307,
-      "fitted_prediction": 13851864
+      "held_out_prediction": 13554648,
+      "fitted_prediction": 14372226
     },
     {
       "nickname": "힝솜",
@@ -764,8 +786,8 @@
       "job": "팔라딘",
       "observed_score": 10624320,
       "legacy_prediction": 11540866,
-      "held_out_prediction": 6677743,
-      "fitted_prediction": 7419240
+      "held_out_prediction": 7741591,
+      "fitted_prediction": 8076425
     },
     {
       "nickname": "몽호",
@@ -774,8 +796,8 @@
       "job": "비숍",
       "observed_score": 10610559,
       "legacy_prediction": 16364920,
-      "held_out_prediction": 17186133,
-      "fitted_prediction": 17463444
+      "held_out_prediction": 17875313,
+      "fitted_prediction": 18082713
     },
     {
       "nickname": "혁바",
@@ -784,8 +806,8 @@
       "job": "나이트로드",
       "observed_score": 10263162,
       "legacy_prediction": 9052017,
-      "held_out_prediction": 9147258,
-      "fitted_prediction": 9019376
+      "held_out_prediction": 8685103,
+      "fitted_prediction": 8843310
     },
     {
       "nickname": "자유이용껀",
@@ -794,8 +816,8 @@
       "job": "섀도어",
       "observed_score": 10202721,
       "legacy_prediction": 9126667,
-      "held_out_prediction": 6225228,
-      "fitted_prediction": 6643532
+      "held_out_prediction": 6588788,
+      "fitted_prediction": 6703700
     },
     {
       "nickname": "냥찐",
@@ -804,8 +826,8 @@
       "job": "비숍",
       "observed_score": 10127871,
       "legacy_prediction": 11314153,
-      "held_out_prediction": 9588562,
-      "fitted_prediction": 9036433
+      "held_out_prediction": 9930574,
+      "fitted_prediction": 9470215
     },
     {
       "nickname": "아첩",
@@ -814,8 +836,8 @@
       "job": "비숍",
       "observed_score": 9998460,
       "legacy_prediction": 11681700,
-      "held_out_prediction": 9360331,
-      "fitted_prediction": 9507488
+      "held_out_prediction": 9747374,
+      "fitted_prediction": 9915395
     },
     {
       "nickname": "청약환불",
@@ -824,8 +846,8 @@
       "job": "팔라딘",
       "observed_score": 9993006,
       "legacy_prediction": 9277323,
-      "held_out_prediction": 6032386,
-      "fitted_prediction": 6747067
+      "held_out_prediction": 6788504,
+      "fitted_prediction": 7411978
     },
     {
       "nickname": "본딩",
@@ -834,8 +856,8 @@
       "job": "비숍",
       "observed_score": 9739920,
       "legacy_prediction": 12138063,
-      "held_out_prediction": 9260668,
-      "fitted_prediction": 9188192
+      "held_out_prediction": 9540272,
+      "fitted_prediction": 9613875
     },
     {
       "nickname": "글쟈",
@@ -844,8 +866,8 @@
       "job": "섀도어",
       "observed_score": 9607671,
       "legacy_prediction": 16251031,
-      "held_out_prediction": 12694727,
-      "fitted_prediction": 11643300
+      "held_out_prediction": 11760192,
+      "fitted_prediction": 11600288
     },
     {
       "nickname": "망해또띠",
@@ -854,8 +876,8 @@
       "job": "비숍",
       "observed_score": 9568842,
       "legacy_prediction": 7050254,
-      "held_out_prediction": 3997855,
-      "fitted_prediction": 4148584
+      "held_out_prediction": 4261292,
+      "fitted_prediction": 4391956
     },
     {
       "nickname": "바임쥬베룩",
@@ -864,8 +886,8 @@
       "job": "보우마스터",
       "observed_score": 9380067,
       "legacy_prediction": 9314930,
-      "held_out_prediction": 9311966,
-      "fitted_prediction": 9427512
+      "held_out_prediction": 8828800,
+      "fitted_prediction": 9472876
     },
     {
       "nickname": "이성일",
@@ -874,8 +896,8 @@
       "job": "나이트로드",
       "observed_score": 9360561,
       "legacy_prediction": 8879084,
-      "held_out_prediction": 8119049,
-      "fitted_prediction": 8062946
+      "held_out_prediction": 7879955,
+      "fitted_prediction": 7908205
     },
     {
       "nickname": "불보독지",
@@ -884,8 +906,8 @@
       "job": "아크메이지(불,독)",
       "observed_score": 9282642,
       "legacy_prediction": 10720654,
-      "held_out_prediction": 9348216,
-      "fitted_prediction": 9476402
+      "held_out_prediction": 8854951,
+      "fitted_prediction": 9502606
     },
     {
       "nickname": "헌믕",
@@ -894,8 +916,8 @@
       "job": "비숍",
       "observed_score": 9256404,
       "legacy_prediction": 12023895,
-      "held_out_prediction": 6432280,
-      "fitted_prediction": 6600448
+      "held_out_prediction": 6767144,
+      "fitted_prediction": 6905555
     },
     {
       "nickname": "돌아온짜누",
@@ -904,8 +926,8 @@
       "job": "바이퍼",
       "observed_score": 9221841,
       "legacy_prediction": 51,
-      "held_out_prediction": 10464607,
-      "fitted_prediction": 9871929
+      "held_out_prediction": 9832895,
+      "fitted_prediction": 9836924
     },
     {
       "nickname": "밤바밤",
@@ -914,8 +936,8 @@
       "job": "비숍",
       "observed_score": 9138924,
       "legacy_prediction": 10873804,
-      "held_out_prediction": 9414293,
-      "fitted_prediction": 9347409
+      "held_out_prediction": 9687529,
+      "fitted_prediction": 9764352
     },
     {
       "nickname": "토망쳐",
@@ -924,8 +946,8 @@
       "job": "비숍",
       "observed_score": 9094206,
       "legacy_prediction": 12457876,
-      "held_out_prediction": 10812025,
-      "fitted_prediction": 10749375
+      "held_out_prediction": 11102946,
+      "fitted_prediction": 11195325
     },
     {
       "nickname": "더적당",
@@ -934,8 +956,8 @@
       "job": "캡틴",
       "observed_score": 9022473,
       "legacy_prediction": 49,
-      "held_out_prediction": 8480526,
-      "fitted_prediction": 8372147
+      "held_out_prediction": 8388373,
+      "fitted_prediction": 8301034
     },
     {
       "nickname": "박준우2",
@@ -944,8 +966,8 @@
       "job": "비숍",
       "observed_score": 8981598,
       "legacy_prediction": 11311279,
-      "held_out_prediction": 7888227,
-      "fitted_prediction": 8106745
+      "held_out_prediction": 8313581,
+      "fitted_prediction": 8495065
     },
     {
       "nickname": "새파",
@@ -954,8 +976,8 @@
       "job": "섀도어",
       "observed_score": 8957409,
       "legacy_prediction": 8232208,
-      "held_out_prediction": 6311503,
-      "fitted_prediction": 6483138
+      "held_out_prediction": 6659317,
+      "fitted_prediction": 6557220
     },
     {
       "nickname": "호우기",
@@ -964,8 +986,8 @@
       "job": "나이트로드",
       "observed_score": 8954139,
       "legacy_prediction": 8910287,
-      "held_out_prediction": 10116225,
-      "fitted_prediction": 9996126
+      "held_out_prediction": 9776591,
+      "fitted_prediction": 9805511
     },
     {
       "nickname": "노곽철",
@@ -974,8 +996,8 @@
       "job": "섀도어",
       "observed_score": 8859213,
       "legacy_prediction": 9354071,
-      "held_out_prediction": 8911356,
-      "fitted_prediction": 8277677
+      "held_out_prediction": 8567989,
+      "fitted_prediction": 8349682
     },
     {
       "nickname": "Lr로키",
@@ -984,8 +1006,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 8858271,
       "legacy_prediction": 7814744,
-      "held_out_prediction": 8143291,
-      "fitted_prediction": 7941199
+      "held_out_prediction": 7816201,
+      "fitted_prediction": 7652462
     },
     {
       "nickname": "서포터즈",
@@ -994,8 +1016,8 @@
       "job": "나이트로드",
       "observed_score": 8842713,
       "legacy_prediction": 10970256,
-      "held_out_prediction": 10674973,
-      "fitted_prediction": 10501056
+      "held_out_prediction": 10262773,
+      "fitted_prediction": 10252199
     },
     {
       "nickname": "여덟시",
@@ -1004,8 +1026,8 @@
       "job": "나이트로드",
       "observed_score": 8760447,
       "legacy_prediction": 8494924,
-      "held_out_prediction": 6979382,
-      "fitted_prediction": 6855498
+      "held_out_prediction": 6642300,
+      "fitted_prediction": 6757993
     },
     {
       "nickname": "사믕",
@@ -1014,8 +1036,8 @@
       "job": "보우마스터",
       "observed_score": 8753946,
       "legacy_prediction": 6427489,
-      "held_out_prediction": 5173276,
-      "fitted_prediction": 5537259
+      "held_out_prediction": 5142816,
+      "fitted_prediction": 5608673
     },
     {
       "nickname": "정태준",
@@ -1024,8 +1046,8 @@
       "job": "비숍",
       "observed_score": 8730144,
       "legacy_prediction": 11493504,
-      "held_out_prediction": 10303823,
-      "fitted_prediction": 10546114
+      "held_out_prediction": 10807844,
+      "fitted_prediction": 11003778
     },
     {
       "nickname": "뻥뻥",
@@ -1034,8 +1056,8 @@
       "job": "보우마스터",
       "observed_score": 8710602,
       "legacy_prediction": 9988160,
-      "held_out_prediction": 10557706,
-      "fitted_prediction": 11155299
+      "held_out_prediction": 10338383,
+      "fitted_prediction": 11145999
     },
     {
       "nickname": "페레로로쉐",
@@ -1044,8 +1066,8 @@
       "job": "아크메이지(불,독)",
       "observed_score": 8654838,
       "legacy_prediction": 10411102,
-      "held_out_prediction": 9743593,
-      "fitted_prediction": 9410844
+      "held_out_prediction": 9670146,
+      "fitted_prediction": 9443158
     },
     {
       "nickname": "젤로젤리",
@@ -1054,8 +1076,8 @@
       "job": "비숍",
       "observed_score": 8567130,
       "legacy_prediction": 11331160,
-      "held_out_prediction": 8303079,
-      "fitted_prediction": 9039649
+      "held_out_prediction": 9374386,
+      "fitted_prediction": 9473262
     },
     {
       "nickname": "경후훈",
@@ -1064,8 +1086,8 @@
       "job": "섀도어",
       "observed_score": 8548449,
       "legacy_prediction": 8564394,
-      "held_out_prediction": 7851519,
-      "fitted_prediction": 7287085
+      "held_out_prediction": 7558892,
+      "fitted_prediction": 7364482
     },
     {
       "nickname": "사오토메란마",
@@ -1074,8 +1096,8 @@
       "job": "아크메이지(불,독)",
       "observed_score": 8544687,
       "legacy_prediction": 12379274,
-      "held_out_prediction": 10465326,
-      "fitted_prediction": 10907491
+      "held_out_prediction": 11676011,
+      "fitted_prediction": 10903036
     },
     {
       "nickname": "또믕",
@@ -1084,8 +1106,8 @@
       "job": "비숍",
       "observed_score": 8223087,
       "legacy_prediction": 7410031,
-      "held_out_prediction": 4049621,
-      "fitted_prediction": 4197796
+      "held_out_prediction": 4311072,
+      "fitted_prediction": 4439027
     },
     {
       "nickname": "교주만두",
@@ -1094,8 +1116,8 @@
       "job": "팔라딘",
       "observed_score": 8064039,
       "legacy_prediction": 23924084,
-      "held_out_prediction": 18601403,
-      "fitted_prediction": 16573864
+      "held_out_prediction": 18291787,
+      "fitted_prediction": 17755982
     },
     {
       "nickname": "솖이",
@@ -1104,8 +1126,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 8012259,
       "legacy_prediction": 7922825,
-      "held_out_prediction": 7729763,
-      "fitted_prediction": 7967086
+      "held_out_prediction": 7581249,
+      "fitted_prediction": 7675009
     },
     {
       "nickname": "똥땅이횽",
@@ -1114,8 +1136,8 @@
       "job": "바이퍼",
       "observed_score": 7907253,
       "legacy_prediction": 46,
-      "held_out_prediction": 9295323,
-      "fitted_prediction": 9626946
+      "held_out_prediction": 10145259,
+      "fitted_prediction": 9615978
     },
     {
       "nickname": "두향",
@@ -1124,8 +1146,8 @@
       "job": "팔라딘",
       "observed_score": 7856703,
       "legacy_prediction": 14090300,
-      "held_out_prediction": 9677318,
-      "fitted_prediction": 10708834
+      "held_out_prediction": 11166654,
+      "fitted_prediction": 11608155
     },
     {
       "nickname": "Pakachu9999",
@@ -1134,8 +1156,8 @@
       "job": "비숍",
       "observed_score": 7717356,
       "legacy_prediction": 12742022,
-      "held_out_prediction": 10432004,
-      "fitted_prediction": 10806967
+      "held_out_prediction": 11121242,
+      "fitted_prediction": 11249534
     },
     {
       "nickname": "잉글리쉬",
@@ -1144,8 +1166,8 @@
       "job": "비숍",
       "observed_score": 7560594,
       "legacy_prediction": 12531151,
-      "held_out_prediction": 10340535,
-      "fitted_prediction": 10764322
+      "held_out_prediction": 11082174,
+      "fitted_prediction": 11209396
     },
     {
       "nickname": "민들레꽃",
@@ -1154,8 +1176,8 @@
       "job": "비숍",
       "observed_score": 7395894,
       "legacy_prediction": 11969884,
-      "held_out_prediction": 8004472,
-      "fitted_prediction": 8216180
+      "held_out_prediction": 8424098,
+      "fitted_prediction": 8598667
     },
     {
       "nickname": "개짱나네",
@@ -1164,8 +1186,8 @@
       "job": "바이퍼",
       "observed_score": 7365291,
       "legacy_prediction": 30,
-      "held_out_prediction": 3882453,
-      "fitted_prediction": 4288003
+      "held_out_prediction": 4002872,
+      "fitted_prediction": 4341865
     },
     {
       "nickname": "꿀꿀이의모험",
@@ -1174,8 +1196,8 @@
       "job": "비숍",
       "observed_score": 7306308,
       "legacy_prediction": 11864123,
-      "held_out_prediction": 9687809,
-      "fitted_prediction": 9138631
+      "held_out_prediction": 10019931,
+      "fitted_prediction": 9566984
     },
     {
       "nickname": "여눈",
@@ -1184,8 +1206,8 @@
       "job": "바이퍼",
       "observed_score": 7282089,
       "legacy_prediction": 40,
-      "held_out_prediction": 5857606,
-      "fitted_prediction": 6430090
+      "held_out_prediction": 5996425,
+      "fitted_prediction": 6469044
     },
     {
       "nickname": "힘떡",
@@ -1194,8 +1216,8 @@
       "job": "섀도어",
       "observed_score": 7267155,
       "legacy_prediction": 9445335,
-      "held_out_prediction": 6167698,
-      "fitted_prediction": 6414332
+      "held_out_prediction": 6508872,
+      "fitted_prediction": 6494276
     },
     {
       "nickname": "채무조정",
@@ -1204,8 +1226,8 @@
       "job": "비숍",
       "observed_score": 7201815,
       "legacy_prediction": 12209207,
-      "held_out_prediction": 10465981,
-      "fitted_prediction": 10698145
+      "held_out_prediction": 10961273,
+      "fitted_prediction": 11147080
     },
     {
       "nickname": "썬믕",
@@ -1214,8 +1236,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 7155282,
       "legacy_prediction": 7234554,
-      "held_out_prediction": 4472339,
-      "fitted_prediction": 4808757
+      "held_out_prediction": 4442594,
+      "fitted_prediction": 4659397
     },
     {
       "nickname": "비숍의미래",
@@ -1224,8 +1246,8 @@
       "job": "비숍",
       "observed_score": 7115223,
       "legacy_prediction": 10430351,
-      "held_out_prediction": 5546208,
-      "fitted_prediction": 5708101
+      "held_out_prediction": 5855147,
+      "fitted_prediction": 5990663
     },
     {
       "nickname": "보호소",
@@ -1234,8 +1256,8 @@
       "job": "비숍",
       "observed_score": 7097601,
       "legacy_prediction": 11420764,
-      "held_out_prediction": 9996137,
-      "fitted_prediction": 9456735
+      "held_out_prediction": 10296780,
+      "fitted_prediction": 9867534
     },
     {
       "nickname": "꽃믕",
@@ -1244,8 +1266,8 @@
       "job": "비숍",
       "observed_score": 7082961,
       "legacy_prediction": 8987158,
-      "held_out_prediction": 4768821,
-      "fitted_prediction": 4923300
+      "held_out_prediction": 5052742,
+      "fitted_prediction": 5183987
     },
     {
       "nickname": "봉천동주접꾼",
@@ -1254,8 +1276,8 @@
       "job": "캡틴",
       "observed_score": 7048968,
       "legacy_prediction": 50,
-      "held_out_prediction": 8250578,
-      "fitted_prediction": 8422937
+      "held_out_prediction": 8333586,
+      "fitted_prediction": 8346544
     },
     {
       "nickname": "뿌용뿌용뿅뿅",
@@ -1264,8 +1286,8 @@
       "job": "섀도어",
       "observed_score": 7007685,
       "legacy_prediction": 9245122,
-      "held_out_prediction": 7988967,
-      "fitted_prediction": 7420341
+      "held_out_prediction": 7682011,
+      "fitted_prediction": 7486120
     },
     {
       "nickname": "좀치는형님",
@@ -1274,8 +1296,8 @@
       "job": "비숍",
       "observed_score": 6987087,
       "legacy_prediction": 11315633,
-      "held_out_prediction": 9217049,
-      "fitted_prediction": 9436037
+      "held_out_prediction": 9670601,
+      "fitted_prediction": 9848008
     },
     {
       "nickname": "주사고모",
@@ -1284,8 +1306,8 @@
       "job": "비숍",
       "observed_score": 6916095,
       "legacy_prediction": 12314431,
-      "held_out_prediction": 7851865,
-      "fitted_prediction": 7413638
+      "held_out_prediction": 8110413,
+      "fitted_prediction": 7752944
     },
     {
       "nickname": "연속기",
@@ -1294,8 +1316,8 @@
       "job": "바이퍼",
       "observed_score": 6868173,
       "legacy_prediction": 45,
-      "held_out_prediction": 7761904,
-      "fitted_prediction": 8227905
+      "held_out_prediction": 8717203,
+      "fitted_prediction": 8256835
     },
     {
       "nickname": "은월출시기원",
@@ -1304,8 +1326,8 @@
       "job": "섀도어",
       "observed_score": 6813606,
       "legacy_prediction": 8741374,
-      "held_out_prediction": 6508373,
-      "fitted_prediction": 6575982
+      "held_out_prediction": 6865230,
+      "fitted_prediction": 6642052
     },
     {
       "nickname": "트투",
@@ -1314,8 +1336,8 @@
       "job": "비숍",
       "observed_score": 6796065,
       "legacy_prediction": 11047287,
-      "held_out_prediction": 10521197,
-      "fitted_prediction": 10447633
+      "held_out_prediction": 10824642,
+      "fitted_prediction": 10910846
     },
     {
       "nickname": "솔인",
@@ -1324,8 +1346,8 @@
       "job": "팔라딘",
       "observed_score": 6794208,
       "legacy_prediction": 9388262,
-      "held_out_prediction": 4857023,
-      "fitted_prediction": 5440704
+      "held_out_prediction": 5684830,
+      "fitted_prediction": 5974013
     },
     {
       "nickname": "남태평",
@@ -1334,8 +1356,8 @@
       "job": "섀도어",
       "observed_score": 6786366,
       "legacy_prediction": 9998654,
-      "held_out_prediction": 8132275,
-      "fitted_prediction": 7559386
+      "held_out_prediction": 7810223,
+      "fitted_prediction": 7612818
     },
     {
       "nickname": "팔마",
@@ -1344,8 +1366,8 @@
       "job": "나이트로드",
       "observed_score": 6750027,
       "legacy_prediction": 9134864,
-      "held_out_prediction": 10123252,
-      "fitted_prediction": 10055255
+      "held_out_prediction": 9822154,
+      "fitted_prediction": 9857930
     },
     {
       "nickname": "KR#0P7W5X70V4",
@@ -1354,8 +1376,8 @@
       "job": "비숍",
       "observed_score": 6683388,
       "legacy_prediction": 7048454,
-      "held_out_prediction": 4709027,
-      "fitted_prediction": 4647858
+      "held_out_prediction": 4877002,
+      "fitted_prediction": 4921083
     },
     {
       "nickname": "명동이",
@@ -1364,8 +1386,8 @@
       "job": "비숍",
       "observed_score": 6677106,
       "legacy_prediction": 16181959,
-      "held_out_prediction": 12684570,
-      "fitted_prediction": 12722579
+      "held_out_prediction": 13012808,
+      "fitted_prediction": 13173142
     },
     {
       "nickname": "옆구리두방",
@@ -1374,8 +1396,8 @@
       "job": "비숍",
       "observed_score": 6591612,
       "legacy_prediction": 12753070,
-      "held_out_prediction": 9478481,
-      "fitted_prediction": 10351752
+      "held_out_prediction": 10703323,
+      "fitted_prediction": 10820287
     },
     {
       "nickname": "뚜에이",
@@ -1384,8 +1406,8 @@
       "job": "보우마스터",
       "observed_score": 6554703,
       "legacy_prediction": 5593689,
-      "held_out_prediction": 4990769,
-      "fitted_prediction": 5357935
+      "held_out_prediction": 4978746,
+      "fitted_prediction": 5444214
     },
     {
       "nickname": "정섭이",
@@ -1394,8 +1416,8 @@
       "job": "비숍",
       "observed_score": 6499527,
       "legacy_prediction": 11863732,
-      "held_out_prediction": 8506795,
-      "fitted_prediction": 9138559
+      "held_out_prediction": 9465624,
+      "fitted_prediction": 9566917
     },
     {
       "nickname": "초코파베",
@@ -1404,8 +1426,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 6492831,
       "legacy_prediction": 6902172,
-      "held_out_prediction": 5454181,
-      "fitted_prediction": 5316735
+      "held_out_prediction": 5459487,
+      "fitted_prediction": 5157663
     },
     {
       "nickname": "뚱법",
@@ -1414,8 +1436,8 @@
       "job": "비숍",
       "observed_score": 6455124,
       "legacy_prediction": 12484635,
-      "held_out_prediction": 8820670,
-      "fitted_prediction": 9249685
+      "held_out_prediction": 9190072,
+      "fitted_prediction": 9672022
     },
     {
       "nickname": "쮸르",
@@ -1424,8 +1446,8 @@
       "job": "비숍",
       "observed_score": 6443454,
       "legacy_prediction": 11429149,
-      "held_out_prediction": 11133675,
-      "fitted_prediction": 10532093
+      "held_out_prediction": 11469758,
+      "fitted_prediction": 10990552
     },
     {
       "nickname": "아르미느",
@@ -1434,8 +1456,8 @@
       "job": "히어로",
       "observed_score": 6273582,
       "legacy_prediction": 9771378,
-      "held_out_prediction": 4356302,
-      "fitted_prediction": 4431713
+      "held_out_prediction": 4928306,
+      "fitted_prediction": 4808894
     },
     {
       "nickname": "그이뜌",
@@ -1444,8 +1466,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 6266043,
       "legacy_prediction": 8373809,
-      "held_out_prediction": 6537179,
-      "fitted_prediction": 6216328
+      "held_out_prediction": 6242560,
+      "fitted_prediction": 6004524
     },
     {
       "nickname": "범지",
@@ -1454,8 +1476,8 @@
       "job": "나이트로드",
       "observed_score": 6201141,
       "legacy_prediction": 8697573,
-      "held_out_prediction": 8350853,
-      "fitted_prediction": 8023584
+      "held_out_prediction": 7733350,
+      "fitted_prediction": 7873296
     },
     {
       "nickname": "득찬이",
@@ -1464,8 +1486,8 @@
       "job": "다크나이트",
       "observed_score": 6183261,
       "legacy_prediction": 7630371,
-      "held_out_prediction": 3783684,
-      "fitted_prediction": 4375760
+      "held_out_prediction": 3598318,
+      "fitted_prediction": 3818669
     },
     {
       "nickname": "비스밤",
@@ -1474,8 +1496,8 @@
       "job": "비숍",
       "observed_score": 6170412,
       "legacy_prediction": 11521665,
-      "held_out_prediction": 7925894,
-      "fitted_prediction": 8142220
+      "held_out_prediction": 8349409,
+      "fitted_prediction": 8528663
     },
     {
       "nickname": "너남친쩔더라",
@@ -1484,8 +1506,8 @@
       "job": "비숍",
       "observed_score": 6113253,
       "legacy_prediction": 12730416,
-      "held_out_prediction": 7290083,
-      "fitted_prediction": 7472225
+      "held_out_prediction": 7659497,
+      "fitted_prediction": 7808310
     },
     {
       "nickname": "비속어금지중",
@@ -1494,8 +1516,8 @@
       "job": "비숍",
       "observed_score": 6061791,
       "legacy_prediction": 10847753,
-      "held_out_prediction": 8441256,
-      "fitted_prediction": 8381468
+      "held_out_prediction": 8685956,
+      "fitted_prediction": 8754893
     },
     {
       "nickname": "양대리",
@@ -1504,8 +1526,8 @@
       "job": "히어로",
       "observed_score": 6058641,
       "legacy_prediction": 14020669,
-      "held_out_prediction": 8099982,
-      "fitted_prediction": 6980498
+      "held_out_prediction": 7924377,
+      "fitted_prediction": 7483863
     },
     {
       "nickname": "Trusthim",
@@ -1514,8 +1536,8 @@
       "job": "비숍",
       "observed_score": 6048609,
       "legacy_prediction": 10665433,
-      "held_out_prediction": 7059642,
-      "fitted_prediction": 7165361
+      "held_out_prediction": 7360078,
+      "fitted_prediction": 7517847
     },
     {
       "nickname": "3대900상남자",
@@ -1524,8 +1546,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 6042234,
       "legacy_prediction": 8506976,
-      "held_out_prediction": 7746403,
-      "fitted_prediction": 7759621
+      "held_out_prediction": 7438438,
+      "fitted_prediction": 7494108
     },
     {
       "nickname": "KR#PTWFLYUM5X",
@@ -1534,8 +1556,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 6030162,
       "legacy_prediction": 8354232,
-      "held_out_prediction": 7150860,
-      "fitted_prediction": 6931892
+      "held_out_prediction": 6866979,
+      "fitted_prediction": 6696765
     },
     {
       "nickname": "장빡이",
@@ -1544,8 +1566,8 @@
       "job": "섀도어",
       "observed_score": 5916900,
       "legacy_prediction": 8823166,
-      "held_out_prediction": 7014216,
-      "fitted_prediction": 7338662
+      "held_out_prediction": 7398654,
+      "fitted_prediction": 7411587
     },
     {
       "nickname": "귀막구",
@@ -1554,8 +1576,8 @@
       "job": "나이트로드",
       "observed_score": 5851371,
       "legacy_prediction": 8246611,
-      "held_out_prediction": 6589301,
-      "fitted_prediction": 6807479
+      "held_out_prediction": 6672679,
+      "fitted_prediction": 6715187
     },
     {
       "nickname": "시루",
@@ -1564,8 +1586,8 @@
       "job": "비숍",
       "observed_score": 5825388,
       "legacy_prediction": 11342293,
-      "held_out_prediction": 7713026,
-      "fitted_prediction": 7270588
+      "held_out_prediction": 7985512,
+      "fitted_prediction": 7617583
     },
     {
       "nickname": "이게제맛",
@@ -1574,8 +1596,8 @@
       "job": "섀도어",
       "observed_score": 5793999,
       "legacy_prediction": 8417312,
-      "held_out_prediction": 5417784,
-      "fitted_prediction": 5018930
+      "held_out_prediction": 5231087,
+      "fitted_prediction": 5093755
     },
     {
       "nickname": "수빈똥",
@@ -1584,8 +1606,8 @@
       "job": "다크나이트",
       "observed_score": 5770857,
       "legacy_prediction": 10762604,
-      "held_out_prediction": 9242356,
-      "fitted_prediction": 8615319
+      "held_out_prediction": 8179910,
+      "fitted_prediction": 7432919
     },
     {
       "nickname": "최영교",
@@ -1594,8 +1616,8 @@
       "job": "히어로",
       "observed_score": 5682726,
       "legacy_prediction": 13022787,
-      "held_out_prediction": 8344772,
-      "fitted_prediction": 7630767
+      "held_out_prediction": 8810865,
+      "fitted_prediction": 8195609
     },
     {
       "nickname": "iamai",
@@ -1604,8 +1626,8 @@
       "job": "바이퍼",
       "observed_score": 5649933,
       "legacy_prediction": 30,
-      "held_out_prediction": 3904789,
-      "fitted_prediction": 4310609
+      "held_out_prediction": 4023654,
+      "fitted_prediction": 4362552
     },
     {
       "nickname": "퍼퓸",
@@ -1614,8 +1636,8 @@
       "job": "비숍",
       "observed_score": 5643330,
       "legacy_prediction": 13509256,
-      "held_out_prediction": 11950228,
-      "fitted_prediction": 12189881
+      "held_out_prediction": 12485368,
+      "fitted_prediction": 12673509
     },
     {
       "nickname": "유놈",
@@ -1624,8 +1646,8 @@
       "job": "나이트로드",
       "observed_score": 5604336,
       "legacy_prediction": 11866152,
-      "held_out_prediction": 11310110,
-      "fitted_prediction": 10698204
+      "held_out_prediction": 10230501,
+      "fitted_prediction": 10426041
     },
     {
       "nickname": "조선제일히로",
@@ -1634,8 +1656,8 @@
       "job": "섀도어",
       "observed_score": 5522217,
       "legacy_prediction": 9039710,
-      "held_out_prediction": 7101802,
-      "fitted_prediction": 7380942
+      "held_out_prediction": 7490244,
+      "fitted_prediction": 7450178
     },
     {
       "nickname": "한굥굥",
@@ -1644,8 +1666,8 @@
       "job": "비숍",
       "observed_score": 5366484,
       "legacy_prediction": 9526540,
-      "held_out_prediction": 7426556,
-      "fitted_prediction": 6976184
+      "held_out_prediction": 7726869,
+      "fitted_prediction": 7338189
     },
     {
       "nickname": "니누고",
@@ -1654,8 +1676,8 @@
       "job": "비숍",
       "observed_score": 5328843,
       "legacy_prediction": 11681269,
-      "held_out_prediction": 7861957,
-      "fitted_prediction": 8168804
+      "held_out_prediction": 8463572,
+      "fitted_prediction": 8553832
     },
     {
       "nickname": "퍄딤",
@@ -1664,8 +1686,8 @@
       "job": "비숍",
       "observed_score": 5321478,
       "legacy_prediction": 11265863,
-      "held_out_prediction": 7701720,
-      "fitted_prediction": 7258950
+      "held_out_prediction": 7975329,
+      "fitted_prediction": 7606559
     },
     {
       "nickname": "냠늄",
@@ -1674,8 +1696,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 5309817,
       "legacy_prediction": 8477211,
-      "held_out_prediction": 8243190,
-      "fitted_prediction": 8095786
+      "held_out_prediction": 8164531,
+      "fitted_prediction": 7787003
     },
     {
       "nickname": "실프",
@@ -1684,8 +1706,8 @@
       "job": "비숍",
       "observed_score": 5160210,
       "legacy_prediction": 12446574,
-      "held_out_prediction": 12618028,
-      "fitted_prediction": 11955532
+      "held_out_prediction": 12969314,
+      "fitted_prediction": 12453048
     },
     {
       "nickname": "팡대지",
@@ -1694,8 +1716,8 @@
       "job": "비숍",
       "observed_score": 5095602,
       "legacy_prediction": 12508471,
-      "held_out_prediction": 9023089,
-      "fitted_prediction": 9253866
+      "held_out_prediction": 9486701,
+      "fitted_prediction": 9675974
     },
     {
       "nickname": "사랑해제명",
@@ -1704,8 +1726,8 @@
       "job": "팔라딘",
       "observed_score": 5036934,
       "legacy_prediction": 9752941,
-      "held_out_prediction": 6561240,
-      "fitted_prediction": 6125411
+      "held_out_prediction": 7215635,
+      "fitted_prediction": 6720713
     },
     {
       "nickname": "유묘",
@@ -1714,8 +1736,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 5016219,
       "legacy_prediction": 6044973,
-      "held_out_prediction": 3405389,
-      "fitted_prediction": 3675001
+      "held_out_prediction": 3397240,
+      "fitted_prediction": 3574661
     },
     {
       "nickname": "모범택시기사",
@@ -1724,8 +1746,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 4995465,
       "legacy_prediction": 8814621,
-      "held_out_prediction": 7888540,
-      "fitted_prediction": 7825211
+      "held_out_prediction": 7573744,
+      "fitted_prediction": 7551350
     },
     {
       "nickname": "주캄",
@@ -1734,8 +1756,8 @@
       "job": "보우마스터",
       "observed_score": 4943085,
       "legacy_prediction": 4599478,
-      "held_out_prediction": 3776181,
-      "fitted_prediction": 4070285
+      "held_out_prediction": 3784750,
+      "fitted_prediction": 4153371
     },
     {
       "nickname": "MELLOO",
@@ -1744,8 +1766,8 @@
       "job": "히어로",
       "observed_score": 4920747,
       "legacy_prediction": 10893371,
-      "held_out_prediction": 6590398,
-      "fitted_prediction": 5655092
+      "held_out_prediction": 6491118,
+      "fitted_prediction": 6122519
     },
     {
       "nickname": "우후",
@@ -1754,8 +1776,8 @@
       "job": "히어로",
       "observed_score": 4878861,
       "legacy_prediction": 11492804,
-      "held_out_prediction": 5921324,
-      "fitted_prediction": 5980408
+      "held_out_prediction": 6642538,
+      "fitted_prediction": 6440052
     },
     {
       "nickname": "칠믕",
@@ -1764,8 +1786,8 @@
       "job": "비숍",
       "observed_score": 4868922,
       "legacy_prediction": 7023078,
-      "held_out_prediction": 3561086,
-      "fitted_prediction": 3695271
+      "held_out_prediction": 3795650,
+      "fitted_prediction": 3911963
     },
     {
       "nickname": "토벤숍이",
@@ -1774,8 +1796,8 @@
       "job": "캡틴",
       "observed_score": 4740102,
       "legacy_prediction": 25,
-      "held_out_prediction": 4019205,
-      "fitted_prediction": 4075026
+      "held_out_prediction": 3945052,
+      "fitted_prediction": 4101592
     },
     {
       "nickname": "달디달고나",
@@ -1784,8 +1806,8 @@
       "job": "비숍",
       "observed_score": 4738095,
       "legacy_prediction": 10566328,
-      "held_out_prediction": 6799959,
-      "fitted_prediction": 6401420
+      "held_out_prediction": 7053356,
+      "fitted_prediction": 6717041
     },
     {
       "nickname": "비믕",
@@ -1794,8 +1816,8 @@
       "job": "섀도어",
       "observed_score": 4724679,
       "legacy_prediction": 7105265,
-      "held_out_prediction": 3204290,
-      "fitted_prediction": 3449929
+      "held_out_prediction": 3426531,
+      "fitted_prediction": 3513758
     },
     {
       "nickname": "풀뱅",
@@ -1804,8 +1826,8 @@
       "job": "섀도어",
       "observed_score": 4662576,
       "legacy_prediction": 6325410,
-      "held_out_prediction": 3109426,
-      "fitted_prediction": 3356193
+      "held_out_prediction": 3334821,
+      "fitted_prediction": 3427339
     },
     {
       "nickname": "대항해시대",
@@ -1814,8 +1836,8 @@
       "job": "바이퍼",
       "observed_score": 4552455,
       "legacy_prediction": 45,
-      "held_out_prediction": 7864470,
-      "fitted_prediction": 7396968
+      "held_out_prediction": 7424202,
+      "fitted_prediction": 7420748
     },
     {
       "nickname": "배렛나루왁서",
@@ -1824,8 +1846,8 @@
       "job": "나이트로드",
       "observed_score": 4539717,
       "legacy_prediction": 4153594,
-      "held_out_prediction": 3000740,
-      "fitted_prediction": 2952952
+      "held_out_prediction": 2912807,
+      "fitted_prediction": 2956809
     },
     {
       "nickname": "호박머리베컴",
@@ -1834,8 +1856,8 @@
       "job": "비숍",
       "observed_score": 4516305,
       "legacy_prediction": 10985531,
-      "held_out_prediction": 9070546,
-      "fitted_prediction": 9370077
+      "held_out_prediction": 9448151,
+      "fitted_prediction": 9785755
     },
     {
       "nickname": "돈성",
@@ -1844,8 +1866,8 @@
       "job": "다크나이트",
       "observed_score": 4515867,
       "legacy_prediction": 5706845,
-      "held_out_prediction": 3942141,
-      "fitted_prediction": 3645734
+      "held_out_prediction": 3074267,
+      "fitted_prediction": 3202326
     },
     {
       "nickname": "대방어조아",
@@ -1854,8 +1876,8 @@
       "job": "나이트로드",
       "observed_score": 4336725,
       "legacy_prediction": 12278446,
-      "held_out_prediction": 12213497,
-      "fitted_prediction": 11986522
+      "held_out_prediction": 11709985,
+      "fitted_prediction": 11673693
     },
     {
       "nickname": "슈믕",
@@ -1864,8 +1886,8 @@
       "job": "다크나이트",
       "observed_score": 4313301,
       "legacy_prediction": 5190326,
-      "held_out_prediction": 2427803,
-      "fitted_prediction": 2830244
+      "held_out_prediction": 2330492,
+      "fitted_prediction": 2490839
     },
     {
       "nickname": "더대충",
@@ -1874,8 +1896,8 @@
       "job": "바이퍼",
       "observed_score": 4298967,
       "legacy_prediction": 43,
-      "held_out_prediction": 9822038,
-      "fitted_prediction": 9462938
+      "held_out_prediction": 9742035,
+      "fitted_prediction": 9467762
     },
     {
       "nickname": "키류",
@@ -1884,8 +1906,8 @@
       "job": "비숍",
       "observed_score": 4278687,
       "legacy_prediction": 9383958,
-      "held_out_prediction": 5926967,
-      "fitted_prediction": 5566898
+      "held_out_prediction": 6167639,
+      "fitted_prediction": 5856536
     },
     {
       "nickname": "엘라임",
@@ -1894,8 +1916,8 @@
       "job": "히어로",
       "observed_score": 4202736,
       "legacy_prediction": 14831468,
-      "held_out_prediction": 7833242,
-      "fitted_prediction": 7869559
+      "held_out_prediction": 8733140,
+      "fitted_prediction": 8427111
     },
     {
       "nickname": "끼꼬",
@@ -1904,8 +1926,8 @@
       "job": "섀도어",
       "observed_score": 4003539,
       "legacy_prediction": 9778222,
-      "held_out_prediction": 6177232,
-      "fitted_prediction": 5802180
+      "held_out_prediction": 6359422,
+      "fitted_prediction": 5869258
     },
     {
       "nickname": "홍뎐잉",
@@ -1914,8 +1936,8 @@
       "job": "비숍",
       "observed_score": 3891438,
       "legacy_prediction": 8445788,
-      "held_out_prediction": 5793059,
-      "fitted_prediction": 5429682
+      "held_out_prediction": 6046239,
+      "fitted_prediction": 5725883
     },
     {
       "nickname": "환불스토리",
@@ -1924,8 +1946,8 @@
       "job": "섀도어",
       "observed_score": 3809907,
       "legacy_prediction": 8447794,
-      "held_out_prediction": 5363093,
-      "fitted_prediction": 5023230
+      "held_out_prediction": 5543384,
+      "fitted_prediction": 5097701
     },
     {
       "nickname": "꼬북빵야",
@@ -1934,8 +1956,8 @@
       "job": "비숍",
       "observed_score": 3755622,
       "legacy_prediction": 10126986,
-      "held_out_prediction": 6871445,
-      "fitted_prediction": 7077949
+      "held_out_prediction": 7261295,
+      "fitted_prediction": 7434890
     },
     {
       "nickname": "코잉코잉",
@@ -1944,8 +1966,8 @@
       "job": "신궁",
       "observed_score": 3719877,
       "legacy_prediction": 5760982,
-      "held_out_prediction": 3871072,
-      "fitted_prediction": 3673343
+      "held_out_prediction": 3806137,
+      "fitted_prediction": 3611837
     },
     {
       "nickname": "밀초크코",
@@ -1954,8 +1976,8 @@
       "job": "비숍",
       "observed_score": 3661047,
       "legacy_prediction": 5450516,
-      "held_out_prediction": 3534421,
-      "fitted_prediction": 3479862
+      "held_out_prediction": 3675044,
+      "fitted_prediction": 3705224
     },
     {
       "nickname": "땡요나퐁",
@@ -1964,8 +1986,8 @@
       "job": "팔라딘",
       "observed_score": 3563019,
       "legacy_prediction": 4276182,
-      "held_out_prediction": 2939628,
-      "fitted_prediction": 2571195
+      "held_out_prediction": 2977444,
+      "fitted_prediction": 2872633
     },
     {
       "nickname": "대구남성",
@@ -1974,8 +1996,8 @@
       "job": "비숍",
       "observed_score": 3510321,
       "legacy_prediction": 7261838,
-      "held_out_prediction": 5306424,
-      "fitted_prediction": 5238813
+      "held_out_prediction": 5493500,
+      "fitted_prediction": 5543613
     },
     {
       "nickname": "정맨정맨",
@@ -1984,8 +2006,8 @@
       "job": "바이퍼",
       "observed_score": 3498693,
       "legacy_prediction": 49,
-      "held_out_prediction": 7172960,
-      "fitted_prediction": 6752102
+      "held_out_prediction": 6762734,
+      "fitted_prediction": 6761215
     },
     {
       "nickname": "킬혁",
@@ -1994,8 +2016,8 @@
       "job": "섀도어",
       "observed_score": 3414057,
       "legacy_prediction": 4295750,
-      "held_out_prediction": 2647473,
-      "fitted_prediction": 2436657
+      "held_out_prediction": 2556699,
+      "fitted_prediction": 2509759
     },
     {
       "nickname": "허숖",
@@ -2004,8 +2026,8 @@
       "job": "비숍",
       "observed_score": 3399753,
       "legacy_prediction": 4948995,
-      "held_out_prediction": 3666720,
-      "fitted_prediction": 3401179
+      "held_out_prediction": 3883558,
+      "fitted_prediction": 3629406
     },
     {
       "nickname": "마키맛키마",
@@ -2014,8 +2036,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 3396378,
       "legacy_prediction": 4084023,
-      "held_out_prediction": 3546560,
-      "fitted_prediction": 3348928
+      "held_out_prediction": 3255317,
+      "fitted_prediction": 3286675
     },
     {
       "nickname": "몽치장군",
@@ -2024,8 +2046,8 @@
       "job": "비숍",
       "observed_score": 3294477,
       "legacy_prediction": 8706056,
-      "held_out_prediction": 4729809,
-      "fitted_prediction": 4886370
+      "held_out_prediction": 5015412,
+      "fitted_prediction": 5148822
     },
     {
       "nickname": "빵신궁",
@@ -2034,8 +2056,8 @@
       "job": "신궁",
       "observed_score": 3185166,
       "legacy_prediction": 5420459,
-      "held_out_prediction": 3817923,
-      "fitted_prediction": 3620696
+      "held_out_prediction": 3757547,
+      "fitted_prediction": 3565008
     },
     {
       "nickname": "취란",
@@ -2044,8 +2066,8 @@
       "job": "비숍",
       "observed_score": 3131013,
       "legacy_prediction": 9555186,
-      "held_out_prediction": 6653174,
-      "fitted_prediction": 6250658
+      "held_out_prediction": 6920718,
+      "fitted_prediction": 6573870
     },
     {
       "nickname": "우루차",
@@ -2054,8 +2076,8 @@
       "job": "비숍",
       "observed_score": 3121587,
       "legacy_prediction": 5676761,
-      "held_out_prediction": 3567189,
-      "fitted_prediction": 3513557
+      "held_out_prediction": 3706699,
+      "fitted_prediction": 3737642
     },
     {
       "nickname": "냥냥쨉쨉",
@@ -2064,8 +2086,8 @@
       "job": "아크메이지(썬,콜)",
       "observed_score": 3080808,
       "legacy_prediction": 6863855,
-      "held_out_prediction": 5003825,
-      "fitted_prediction": 4749199
+      "held_out_prediction": 4792512,
+      "fitted_prediction": 4607198
     },
     {
       "nickname": "츄믕",
@@ -2074,8 +2096,8 @@
       "job": "비숍",
       "observed_score": 3017853,
       "legacy_prediction": 6662749,
-      "held_out_prediction": 3939859,
-      "fitted_prediction": 4093387
+      "held_out_prediction": 4205448,
+      "fitted_prediction": 4339097
     },
     {
       "nickname": "경기도인",
@@ -2084,8 +2106,8 @@
       "job": "캡틴",
       "observed_score": 2902602,
       "legacy_prediction": 13,
-      "held_out_prediction": 2579789,
-      "fitted_prediction": 2604989
+      "held_out_prediction": 2548724,
+      "fitted_prediction": 2646299
     },
     {
       "nickname": "고통받는갈비",
@@ -2094,8 +2116,8 @@
       "job": "비숍",
       "observed_score": 2856129,
       "legacy_prediction": 5652033,
-      "held_out_prediction": 3563657,
-      "fitted_prediction": 3509925
+      "held_out_prediction": 3703288,
+      "fitted_prediction": 3734149
     },
     {
       "nickname": "소동",
@@ -2104,8 +2126,8 @@
       "job": "비숍",
       "observed_score": 2766849,
       "legacy_prediction": 9795840,
-      "held_out_prediction": 6689174,
-      "fitted_prediction": 6287605
+      "held_out_prediction": 6953283,
+      "fitted_prediction": 6608987
     },
     {
       "nickname": "낭랑28세",
@@ -2114,8 +2136,8 @@
       "job": "신궁",
       "observed_score": 2708592,
       "legacy_prediction": 5551900,
-      "held_out_prediction": 3838736,
-      "fitted_prediction": 3641309
+      "held_out_prediction": 3776581,
+      "fitted_prediction": 3583351
     },
     {
       "nickname": "섹밍",
@@ -2124,8 +2146,8 @@
       "job": "섀도어",
       "observed_score": 2584761,
       "legacy_prediction": 7319672,
-      "held_out_prediction": 5248710,
-      "fitted_prediction": 4855494
+      "held_out_prediction": 5027549,
+      "fitted_prediction": 4943569
     },
     {
       "nickname": "밍키비키",
@@ -2134,8 +2156,8 @@
       "job": "다크나이트",
       "observed_score": 2383296,
       "legacy_prediction": 3896849,
-      "held_out_prediction": 2870096,
-      "fitted_prediction": 2644416
+      "held_out_prediction": 2251612,
+      "fitted_prediction": 2342519
     },
     {
       "nickname": "씅놈",
@@ -2144,8 +2166,8 @@
       "job": "히어로",
       "observed_score": 2270172,
       "legacy_prediction": 5605823,
-      "held_out_prediction": 2594286,
-      "fitted_prediction": 2212053
+      "held_out_prediction": 2620445,
+      "fitted_prediction": 2429539
     },
     {
       "nickname": "오스띤",
@@ -2154,8 +2176,8 @@
       "job": "섀도어",
       "observed_score": 2237964,
       "legacy_prediction": 4302997,
-      "held_out_prediction": 2970810,
-      "fitted_prediction": 2734161
+      "held_out_prediction": 2869095,
+      "fitted_prediction": 2816390
     },
     {
       "nickname": "문보겨엉",
@@ -2164,8 +2186,8 @@
       "job": "바이퍼",
       "observed_score": 2125620,
       "legacy_prediction": 21,
-      "held_out_prediction": 2990723,
-      "fitted_prediction": 2791842
+      "held_out_prediction": 3015255,
+      "fitted_prediction": 2849052
     },
     {
       "nickname": "포디케이",
@@ -2174,8 +2196,8 @@
       "job": "바이퍼",
       "observed_score": 2099481,
       "legacy_prediction": 17,
-      "held_out_prediction": 2534053,
-      "fitted_prediction": 2360582
+      "held_out_prediction": 2563418,
+      "fitted_prediction": 2420444
     },
     {
       "nickname": "뭐하는게임",
@@ -2184,8 +2206,8 @@
       "job": "히어로",
       "observed_score": 1860063,
       "legacy_prediction": 5806319,
-      "held_out_prediction": 2933312,
-      "fitted_prediction": 2501888
+      "held_out_prediction": 2961449,
+      "fitted_prediction": 2745976
     },
     {
       "nickname": "해졍",
@@ -2194,8 +2216,8 @@
       "job": "팔라딘",
       "observed_score": 1734744,
       "legacy_prediction": 7078308,
-      "held_out_prediction": 4391899,
-      "fitted_prediction": 4075122
+      "held_out_prediction": 4871901,
+      "fitted_prediction": 4502453
     },
     {
       "nickname": "꾸륭",
@@ -2204,8 +2226,8 @@
       "job": "섀도어",
       "observed_score": 1108083,
       "legacy_prediction": 6414597,
-      "held_out_prediction": 3225275,
-      "fitted_prediction": 3005443
+      "held_out_prediction": 3357914,
+      "fitted_prediction": 3067843
     },
     {
       "nickname": "냐락쿵",
@@ -2214,8 +2236,8 @@
       "job": "비숍",
       "observed_score": 92229387,
       "legacy_prediction": 132549334,
-      "held_out_prediction": 103153173,
-      "fitted_prediction": 102332362
+      "held_out_prediction": 99365352,
+      "fitted_prediction": 101160817
     },
     {
       "nickname": "라엘스",
@@ -2224,8 +2246,8 @@
       "job": "비숍",
       "observed_score": 86813874,
       "legacy_prediction": 108072734,
-      "held_out_prediction": 90947318,
-      "fitted_prediction": 88824847
+      "held_out_prediction": 87086011,
+      "fitted_prediction": 88208755
     },
     {
       "nickname": "김힐붕",
@@ -2234,8 +2256,8 @@
       "job": "비숍",
       "observed_score": 84053565,
       "legacy_prediction": 105511878,
-      "held_out_prediction": 89429860,
-      "fitted_prediction": 88321580
+      "held_out_prediction": 86504284,
+      "fitted_prediction": 87756833
     },
     {
       "nickname": "현쑤우우",
@@ -2244,8 +2266,8 @@
       "job": "히어로",
       "observed_score": 81434244,
       "legacy_prediction": 170615280,
-      "held_out_prediction": 109026728,
-      "fitted_prediction": 90339410
+      "held_out_prediction": 96383239,
+      "fitted_prediction": 91674911
     },
     {
       "nickname": "팔꾸미",
@@ -2254,8 +2276,8 @@
       "job": "팔라딘",
       "observed_score": 76600008,
       "legacy_prediction": 128680400,
-      "held_out_prediction": 96313774,
-      "fitted_prediction": 87229425
+      "held_out_prediction": 90309952,
+      "fitted_prediction": 90051108
     },
     {
       "nickname": "지존콩떡",
@@ -2264,8 +2286,8 @@
       "job": "비숍",
       "observed_score": 76459248,
       "legacy_prediction": 95449269,
-      "held_out_prediction": 87506236,
-      "fitted_prediction": 86248848
+      "held_out_prediction": 84691980,
+      "fitted_prediction": 85892945
     },
     {
       "nickname": "호얭",
@@ -2274,8 +2296,8 @@
       "job": "비숍",
       "observed_score": 75482058,
       "legacy_prediction": 99176833,
-      "held_out_prediction": 82135052,
-      "fitted_prediction": 79232611
+      "held_out_prediction": 80592068,
+      "fitted_prediction": 78829847
     },
     {
       "nickname": "라리c",
@@ -2284,8 +2306,8 @@
       "job": "비숍",
       "observed_score": 74742990,
       "legacy_prediction": 92768757,
-      "held_out_prediction": 79290222,
-      "fitted_prediction": 77988543
+      "held_out_prediction": 76629058,
+      "fitted_prediction": 77710076
     },
     {
       "nickname": "금은동S2",
@@ -2294,8 +2316,8 @@
       "job": "비숍",
       "observed_score": 74089506,
       "legacy_prediction": 85544402,
-      "held_out_prediction": 68700951,
-      "fitted_prediction": 69594006
+      "held_out_prediction": 68256940,
+      "fitted_prediction": 69467213
     },
     {
       "nickname": "리이이",
@@ -2304,8 +2326,8 @@
       "job": "비숍",
       "observed_score": 72168666,
       "legacy_prediction": 153273800,
-      "held_out_prediction": 123981912,
-      "fitted_prediction": 116176390
+      "held_out_prediction": 123650558,
+      "fitted_prediction": 114477630
     },
     {
       "nickname": "빵터짐",
@@ -2314,8 +2336,8 @@
       "job": "비숍",
       "observed_score": 70919187,
       "legacy_prediction": 82175677,
-      "held_out_prediction": 74375475,
-      "fitted_prediction": 75779917
+      "held_out_prediction": 77132139,
+      "fitted_prediction": 75717870
     },
     {
       "nickname": "깡퐈",
@@ -2324,8 +2346,8 @@
       "job": "비숍",
       "observed_score": 69514992,
       "legacy_prediction": 97233999,
-      "held_out_prediction": 86407941,
-      "fitted_prediction": 86628258
+      "held_out_prediction": 88122110,
+      "fitted_prediction": 86234445
     },
     {
       "nickname": "캐일리",
@@ -2334,8 +2356,8 @@
       "job": "비숍",
       "observed_score": 69144843,
       "legacy_prediction": 69983754,
-      "held_out_prediction": 59175290,
-      "fitted_prediction": 60320603
+      "held_out_prediction": 59687515,
+      "fitted_prediction": 60480769
     },
     {
       "nickname": "군보",
@@ -2344,8 +2366,8 @@
       "job": "비숍",
       "observed_score": 67532292,
       "legacy_prediction": 73847307,
-      "held_out_prediction": 68266333,
-      "fitted_prediction": 67211228
+      "held_out_prediction": 66881496,
+      "fitted_prediction": 67313522
     },
     {
       "nickname": "지존말랑",
@@ -2354,8 +2376,8 @@
       "job": "비숍",
       "observed_score": 66197919,
       "legacy_prediction": 98268513,
-      "held_out_prediction": 80159673,
-      "fitted_prediction": 79060072
+      "held_out_prediction": 77567062,
+      "fitted_prediction": 78674648
     },
     {
       "nickname": "봉합안터짐",
@@ -2364,8 +2386,8 @@
       "job": "나이트로드",
       "observed_score": 65376021,
       "legacy_prediction": 74365105,
-      "held_out_prediction": 74101709,
-      "fitted_prediction": 66978166
+      "held_out_prediction": 65024293,
+      "fitted_prediction": 62689408
     },
     {
       "nickname": "앙삐쭈",
@@ -2374,8 +2396,8 @@
       "job": "히어로",
       "observed_score": 65322663,
       "legacy_prediction": 104522568,
-      "held_out_prediction": 54838439,
-      "fitted_prediction": 55646773
+      "held_out_prediction": 56903439,
+      "fitted_prediction": 57082169
     },
     {
       "nickname": "넬자몽",
@@ -2384,8 +2406,8 @@
       "job": "비숍",
       "observed_score": 65151552,
       "legacy_prediction": 76405484,
-      "held_out_prediction": 65867087,
-      "fitted_prediction": 67755738
+      "held_out_prediction": 66649902,
+      "fitted_prediction": 67806319
     },
     {
       "nickname": "졔이이",
@@ -2394,8 +2416,8 @@
       "job": "팔라딘",
       "observed_score": 64135713,
       "legacy_prediction": 76110845,
-      "held_out_prediction": 57433698,
-      "fitted_prediction": 52977351
+      "held_out_prediction": 58324278,
+      "fitted_prediction": 55328405
     },
     {
       "nickname": "키스미달링",
@@ -2404,8 +2426,8 @@
       "job": "비숍",
       "observed_score": 61173768,
       "legacy_prediction": 55173713,
-      "held_out_prediction": 49210198,
-      "fitted_prediction": 51786456
+      "held_out_prediction": 52783624,
+      "fitted_prediction": 52200736
     },
     {
       "nickname": "그루핑",
@@ -2414,8 +2436,8 @@
       "job": "팔라딘",
       "observed_score": 60372645,
       "legacy_prediction": 108896726,
-      "held_out_prediction": 84540485,
-      "fitted_prediction": 76441504
+      "held_out_prediction": 84057399,
+      "fitted_prediction": 79207412
     },
     {
       "nickname": "우쥬얌",
@@ -2424,8 +2446,8 @@
       "job": "보우마스터",
       "observed_score": 59717898,
       "legacy_prediction": 48251058,
-      "held_out_prediction": 62117930,
-      "fitted_prediction": 67256568
+      "held_out_prediction": 61993484,
+      "fitted_prediction": 64924093
     },
     {
       "nickname": "최강다저스",
@@ -2434,8 +2456,8 @@
       "job": "비숍",
       "observed_score": 59209173,
       "legacy_prediction": 51259246,
-      "held_out_prediction": 44487963,
-      "fitted_prediction": 46187063
+      "held_out_prediction": 45893702,
+      "fitted_prediction": 46630214
     },
     {
       "nickname": "개터짐",
@@ -2444,8 +2466,8 @@
       "job": "비숍",
       "observed_score": 58852404,
       "legacy_prediction": 68417723,
-      "held_out_prediction": 63483961,
-      "fitted_prediction": 66006028
+      "held_out_prediction": 67227049,
+      "fitted_prediction": 66221416
     },
     {
       "nickname": "살치안창토시",
@@ -2454,8 +2476,8 @@
       "job": "비숍",
       "observed_score": 58386780,
       "legacy_prediction": 83052241,
-      "held_out_prediction": 70321881,
-      "fitted_prediction": 69108190
+      "held_out_prediction": 70337679,
+      "fitted_prediction": 69028687
     },
     {
       "nickname": "뚠학",
@@ -2464,8 +2486,8 @@
       "job": "비숍",
       "observed_score": 58329111,
       "legacy_prediction": 55118707,
-      "held_out_prediction": 46171972,
-      "fitted_prediction": 46988349
+      "held_out_prediction": 47542288,
+      "fitted_prediction": 47360923
     },
     {
       "nickname": "설묘묘",
@@ -2474,8 +2496,8 @@
       "job": "비숍",
       "observed_score": 57868959,
       "legacy_prediction": 50837759,
-      "held_out_prediction": 44300359,
-      "fitted_prediction": 46096796
+      "held_out_prediction": 45979444,
+      "fitted_prediction": 46547822
     },
     {
       "nickname": "아몬드롱롱",
@@ -2484,8 +2506,8 @@
       "job": "아크메이지(불,독)",
       "observed_score": 57423912,
       "legacy_prediction": 39367481,
-      "held_out_prediction": 37346062,
-      "fitted_prediction": 39634480
+      "held_out_prediction": 36869163,
+      "fitted_prediction": 38626903
     },
     {
       "nickname": "미르몽",
@@ -2494,8 +2516,8 @@
       "job": "비숍",
       "observed_score": 57081966,
       "legacy_prediction": 78855223,
-      "held_out_prediction": 69513320,
-      "fitted_prediction": 68264279
+      "held_out_prediction": 69491678,
+      "fitted_prediction": 68266219
     },
     {
       "nickname": "오픈빌더",
@@ -2504,8 +2526,8 @@
       "job": "비숍",
       "observed_score": 57081765,
       "legacy_prediction": 58321679,
-      "held_out_prediction": 48356380,
-      "fitted_prediction": 47621433
+      "held_out_prediction": 47332917,
+      "fitted_prediction": 47937399
     },
     {
       "nickname": "뎡밍",
@@ -2514,8 +2536,8 @@
       "job": "비숍",
       "observed_score": 56926566,
       "legacy_prediction": 61440093,
-      "held_out_prediction": 49704099,
-      "fitted_prediction": 48212804
+      "held_out_prediction": 47856626,
+      "fitted_prediction": 48475227
     },
     {
       "nickname": "난풍",
@@ -2524,8 +2546,8 @@
       "job": "캡틴",
       "observed_score": 56643360,
       "legacy_prediction": 257,
-      "held_out_prediction": 58639933,
-      "fitted_prediction": 59988580
+      "held_out_prediction": 54495230,
+      "fitted_prediction": 57117411
     },
     {
       "nickname": "럭키송지오",
@@ -2534,8 +2556,8 @@
       "job": "비숍",
       "observed_score": 56610018,
       "legacy_prediction": 56473443,
-      "held_out_prediction": 49800146,
-      "fitted_prediction": 52072940
+      "held_out_prediction": 52635541,
+      "fitted_prediction": 52461721
     },
     {
       "nickname": "빠Ol",
@@ -2544,8 +2566,8 @@
       "job": "바이퍼",
       "observed_score": 56560236,
       "legacy_prediction": 303,
-      "held_out_prediction": 59127070,
-      "fitted_prediction": 56062061
+      "held_out_prediction": 53425570,
+      "fitted_prediction": 53718860
     },
     {
       "nickname": "꿀잠잉",
@@ -2554,8 +2576,8 @@
       "job": "비숍",
       "observed_score": 56258523,
       "legacy_prediction": 53432372,
-      "held_out_prediction": 43394466,
-      "fitted_prediction": 42298286
+      "held_out_prediction": 42852586,
+      "fitted_prediction": 42659821
     },
     {
       "nickname": "해물만두야",
@@ -2564,8 +2586,8 @@
       "job": "보우마스터",
       "observed_score": 56191527,
       "legacy_prediction": 60437686,
-      "held_out_prediction": 67868118,
-      "fitted_prediction": 64435469
+      "held_out_prediction": 59674549,
+      "fitted_prediction": 61877345
     },
     {
       "nickname": "한우채끝",
@@ -2574,8 +2596,8 @@
       "job": "비숍",
       "observed_score": 55917111,
       "legacy_prediction": 43135594,
-      "held_out_prediction": 38212721,
-      "fitted_prediction": 40206396
+      "held_out_prediction": 41155805,
+      "fitted_prediction": 40747973
     },
     {
       "nickname": "낌완두",
@@ -2584,8 +2606,8 @@
       "job": "비숍",
       "observed_score": 55878579,
       "legacy_prediction": 67171130,
-      "held_out_prediction": 55419040,
-      "fitted_prediction": 54257837
+      "held_out_prediction": 56255140,
+      "fitted_prediction": 54447672
     },
     {
       "nickname": "카오라",
@@ -2594,8 +2616,8 @@
       "job": "비숍",
       "observed_score": 55809030,
       "legacy_prediction": 59460797,
-      "held_out_prediction": 54440364,
-      "fitted_prediction": 58036143
+      "held_out_prediction": 59138636,
+      "fitted_prediction": 58406312
     },
     {
       "nickname": "냐락메키섭종",
@@ -2604,8 +2626,8 @@
       "job": "비숍",
       "observed_score": 55800819,
       "legacy_prediction": 76081110,
-      "held_out_prediction": 62692002,
-      "fitted_prediction": 61526416
+      "held_out_prediction": 61316009,
+      "fitted_prediction": 61572680
     },
     {
       "nickname": "슨녀",
@@ -2614,8 +2636,8 @@
       "job": "비숍",
       "observed_score": 55520592,
       "legacy_prediction": 57622956,
-      "held_out_prediction": 50316410,
-      "fitted_prediction": 52322151
+      "held_out_prediction": 52836095,
+      "fitted_prediction": 52688639
     },
     {
       "nickname": "깜찍요정",
@@ -2624,8 +2646,8 @@
       "job": "비숍",
       "observed_score": 55510107,
       "legacy_prediction": 43146617,
-      "held_out_prediction": 41245983,
-      "fitted_prediction": 44339572
+      "held_out_prediction": 42184507,
+      "fitted_prediction": 44940769
     },
     {
       "nickname": "돈스",
@@ -2634,8 +2656,8 @@
       "job": "비숍",
       "observed_score": 55448460,
       "legacy_prediction": 55844350,
-      "held_out_prediction": 52719744,
-      "fitted_prediction": 57179675
+      "held_out_prediction": 57839957,
+      "fitted_prediction": 57626570
     },
     {
       "nickname": "도박쨩2",
@@ -2644,8 +2666,8 @@
       "job": "비숍",
       "observed_score": 55388829,
       "legacy_prediction": 48305745,
-      "held_out_prediction": 41078617,
-      "fitted_prediction": 41299389
+      "held_out_prediction": 41913577,
+      "fitted_prediction": 41748057
     },
     {
       "nickname": "적금묶인린풍",
@@ -2654,8 +2676,8 @@
       "job": "비숍",
       "observed_score": 54825819,
       "legacy_prediction": 68183584,
-      "held_out_prediction": 60791028,
-      "fitted_prediction": 59949308
+      "held_out_prediction": 59139883,
+      "fitted_prediction": 60144127
     },
     {
       "nickname": "프란님",
@@ -2664,8 +2686,8 @@
       "job": "비숍",
       "observed_score": 54522723,
       "legacy_prediction": 33868519,
-      "held_out_prediction": 31661861,
-      "fitted_prediction": 34402101
+      "held_out_prediction": 35620306,
+      "fitted_prediction": 35054519
     },
     {
       "nickname": "하합",
@@ -2674,8 +2696,8 @@
       "job": "비숍",
       "observed_score": 54411258,
       "legacy_prediction": 83794772,
-      "held_out_prediction": 64019315,
-      "fitted_prediction": 62950435
+      "held_out_prediction": 62002215,
+      "fitted_prediction": 62859545
     },
     {
       "nickname": "픽끼픽끼",
@@ -2684,8 +2706,8 @@
       "job": "비숍",
       "observed_score": 54051765,
       "legacy_prediction": 42870819,
-      "held_out_prediction": 38570870,
-      "fitted_prediction": 40147784
+      "held_out_prediction": 40956687,
+      "fitted_prediction": 40694270
     },
     {
       "nickname": "더워어",
@@ -2694,8 +2716,8 @@
       "job": "비숍",
       "observed_score": 53991006,
       "legacy_prediction": 43947341,
-      "held_out_prediction": 36357499,
-      "fitted_prediction": 36592413
+      "held_out_prediction": 37415351,
+      "fitted_prediction": 37066089
     },
     {
       "nickname": "불량스님",
@@ -2704,8 +2726,8 @@
       "job": "비숍",
       "observed_score": 53477574,
       "legacy_prediction": 54657572,
-      "held_out_prediction": 51233716,
-      "fitted_prediction": 51671259
+      "held_out_prediction": 51449279,
+      "fitted_prediction": 52095754
     },
     {
       "nickname": "샨신",
@@ -2714,8 +2736,8 @@
       "job": "비숍",
       "observed_score": 53411466,
       "legacy_prediction": 53804054,
-      "held_out_prediction": 47143324,
-      "fitted_prediction": 46720356
+      "held_out_prediction": 47326178,
+      "fitted_prediction": 47116669
     },
     {
       "nickname": "KimchiZzang",
@@ -2724,8 +2746,8 @@
       "job": "캡틴",
       "observed_score": 53247987,
       "legacy_prediction": 219,
-      "held_out_prediction": 48075381,
-      "fitted_prediction": 47639345
+      "held_out_prediction": 42786223,
+      "fitted_prediction": 45513507
     },
     {
       "nickname": "무치z",
@@ -2734,8 +2756,8 @@
       "job": "나이트로드",
       "observed_score": 53135916,
       "legacy_prediction": 63763922,
-      "held_out_prediction": 68324801,
-      "fitted_prediction": 64581378
+      "held_out_prediction": 63511394,
+      "fitted_prediction": 60657915
     },
     {
       "nickname": "퍄파",
@@ -2744,8 +2766,8 @@
       "job": "비숍",
       "observed_score": 53085396,
       "legacy_prediction": 50719052,
-      "held_out_prediction": 47134901,
-      "fitted_prediction": 50763733
+      "held_out_prediction": 50460594,
+      "fitted_prediction": 51267907
     },
     {
       "nickname": "Modify",
@@ -2754,8 +2776,8 @@
       "job": "비숍",
       "observed_score": 52970634,
       "legacy_prediction": 73604649,
-      "held_out_prediction": 68481894,
-      "fitted_prediction": 67158834
+      "held_out_prediction": 66127055,
+      "fitted_prediction": 67266085
     },
     {
       "nickname": "탄빵v",
@@ -2764,8 +2786,8 @@
       "job": "비숍",
       "observed_score": 52682655,
       "legacy_prediction": 55383632,
-      "held_out_prediction": 46635339,
-      "fitted_prediction": 47041762
+      "held_out_prediction": 46648816,
+      "fitted_prediction": 47409589
     },
     {
       "nickname": "래가퍼",
@@ -2774,8 +2796,8 @@
       "job": "캡틴",
       "observed_score": 52570941,
       "legacy_prediction": 200,
-      "held_out_prediction": 41009010,
-      "fitted_prediction": 42269146
+      "held_out_prediction": 37975073,
+      "fitted_prediction": 40463799
     },
     {
       "nickname": "참새꿀꿀",
@@ -2784,8 +2806,8 @@
       "job": "보우마스터",
       "observed_score": 52338795,
       "legacy_prediction": 49071566,
-      "held_out_prediction": 61003933,
-      "fitted_prediction": 61332056
+      "held_out_prediction": 56528348,
+      "fitted_prediction": 59176892
     },
     {
       "nickname": "MNMMNMMNMMNM",
@@ -2794,8 +2816,8 @@
       "job": "비숍",
       "observed_score": 52338021,
       "legacy_prediction": 57835281,
-      "held_out_prediction": 50411217,
-      "fitted_prediction": 52367766
+      "held_out_prediction": 52872784,
+      "fitted_prediction": 52730162
     },
     {
       "nickname": "라온KP",
@@ -2804,8 +2826,8 @@
       "job": "비숍",
       "observed_score": 52111725,
       "legacy_prediction": 107557750,
-      "held_out_prediction": 95931140,
-      "fitted_prediction": 97390010
+      "held_out_prediction": 97265639,
+      "fitted_prediction": 96733647
     },
     {
       "nickname": "나야햄토리",
@@ -2814,8 +2836,8 @@
       "job": "비숍",
       "observed_score": 51960744,
       "legacy_prediction": 56815050,
-      "held_out_prediction": 43976230,
-      "fitted_prediction": 42917976
+      "held_out_prediction": 43351922,
+      "fitted_prediction": 43224415
     },
     {
       "nickname": "설챙",
@@ -2824,8 +2846,8 @@
       "job": "비숍",
       "observed_score": 51635949,
       "legacy_prediction": 48778108,
-      "held_out_prediction": 41684968,
-      "fitted_prediction": 41394721
+      "held_out_prediction": 42209200,
+      "fitted_prediction": 41835164
     },
     {
       "nickname": "뀨잉스",
@@ -2834,8 +2856,8 @@
       "job": "비숍",
       "observed_score": 51544920,
       "legacy_prediction": 33325440,
-      "held_out_prediction": 29684862,
-      "fitted_prediction": 31027068
+      "held_out_prediction": 31679866,
+      "fitted_prediction": 31624096
     },
     {
       "nickname": "강서구도적",
@@ -2844,8 +2866,8 @@
       "job": "나이트로드",
       "observed_score": 51462189,
       "legacy_prediction": 63394696,
-      "held_out_prediction": 59347874,
-      "fitted_prediction": 58666923
+      "held_out_prediction": 56987303,
+      "fitted_prediction": 55105062
     },
     {
       "nickname": "지존망자",
@@ -2854,8 +2876,8 @@
       "job": "비숍",
       "observed_score": 51339705,
       "legacy_prediction": 74970729,
-      "held_out_prediction": 68755656,
-      "fitted_prediction": 67452094
+      "held_out_prediction": 66633115,
+      "fitted_prediction": 67531560
     },
     {
       "nickname": "람볼기니",
@@ -2864,8 +2886,8 @@
       "job": "팔라딘",
       "observed_score": 51307098,
       "legacy_prediction": 85515214,
-      "held_out_prediction": 62817274,
-      "fitted_prediction": 65763703
+      "held_out_prediction": 70293827,
+      "fitted_prediction": 68512802
     },
     {
       "nickname": "호애얭",
@@ -2874,8 +2896,8 @@
       "job": "보우마스터",
       "observed_score": 51281103,
       "legacy_prediction": 42578634,
-      "held_out_prediction": 51276855,
-      "fitted_prediction": 53822002
+      "held_out_prediction": 49631036,
+      "fitted_prediction": 52093812
     },
     {
       "nickname": "꾜북칩",
@@ -2884,8 +2906,8 @@
       "job": "비숍",
       "observed_score": 51108696,
       "legacy_prediction": 50086138,
-      "held_out_prediction": 41870795,
-      "fitted_prediction": 41655080
+      "held_out_prediction": 42332723,
+      "fitted_prediction": 42072961
     },
     {
       "nickname": "라온FY",
@@ -2894,8 +2916,8 @@
       "job": "비숍",
       "observed_score": 51088890,
       "legacy_prediction": 62843020,
-      "held_out_prediction": 52599957,
-      "fitted_prediction": 53408325
+      "held_out_prediction": 54385667,
+      "fitted_prediction": 53676442
     },
     {
       "nickname": "남숍",
@@ -2904,8 +2926,8 @@
       "job": "비숍",
       "observed_score": 50853576,
       "legacy_prediction": 54136188,
-      "held_out_prediction": 47992470,
-      "fitted_prediction": 46788529
+      "held_out_prediction": 47381177,
+      "fitted_prediction": 47178816
     },
     {
       "nickname": "오홍홍이",
@@ -2914,8 +2936,8 @@
       "job": "나이트로드",
       "observed_score": 50834202,
       "legacy_prediction": 73574507,
-      "held_out_prediction": 65106037,
-      "fitted_prediction": 55242119
+      "held_out_prediction": 60333960,
+      "fitted_prediction": 51708007
     },
     {
       "nickname": "챠뮤식",
@@ -2924,8 +2946,8 @@
       "job": "비숍",
       "observed_score": 50810169,
       "legacy_prediction": 63329849,
-      "held_out_prediction": 56225504,
-      "fitted_prediction": 58909496
+      "held_out_prediction": 60015009,
+      "fitted_prediction": 59200290
     },
     {
       "nickname": "지존마리",
@@ -2934,8 +2956,8 @@
       "job": "비숍",
       "observed_score": 50783358,
       "legacy_prediction": 46893944,
-      "held_out_prediction": 51262591,
-      "fitted_prediction": 49829307
+      "held_out_prediction": 49810884,
+      "fitted_prediction": 50414035
     },
     {
       "nickname": "크루린",
@@ -2944,8 +2966,8 @@
       "job": "비숍",
       "observed_score": 50413515,
       "legacy_prediction": 46176490,
-      "held_out_prediction": 42041995,
-      "fitted_prediction": 40860618
+      "held_out_prediction": 40707342,
+      "fitted_prediction": 41346892
     },
     {
       "nickname": "흑멍멍",
@@ -2954,8 +2976,8 @@
       "job": "비숍",
       "observed_score": 50402031,
       "legacy_prediction": 45877162,
-      "held_out_prediction": 36713770,
-      "fitted_prediction": 36966916
+      "held_out_prediction": 38288519,
+      "fitted_prediction": 37408855
     },
     {
       "nickname": "눙키",
@@ -2964,8 +2986,8 @@
       "job": "히어로",
       "observed_score": 50383722,
       "legacy_prediction": 61277493,
-      "held_out_prediction": 34555088,
-      "fitted_prediction": 36909477
+      "held_out_prediction": 40399871,
+      "fitted_prediction": 38313793
     },
     {
       "nickname": "쌀만",
@@ -2974,8 +2996,8 @@
       "job": "비숍",
       "observed_score": 50320941,
       "legacy_prediction": 64102502,
-      "held_out_prediction": 60404693,
-      "fitted_prediction": 59079001
+      "held_out_prediction": 58492185,
+      "fitted_prediction": 59354258
     },
     {
       "nickname": "런닝쨩",
@@ -2984,8 +3006,8 @@
       "job": "비숍",
       "observed_score": 50219811,
       "legacy_prediction": 55475697,
-      "held_out_prediction": 47096375,
-      "fitted_prediction": 47060278
+      "held_out_prediction": 47922795,
+      "fitted_prediction": 47426458
     },
     {
       "nickname": "밍카누",
@@ -2994,8 +3016,8 @@
       "job": "바이퍼",
       "observed_score": 50143191,
       "legacy_prediction": 224,
-      "held_out_prediction": 44789879,
-      "fitted_prediction": 47397401
+      "held_out_prediction": 47999133,
+      "fitted_prediction": 45725756
     },
     {
       "nickname": "We짱구",
@@ -3004,8 +3026,8 @@
       "job": "비숍",
       "observed_score": 50060886,
       "legacy_prediction": 49745582,
-      "held_out_prediction": 41720307,
-      "fitted_prediction": 41587798
+      "held_out_prediction": 41500686,
+      "fitted_prediction": 42011523
     },
     {
       "nickname": "예습2",
@@ -3014,8 +3036,8 @@
       "job": "캡틴",
       "observed_score": 49957797,
       "legacy_prediction": 224,
-      "held_out_prediction": 46111612,
-      "fitted_prediction": 47848320
+      "held_out_prediction": 42971062,
+      "fitted_prediction": 45693953
     },
     {
       "nickname": "쏭별빛",
@@ -3024,8 +3046,8 @@
       "job": "비숍",
       "observed_score": 49939806,
       "legacy_prediction": 54555028,
-      "held_out_prediction": 45929694,
-      "fitted_prediction": 46874046
+      "held_out_prediction": 47517561,
+      "fitted_prediction": 47256762
     },
     {
       "nickname": "닝구상",
@@ -3034,8 +3056,8 @@
       "job": "바이퍼",
       "observed_score": 49920939,
       "legacy_prediction": 239,
-      "held_out_prediction": 53210756,
-      "fitted_prediction": 52997053
+      "held_out_prediction": 49086171,
+      "fitted_prediction": 51056785
     },
     {
       "nickname": "차김치",
@@ -3044,8 +3066,8 @@
       "job": "다크나이트",
       "observed_score": 49843575,
       "legacy_prediction": 73415838,
-      "held_out_prediction": 62042444,
-      "fitted_prediction": 62012129
+      "held_out_prediction": 56760919,
+      "fitted_prediction": 51289604
     },
     {
       "nickname": "정둥2",
@@ -3054,8 +3076,8 @@
       "job": "히어로",
       "observed_score": 49661139,
       "legacy_prediction": 72221260,
-      "held_out_prediction": 37715186,
-      "fitted_prediction": 38374842
+      "held_out_prediction": 42352605,
+      "fitted_prediction": 39686305
     },
     {
       "nickname": "냐락셋째",
@@ -3064,8 +3086,8 @@
       "job": "비숍",
       "observed_score": 49577385,
       "legacy_prediction": 50590728,
-      "held_out_prediction": 42883021,
-      "fitted_prediction": 41754130
+      "held_out_prediction": 42412885,
+      "fitted_prediction": 42163391
     },
     {
       "nickname": "쥐구",
@@ -3074,8 +3096,8 @@
       "job": "비숍",
       "observed_score": 49547892,
       "legacy_prediction": 47482569,
-      "held_out_prediction": 40707691,
-      "fitted_prediction": 41131543
+      "held_out_prediction": 41944893,
+      "fitted_prediction": 41594645
     },
     {
       "nickname": "퀸더쪼이",
@@ -3084,8 +3106,8 @@
       "job": "비숍",
       "observed_score": 49497936,
       "legacy_prediction": 44800704,
-      "held_out_prediction": 38960708,
-      "fitted_prediction": 40568833
+      "held_out_prediction": 41379684,
+      "fitted_prediction": 41079888
     },
     {
       "nickname": "환생이",
@@ -3094,8 +3116,8 @@
       "job": "히어로",
       "observed_score": 49476144,
       "legacy_prediction": 129241103,
-      "held_out_prediction": 78712351,
-      "fitted_prediction": 64232483
+      "held_out_prediction": 68999864,
+      "fitted_prediction": 65577826
     },
     {
       "nickname": "차가운거북이",
@@ -3104,8 +3126,8 @@
       "job": "비숍",
       "observed_score": 49453623,
       "legacy_prediction": 40821680,
-      "held_out_prediction": 39809729,
-      "fitted_prediction": 39684575
+      "held_out_prediction": 38481988,
+      "fitted_prediction": 40269593
     },
     {
       "nickname": "쌔주",
@@ -3114,8 +3136,8 @@
       "job": "비숍",
       "observed_score": 49313103,
       "legacy_prediction": 76851336,
-      "held_out_prediction": 69126209,
-      "fitted_prediction": 67849210
+      "held_out_prediction": 67597440,
+      "fitted_prediction": 67890875
     },
     {
       "nickname": "지존팀장",
@@ -3124,8 +3146,8 @@
       "job": "비숍",
       "observed_score": 49285065,
       "legacy_prediction": 49372955,
-      "held_out_prediction": 47043046,
-      "fitted_prediction": 45778578
+      "held_out_prediction": 45696343,
+      "fitted_prediction": 46257241
     },
     {
       "nickname": "지존이루",
@@ -3134,8 +3156,8 @@
       "job": "비숍",
       "observed_score": 49101963,
       "legacy_prediction": 64479901,
-      "held_out_prediction": 60481669,
-      "fitted_prediction": 59161228
+      "held_out_prediction": 58663615,
+      "fitted_prediction": 59428933
     },
     {
       "nickname": "섭종무한잠수",
@@ -3144,8 +3166,8 @@
       "job": "바이퍼",
       "observed_score": 49006698,
       "legacy_prediction": 552,
-      "held_out_prediction": 103787306,
-      "fitted_prediction": 94256853
+      "held_out_prediction": 87044170,
+      "fitted_prediction": 89123675
     },
     {
       "nickname": "갓견인",
@@ -3154,8 +3176,8 @@
       "job": "비숍",
       "observed_score": 48990483,
       "legacy_prediction": 53946609,
-      "held_out_prediction": 43484732,
-      "fitted_prediction": 42394386
+      "held_out_prediction": 42064556,
+      "fitted_prediction": 42747429
     },
     {
       "nickname": "제주제주",
@@ -3164,8 +3186,8 @@
       "job": "비숍",
       "observed_score": 48962484,
       "legacy_prediction": 48123702,
-      "held_out_prediction": 42420421,
-      "fitted_prediction": 41262460
+      "held_out_prediction": 42076375,
+      "fitted_prediction": 41714308
     },
     {
       "nickname": "한우사골",
@@ -3174,8 +3196,8 @@
       "job": "비숍",
       "observed_score": 48891927,
       "legacy_prediction": 41234515,
-      "held_out_prediction": 35016970,
-      "fitted_prediction": 36044137
+      "held_out_prediction": 36968119,
+      "fitted_prediction": 36563667
     },
     {
       "nickname": "쁘렁",
@@ -3184,8 +3206,8 @@
       "job": "비숍",
       "observed_score": 48699336,
       "legacy_prediction": 38793990,
-      "held_out_prediction": 36678463,
-      "fitted_prediction": 35526847
+      "held_out_prediction": 36255099,
+      "fitted_prediction": 36088968
     },
     {
       "nickname": "GumaGo",
@@ -3194,8 +3216,8 @@
       "job": "보우마스터",
       "observed_score": 48668370,
       "legacy_prediction": 35922808,
-      "held_out_prediction": 45802755,
-      "fitted_prediction": 46881211
+      "held_out_prediction": 43145341,
+      "fitted_prediction": 45547397
     },
     {
       "nickname": "관할서",
@@ -3204,18 +3226,18 @@
       "job": "비숍",
       "observed_score": 48655557,
       "legacy_prediction": 51066444,
-      "held_out_prediction": 45784409,
-      "fitted_prediction": 46145842
+      "held_out_prediction": 47046762,
+      "fitted_prediction": 46592592
     },
     {
       "nickname": "마옥지",
-      "guild": "괴콩",
+      "guild": "설묘",
       "source": "image",
       "job": "보우마스터",
       "observed_score": 48648420,
       "legacy_prediction": 60021546,
-      "held_out_prediction": 65469961,
-      "fitted_prediction": 64330072
+      "held_out_prediction": 59587514,
+      "fitted_prediction": 61785841
     },
     {
       "nickname": "하앜씨",
@@ -3224,8 +3246,8 @@
       "job": "팔라딘",
       "observed_score": 48496086,
       "legacy_prediction": 53016628,
-      "held_out_prediction": 45663285,
-      "fitted_prediction": 44201443
+      "held_out_prediction": 45880225,
+      "fitted_prediction": 46540012
     },
     {
       "nickname": "심천",
@@ -3234,8 +3256,8 @@
       "job": "나이트로드",
       "observed_score": 48494088,
       "legacy_prediction": 42226089,
-      "held_out_prediction": 38085336,
-      "fitted_prediction": 39923480
+      "held_out_prediction": 37535249,
+      "fitted_prediction": 37837333
     },
     {
       "nickname": "흑색인",
@@ -3244,8 +3266,8 @@
       "job": "보우마스터",
       "observed_score": 48226767,
       "legacy_prediction": 37352081,
-      "held_out_prediction": 41125824,
-      "fitted_prediction": 42873711
+      "held_out_prediction": 41268008,
+      "fitted_prediction": 41613037
     },
     {
       "nickname": "달하나별하나",
@@ -3254,8 +3276,8 @@
       "job": "신궁",
       "observed_score": 48063159,
       "legacy_prediction": 69307267,
-      "held_out_prediction": 65180316,
-      "fitted_prediction": 61497251
+      "held_out_prediction": 54424467,
+      "fitted_prediction": 57023851
     },
     {
       "nickname": "게탕",
@@ -3264,8 +3286,8 @@
       "job": "비숍",
       "observed_score": 47861511,
       "legacy_prediction": 44957769,
-      "held_out_prediction": 42150819,
-      "fitted_prediction": 44773671
+      "held_out_prediction": 44800925,
+      "fitted_prediction": 45338330
     },
     {
       "nickname": "다미핑",
@@ -3274,8 +3296,8 @@
       "job": "나이트로드",
       "observed_score": 47774445,
       "legacy_prediction": 50900575,
-      "held_out_prediction": 53135421,
-      "fitted_prediction": 50624350
+      "held_out_prediction": 46670630,
+      "fitted_prediction": 47784418
     },
     {
       "nickname": "o꽁꽁o",
@@ -3284,8 +3306,8 @@
       "job": "비숍",
       "observed_score": 47739747,
       "legacy_prediction": 38975691,
-      "held_out_prediction": 36279945,
-      "fitted_prediction": 39251840
+      "held_out_prediction": 40375609,
+      "fitted_prediction": 39872424
     },
     {
       "nickname": "간언",
@@ -3294,8 +3316,8 @@
       "job": "비숍",
       "observed_score": 47630481,
       "legacy_prediction": 45573959,
-      "held_out_prediction": 41890115,
-      "fitted_prediction": 44918316
+      "held_out_prediction": 45866370,
+      "fitted_prediction": 45470718
     },
     {
       "nickname": "쁘덍",
@@ -3304,8 +3326,8 @@
       "job": "비숍",
       "observed_score": 47375685,
       "legacy_prediction": 35938748,
-      "held_out_prediction": 28445034,
-      "fitted_prediction": 28573530
+      "held_out_prediction": 28643494,
+      "fitted_prediction": 29070591
     },
     {
       "nickname": "문문문뭉",
@@ -3314,8 +3336,8 @@
       "job": "보우마스터",
       "observed_score": 47370543,
       "legacy_prediction": 40415902,
-      "held_out_prediction": 49885424,
-      "fitted_prediction": 53161319
+      "held_out_prediction": 49364462,
+      "fitted_prediction": 51515389
     },
     {
       "nickname": "애갱",
@@ -3324,8 +3346,8 @@
       "job": "나이트로드",
       "observed_score": 47342568,
       "legacy_prediction": 38397040,
-      "held_out_prediction": 38041109,
-      "fitted_prediction": 39034349
+      "held_out_prediction": 36789031,
+      "fitted_prediction": 37074735
     },
     {
       "nickname": "지존살랑",
@@ -3334,8 +3356,8 @@
       "job": "비숍",
       "observed_score": 47337336,
       "legacy_prediction": 39525064,
-      "held_out_prediction": 33339033,
-      "fitted_prediction": 32307020
+      "held_out_prediction": 32423442,
+      "fitted_prediction": 32801140
     },
     {
       "nickname": "반포동아재",
@@ -3344,8 +3366,8 @@
       "job": "비숍",
       "observed_score": 47331753,
       "legacy_prediction": 73276558,
-      "held_out_prediction": 64472449,
-      "fitted_prediction": 67087784
+      "held_out_prediction": 66064786,
+      "fitted_prediction": 67201750
     },
     {
       "nickname": "HANA2nd",
@@ -3354,8 +3376,8 @@
       "job": "바이퍼",
       "observed_score": 46931958,
       "legacy_prediction": 231,
-      "held_out_prediction": 42781566,
-      "fitted_prediction": 43362854
+      "held_out_prediction": 41250426,
+      "fitted_prediction": 41797393
     },
     {
       "nickname": "휴지공주",
@@ -3364,8 +3386,8 @@
       "job": "신궁",
       "observed_score": 46885416,
       "legacy_prediction": 59717684,
-      "held_out_prediction": 45742133,
-      "fitted_prediction": 44481492
+      "held_out_prediction": 40865662,
+      "fitted_prediction": 41374359
     },
     {
       "nickname": "루나얌",
@@ -3374,8 +3396,8 @@
       "job": "비숍",
       "observed_score": 46708254,
       "legacy_prediction": 30500677,
-      "held_out_prediction": 28329233,
-      "fitted_prediction": 30382720
+      "held_out_prediction": 30695906,
+      "fitted_prediction": 31029800
     },
     {
       "nickname": "캔드릭",
@@ -3384,8 +3406,8 @@
       "job": "보우마스터",
       "observed_score": 46463412,
       "legacy_prediction": 37690776,
-      "held_out_prediction": 44020994,
-      "fitted_prediction": 42965506
+      "held_out_prediction": 41793887,
+      "fitted_prediction": 41693572
     },
     {
       "nickname": "개야르슛슈링",
@@ -3394,8 +3416,8 @@
       "job": "비숍",
       "observed_score": 46429329,
       "legacy_prediction": 44447015,
-      "held_out_prediction": 38802977,
-      "fitted_prediction": 40492718
+      "held_out_prediction": 41303222,
+      "fitted_prediction": 41010206
     },
     {
       "nickname": "핫픽",
@@ -3404,8 +3426,8 @@
       "job": "비숍",
       "observed_score": 46371636,
       "legacy_prediction": 42474834,
-      "held_out_prediction": 37912001,
-      "fitted_prediction": 40059609
+      "held_out_prediction": 39265038,
+      "fitted_prediction": 40613466
     },
     {
       "nickname": "바위게조림",
@@ -3414,8 +3436,8 @@
       "job": "바이퍼",
       "observed_score": 46242897,
       "legacy_prediction": 198,
-      "held_out_prediction": 39100215,
-      "fitted_prediction": 37896456
+      "held_out_prediction": 36797272,
+      "fitted_prediction": 36654726
     },
     {
       "nickname": "둘셋냥",
@@ -3424,8 +3446,8 @@
       "job": "비숍",
       "observed_score": 46223442,
       "legacy_prediction": 54975228,
-      "held_out_prediction": 49927199,
-      "fitted_prediction": 51742254
+      "held_out_prediction": 50816855,
+      "fitted_prediction": 52160457
     },
     {
       "nickname": "송공",
@@ -3434,8 +3456,8 @@
       "job": "비숍",
       "observed_score": 46218630,
       "legacy_prediction": 52130085,
-      "held_out_prediction": 50686256,
-      "fitted_prediction": 51094857
+      "held_out_prediction": 50937268,
+      "fitted_prediction": 51570122
     },
     {
       "nickname": "Pesi",
@@ -3444,8 +3466,8 @@
       "job": "비숍",
       "observed_score": 46130784,
       "legacy_prediction": 63676594,
-      "held_out_prediction": 54780394,
-      "fitted_prediction": 53575334
+      "held_out_prediction": 53841681,
+      "fitted_prediction": 53828154
     },
     {
       "nickname": "급발진1",
@@ -3454,8 +3476,8 @@
       "job": "비숍",
       "observed_score": 45986805,
       "legacy_prediction": 52035663,
-      "held_out_prediction": 42387415,
-      "fitted_prediction": 42033660
+      "held_out_prediction": 41745846,
+      "fitted_prediction": 42418482
     },
     {
       "nickname": "꽃홍",
@@ -3464,8 +3486,8 @@
       "job": "팔라딘",
       "observed_score": 45955947,
       "legacy_prediction": 45433477,
-      "held_out_prediction": 35470557,
-      "fitted_prediction": 38705340
+      "held_out_prediction": 42086310,
+      "fitted_prediction": 40892692
     },
     {
       "nickname": "에이슈",
@@ -3474,8 +3496,8 @@
       "job": "비숍",
       "observed_score": 45930054,
       "legacy_prediction": 58691771,
-      "held_out_prediction": 53121043,
-      "fitted_prediction": 52550486
+      "held_out_prediction": 53019679,
+      "fitted_prediction": 52896456
     },
     {
       "nickname": "임홀리",
@@ -3484,8 +3506,8 @@
       "job": "비숍",
       "observed_score": 45857535,
       "legacy_prediction": 35507903,
-      "held_out_prediction": 28367296,
-      "fitted_prediction": 28491994
+      "held_out_prediction": 28570736,
+      "fitted_prediction": 28995590
     },
     {
       "nickname": "김나뭉",
@@ -3494,8 +3516,8 @@
       "job": "비숍",
       "observed_score": 45770280,
       "legacy_prediction": 45179182,
-      "held_out_prediction": 36586275,
-      "fitted_prediction": 36832878
+      "held_out_prediction": 36711623,
+      "fitted_prediction": 37286214
     },
     {
       "nickname": "미수깡통",
@@ -3504,8 +3526,8 @@
       "job": "바이퍼",
       "observed_score": 45760536,
       "legacy_prediction": 211,
-      "held_out_prediction": 45883185,
-      "fitted_prediction": 46736368
+      "held_out_prediction": 43132874,
+      "fitted_prediction": 45148869
     },
     {
       "nickname": "HANABANK",
@@ -3514,8 +3536,8 @@
       "job": "신궁",
       "observed_score": 45727569,
       "legacy_prediction": 61748573,
-      "held_out_prediction": 44829297,
-      "fitted_prediction": 49401936
+      "held_out_prediction": 45847838,
+      "fitted_prediction": 45920421
     },
     {
       "nickname": "우주엔젤",
@@ -3524,8 +3546,8 @@
       "job": "비숍",
       "observed_score": 45650004,
       "legacy_prediction": 51467278,
-      "held_out_prediction": 43043133,
-      "fitted_prediction": 41924419
+      "held_out_prediction": 42741093,
+      "fitted_prediction": 42318811
     },
     {
       "nickname": "노인관절꺾기",
@@ -3534,8 +3556,8 @@
       "job": "비숍",
       "observed_score": 45516813,
       "legacy_prediction": 30964208,
-      "held_out_prediction": 30411427,
-      "fitted_prediction": 30491494
+      "held_out_prediction": 30688412,
+      "fitted_prediction": 31130209
     },
     {
       "nickname": "꾸룽감자",
@@ -3544,8 +3566,8 @@
       "job": "비숍",
       "observed_score": 45466530,
       "legacy_prediction": 89275498,
-      "held_out_prediction": 71410490,
-      "fitted_prediction": 70301532
+      "held_out_prediction": 69536516,
+      "fitted_prediction": 70105343
     },
     {
       "nickname": "딴맛",
@@ -3554,8 +3576,8 @@
       "job": "나이트로드",
       "observed_score": 45462126,
       "legacy_prediction": 46376096,
-      "held_out_prediction": 38867852,
-      "fitted_prediction": 40820173
+      "held_out_prediction": 37715548,
+      "fitted_prediction": 38604766
     },
     {
       "nickname": "포크레인사장",
@@ -3564,8 +3586,8 @@
       "job": "비숍",
       "observed_score": 45306642,
       "legacy_prediction": 46900138,
-      "held_out_prediction": 42184064,
-      "fitted_prediction": 41011439
+      "held_out_prediction": 40841047,
+      "fitted_prediction": 41484833
     },
     {
       "nickname": "가을호떡",
@@ -3574,8 +3596,8 @@
       "job": "비숍",
       "observed_score": 45274131,
       "legacy_prediction": 55119099,
-      "held_out_prediction": 47438510,
-      "fitted_prediction": 46988428
+      "held_out_prediction": 47766234,
+      "fitted_prediction": 47360995
     },
     {
       "nickname": "저주캐릭",
@@ -3584,8 +3606,8 @@
       "job": "비숍",
       "observed_score": 45260013,
       "legacy_prediction": 44070323,
-      "held_out_prediction": 36796100,
-      "fitted_prediction": 36616650
+      "held_out_prediction": 36519745,
+      "fitted_prediction": 37088282
     },
     {
       "nickname": "악마얌",
@@ -3594,8 +3616,8 @@
       "job": "바이퍼",
       "observed_score": 45170961,
       "legacy_prediction": 178,
-      "held_out_prediction": 37022577,
-      "fitted_prediction": 36978775
+      "held_out_prediction": 34284187,
+      "fitted_prediction": 35851382
     },
     {
       "nickname": "김우이",
@@ -3604,8 +3626,8 @@
       "job": "보우마스터",
       "observed_score": 45033357,
       "legacy_prediction": 40922612,
-      "held_out_prediction": 52184045,
-      "fitted_prediction": 53318488
+      "held_out_prediction": 49480678,
+      "fitted_prediction": 51653052
     },
     {
       "nickname": "요쁘",
@@ -3614,8 +3636,8 @@
       "job": "보우마스터",
       "observed_score": 44925729,
       "legacy_prediction": 42527796,
-      "held_out_prediction": 48934307,
-      "fitted_prediction": 48794048
+      "held_out_prediction": 45589049,
+      "fitted_prediction": 47224166
     },
     {
       "nickname": "지존소닷",
@@ -3624,8 +3646,8 @@
       "job": "비숍",
       "observed_score": 44876700,
       "legacy_prediction": 58969655,
-      "held_out_prediction": 53875289,
-      "fitted_prediction": 52609331
+      "held_out_prediction": 52281238,
+      "fitted_prediction": 52950000
     },
     {
       "nickname": "모기딜",
@@ -3634,8 +3656,8 @@
       "job": "보우마스터",
       "observed_score": 44855781,
       "legacy_prediction": 28845237,
-      "held_out_prediction": 38389008,
-      "fitted_prediction": 40327121
+      "held_out_prediction": 36195876,
+      "fitted_prediction": 39372093
     },
     {
       "nickname": "김청키",
@@ -3644,8 +3666,8 @@
       "job": "비숍",
       "observed_score": 44808162,
       "legacy_prediction": 47682537,
-      "held_out_prediction": 40798075,
-      "fitted_prediction": 41172520
+      "held_out_prediction": 41131008,
+      "fitted_prediction": 41632104
     },
     {
       "nickname": "전어구이",
@@ -3654,8 +3676,8 @@
       "job": "히어로",
       "observed_score": 44764743,
       "legacy_prediction": 57323146,
-      "held_out_prediction": 30932095,
-      "fitted_prediction": 32998283
+      "held_out_prediction": 36703025,
+      "fitted_prediction": 34302641
     },
     {
       "nickname": "또해써",
@@ -3664,8 +3686,8 @@
       "job": "섀도어",
       "observed_score": 44709228,
       "legacy_prediction": 58772127,
-      "held_out_prediction": 47946146,
-      "fitted_prediction": 42877664
+      "held_out_prediction": 42390190,
+      "fitted_prediction": 41527961
     },
     {
       "nickname": "갓쿠",
@@ -3674,8 +3696,8 @@
       "job": "보우마스터",
       "observed_score": 44628717,
       "legacy_prediction": 33884388,
-      "held_out_prediction": 42203434,
-      "fitted_prediction": 41895279
+      "held_out_prediction": 39368354,
+      "fitted_prediction": 40753593
     },
     {
       "nickname": "쭈녕공주",
@@ -3684,8 +3706,8 @@
       "job": "비숍",
       "observed_score": 44587464,
       "legacy_prediction": 44208121,
-      "held_out_prediction": 41646535,
-      "fitted_prediction": 40441045
+      "held_out_prediction": 41347013,
+      "fitted_prediction": 40962894
     },
     {
       "nickname": "라온SP",
@@ -3694,8 +3716,8 @@
       "job": "비숍",
       "observed_score": 44582067,
       "legacy_prediction": 116870910,
-      "held_out_prediction": 92581836,
-      "fitted_prediction": 90487375
+      "held_out_prediction": 91987065,
+      "fitted_prediction": 89699928
     },
     {
       "nickname": "티리앨",
@@ -3704,8 +3726,8 @@
       "job": "비숍",
       "observed_score": 44386647,
       "legacy_prediction": 34296953,
-      "held_out_prediction": 29866640,
-      "fitted_prediction": 31239035
+      "held_out_prediction": 32319119,
+      "fitted_prediction": 31819339
     },
     {
       "nickname": "떠네X",
@@ -3714,8 +3736,8 @@
       "job": "나이트로드",
       "observed_score": 44281344,
       "legacy_prediction": 31883786,
-      "held_out_prediction": 32492398,
-      "fitted_prediction": 33872678
+      "held_out_prediction": 32103690,
+      "fitted_prediction": 32305479
     },
     {
       "nickname": "Matter",
@@ -3724,8 +3746,8 @@
       "job": "비숍",
       "observed_score": 44211177,
       "legacy_prediction": 56340990,
-      "held_out_prediction": 51587581,
-      "fitted_prediction": 52043977
+      "held_out_prediction": 53042121,
+      "fitted_prediction": 52435342
     },
     {
       "nickname": "엗오",
@@ -3734,8 +3756,8 @@
       "job": "비숍",
       "observed_score": 44124324,
       "legacy_prediction": 48319970,
-      "held_out_prediction": 45213675,
-      "fitted_prediction": 45545345
+      "held_out_prediction": 46443748,
+      "fitted_prediction": 46044141
     },
     {
       "nickname": "봉지쑤시개",
@@ -3744,8 +3766,8 @@
       "job": "보우마스터",
       "observed_score": 44088570,
       "legacy_prediction": 34098146,
-      "held_out_prediction": 40131071,
-      "fitted_prediction": 41957750
+      "held_out_prediction": 38720306,
+      "fitted_prediction": 40808524
     },
     {
       "nickname": "따코유",
@@ -3754,8 +3776,8 @@
       "job": "캡틴",
       "observed_score": 43961223,
       "legacy_prediction": 300,
-      "held_out_prediction": 61369668,
-      "fitted_prediction": 62238467
+      "held_out_prediction": 58628143,
+      "fitted_prediction": 59050529
     },
     {
       "nickname": "홍나인",
@@ -3764,8 +3786,8 @@
       "job": "비숍",
       "observed_score": 43825257,
       "legacy_prediction": 33099029,
-      "held_out_prediction": 29578258,
-      "fitted_prediction": 30976993
+      "held_out_prediction": 31122933,
+      "fitted_prediction": 31577954
     },
     {
       "nickname": "땅호아",
@@ -3774,8 +3796,8 @@
       "job": "비숍",
       "observed_score": 43799691,
       "legacy_prediction": 36879281,
-      "held_out_prediction": 28784348,
-      "fitted_prediction": 28748964
+      "held_out_prediction": 28799966,
+      "fitted_prediction": 29231895
     },
     {
       "nickname": "푸우핑",
@@ -3784,18 +3806,1618 @@
       "job": "팔라딘",
       "observed_score": 43655883,
       "legacy_prediction": 95678224,
-      "held_out_prediction": 74786573,
-      "fitted_prediction": 67536968
+      "held_out_prediction": 74075003,
+      "fitted_prediction": 70180709
     },
     {
       "nickname": "쨍존",
-      "guild": "z존S2",
+      "guild": "zl존S2",
       "source": "image",
       "job": "보우마스터",
       "observed_score": 43654740,
       "legacy_prediction": 54797386,
-      "held_out_prediction": 62829175,
-      "fitted_prediction": 62956974
+      "held_out_prediction": 60665497,
+      "fitted_prediction": 60592419
+    },
+    {
+      "nickname": "리니트",
+      "guild": "냐락",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 43395150,
+      "legacy_prediction": 37058236,
+      "held_out_prediction": 39993020,
+      "fitted_prediction": 39443906
+    },
+    {
+      "nickname": "황해면선생",
+      "guild": "유희",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 43351086,
+      "legacy_prediction": 44588807,
+      "held_out_prediction": 40408097,
+      "fitted_prediction": 41038193
+    },
+    {
+      "nickname": "싲프",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 43335918,
+      "legacy_prediction": 43914552,
+      "held_out_prediction": 36622522,
+      "fitted_prediction": 37060164
+    },
+    {
+      "nickname": "히어로츄",
+      "guild": "총군",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 43260675,
+      "legacy_prediction": 41398945,
+      "held_out_prediction": 32371566,
+      "fitted_prediction": 32985331
+    },
+    {
+      "nickname": "쿼캎",
+      "guild": "카피바라네",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 43055778,
+      "legacy_prediction": 44388429,
+      "held_out_prediction": 36705652,
+      "fitted_prediction": 37145461
+    },
+    {
+      "nickname": "쇳대",
+      "guild": "달콩",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 43049427,
+      "legacy_prediction": 171,
+      "held_out_prediction": 32011454,
+      "fitted_prediction": 32195195
+    },
+    {
+      "nickname": "꽁칟뿡야",
+      "guild": "빠따",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42991284,
+      "legacy_prediction": 38662303,
+      "held_out_prediction": 32901049,
+      "fitted_prediction": 32646449
+    },
+    {
+      "nickname": "나윤공주",
+      "guild": "블링블리",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42958365,
+      "legacy_prediction": 58630355,
+      "held_out_prediction": 53537411,
+      "fitted_prediction": 52884596
+    },
+    {
+      "nickname": "다씨",
+      "guild": "빠따",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 42895779,
+      "legacy_prediction": 58802584,
+      "held_out_prediction": 48614746,
+      "fitted_prediction": 45695681
+    },
+    {
+      "nickname": "vvvvwvvvv",
+      "guild": "FAIR",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42832254,
+      "legacy_prediction": 37779089,
+      "held_out_prediction": 32003149,
+      "fitted_prediction": 32485256
+    },
+    {
+      "nickname": "휴가복코",
+      "guild": "헤라",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42766788,
+      "legacy_prediction": 50534617,
+      "held_out_prediction": 42404003,
+      "fitted_prediction": 42153370
+    },
+    {
+      "nickname": "역뢰",
+      "guild": "채금",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 42746883,
+      "legacy_prediction": 31818932,
+      "held_out_prediction": 38756638,
+      "fitted_prediction": 40208279
+    },
+    {
+      "nickname": "아크메이딩동",
+      "guild": "점프킹",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42689898,
+      "legacy_prediction": 53543187,
+      "held_out_prediction": 46317540,
+      "fitted_prediction": 47067645
+    },
+    {
+      "nickname": "흑먀툐",
+      "guild": "흑사",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42604737,
+      "legacy_prediction": 55196293,
+      "held_out_prediction": 44847747,
+      "fitted_prediction": 42957628
+    },
+    {
+      "nickname": "둥곰언니",
+      "guild": "모두있음",
+      "source": "image",
+      "job": "신궁",
+      "observed_score": 42504624,
+      "legacy_prediction": 165419252,
+      "held_out_prediction": 118169266,
+      "fitted_prediction": 119986980
+    },
+    {
+      "nickname": "유지애123",
+      "guild": "헤라클레스",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42477051,
+      "legacy_prediction": 29101052,
+      "held_out_prediction": 27396677,
+      "fitted_prediction": 27785766
+    },
+    {
+      "nickname": "냠규리",
+      "guild": "싸이월드",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 42475920,
+      "legacy_prediction": 36293610,
+      "held_out_prediction": 39943754,
+      "fitted_prediction": 41357599
+    },
+    {
+      "nickname": "한수찬",
+      "guild": "LUXURY",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42451320,
+      "legacy_prediction": 35136381,
+      "held_out_prediction": 35868228,
+      "fitted_prediction": 35331548
+    },
+    {
+      "nickname": "불풍",
+      "guild": "유랑",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42414771,
+      "legacy_prediction": 51802099,
+      "held_out_prediction": 43426471,
+      "fitted_prediction": 42377628
+    },
+    {
+      "nickname": "찐욱",
+      "guild": "다콩",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42403644,
+      "legacy_prediction": 36131568,
+      "held_out_prediction": 32283190,
+      "fitted_prediction": 32176482
+    },
+    {
+      "nickname": "파괴한마",
+      "guild": "싸이월드",
+      "source": "image",
+      "job": "히어로",
+      "observed_score": 42364725,
+      "legacy_prediction": 46794882,
+      "held_out_prediction": 28518720,
+      "fitted_prediction": 27025652
+    },
+    {
+      "nickname": "승짱몬",
+      "guild": "콩콩",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 42359457,
+      "legacy_prediction": 34733369,
+      "held_out_prediction": 39403009,
+      "fitted_prediction": 40970179
+    },
+    {
+      "nickname": "럭키프렉",
+      "guild": "LUXURY",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42347613,
+      "legacy_prediction": 60504612,
+      "held_out_prediction": 53324949,
+      "fitted_prediction": 53242239
+    },
+    {
+      "nickname": "튼꼼",
+      "guild": "고양이손바닥",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42316074,
+      "legacy_prediction": 29039000,
+      "held_out_prediction": 27384347,
+      "fitted_prediction": 27773065
+    },
+    {
+      "nickname": "꼴렁",
+      "guild": "회색",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 42267801,
+      "legacy_prediction": 195,
+      "held_out_prediction": 35010598,
+      "fitted_prediction": 36548030
+    },
+    {
+      "nickname": "냥이여리",
+      "guild": "아너",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42224886,
+      "legacy_prediction": 29508446,
+      "held_out_prediction": 24831736,
+      "fitted_prediction": 25185912
+    },
+    {
+      "nickname": "누짜",
+      "guild": "호러",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42142629,
+      "legacy_prediction": 50048799,
+      "held_out_prediction": 45663001,
+      "fitted_prediction": 46392142
+    },
+    {
+      "nickname": "협의체",
+      "guild": "순항",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42080958,
+      "legacy_prediction": 34060103,
+      "held_out_prediction": 28419378,
+      "fitted_prediction": 28738201
+    },
+    {
+      "nickname": "무과금선포",
+      "guild": "유희",
+      "source": "image",
+      "job": "히어로",
+      "observed_score": 42053385,
+      "legacy_prediction": 90479610,
+      "held_out_prediction": 53825058,
+      "fitted_prediction": 50378935
+    },
+    {
+      "nickname": "살뽀시",
+      "guild": "LUXURY",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42021630,
+      "legacy_prediction": 46719055,
+      "held_out_prediction": 46081686,
+      "fitted_prediction": 45713051
+    },
+    {
+      "nickname": "아지츄",
+      "guild": "츄억",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 42001236,
+      "legacy_prediction": 43635622,
+      "held_out_prediction": 41126031,
+      "fitted_prediction": 40848689
+    },
+    {
+      "nickname": "난닝구",
+      "guild": "Play",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41923275,
+      "legacy_prediction": 44278332,
+      "held_out_prediction": 33915354,
+      "fitted_prediction": 33608764
+    },
+    {
+      "nickname": "꼭미녀",
+      "guild": "Puppyz",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41906430,
+      "legacy_prediction": 41195555,
+      "held_out_prediction": 32708218,
+      "fitted_prediction": 33093265
+    },
+    {
+      "nickname": "쵸쿄숑이",
+      "guild": "스포",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41867193,
+      "legacy_prediction": 37021430,
+      "held_out_prediction": 32788753,
+      "fitted_prediction": 32344599
+    },
+    {
+      "nickname": "냐락오리",
+      "guild": "냐락",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41852421,
+      "legacy_prediction": 59575503,
+      "held_out_prediction": 53169435,
+      "fitted_prediction": 53066053
+    },
+    {
+      "nickname": "일밤잉",
+      "guild": "쌈닭",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41842539,
+      "legacy_prediction": 34709561,
+      "held_out_prediction": 31148877,
+      "fitted_prediction": 31900946
+    },
+    {
+      "nickname": "카타삐",
+      "guild": "악동",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41803824,
+      "legacy_prediction": 31354233,
+      "held_out_prediction": 31232324,
+      "fitted_prediction": 31213784
+    },
+    {
+      "nickname": "썬더님",
+      "guild": "다콩",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41769957,
+      "legacy_prediction": 65572383,
+      "held_out_prediction": 60504318,
+      "fitted_prediction": 59643181
+    },
+    {
+      "nickname": "블렝",
+      "guild": "달빛아이들",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 41385447,
+      "legacy_prediction": 229,
+      "held_out_prediction": 45039026,
+      "fitted_prediction": 45980565
+    },
+    {
+      "nickname": "아가링",
+      "guild": "블링블리",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41335962,
+      "legacy_prediction": 47855848,
+      "held_out_prediction": 46339266,
+      "fitted_prediction": 45949053
+    },
+    {
+      "nickname": "메키에바란다",
+      "guild": "리안",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 41291799,
+      "legacy_prediction": 52218934,
+      "held_out_prediction": 41524131,
+      "fitted_prediction": 42130243
+    },
+    {
+      "nickname": "차수진",
+      "guild": "유니크",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41260089,
+      "legacy_prediction": 38071784,
+      "held_out_prediction": 34831328,
+      "fitted_prediction": 35944000
+    },
+    {
+      "nickname": "한수린",
+      "guild": "LUXURY",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41223738,
+      "legacy_prediction": 35788141,
+      "held_out_prediction": 32579763,
+      "fitted_prediction": 32110729
+    },
+    {
+      "nickname": "슈빠",
+      "guild": "둥글",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41214312,
+      "legacy_prediction": 28020476,
+      "held_out_prediction": 27271375,
+      "fitted_prediction": 27561480
+    },
+    {
+      "nickname": "쭈딘",
+      "guild": "채금",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 41161509,
+      "legacy_prediction": 31446234,
+      "held_out_prediction": 26487295,
+      "fitted_prediction": 25506822
+    },
+    {
+      "nickname": "흑막왕",
+      "guild": "흑사",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 41155320,
+      "legacy_prediction": 33036875,
+      "held_out_prediction": 36341864,
+      "fitted_prediction": 36693358
+    },
+    {
+      "nickname": "확률조작공주",
+      "guild": "스나",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41056572,
+      "legacy_prediction": 50397759,
+      "held_out_prediction": 45644301,
+      "fitted_prediction": 46461236
+    },
+    {
+      "nickname": "나락메키",
+      "guild": "운화",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 41004048,
+      "legacy_prediction": 38651940,
+      "held_out_prediction": 26378741,
+      "fitted_prediction": 26684936
+    },
+    {
+      "nickname": "엠마e",
+      "guild": "앨빈",
+      "source": "image",
+      "job": "캡틴",
+      "observed_score": 40974399,
+      "legacy_prediction": 164,
+      "held_out_prediction": 34932561,
+      "fitted_prediction": 35123343
+    },
+    {
+      "nickname": "벨주인잇어요",
+      "guild": "채금",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 40932972,
+      "legacy_prediction": 33237500,
+      "held_out_prediction": 32128294,
+      "fitted_prediction": 31606204
+    },
+    {
+      "nickname": "김딴또",
+      "guild": "로즈단",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 40926732,
+      "legacy_prediction": 30523347,
+      "held_out_prediction": 25591630,
+      "fitted_prediction": 25368993
+    },
+    {
+      "nickname": "퉁탱",
+      "guild": "LUXURY",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 40894845,
+      "legacy_prediction": 43292375,
+      "held_out_prediction": 41183995,
+      "fitted_prediction": 40779650
+    },
+    {
+      "nickname": "킨쵸",
+      "guild": "포옹",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 40767750,
+      "legacy_prediction": 46289372,
+      "held_out_prediction": 41867541,
+      "fitted_prediction": 42523647
+    },
+    {
+      "nickname": "쟤쥐",
+      "guild": "노숙",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 40695693,
+      "legacy_prediction": 39601261,
+      "held_out_prediction": 35831366,
+      "fitted_prediction": 36248522
+    },
+    {
+      "nickname": "너란",
+      "guild": "시도",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 40528530,
+      "legacy_prediction": 60895701,
+      "held_out_prediction": 52637404,
+      "fitted_prediction": 53315765
+    },
+    {
+      "nickname": "쮸베릎",
+      "guild": "히안",
+      "source": "image",
+      "job": "신궁",
+      "observed_score": 40496115,
+      "legacy_prediction": 40029547,
+      "held_out_prediction": 30851435,
+      "fitted_prediction": 31199481
+    },
+    {
+      "nickname": "차티슈",
+      "guild": "모두있음",
+      "source": "image",
+      "job": "히어로",
+      "observed_score": 40447104,
+      "legacy_prediction": 65827270,
+      "held_out_prediction": 33802938,
+      "fitted_prediction": 32065023
+    },
+    {
+      "nickname": "VALEX",
+      "guild": "회색",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 40404774,
+      "legacy_prediction": 31874891,
+      "held_out_prediction": 28360998,
+      "fitted_prediction": 28332929
+    },
+    {
+      "nickname": "지존쫄랑",
+      "guild": "지존",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 40402548,
+      "legacy_prediction": 41274773,
+      "held_out_prediction": 29596529,
+      "fitted_prediction": 29945486
+    },
+    {
+      "nickname": "체리밍",
+      "guild": "환불런",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 40369980,
+      "legacy_prediction": 39532642,
+      "held_out_prediction": 32424755,
+      "fitted_prediction": 32802487
+    },
+    {
+      "nickname": "킹규봉",
+      "guild": "설묘",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 39659283,
+      "legacy_prediction": 47285299,
+      "held_out_prediction": 37571558,
+      "fitted_prediction": 37428141
+    },
+    {
+      "nickname": "시드리안",
+      "guild": "설묘",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 37925727,
+      "legacy_prediction": 177,
+      "held_out_prediction": 35669450,
+      "fitted_prediction": 35810288
+    },
+    {
+      "nickname": "선콜은차가워",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 37422828,
+      "legacy_prediction": 39235702,
+      "held_out_prediction": 39471293,
+      "fitted_prediction": 39929248
+    },
+    {
+      "nickname": "빔냥이",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "신궁",
+      "observed_score": 36373047,
+      "legacy_prediction": 69649102,
+      "held_out_prediction": 56830969,
+      "fitted_prediction": 57083976
+    },
+    {
+      "nickname": "요르v",
+      "guild": "빠따",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 36219741,
+      "legacy_prediction": 48092754,
+      "held_out_prediction": 44572776,
+      "fitted_prediction": 45997679
+    },
+    {
+      "nickname": "o엉댕o",
+      "guild": "빠따",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 35844138,
+      "legacy_prediction": 34259376,
+      "held_out_prediction": 28985156,
+      "fitted_prediction": 28774132
+    },
+    {
+      "nickname": "너굴얌",
+      "guild": "설묘",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 35460717,
+      "legacy_prediction": 41373536,
+      "held_out_prediction": 36526336,
+      "fitted_prediction": 36372609
+    },
+    {
+      "nickname": "향연",
+      "guild": "유니크",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 35059848,
+      "legacy_prediction": 25507405,
+      "held_out_prediction": 23363379,
+      "fitted_prediction": 24412018
+    },
+    {
+      "nickname": "쾌변한춘향",
+      "guild": "빠따",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 34617309,
+      "legacy_prediction": 164,
+      "held_out_prediction": 31361278,
+      "fitted_prediction": 31896835
+    },
+    {
+      "nickname": "호호딘",
+      "guild": "유니크",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 34349049,
+      "legacy_prediction": 37419187,
+      "held_out_prediction": 29651714,
+      "fitted_prediction": 29245258
+    },
+    {
+      "nickname": "명탐젓코난",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 33833166,
+      "legacy_prediction": 46363496,
+      "held_out_prediction": 38314533,
+      "fitted_prediction": 37270648
+    },
+    {
+      "nickname": "루델밍",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 33481014,
+      "legacy_prediction": 47179032,
+      "held_out_prediction": 45259672,
+      "fitted_prediction": 45809081
+    },
+    {
+      "nickname": "김취야호",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 32911869,
+      "legacy_prediction": 28974513,
+      "held_out_prediction": 28057956,
+      "fitted_prediction": 28675583
+    },
+    {
+      "nickname": "마그마GT",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 32671218,
+      "legacy_prediction": 41740656,
+      "held_out_prediction": 36103865,
+      "fitted_prediction": 36659337
+    },
+    {
+      "nickname": "꽃을든남자",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "히어로",
+      "observed_score": 32146812,
+      "legacy_prediction": 31708895,
+      "held_out_prediction": 20939027,
+      "fitted_prediction": 20393349
+    },
+    {
+      "nickname": "럥커",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 32042925,
+      "legacy_prediction": 56530363,
+      "held_out_prediction": 37766694,
+      "fitted_prediction": 37402508
+    },
+    {
+      "nickname": "다다익숍",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 31537554,
+      "legacy_prediction": 30825153,
+      "held_out_prediction": 27826524,
+      "fitted_prediction": 28130432
+    },
+    {
+      "nickname": "수냬",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 30959505,
+      "legacy_prediction": 25286891,
+      "held_out_prediction": 21703309,
+      "fitted_prediction": 22001929
+    },
+    {
+      "nickname": "익맹이",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 30899409,
+      "legacy_prediction": 35046837,
+      "held_out_prediction": 29349365,
+      "fitted_prediction": 28914531
+    },
+    {
+      "nickname": "하후돈",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 30310770,
+      "legacy_prediction": 25710438,
+      "held_out_prediction": 25277747,
+      "fitted_prediction": 25303007
+    },
+    {
+      "nickname": "슐아",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 29830770,
+      "legacy_prediction": 34066709,
+      "held_out_prediction": 31421340,
+      "fitted_prediction": 31773464
+    },
+    {
+      "nickname": "황서정",
+      "guild": "CRES",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 29768688,
+      "legacy_prediction": 30048074,
+      "held_out_prediction": 25012274,
+      "fitted_prediction": 25283862
+    },
+    {
+      "nickname": "걸음",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 29290077,
+      "legacy_prediction": 28272369,
+      "held_out_prediction": 25264831,
+      "fitted_prediction": 24038572
+    },
+    {
+      "nickname": "설봄a",
+      "guild": "설묘",
+      "source": "image",
+      "job": "다크나이트",
+      "observed_score": 28971438,
+      "legacy_prediction": 46376433,
+      "held_out_prediction": 31349529,
+      "fitted_prediction": 28605754
+    },
+    {
+      "nickname": "졸귀탱이",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 28862985,
+      "legacy_prediction": 40308813,
+      "held_out_prediction": 35965663,
+      "fitted_prediction": 36386278
+    },
+    {
+      "nickname": "스타캐치",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 28401927,
+      "legacy_prediction": 33933320,
+      "held_out_prediction": 32483387,
+      "fitted_prediction": 32739454
+    },
+    {
+      "nickname": "랍아",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 28105245,
+      "legacy_prediction": 26753407,
+      "held_out_prediction": 19688670,
+      "fitted_prediction": 19451924
+    },
+    {
+      "nickname": "주해",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 27894507,
+      "legacy_prediction": 21245349,
+      "held_out_prediction": 18873454,
+      "fitted_prediction": 19122387
+    },
+    {
+      "nickname": "소소채2",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 27674259,
+      "legacy_prediction": 52035872,
+      "held_out_prediction": 47028655,
+      "fitted_prediction": 46780645
+    },
+    {
+      "nickname": "뉴비숍",
+      "guild": "유니크",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 26974902,
+      "legacy_prediction": 25591087,
+      "held_out_prediction": 24997055,
+      "fitted_prediction": 27031258
+    },
+    {
+      "nickname": "동땅이",
+      "guild": "유니크",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 26650623,
+      "legacy_prediction": 30173250,
+      "held_out_prediction": 27176097,
+      "fitted_prediction": 28001935
+    },
+    {
+      "nickname": "설익은체리",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 26042460,
+      "legacy_prediction": 30334412,
+      "held_out_prediction": 25062436,
+      "fitted_prediction": 25335277
+    },
+    {
+      "nickname": "우땨",
+      "guild": "유니크",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 25586865,
+      "legacy_prediction": 29826260,
+      "held_out_prediction": 29598733,
+      "fitted_prediction": 28854088
+    },
+    {
+      "nickname": "함씨",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 25251060,
+      "legacy_prediction": 26341331,
+      "held_out_prediction": 24244255,
+      "fitted_prediction": 24580812
+    },
+    {
+      "nickname": "설앵숭",
+      "guild": "설묘",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 25187697,
+      "legacy_prediction": 19739478,
+      "held_out_prediction": 18990917,
+      "fitted_prediction": 18871008
+    },
+    {
+      "nickname": "라온MS",
+      "guild": "빠따",
+      "source": "image",
+      "job": "다크나이트",
+      "observed_score": 24727353,
+      "legacy_prediction": 66621953,
+      "held_out_prediction": 47685668,
+      "fitted_prediction": 41465584
+    },
+    {
+      "nickname": "야느",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 24606657,
+      "legacy_prediction": 50136729,
+      "held_out_prediction": 54029556,
+      "fitted_prediction": 53949326
+    },
+    {
+      "nickname": "o원기o",
+      "guild": "빠따",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 24373500,
+      "legacy_prediction": 45306704,
+      "held_out_prediction": 43243267,
+      "fitted_prediction": 45413472
+    },
+    {
+      "nickname": "겐미",
+      "guild": "유니크",
+      "source": "image",
+      "job": "히어로",
+      "observed_score": 24347673,
+      "legacy_prediction": 32133741,
+      "held_out_prediction": 19024851,
+      "fitted_prediction": 18498634
+    },
+    {
+      "nickname": "망겜감별사",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 24127506,
+      "legacy_prediction": 22080689,
+      "held_out_prediction": 21945480,
+      "fitted_prediction": 21372170
+    },
+    {
+      "nickname": "부엉이형",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 23773425,
+      "legacy_prediction": 29107313,
+      "held_out_prediction": 25876736,
+      "fitted_prediction": 25984564
+    },
+    {
+      "nickname": "퍌라딘",
+      "guild": "유니크",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 23569806,
+      "legacy_prediction": 16696572,
+      "held_out_prediction": 15141239,
+      "fitted_prediction": 16439417
+    },
+    {
+      "nickname": "여수로",
+      "guild": "빠따",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 22786863,
+      "legacy_prediction": 27817422,
+      "held_out_prediction": 26077870,
+      "fitted_prediction": 27518578
+    },
+    {
+      "nickname": "랜더스",
+      "guild": "유니크",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 22451298,
+      "legacy_prediction": 17188249,
+      "held_out_prediction": 16731698,
+      "fitted_prediction": 18273833
+    },
+    {
+      "nickname": "엘픽",
+      "guild": "유니크",
+      "source": "image",
+      "job": "히어로",
+      "observed_score": 22445520,
+      "legacy_prediction": 37181438,
+      "held_out_prediction": 23335470,
+      "fitted_prediction": 23308858
+    },
+    {
+      "nickname": "정령성",
+      "guild": "유니크",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 22364670,
+      "legacy_prediction": 19272795,
+      "held_out_prediction": 24244856,
+      "fitted_prediction": 26724548
+    },
+    {
+      "nickname": "옹이잉",
+      "guild": "빠따",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 22350228,
+      "legacy_prediction": 20233142,
+      "held_out_prediction": 18175327,
+      "fitted_prediction": 18923486
+    },
+    {
+      "nickname": "닐쿵",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "히어로",
+      "observed_score": 22171653,
+      "legacy_prediction": 52156746,
+      "held_out_prediction": 32649917,
+      "fitted_prediction": 30505481
+    },
+    {
+      "nickname": "뽀리빠",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "다크나이트",
+      "observed_score": 22015773,
+      "legacy_prediction": 42661764,
+      "held_out_prediction": 32440049,
+      "fitted_prediction": 31013492
+    },
+    {
+      "nickname": "잼포즈",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "아크메이지(썬,콜)",
+      "observed_score": 21956043,
+      "legacy_prediction": 23993258,
+      "held_out_prediction": 25341623,
+      "fitted_prediction": 24793792
+    },
+    {
+      "nickname": "장짱맨",
+      "guild": "빠따",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 20913723,
+      "legacy_prediction": 33261444,
+      "held_out_prediction": 33359124,
+      "fitted_prediction": 32599514
+    },
+    {
+      "nickname": "설콩순",
+      "guild": "설묘",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 20225817,
+      "legacy_prediction": 16401791,
+      "held_out_prediction": 20357894,
+      "fitted_prediction": 21030580
+    },
+    {
+      "nickname": "헤븐잉",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 20188686,
+      "legacy_prediction": 18564791,
+      "held_out_prediction": 18403922,
+      "fitted_prediction": 18577879
+    },
+    {
+      "nickname": "김규평",
+      "guild": "빠따",
+      "source": "image",
+      "job": "히어로",
+      "observed_score": 20038545,
+      "legacy_prediction": 25865441,
+      "held_out_prediction": 17041203,
+      "fitted_prediction": 17658510
+    },
+    {
+      "nickname": "우탸",
+      "guild": "유니크",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 19835982,
+      "legacy_prediction": 18304447,
+      "held_out_prediction": 15864368,
+      "fitted_prediction": 16766364
+    },
+    {
+      "nickname": "가푸츄",
+      "guild": "TRIUMPH",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 19785732,
+      "legacy_prediction": 22314536,
+      "held_out_prediction": 19101194,
+      "fitted_prediction": 19324555
+    },
+    {
+      "nickname": "수상구",
+      "guild": "설묘",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 19624272,
+      "legacy_prediction": 22079738,
+      "held_out_prediction": 19445757,
+      "fitted_prediction": 19329349
+    },
+    {
+      "nickname": "천천히걸어가",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 19565106,
+      "legacy_prediction": 27611646,
+      "held_out_prediction": 20590936,
+      "fitted_prediction": 19583928
+    },
+    {
+      "nickname": "설름",
+      "guild": "설묘",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 19493664,
+      "legacy_prediction": 28386824,
+      "held_out_prediction": 25086061,
+      "fitted_prediction": 24953714
+    },
+    {
+      "nickname": "압러",
+      "guild": "CRES",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 19278408,
+      "legacy_prediction": 70,
+      "held_out_prediction": 14435343,
+      "fitted_prediction": 14454125
+    },
+    {
+      "nickname": "양촌마을",
+      "guild": "설묘",
+      "source": "image",
+      "job": "신궁",
+      "observed_score": 19241547,
+      "legacy_prediction": 17773918,
+      "held_out_prediction": 17364653,
+      "fitted_prediction": 17519512
+    },
+    {
+      "nickname": "킹몬",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 19176480,
+      "legacy_prediction": 32061477,
+      "held_out_prediction": 23545817,
+      "fitted_prediction": 23149481
+    },
+    {
+      "nickname": "뚱뚱쉰",
+      "guild": "유니크",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 19169115,
+      "legacy_prediction": 14320357,
+      "held_out_prediction": 18245732,
+      "fitted_prediction": 20428073
+    },
+    {
+      "nickname": "경성2018",
+      "guild": "설묘",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 18913854,
+      "legacy_prediction": 26252310,
+      "held_out_prediction": 22836542,
+      "fitted_prediction": 22989278
+    },
+    {
+      "nickname": "랏운",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 18883815,
+      "legacy_prediction": 31304505,
+      "held_out_prediction": 25143075,
+      "fitted_prediction": 25506679
+    },
+    {
+      "nickname": "노건",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 18873558,
+      "legacy_prediction": 21112466,
+      "held_out_prediction": 17536305,
+      "fitted_prediction": 17904560
+    },
+    {
+      "nickname": "Tyrael",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "아크메이지(썬,콜)",
+      "observed_score": 18696489,
+      "legacy_prediction": 22923662,
+      "held_out_prediction": 24170856,
+      "fitted_prediction": 24552791
+    },
+    {
+      "nickname": "약어",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 18692139,
+      "legacy_prediction": 144,
+      "held_out_prediction": 28041791,
+      "fitted_prediction": 28081336
+    },
+    {
+      "nickname": "매쵸맛",
+      "guild": "빠따",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 18629919,
+      "legacy_prediction": 124,
+      "held_out_prediction": 22372294,
+      "fitted_prediction": 22233956
+    },
+    {
+      "nickname": "보레아스",
+      "guild": "유니크",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 18266592,
+      "legacy_prediction": 21355668,
+      "held_out_prediction": 18334783,
+      "fitted_prediction": 19191795
+    },
+    {
+      "nickname": "아이스꾸임",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 18102894,
+      "legacy_prediction": 22469984,
+      "held_out_prediction": 19861434,
+      "fitted_prediction": 19353310
+    },
+    {
+      "nickname": "o후국o",
+      "guild": "빠따",
+      "source": "image",
+      "job": "다크나이트",
+      "observed_score": 18059388,
+      "legacy_prediction": 25089715,
+      "held_out_prediction": 19721134,
+      "fitted_prediction": 18558375
+    },
+    {
+      "nickname": "컈컈",
+      "guild": "유니크",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 18022164,
+      "legacy_prediction": 17016500,
+      "held_out_prediction": 14531315,
+      "fitted_prediction": 14800580
+    },
+    {
+      "nickname": "폰병",
+      "guild": "설묘",
+      "source": "image",
+      "job": "다크나이트",
+      "observed_score": 17896965,
+      "legacy_prediction": 29277099,
+      "held_out_prediction": 23292193,
+      "fitted_prediction": 21225383
+    },
+    {
+      "nickname": "쾌감",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 17867922,
+      "legacy_prediction": 24249054,
+      "held_out_prediction": 20092418,
+      "fitted_prediction": 19046710
+    },
+    {
+      "nickname": "국의",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "팔라딘",
+      "observed_score": 17790570,
+      "legacy_prediction": 29874567,
+      "held_out_prediction": 28980350,
+      "fitted_prediction": 27868216
+    },
+    {
+      "nickname": "니달리신",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "캡틴",
+      "observed_score": 17705805,
+      "legacy_prediction": 135,
+      "held_out_prediction": 29911306,
+      "fitted_prediction": 30483672
+    },
+    {
+      "nickname": "떠웅",
+      "guild": "빠따",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 17687379,
+      "legacy_prediction": 18817092,
+      "held_out_prediction": 16336665,
+      "fitted_prediction": 16303116
+    },
+    {
+      "nickname": "화욤",
+      "guild": "빠따",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 17560491,
+      "legacy_prediction": 18377240,
+      "held_out_prediction": 22144032,
+      "fitted_prediction": 23886307
+    },
+    {
+      "nickname": "새콤달콤해",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 17213718,
+      "legacy_prediction": 22270443,
+      "held_out_prediction": 19061938,
+      "fitted_prediction": 19316370
+    },
+    {
+      "nickname": "조평견",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 16832355,
+      "legacy_prediction": 192,
+      "held_out_prediction": 28357938,
+      "fitted_prediction": 27002837
+    },
+    {
+      "nickname": "진자이",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 16816548,
+      "legacy_prediction": 55331899,
+      "held_out_prediction": 47576938,
+      "fitted_prediction": 47400100
+    },
+    {
+      "nickname": "일등통신",
+      "guild": "유니크",
+      "source": "image",
+      "job": "바이퍼",
+      "observed_score": 16816107,
+      "legacy_prediction": 100,
+      "held_out_prediction": 17514343,
+      "fitted_prediction": 17281021
+    },
+    {
+      "nickname": "서먕",
+      "guild": "유니크",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 16736598,
+      "legacy_prediction": 19318255,
+      "held_out_prediction": 16556019,
+      "fitted_prediction": 16395161
+    },
+    {
+      "nickname": "핫잇",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 16399686,
+      "legacy_prediction": 23517209,
+      "held_out_prediction": 22208090,
+      "fitted_prediction": 21662655
+    },
+    {
+      "nickname": "o진이o",
+      "guild": "빠따",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 16357296,
+      "legacy_prediction": 20690909,
+      "held_out_prediction": 18907442,
+      "fitted_prediction": 17827378
+    },
+    {
+      "nickname": "읏코츠",
+      "guild": "설묘",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 16344681,
+      "legacy_prediction": 15597981,
+      "held_out_prediction": 15060480,
+      "fitted_prediction": 15138568
+    },
+    {
+      "nickname": "벞벞",
+      "guild": "유니크",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 16185291,
+      "legacy_prediction": 22327977,
+      "held_out_prediction": 20432447,
+      "fitted_prediction": 21423213
+    },
+    {
+      "nickname": "이원일",
+      "guild": "빠따",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 16001319,
+      "legacy_prediction": 21496328,
+      "held_out_prediction": 19277396,
+      "fitted_prediction": 17973794
+    },
+    {
+      "nickname": "룬보",
+      "guild": "CRES",
+      "source": "image",
+      "job": "보우마스터",
+      "observed_score": 15908562,
+      "legacy_prediction": 8632997,
+      "held_out_prediction": 11667493,
+      "fitted_prediction": 12030903
+    },
+    {
+      "nickname": "네오메디",
+      "guild": "설묘",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 15848364,
+      "legacy_prediction": 20616228,
+      "held_out_prediction": 18815952,
+      "fitted_prediction": 18999664
+    },
+    {
+      "nickname": "공룡박사원이",
+      "guild": "설묘",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 15774030,
+      "legacy_prediction": 16376901,
+      "held_out_prediction": 15216315,
+      "fitted_prediction": 15297405
+    },
+    {
+      "nickname": "설편",
+      "guild": "빠따",
+      "source": "image",
+      "job": "섀도어",
+      "observed_score": 15690711,
+      "legacy_prediction": 23379004,
+      "held_out_prediction": 19481935,
+      "fitted_prediction": 18898226
+    },
+    {
+      "nickname": "할룽",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 15682200,
+      "legacy_prediction": 24051018,
+      "held_out_prediction": 24702083,
+      "fitted_prediction": 24106535
+    },
+    {
+      "nickname": "칸델",
+      "guild": "HERMES",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 15661980,
+      "legacy_prediction": 15347018,
+      "held_out_prediction": 13331736,
+      "fitted_prediction": 13597726
+    },
+    {
+      "nickname": "프리프리",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 15544629,
+      "legacy_prediction": 17516970,
+      "held_out_prediction": 17348633,
+      "fitted_prediction": 17202718
+    },
+    {
+      "nickname": "o볼륨o",
+      "guild": "빠따",
+      "source": "image",
+      "job": "나이트로드",
+      "observed_score": 15528219,
+      "legacy_prediction": 18973411,
+      "held_out_prediction": 18094060,
+      "fitted_prediction": 17499538
+    },
+    {
+      "nickname": "혜영",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 15508341,
+      "legacy_prediction": 20703543,
+      "held_out_prediction": 19556888,
+      "fitted_prediction": 19016871
+    },
+    {
+      "nickname": "마류",
+      "guild": "유니크",
+      "source": "image",
+      "job": "캡틴",
+      "observed_score": 15419142,
+      "legacy_prediction": 76,
+      "held_out_prediction": 15512934,
+      "fitted_prediction": 16181495
+    },
+    {
+      "nickname": "세아수호지호",
+      "guild": "셀린느",
+      "source": "image",
+      "job": "비숍",
+      "observed_score": 15359751,
+      "legacy_prediction": 24488801,
+      "held_out_prediction": 24786322,
+      "fitted_prediction": 24199855
     }
   ]
 }

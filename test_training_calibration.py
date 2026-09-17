@@ -14,13 +14,28 @@ class TrainingCalibrationTests(unittest.TestCase):
         model=load_training_model()
         self.assertEqual(hashlib.sha256(SAMPLES.read_bytes()).hexdigest(),model['source_sha256'])
         rows=json.loads(SAMPLES.read_text());by_name={r['nickname']:r for r in rows}
-        self.assertEqual(len(rows),354)
-        self.assertEqual(sum(r['fit_eligible'] for r in rows),349)
+        self.assertEqual(len(rows),514)
+        self.assertEqual(sum(r['fit_eligible'] for r in rows),509)
+        self.assertEqual(len({r['nickname'] for r in rows}),len(rows))
         self.assertEqual(sum(r['nickname']=='We짱구' for r in rows),1)
         self.assertEqual(by_name['냐락쿵']['observed_score'],92229387)
         self.assertEqual(by_name['팔꾸미']['observed_score'],76600008)
         audit=json.loads((ROOT/'ResourceData/training_calibration_validation_2026-09-17.json').read_text())
-        self.assertEqual(len(audit['predictions']),348)
+        self.assertEqual(len(audit['predictions']),508)
+        self.assertEqual(by_name['망겜감별사']['observed_score'],24127506)
+        self.assertEqual(by_name['빔냥이']['observed_score'],36373047)
+        for original,current in {'익맹이':'밉상b','아이스꾸임':'익맹'}.items():
+            self.assertTrue(by_name[original]['fit_eligible'])
+            self.assertEqual(by_name[original]['matched_nickname'],current)
+            self.assertEqual(by_name[original]['profile_guild'],'셀린느')
+            self.assertGreater(by_name[original]['combat_power_man'],0)
+        self.assertEqual(sum(r['guild']=='셀린느' for r in rows),26)
+        self.assertEqual(model['image_file_count'],65)
+        duplicates=json.loads(SAMPLES.with_name('duplicates.json').read_text())
+        self.assertEqual(len(duplicates),6)
+        sources={r['source'] for r in rows if r['source_kind']=='image'}
+        sources.update(r['duplicate']['source'] for r in duplicates)
+        self.assertEqual(len(sources),65)
         for pred in audit['predictions']:
             row=by_name[pred['nickname']]
             self.assertEqual(e.power_to_man_units(row['combat_power']),row['combat_power_man'])
