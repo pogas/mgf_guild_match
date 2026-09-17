@@ -1,0 +1,3126 @@
+{
+  "candidates": [
+    {
+      "level_exponent": 0,
+      "ridge": 1,
+      "count": 280,
+      "log_rmse": 0.26348768365219066,
+      "median_abs_percent_error": 18.049856904659194,
+      "mean_abs_percent_error": 22.20350932805297,
+      "p90_abs_percent_error": 44.73764525951447
+    },
+    {
+      "level_exponent": 0,
+      "ridge": 5,
+      "count": 280,
+      "log_rmse": 0.2613552499051109,
+      "median_abs_percent_error": 18.11977907533462,
+      "mean_abs_percent_error": 22.012660488834854,
+      "p90_abs_percent_error": 43.96505161928364
+    },
+    {
+      "level_exponent": 0,
+      "ridge": 15,
+      "count": 280,
+      "log_rmse": 0.2602328841292474,
+      "median_abs_percent_error": 18.115899211173094,
+      "mean_abs_percent_error": 21.902988510042125,
+      "p90_abs_percent_error": 43.91836288666803
+    },
+    {
+      "level_exponent": 4,
+      "ridge": 1,
+      "count": 280,
+      "log_rmse": 0.25001870668279924,
+      "median_abs_percent_error": 17.060087047203876,
+      "mean_abs_percent_error": 21.04845371847483,
+      "p90_abs_percent_error": 42.10634798526557
+    },
+    {
+      "level_exponent": 4,
+      "ridge": 5,
+      "count": 280,
+      "log_rmse": 0.2477818548008096,
+      "median_abs_percent_error": 17.030511736990896,
+      "mean_abs_percent_error": 20.83179486134451,
+      "p90_abs_percent_error": 41.9727710298263
+    },
+    {
+      "level_exponent": 4,
+      "ridge": 15,
+      "count": 280,
+      "log_rmse": 0.2467870737453599,
+      "median_abs_percent_error": 16.99923615096654,
+      "mean_abs_percent_error": 20.76014520096937,
+      "p90_abs_percent_error": 42.17553719881994
+    },
+    {
+      "level_exponent": 8,
+      "ridge": 1,
+      "count": 280,
+      "log_rmse": 0.24015497587016002,
+      "median_abs_percent_error": 16.094709526435853,
+      "mean_abs_percent_error": 20.188256027647924,
+      "p90_abs_percent_error": 41.182458499986964
+    },
+    {
+      "level_exponent": 8,
+      "ridge": 5,
+      "count": 280,
+      "log_rmse": 0.23798381046431755,
+      "median_abs_percent_error": 16.187072366898224,
+      "mean_abs_percent_error": 20.011457588946314,
+      "p90_abs_percent_error": 41.19316790262222
+    },
+    {
+      "level_exponent": 8,
+      "ridge": 15,
+      "count": 280,
+      "log_rmse": 0.2369415966951142,
+      "median_abs_percent_error": 16.493395929375453,
+      "mean_abs_percent_error": 19.941461002689092,
+      "p90_abs_percent_error": 41.87857383018041
+    },
+    {
+      "level_exponent": 12,
+      "ridge": 1,
+      "count": 280,
+      "log_rmse": 0.23427935067005656,
+      "median_abs_percent_error": 15.788948889309678,
+      "mean_abs_percent_error": 19.61535737187296,
+      "p90_abs_percent_error": 41.06968768852576
+    },
+    {
+      "level_exponent": 12,
+      "ridge": 5,
+      "count": 280,
+      "log_rmse": 0.2319402869260088,
+      "median_abs_percent_error": 15.976140483017787,
+      "mean_abs_percent_error": 19.439777520346546,
+      "p90_abs_percent_error": 40.3319987049644
+    },
+    {
+      "level_exponent": 12,
+      "ridge": 15,
+      "count": 280,
+      "log_rmse": 0.23088022922309923,
+      "median_abs_percent_error": 15.622933168277298,
+      "mean_abs_percent_error": 19.398628232422745,
+      "p90_abs_percent_error": 40.50748115205049
+    },
+    {
+      "level_exponent": 16,
+      "ridge": 1,
+      "count": 280,
+      "log_rmse": 0.2321980476380603,
+      "median_abs_percent_error": 15.572973470034924,
+      "mean_abs_percent_error": 19.36242899087238,
+      "p90_abs_percent_error": 40.1432528786162
+    },
+    {
+      "level_exponent": 16,
+      "ridge": 5,
+      "count": 280,
+      "log_rmse": 0.23005326435293055,
+      "median_abs_percent_error": 15.30601050230107,
+      "mean_abs_percent_error": 19.204365333548804,
+      "p90_abs_percent_error": 40.248362484580014
+    },
+    {
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 280,
+      "log_rmse": 0.22903615173048925,
+      "median_abs_percent_error": 14.870203249650466,
+      "mean_abs_percent_error": 19.12360165702477,
+      "p90_abs_percent_error": 40.409599926078556
+    },
+    {
+      "level_exponent": 20,
+      "ridge": 1,
+      "count": 280,
+      "log_rmse": 0.23439754981256392,
+      "median_abs_percent_error": 15.801713627775642,
+      "mean_abs_percent_error": 19.318088116141038,
+      "p90_abs_percent_error": 39.05119208642434
+    },
+    {
+      "level_exponent": 20,
+      "ridge": 5,
+      "count": 280,
+      "log_rmse": 0.23255075720516752,
+      "median_abs_percent_error": 15.516518516737493,
+      "mean_abs_percent_error": 19.19689033388778,
+      "p90_abs_percent_error": 38.90440048968137
+    },
+    {
+      "level_exponent": 20,
+      "ridge": 15,
+      "count": 280,
+      "log_rmse": 0.2315539916910459,
+      "median_abs_percent_error": 14.813980211121008,
+      "mean_abs_percent_error": 19.118514524044055,
+      "p90_abs_percent_error": 39.73838521769571
+    },
+    {
+      "level_exponent": 24,
+      "ridge": 1,
+      "count": 280,
+      "log_rmse": 0.24084918638473804,
+      "median_abs_percent_error": 16.289468215793633,
+      "mean_abs_percent_error": 19.607551663972416,
+      "p90_abs_percent_error": 40.71200837830252
+    },
+    {
+      "level_exponent": 24,
+      "ridge": 5,
+      "count": 280,
+      "log_rmse": 0.23909075797419688,
+      "median_abs_percent_error": 15.987456839557874,
+      "mean_abs_percent_error": 19.458404660418708,
+      "p90_abs_percent_error": 40.93151008290427
+    },
+    {
+      "level_exponent": 24,
+      "ridge": 15,
+      "count": 280,
+      "log_rmse": 0.23818925588992804,
+      "median_abs_percent_error": 15.461465464794388,
+      "mean_abs_percent_error": 19.39407092552445,
+      "p90_abs_percent_error": 40.72456232516528
+    }
+  ],
+  "folds": [
+    {
+      "held_out_guild": "빅딜/86서버",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 28,
+      "log_rmse": 0.2841396994324718,
+      "median_abs_percent_error": 17.2233233298753,
+      "mean_abs_percent_error": 25.271737362344414,
+      "p90_abs_percent_error": 54.86939308570231
+    },
+    {
+      "held_out_guild": "빅딜/SSIM",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 26,
+      "log_rmse": 0.2410561867423805,
+      "median_abs_percent_error": 17.294159729174147,
+      "mean_abs_percent_error": 17.037904798018076,
+      "p90_abs_percent_error": 30.093347784557206
+    },
+    {
+      "held_out_guild": "빅딜/눈별",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 29,
+      "log_rmse": 0.20949442872494756,
+      "median_abs_percent_error": 13.732271728949453,
+      "mean_abs_percent_error": 17.05148650258445,
+      "p90_abs_percent_error": 30.333321321804096
+    },
+    {
+      "held_out_guild": "빅딜/빅딜",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 28,
+      "log_rmse": 0.26869106531081677,
+      "median_abs_percent_error": 19.177542844005547,
+      "mean_abs_percent_error": 24.611035644675745,
+      "p90_abs_percent_error": 55.32592269548633
+    },
+    {
+      "held_out_guild": "빅딜/인형나라",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 26,
+      "log_rmse": 0.19487915354776816,
+      "median_abs_percent_error": 15.585305794892278,
+      "mean_abs_percent_error": 16.136693192543312,
+      "p90_abs_percent_error": 26.62518090844775
+    },
+    {
+      "held_out_guild": "셀린느/노을이",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 27,
+      "log_rmse": 0.27246137847618734,
+      "median_abs_percent_error": 23.951706842185395,
+      "mean_abs_percent_error": 25.10112868008287,
+      "p90_abs_percent_error": 54.30913422637603
+    },
+    {
+      "held_out_guild": "셀린느/리안",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 29,
+      "log_rmse": 0.2109175946328426,
+      "median_abs_percent_error": 14.659288138542848,
+      "mean_abs_percent_error": 17.836470244364428,
+      "p90_abs_percent_error": 32.081366714380955
+    },
+    {
+      "held_out_guild": "셀린느/셀린느",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 28,
+      "log_rmse": 0.15230531784240883,
+      "median_abs_percent_error": 10.628206760050796,
+      "mean_abs_percent_error": 12.366329336623263,
+      "p90_abs_percent_error": 22.229491084177617
+    },
+    {
+      "held_out_guild": "셀린느/알콜클럽",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 1,
+      "log_rmse": 0.208533970424714,
+      "median_abs_percent_error": 18.822654205498857,
+      "mean_abs_percent_error": 18.822654205498857,
+      "p90_abs_percent_error": 18.822654205498857
+    },
+    {
+      "held_out_guild": "셀린느/헤라클레스",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 28,
+      "log_rmse": 0.21251329932834884,
+      "median_abs_percent_error": 9.682266524387744,
+      "mean_abs_percent_error": 14.882755298124492,
+      "p90_abs_percent_error": 36.886785588017375
+    },
+    {
+      "held_out_guild": "셀린느/호러",
+      "level_exponent": 16,
+      "ridge": 15,
+      "count": 30,
+      "log_rmse": 0.21471687855807162,
+      "median_abs_percent_error": 18.93510139349126,
+      "mean_abs_percent_error": 20.80243426711947,
+      "p90_abs_percent_error": 37.470357849506456
+    }
+  ],
+  "predictions": [
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "주식회사서영",
+      "job_name": "바이퍼",
+      "actual_rank": 1,
+      "observed_performance": 397809340000,
+      "predicted_performance": 394245405687,
+      "held_out_prediction": 382805413831
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "글쟈",
+      "job_name": "섀도어",
+      "actual_rank": 2,
+      "observed_performance": 209403980000,
+      "predicted_performance": 222832486846,
+      "held_out_prediction": 222616007031
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "이슬러버",
+      "job_name": "히어로",
+      "actual_rank": 3,
+      "observed_performance": 196172660000,
+      "predicted_performance": 210723681664,
+      "held_out_prediction": 211968958315
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "굴러가는일상",
+      "job_name": "비숍",
+      "actual_rank": 4,
+      "observed_performance": 168556430000,
+      "predicted_performance": 134200156206,
+      "held_out_prediction": 135780614484
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "심신삐약자",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 5,
+      "observed_performance": 167697010000,
+      "predicted_performance": 172882893546,
+      "held_out_prediction": 170082709381
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "우니아파요",
+      "job_name": "나이트로드",
+      "actual_rank": 6,
+      "observed_performance": 166448690000,
+      "predicted_performance": 188115016733,
+      "held_out_prediction": 187494260339
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "블루펀치",
+      "job_name": "바이퍼",
+      "actual_rank": 7,
+      "observed_performance": 164960150000,
+      "predicted_performance": 131229775360,
+      "held_out_prediction": 126120455759
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "두향",
+      "job_name": "팔라딘",
+      "actual_rank": 8,
+      "observed_performance": 163847560000,
+      "predicted_performance": 153417622647,
+      "held_out_prediction": 155157123282
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "꿀꿀맛",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 9,
+      "observed_performance": 162685290000,
+      "predicted_performance": 127414236265,
+      "held_out_prediction": 125422746382
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "유수달",
+      "job_name": "아크메이지(불,독)",
+      "actual_rank": 10,
+      "observed_performance": 154955880000,
+      "predicted_performance": 142777595842,
+      "held_out_prediction": 137789367932
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "도하리",
+      "job_name": "팔라딘",
+      "actual_rank": 11,
+      "observed_performance": 152148630000,
+      "predicted_performance": 143515843124,
+      "held_out_prediction": 140294700302
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "찌그러진모자",
+      "job_name": "팔라딘",
+      "actual_rank": 12,
+      "observed_performance": 150928080000,
+      "predicted_performance": 121022679513,
+      "held_out_prediction": 119950078312
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "몽호",
+      "job_name": "비숍",
+      "actual_rank": 13,
+      "observed_performance": 147300260000,
+      "predicted_performance": 178442530343,
+      "held_out_prediction": 180869573567
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "이용하다",
+      "job_name": "보우마스터",
+      "actual_rank": 14,
+      "observed_performance": 143625060000,
+      "predicted_performance": 112039428605,
+      "held_out_prediction": 108553268052
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "해달잉",
+      "job_name": "보우마스터",
+      "actual_rank": 15,
+      "observed_performance": 141461330000,
+      "predicted_performance": 130023990674,
+      "held_out_prediction": 125988297792
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "디매트로돈",
+      "job_name": "비숍",
+      "actual_rank": 16,
+      "observed_performance": 140714530000,
+      "predicted_performance": 105449451581,
+      "held_out_prediction": 104611216371
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "이지카이트",
+      "job_name": "섀도어",
+      "actual_rank": 17,
+      "observed_performance": 140236050000,
+      "predicted_performance": 130725470510,
+      "held_out_prediction": 131955272275
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "죽창당일개통",
+      "job_name": "나이트로드",
+      "actual_rank": 18,
+      "observed_performance": 140138620000,
+      "predicted_performance": 130463499174,
+      "held_out_prediction": 129681685606
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "김또느",
+      "job_name": "바이퍼",
+      "actual_rank": 19,
+      "observed_performance": 138939130000,
+      "predicted_performance": 109222461358,
+      "held_out_prediction": 104678247068
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "괴챠반",
+      "job_name": "바이퍼",
+      "actual_rank": 20,
+      "observed_performance": 136577630000,
+      "predicted_performance": 128248211299,
+      "held_out_prediction": 128574694485
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "종꿀",
+      "job_name": "나이트로드",
+      "actual_rank": 21,
+      "observed_performance": 136062320000,
+      "predicted_performance": 124008176125,
+      "held_out_prediction": 123189856992
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "여니워니",
+      "job_name": "비숍",
+      "actual_rank": 22,
+      "observed_performance": 134200300000,
+      "predicted_performance": 97941048269,
+      "held_out_prediction": 96801843219
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "김치싸대기",
+      "job_name": "히어로",
+      "actual_rank": 23,
+      "observed_performance": 125942480000,
+      "predicted_performance": 198483313472,
+      "held_out_prediction": 202305940660
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "유놈",
+      "job_name": "나이트로드",
+      "actual_rank": 24,
+      "observed_performance": 125154800000,
+      "predicted_performance": 101330664250,
+      "held_out_prediction": 100331447103
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "델타시그마",
+      "job_name": "섀도어",
+      "actual_rank": 25,
+      "observed_performance": 124035410000,
+      "predicted_performance": 116066752505,
+      "held_out_prediction": 117254188925
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "PSG서포터즈",
+      "job_name": "섀도어",
+      "actual_rank": 26,
+      "observed_performance": 122490890000,
+      "predicted_performance": 66534408182,
+      "held_out_prediction": 67338736797
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "서포터즈",
+      "job_name": "나이트로드",
+      "actual_rank": 27,
+      "observed_performance": 121945130000,
+      "predicted_performance": 109272434447,
+      "held_out_prediction": 109707477851
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "김훈한",
+      "job_name": "보우마스터",
+      "actual_rank": 28,
+      "observed_performance": 121611350000,
+      "predicted_performance": 104149685574,
+      "held_out_prediction": 101093566667
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "대방어조아",
+      "job_name": "나이트로드",
+      "actual_rank": 29,
+      "observed_performance": 119318090000,
+      "predicted_performance": 142057461370,
+      "held_out_prediction": 142399471567
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "사오토메란마",
+      "job_name": "아크메이지(불,독)",
+      "actual_rank": 30,
+      "observed_performance": 118473410000,
+      "predicted_performance": 103207986541,
+      "held_out_prediction": 101521982347
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "KR#TAKIN9CP37",
+      "job_name": "나이트로드",
+      "actual_rank": 31,
+      "observed_performance": 117686290000,
+      "predicted_performance": 104293067511,
+      "held_out_prediction": 104772059172
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "윤꼬밍",
+      "job_name": "비숍",
+      "actual_rank": 32,
+      "observed_performance": 115906780000,
+      "predicted_performance": 93880169317,
+      "held_out_prediction": 93146733634
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "엉쫀",
+      "job_name": "비숍",
+      "actual_rank": 33,
+      "observed_performance": 109888910000,
+      "predicted_performance": 96827766542,
+      "held_out_prediction": 98042046738
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "MangCI",
+      "job_name": "팔라딘",
+      "actual_rank": 34,
+      "observed_performance": 109011480000,
+      "predicted_performance": 92876249820,
+      "held_out_prediction": 90472438446
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "명동이",
+      "job_name": "비숍",
+      "actual_rank": 35,
+      "observed_performance": 108883370000,
+      "predicted_performance": 117158301330,
+      "held_out_prediction": 116288804674
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "최영교",
+      "job_name": "히어로",
+      "actual_rank": 36,
+      "observed_performance": 108782670000,
+      "predicted_performance": 95903114390,
+      "held_out_prediction": 94746434651
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "구엉이",
+      "job_name": "보우마스터",
+      "actual_rank": 37,
+      "observed_performance": 108438130000,
+      "predicted_performance": 85871901643,
+      "held_out_prediction": 83331296528
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "요금표",
+      "job_name": "보우마스터",
+      "actual_rank": 38,
+      "observed_performance": 108352070000,
+      "predicted_performance": 86144319258,
+      "held_out_prediction": 84820578305
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "자유이용껀",
+      "job_name": "섀도어",
+      "actual_rank": 39,
+      "observed_performance": 107658990000,
+      "predicted_performance": 67632429214,
+      "held_out_prediction": 67551785249
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "시골미남",
+      "job_name": "팔라딘",
+      "actual_rank": 40,
+      "observed_performance": 106999260000,
+      "predicted_performance": 89779185799,
+      "held_out_prediction": 87570842808
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "자이언트리",
+      "job_name": "아크메이지(불,독)",
+      "actual_rank": 41,
+      "observed_performance": 106112430000,
+      "predicted_performance": 77442608596,
+      "held_out_prediction": 74570876272
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "엘라임",
+      "job_name": "히어로",
+      "actual_rank": 42,
+      "observed_performance": 105977040000,
+      "predicted_performance": 111727650563,
+      "held_out_prediction": 114313544941
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "용이a",
+      "job_name": "나이트로드",
+      "actual_rank": 43,
+      "observed_performance": 103222660000,
+      "predicted_performance": 85246063584,
+      "held_out_prediction": 85229779936
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "포빅",
+      "job_name": "캡틴",
+      "actual_rank": 44,
+      "observed_performance": 102103520000,
+      "predicted_performance": 84053094987,
+      "held_out_prediction": 81843429861
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "뻥뻥",
+      "job_name": "보우마스터",
+      "actual_rank": 45,
+      "observed_performance": 101390530000,
+      "predicted_performance": 76472010248,
+      "held_out_prediction": 77350131962
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "티에이치",
+      "job_name": "보우마스터",
+      "actual_rank": 46,
+      "observed_performance": 101354900000,
+      "predicted_performance": 67277086919,
+      "held_out_prediction": 65010170538
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "베네치얀",
+      "job_name": "바이퍼",
+      "actual_rank": 47,
+      "observed_performance": 95172490000,
+      "predicted_performance": 52421620964,
+      "held_out_prediction": 50012882092
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "야가다",
+      "job_name": "보우마스터",
+      "actual_rank": 48,
+      "observed_performance": 92283790000,
+      "predicted_performance": 108670213900,
+      "held_out_prediction": 109827561230
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "채무조정",
+      "job_name": "비숍",
+      "actual_rank": 49,
+      "observed_performance": 92207620000,
+      "predicted_performance": 74603582501,
+      "held_out_prediction": 75920615946
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "뜨머푸",
+      "job_name": "보우마스터",
+      "actual_rank": 50,
+      "observed_performance": 92199690000,
+      "predicted_performance": 70629857237,
+      "held_out_prediction": 68522690288
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "호우기",
+      "job_name": "나이트로드",
+      "actual_rank": 52,
+      "observed_performance": 91355240000,
+      "predicted_performance": 86738122927,
+      "held_out_prediction": 87346403995
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "모르페우스",
+      "job_name": "비숍",
+      "actual_rank": 53,
+      "observed_performance": 91317880000,
+      "predicted_performance": 81819768475,
+      "held_out_prediction": 80693392218
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "디메트로돈",
+      "job_name": "비숍",
+      "actual_rank": 54,
+      "observed_performance": 91107620000,
+      "predicted_performance": 68966445827,
+      "held_out_prediction": 68321168019
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "흑두부",
+      "job_name": "비숍",
+      "actual_rank": 55,
+      "observed_performance": 90327580000,
+      "predicted_performance": 99569227073,
+      "held_out_prediction": 100945871579
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "웅잉당",
+      "job_name": "바이퍼",
+      "actual_rank": 57,
+      "observed_performance": 88871660000,
+      "predicted_performance": 102425251919,
+      "held_out_prediction": 103024265875
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "예타",
+      "job_name": "섀도어",
+      "actual_rank": 58,
+      "observed_performance": 88625210000,
+      "predicted_performance": 77861070601,
+      "held_out_prediction": 76454955342
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "돼왕다람쥐",
+      "job_name": "비숍",
+      "actual_rank": 59,
+      "observed_performance": 88457350000,
+      "predicted_performance": 82164181945,
+      "held_out_prediction": 83206384065
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "보급중대장",
+      "job_name": "비숍",
+      "actual_rank": 62,
+      "observed_performance": 84331000000,
+      "predicted_performance": 125427058552,
+      "held_out_prediction": 126898572313
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "뭉게뭉게구름",
+      "job_name": "보우마스터",
+      "actual_rank": 63,
+      "observed_performance": 83506430000,
+      "predicted_performance": 75126254507,
+      "held_out_prediction": 74041236120
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "파이리양말",
+      "job_name": "비숍",
+      "actual_rank": 64,
+      "observed_performance": 81567190000,
+      "predicted_performance": 69430940146,
+      "held_out_prediction": 68458084483
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "혁바",
+      "job_name": "나이트로드",
+      "actual_rank": 65,
+      "observed_performance": 81393730000,
+      "predicted_performance": 74923802892,
+      "held_out_prediction": 74071968253
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "연평로",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 66,
+      "observed_performance": 80262960000,
+      "predicted_performance": 105053029905,
+      "held_out_prediction": 107464891542
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "지존짱창남",
+      "job_name": "바이퍼",
+      "actual_rank": 67,
+      "observed_performance": 79200300000,
+      "predicted_performance": 82593329943,
+      "held_out_prediction": 82334079323
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "덩개",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 68,
+      "observed_performance": 72720710000,
+      "predicted_performance": 68871224892,
+      "held_out_prediction": 67472077005
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "세월이야속해",
+      "job_name": "나이트로드",
+      "actual_rank": 69,
+      "observed_performance": 72169240000,
+      "predicted_performance": 96579197661,
+      "held_out_prediction": 95817646902
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "서피비치",
+      "job_name": "팔라딘",
+      "actual_rank": 70,
+      "observed_performance": 71752790000,
+      "predicted_performance": 62689186626,
+      "held_out_prediction": 63374562508
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "우후",
+      "job_name": "히어로",
+      "actual_rank": 71,
+      "observed_performance": 71432800000,
+      "predicted_performance": 63724987802,
+      "held_out_prediction": 65432825416
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "한콩순",
+      "job_name": "비숍",
+      "actual_rank": 72,
+      "observed_performance": 70343710000,
+      "predicted_performance": 58202320689,
+      "held_out_prediction": 59021425442
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "하랸",
+      "job_name": "섀도어",
+      "actual_rank": 73,
+      "observed_performance": 70202830000,
+      "predicted_performance": 62386436283,
+      "held_out_prediction": 63168482305
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "잉글리쉬",
+      "job_name": "비숍",
+      "actual_rank": 75,
+      "observed_performance": 68839340000,
+      "predicted_performance": 75786761000,
+      "held_out_prediction": 75113430000
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "정태준",
+      "job_name": "비숍",
+      "actual_rank": 76,
+      "observed_performance": 68671680000,
+      "predicted_performance": 69763339657,
+      "held_out_prediction": 71057122864
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "벽그림",
+      "job_name": "비숍",
+      "actual_rank": 78,
+      "observed_performance": 67621230000,
+      "predicted_performance": 82267305362,
+      "held_out_prediction": 83310099371
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "뉴비i",
+      "job_name": "비숍",
+      "actual_rank": 79,
+      "observed_performance": 67463750000,
+      "predicted_performance": 82878801490,
+      "held_out_prediction": 84007665389
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "성률",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 80,
+      "observed_performance": 67462030000,
+      "predicted_performance": 58153046575,
+      "held_out_prediction": 56855881497
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "Pakachu9999",
+      "job_name": "비숍",
+      "actual_rank": 81,
+      "observed_performance": 64434310000,
+      "predicted_performance": 77739651969,
+      "held_out_prediction": 77058869697
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "불보독지",
+      "job_name": "아크메이지(불,독)",
+      "actual_rank": 83,
+      "observed_performance": 61575040000,
+      "predicted_performance": 76655159072,
+      "held_out_prediction": 78509989493
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "모우모우우",
+      "job_name": "캡틴",
+      "actual_rank": 84,
+      "observed_performance": 58495060000,
+      "predicted_performance": 42172723275,
+      "held_out_prediction": 41197737483
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "꼴뱅이a",
+      "job_name": "섀도어",
+      "actual_rank": 85,
+      "observed_performance": 56671200000,
+      "predicted_performance": 97100168777,
+      "held_out_prediction": 98213589128
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "하비엔",
+      "job_name": "비숍",
+      "actual_rank": 86,
+      "observed_performance": 55064910000,
+      "predicted_performance": 42028500416,
+      "held_out_prediction": 41334568337
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "옆구리두방",
+      "job_name": "비숍",
+      "actual_rank": 87,
+      "observed_performance": 54834270000,
+      "predicted_performance": 55319847867,
+      "held_out_prediction": 54781311031
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "양쿼카",
+      "job_name": "비숍",
+      "actual_rank": 88,
+      "observed_performance": 54575360000,
+      "predicted_performance": 51126282931,
+      "held_out_prediction": 50608420168
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "토느",
+      "job_name": "바이퍼",
+      "actual_rank": 89,
+      "observed_performance": 53870530000,
+      "predicted_performance": 39412430033,
+      "held_out_prediction": 37439195794
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "간장아비",
+      "job_name": "비숍",
+      "actual_rank": 90,
+      "observed_performance": 53722410000,
+      "predicted_performance": 66696568028,
+      "held_out_prediction": 67572098152
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "박금쪽",
+      "job_name": "바이퍼",
+      "actual_rank": 91,
+      "observed_performance": 53400330000,
+      "predicted_performance": 64201563461,
+      "held_out_prediction": 64028055593
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "젤로젤리",
+      "job_name": "비숍",
+      "actual_rank": 92,
+      "observed_performance": 53341300000,
+      "predicted_performance": 48711920944,
+      "held_out_prediction": 48206736287
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "주식하자",
+      "job_name": "비숍",
+      "actual_rank": 93,
+      "observed_performance": 53140440000,
+      "predicted_performance": 54674080114,
+      "held_out_prediction": 55467298017
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "부산철거",
+      "job_name": "비숍",
+      "actual_rank": 94,
+      "observed_performance": 52927970000,
+      "predicted_performance": 42724872779,
+      "held_out_prediction": 41685044700
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "정섭이",
+      "job_name": "비숍",
+      "actual_rank": 95,
+      "observed_performance": 52886250000,
+      "predicted_performance": 50933245619,
+      "held_out_prediction": 50416375087
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "여덟시",
+      "job_name": "나이트로드",
+      "actual_rank": 96,
+      "observed_performance": 52158800000,
+      "predicted_performance": 43916175429,
+      "held_out_prediction": 43363575157
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "김로케",
+      "job_name": "히어로",
+      "actual_rank": 97,
+      "observed_performance": 51926210000,
+      "predicted_performance": 53563090099,
+      "held_out_prediction": 54175176436
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "태양o",
+      "job_name": "비숍",
+      "actual_rank": 99,
+      "observed_performance": 50651680000,
+      "predicted_performance": 43220713370,
+      "held_out_prediction": 42082003893
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "작업치료사",
+      "job_name": "캡틴",
+      "actual_rank": 100,
+      "observed_performance": 50507030000,
+      "predicted_performance": 44927956153,
+      "held_out_prediction": 43648067584
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "여자둘남자둘",
+      "job_name": "비숍",
+      "actual_rank": 101,
+      "observed_performance": 50492350000,
+      "predicted_performance": 77654143033,
+      "held_out_prediction": 76669182738
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "소심한섀도어",
+      "job_name": "섀도어",
+      "actual_rank": 102,
+      "observed_performance": 50442160000,
+      "predicted_performance": 56031325632,
+      "held_out_prediction": 56775496645
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "돼짱",
+      "job_name": "비숍",
+      "actual_rank": 103,
+      "observed_performance": 50041580000,
+      "predicted_performance": 48707016378,
+      "held_out_prediction": 48201858076
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "행복하길바래",
+      "job_name": "보우마스터",
+      "actual_rank": 104,
+      "observed_performance": 49356180000,
+      "predicted_performance": 35667606935,
+      "held_out_prediction": 34704714724
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "신탄보우짱",
+      "job_name": "비숍",
+      "actual_rank": 105,
+      "observed_performance": 49023960000,
+      "predicted_performance": 44757438905,
+      "held_out_prediction": 43974430164
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "봄여름한겨울",
+      "job_name": "보우마스터",
+      "actual_rank": 106,
+      "observed_performance": 48848400000,
+      "predicted_performance": 48203529331,
+      "held_out_prediction": 47011653478
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "민들레꽃",
+      "job_name": "비숍",
+      "actual_rank": 107,
+      "observed_performance": 48497030000,
+      "predicted_performance": 45003014388,
+      "held_out_prediction": 45925935549
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "곰세마리당",
+      "job_name": "비숍",
+      "actual_rank": 108,
+      "observed_performance": 48084240000,
+      "predicted_performance": 42070593517,
+      "held_out_prediction": 40945439004
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "히어로호걸",
+      "job_name": "히어로",
+      "actual_rank": 109,
+      "observed_performance": 47949410000,
+      "predicted_performance": 49176007425,
+      "held_out_prediction": 48406165977
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "에누마",
+      "job_name": "팔라딘",
+      "actual_rank": 110,
+      "observed_performance": 43524350000,
+      "predicted_performance": 64188038817,
+      "held_out_prediction": 64879294507
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "범지",
+      "job_name": "나이트로드",
+      "actual_rank": 111,
+      "observed_performance": 43157070000,
+      "predicted_performance": 63866770159,
+      "held_out_prediction": 63135904198
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "감화",
+      "job_name": "비숍",
+      "actual_rank": 112,
+      "observed_performance": 43029860000,
+      "predicted_performance": 55261117106,
+      "held_out_prediction": 54432151784
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "1지옥참마도1",
+      "job_name": "비숍",
+      "actual_rank": 113,
+      "observed_performance": 42787430000,
+      "predicted_performance": 33694074022,
+      "held_out_prediction": 32755895541
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "좀치는형님",
+      "job_name": "비숍",
+      "actual_rank": 114,
+      "observed_performance": 42139480000,
+      "predicted_performance": 59621523932,
+      "held_out_prediction": 60736971657
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "니누고",
+      "job_name": "비숍",
+      "actual_rank": 115,
+      "observed_performance": 41671430000,
+      "predicted_performance": 43799691276,
+      "held_out_prediction": 43354167912
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "혜미니현미니",
+      "job_name": "비숍",
+      "actual_rank": 116,
+      "observed_performance": 41259340000,
+      "predicted_performance": 56997585739,
+      "held_out_prediction": 56451232275
+    },
+    {
+      "match": "빅딜",
+      "guild": "눈별",
+      "nickname": "채구링",
+      "job_name": "나이트로드",
+      "actual_rank": 117,
+      "observed_performance": 40644600000,
+      "predicted_performance": 36344372780,
+      "held_out_prediction": 35886748225
+    },
+    {
+      "match": "빅딜",
+      "guild": "인형나라",
+      "nickname": "연속기",
+      "job_name": "바이퍼",
+      "actual_rank": 118,
+      "observed_performance": 40399450000,
+      "predicted_performance": 51568718441,
+      "held_out_prediction": 51537672254
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "박준우2",
+      "job_name": "비숍",
+      "actual_rank": 119,
+      "observed_performance": 40108390000,
+      "predicted_performance": 42261897396,
+      "held_out_prediction": 43164001274
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "플로우00",
+      "job_name": "보우마스터",
+      "actual_rank": 120,
+      "observed_performance": 39614580000,
+      "predicted_performance": 49684680842,
+      "held_out_prediction": 50442605127
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "8623",
+      "job_name": "보우마스터",
+      "actual_rank": 121,
+      "observed_performance": 38864480000,
+      "predicted_performance": 31749574142,
+      "held_out_prediction": 31349858007
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "효설빈",
+      "job_name": "비숍",
+      "actual_rank": 122,
+      "observed_performance": 37965800000,
+      "predicted_performance": 26987582289,
+      "held_out_prediction": 26266837319
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "여눈",
+      "job_name": "바이퍼",
+      "actual_rank": 123,
+      "observed_performance": 36656260000,
+      "predicted_performance": 33981649083,
+      "held_out_prediction": 34289942349
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "하숩",
+      "job_name": "비숍",
+      "actual_rank": 124,
+      "observed_performance": 33729000000,
+      "predicted_performance": 29755023966,
+      "held_out_prediction": 28937277542
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "전포동포동이",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 125,
+      "observed_performance": 33219200000,
+      "predicted_performance": 41047066502,
+      "held_out_prediction": 42176578761
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "동그리미",
+      "job_name": "캡틴",
+      "actual_rank": 126,
+      "observed_performance": 31390040000,
+      "predicted_performance": 32154944789,
+      "held_out_prediction": 31352683661
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "팡대지",
+      "job_name": "비숍",
+      "actual_rank": 127,
+      "observed_performance": 31359770000,
+      "predicted_performance": 54415642852,
+      "held_out_prediction": 55499852519
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "꾸르꾸르",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 129,
+      "observed_performance": 29132850000,
+      "predicted_performance": 32552000952,
+      "held_out_prediction": 33161540265
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "비스밤",
+      "job_name": "비숍",
+      "actual_rank": 130,
+      "observed_performance": 27077210000,
+      "predicted_performance": 43135655699,
+      "held_out_prediction": 44044642227
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "솔인",
+      "job_name": "팔라딘",
+      "actual_rank": 131,
+      "observed_performance": 26431040000,
+      "predicted_performance": 39672702104,
+      "held_out_prediction": 40453024811
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "최경무",
+      "job_name": "바이퍼",
+      "actual_rank": 133,
+      "observed_performance": 25194600000,
+      "predicted_performance": 23713150433,
+      "held_out_prediction": 22453720735
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "명지사나이",
+      "job_name": "섀도어",
+      "actual_rank": 134,
+      "observed_performance": 25019900000,
+      "predicted_performance": 24990517941,
+      "held_out_prediction": 24447187111
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "허상하",
+      "job_name": "히어로",
+      "actual_rank": 135,
+      "observed_performance": 24723280000,
+      "predicted_performance": 29547469585,
+      "held_out_prediction": 29091755169
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "아르미느",
+      "job_name": "히어로",
+      "actual_rank": 136,
+      "observed_performance": 23771400000,
+      "predicted_performance": 32731574311,
+      "held_out_prediction": 33772684764
+    },
+    {
+      "match": "빅딜",
+      "guild": "빅딜",
+      "nickname": "꼬북빵야",
+      "job_name": "비숍",
+      "actual_rank": 137,
+      "observed_performance": 23665810000,
+      "predicted_performance": 32418387444,
+      "held_out_prediction": 33161287964
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "01260227",
+      "job_name": "섀도어",
+      "actual_rank": 138,
+      "observed_performance": 21535730000,
+      "predicted_performance": 40822985088,
+      "held_out_prediction": 41413546434
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "경춘선",
+      "job_name": "비숍",
+      "actual_rank": 139,
+      "observed_performance": 21427550000,
+      "predicted_performance": 34837417360,
+      "held_out_prediction": 35380919100
+    },
+    {
+      "match": "빅딜",
+      "guild": "86서버",
+      "nickname": "수비맨디",
+      "job_name": "다크나이트",
+      "actual_rank": 140,
+      "observed_performance": 21101920000,
+      "predicted_performance": 24264620306,
+      "held_out_prediction": 24692519893
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "앙설",
+      "job_name": "캡틴",
+      "actual_rank": 141,
+      "observed_performance": 19272020000,
+      "predicted_performance": 19937123922,
+      "held_out_prediction": 19387037211
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "진떡",
+      "job_name": "바이퍼",
+      "actual_rank": 142,
+      "observed_performance": 17190200000,
+      "predicted_performance": 16883582628,
+      "held_out_prediction": 15977720733
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "웅나공듀",
+      "job_name": "캡틴",
+      "actual_rank": 143,
+      "observed_performance": 16043150000,
+      "predicted_performance": 14881335842,
+      "held_out_prediction": 14439882430
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "태양0",
+      "job_name": "비숍",
+      "actual_rank": 144,
+      "observed_performance": 16017330000,
+      "predicted_performance": 14474976509,
+      "held_out_prediction": 13988090871
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "마동턱",
+      "job_name": "팔라딘",
+      "actual_rank": 145,
+      "observed_performance": 14578080000,
+      "predicted_performance": 18330508222,
+      "held_out_prediction": 17892923911
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "비단나비",
+      "job_name": "바이퍼",
+      "actual_rank": 146,
+      "observed_performance": 14388450000,
+      "predicted_performance": 15302964591,
+      "held_out_prediction": 14460342224
+    },
+    {
+      "match": "빅딜",
+      "guild": "SSIM",
+      "nickname": "해적왕정우짱",
+      "job_name": "캡틴",
+      "actual_rank": 147,
+      "observed_performance": 14341160000,
+      "predicted_performance": 18243858997,
+      "held_out_prediction": 17716635037
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "과금X환불O",
+      "job_name": "히어로",
+      "actual_rank": 1,
+      "observed_performance": 4211900000000,
+      "predicted_performance": 3500437471910,
+      "held_out_prediction": 3379885645011
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "빔냥이",
+      "job_name": "신궁",
+      "actual_rank": 2,
+      "observed_performance": 3440200000000,
+      "predicted_performance": 3801631919104,
+      "held_out_prediction": 3761290576996
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을준이",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 3,
+      "observed_performance": 3438900000000,
+      "predicted_performance": 5197562001030,
+      "held_out_prediction": 5260202518501
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "난풍",
+      "job_name": "캡틴",
+      "actual_rank": 4,
+      "observed_performance": 2724200000000,
+      "predicted_performance": 2792036008316,
+      "held_out_prediction": 2895977735650
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "돈스",
+      "job_name": "비숍",
+      "actual_rank": 5,
+      "observed_performance": 2544000000000,
+      "predicted_performance": 2232791034378,
+      "held_out_prediction": 2198150507564
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "메키에바란다",
+      "job_name": "팔라딘",
+      "actual_rank": 6,
+      "observed_performance": 2520100000000,
+      "predicted_performance": 2434405969838,
+      "held_out_prediction": 2389153820718
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "기요밋",
+      "job_name": "비숍",
+      "actual_rank": 7,
+      "observed_performance": 2261500000000,
+      "predicted_performance": 3189931804821,
+      "held_out_prediction": 3348297539917
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "MNMMNMMNMMNM",
+      "job_name": "비숍",
+      "actual_rank": 8,
+      "observed_performance": 2140600000000,
+      "predicted_performance": 2048467939301,
+      "held_out_prediction": 2015851201215
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "예습2",
+      "job_name": "캡틴",
+      "actual_rank": 9,
+      "observed_performance": 2123300000000,
+      "predicted_performance": 1860238687481,
+      "held_out_prediction": 1837545641710
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "Matter",
+      "job_name": "비숍",
+      "actual_rank": 10,
+      "observed_performance": 2033400000000,
+      "predicted_performance": 1989780981009,
+      "held_out_prediction": 1974758353512
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "환불존망겜",
+      "job_name": "팔라딘",
+      "actual_rank": 11,
+      "observed_performance": 1930000000000,
+      "predicted_performance": 2007860902901,
+      "held_out_prediction": 1954469347896
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "역삼이",
+      "job_name": "비숍",
+      "actual_rank": 12,
+      "observed_performance": 1923400000000,
+      "predicted_performance": 1775294352406,
+      "held_out_prediction": 1732117308160
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "진자이",
+      "job_name": "비숍",
+      "actual_rank": 13,
+      "observed_performance": 1892900000000,
+      "predicted_performance": 1719227955705,
+      "held_out_prediction": 1692574622757
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "소소채2",
+      "job_name": "비숍",
+      "actual_rank": 14,
+      "observed_performance": 1819600000000,
+      "predicted_performance": 1605886996489,
+      "held_out_prediction": 1582021196092
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "혁수킹",
+      "job_name": "히어로",
+      "actual_rank": 15,
+      "observed_performance": 1809900000000,
+      "predicted_performance": 1709617047349,
+      "held_out_prediction": 1699899482557
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "라온PB",
+      "job_name": "나이트로드",
+      "actual_rank": 16,
+      "observed_performance": 1776100000000,
+      "predicted_performance": 1830940633469,
+      "held_out_prediction": 1839086643190
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "송곧",
+      "job_name": "비숍",
+      "actual_rank": 17,
+      "observed_performance": 1508100000000,
+      "predicted_performance": 1325332934453,
+      "held_out_prediction": 1378976695893
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "파퍼",
+      "job_name": "비숍",
+      "actual_rank": 18,
+      "observed_performance": 1504500000000,
+      "predicted_performance": 1250897068734,
+      "held_out_prediction": 1243014423844
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "번펀",
+      "job_name": "히어로",
+      "actual_rank": 19,
+      "observed_performance": 1466000000000,
+      "predicted_performance": 1215328073465,
+      "held_out_prediction": 1182324571904
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "누짜",
+      "job_name": "비숍",
+      "actual_rank": 20,
+      "observed_performance": 1379000000000,
+      "predicted_performance": 1537936339312,
+      "held_out_prediction": 1600678692153
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "일월마녀",
+      "job_name": "보우마스터",
+      "actual_rank": 21,
+      "observed_performance": 1345500000000,
+      "predicted_performance": 1718115423021,
+      "held_out_prediction": 1804136227401
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "메키존망섭종",
+      "job_name": "신궁",
+      "actual_rank": 22,
+      "observed_performance": 1337100000000,
+      "predicted_performance": 1125340804288,
+      "held_out_prediction": 1159345017996
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "셀문",
+      "job_name": "비숍",
+      "actual_rank": 23,
+      "observed_performance": 1324500000000,
+      "predicted_performance": 1417438690574,
+      "held_out_prediction": 1407410728120
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "뽀리빠",
+      "job_name": "다크나이트",
+      "actual_rank": 24,
+      "observed_performance": 1319700000000,
+      "predicted_performance": 1291301515539,
+      "held_out_prediction": 1272648723264
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "스타캐치",
+      "job_name": "나이트로드",
+      "actual_rank": 25,
+      "observed_performance": 1313900000000,
+      "predicted_performance": 1263343273822,
+      "held_out_prediction": 1251446093359
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "말레이히어로",
+      "job_name": "히어로",
+      "actual_rank": 26,
+      "observed_performance": 1258000000000,
+      "predicted_performance": 1387466662323,
+      "held_out_prediction": 1368630192007
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "아그리아스",
+      "job_name": "캡틴",
+      "actual_rank": 27,
+      "observed_performance": 1148800000000,
+      "predicted_performance": 1033460548773,
+      "held_out_prediction": 1001449837536
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "걸음",
+      "job_name": "섀도어",
+      "actual_rank": 28,
+      "observed_performance": 1072500000000,
+      "predicted_performance": 910065340860,
+      "held_out_prediction": 891481448836
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "이삼2",
+      "job_name": "팔라딘",
+      "actual_rank": 29,
+      "observed_performance": 1055500000000,
+      "predicted_performance": 855525053421,
+      "held_out_prediction": 842328253566
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "국의",
+      "job_name": "팔라딘",
+      "actual_rank": 30,
+      "observed_performance": 1036500000000,
+      "predicted_performance": 894240313004,
+      "held_out_prediction": 882124105234
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "천천히걸어가",
+      "job_name": "섀도어",
+      "actual_rank": 31,
+      "observed_performance": 995571910000,
+      "predicted_performance": 683806674520,
+      "held_out_prediction": 669951403944
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "꼬꼬대장",
+      "job_name": "비숍",
+      "actual_rank": 32,
+      "observed_performance": 991642140000,
+      "predicted_performance": 651386487818,
+      "held_out_prediction": 639766442823
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "부엉이형",
+      "job_name": "나이트로드",
+      "actual_rank": 33,
+      "observed_performance": 983800830000,
+      "predicted_performance": 823651530703,
+      "held_out_prediction": 817151662423
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "쏘쏘하네",
+      "job_name": "캡틴",
+      "actual_rank": 34,
+      "observed_performance": 881841400000,
+      "predicted_performance": 767815573262,
+      "held_out_prediction": 745732827838
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "로드숍",
+      "job_name": "비숍",
+      "actual_rank": 35,
+      "observed_performance": 843789870000,
+      "predicted_performance": 1057388473104,
+      "held_out_prediction": 1098341479601
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "고먀츠나나",
+      "job_name": "신궁",
+      "actual_rank": 36,
+      "observed_performance": 825915040000,
+      "predicted_performance": 565086408284,
+      "held_out_prediction": 560022380688
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "약어",
+      "job_name": "바이퍼",
+      "actual_rank": 37,
+      "observed_performance": 816973590000,
+      "predicted_performance": 776362624148,
+      "held_out_prediction": 767211750541
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "참이슬",
+      "job_name": "팔라딘",
+      "actual_rank": 38,
+      "observed_performance": 815606990000,
+      "predicted_performance": 591682898654,
+      "held_out_prediction": 580458738072
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "유지애123",
+      "job_name": "비숍",
+      "actual_rank": 39,
+      "observed_performance": 780135090000,
+      "predicted_performance": 500133219192,
+      "held_out_prediction": 492099478486
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "하후돈",
+      "job_name": "나이트로드",
+      "actual_rank": 40,
+      "observed_performance": 772524030000,
+      "predicted_performance": 717627305835,
+      "held_out_prediction": 712901995173
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "잼포즈",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 42,
+      "observed_performance": 765069780000,
+      "predicted_performance": 693541015536,
+      "held_out_prediction": 683410625800
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "꽃을든남자",
+      "job_name": "히어로",
+      "actual_rank": 43,
+      "observed_performance": 743242900000,
+      "predicted_performance": 662593541831,
+      "held_out_prediction": 655728956805
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "도당이",
+      "job_name": "비숍",
+      "actual_rank": 44,
+      "observed_performance": 644457480000,
+      "predicted_performance": 565961242868,
+      "held_out_prediction": 585553537910
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을뽀롱",
+      "job_name": "비숍",
+      "actual_rank": 45,
+      "observed_performance": 635645240000,
+      "predicted_performance": 812498405338,
+      "held_out_prediction": 820011702752
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "둄이",
+      "job_name": "비숍",
+      "actual_rank": 46,
+      "observed_performance": 635092600000,
+      "predicted_performance": 559587194308,
+      "held_out_prediction": 577420640708
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "니달리신",
+      "job_name": "캡틴",
+      "actual_rank": 47,
+      "observed_performance": 628316420000,
+      "predicted_performance": 721393807129,
+      "held_out_prediction": 718107949209
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "히째히째",
+      "job_name": "팔라딘",
+      "actual_rank": 48,
+      "observed_performance": 607856070000,
+      "predicted_performance": 543791029010,
+      "held_out_prediction": 536464524832
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "힐캐",
+      "job_name": "비숍",
+      "actual_rank": 49,
+      "observed_performance": 591166400000,
+      "predicted_performance": 496283332643,
+      "held_out_prediction": 494763955913
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "카지야",
+      "job_name": "보우마스터",
+      "actual_rank": 50,
+      "observed_performance": 581569940000,
+      "predicted_performance": 568635296639,
+      "held_out_prediction": 590972625406
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "태켱",
+      "job_name": "팔라딘",
+      "actual_rank": 51,
+      "observed_performance": 581568310000,
+      "predicted_performance": 516408004444,
+      "held_out_prediction": 529080412588
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "응구7",
+      "job_name": "나이트로드",
+      "actual_rank": 52,
+      "observed_performance": 517365390000,
+      "predicted_performance": 331242338693,
+      "held_out_prediction": 326602340766
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "악경",
+      "job_name": "히어로",
+      "actual_rank": 53,
+      "observed_performance": 508140470000,
+      "predicted_performance": 611701463597,
+      "held_out_prediction": 610099895003
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "김겨탱",
+      "job_name": "나이트로드",
+      "actual_rank": 54,
+      "observed_performance": 506638500000,
+      "predicted_performance": 578714903244,
+      "held_out_prediction": 575344479780
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "다이사",
+      "job_name": "나이트로드",
+      "actual_rank": 55,
+      "observed_performance": 502316420000,
+      "predicted_performance": 537783266945,
+      "held_out_prediction": 550210587358
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "쾌감",
+      "job_name": "섀도어",
+      "actual_rank": 56,
+      "observed_performance": 485461130000,
+      "predicted_performance": 591980338638,
+      "held_out_prediction": 580785195652
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "떠영아",
+      "job_name": "히어로",
+      "actual_rank": 57,
+      "observed_performance": 477387300000,
+      "predicted_performance": 429721995744,
+      "held_out_prediction": 429176253646
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "록현",
+      "job_name": "비숍",
+      "actual_rank": 58,
+      "observed_performance": 476493860000,
+      "predicted_performance": 523440694147,
+      "held_out_prediction": 514704694699
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "킹몬",
+      "job_name": "비숍",
+      "actual_rank": 59,
+      "observed_performance": 410534500000,
+      "predicted_performance": 430426365282,
+      "held_out_prediction": 426099639639
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "딤개",
+      "job_name": "아크메이지(불,독)",
+      "actual_rank": 60,
+      "observed_performance": 403352840000,
+      "predicted_performance": 525304726874,
+      "held_out_prediction": 531684254898
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "바람의새벽",
+      "job_name": "섀도어",
+      "actual_rank": 61,
+      "observed_performance": 385826410000,
+      "predicted_performance": 439095988484,
+      "held_out_prediction": 442184258750
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "할룽",
+      "job_name": "비숍",
+      "actual_rank": 62,
+      "observed_performance": 385224270000,
+      "predicted_performance": 357138382309,
+      "held_out_prediction": 354644365538
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "이남선",
+      "job_name": "비숍",
+      "actual_rank": 63,
+      "observed_performance": 378497490000,
+      "predicted_performance": 293706628682,
+      "held_out_prediction": 293265552903
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "머스탱GT",
+      "job_name": "팔라딘",
+      "actual_rank": 64,
+      "observed_performance": 331043120000,
+      "predicted_performance": 368194673598,
+      "held_out_prediction": 362225739394
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "핫잇",
+      "job_name": "비숍",
+      "actual_rank": 65,
+      "observed_performance": 323243680000,
+      "predicted_performance": 305095727943,
+      "held_out_prediction": 303023491561
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "똥으리",
+      "job_name": "보우마스터",
+      "actual_rank": 66,
+      "observed_performance": 318388920000,
+      "predicted_performance": 462002542765,
+      "held_out_prediction": 479532290426
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "가루0",
+      "job_name": "비숍",
+      "actual_rank": 67,
+      "observed_performance": 314277770000,
+      "predicted_performance": 257734328380,
+      "held_out_prediction": 254485397426
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "안리뿐",
+      "job_name": "나이트로드",
+      "actual_rank": 69,
+      "observed_performance": 302806570000,
+      "predicted_performance": 355528157897,
+      "held_out_prediction": 358965071272
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "진짜지존법사",
+      "job_name": "비숍",
+      "actual_rank": 70,
+      "observed_performance": 302537940000,
+      "predicted_performance": 348735741484,
+      "held_out_prediction": 359454879802
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "망겜감별사",
+      "job_name": "비숍",
+      "actual_rank": 71,
+      "observed_performance": 297285560000,
+      "predicted_performance": 284472237766,
+      "held_out_prediction": 282729058222
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "웅선김",
+      "job_name": "보우마스터",
+      "actual_rank": 72,
+      "observed_performance": 294902670000,
+      "predicted_performance": 253671701026,
+      "held_out_prediction": 250279812197
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "아이츄크림",
+      "job_name": "비숍",
+      "actual_rank": 73,
+      "observed_performance": 292025350000,
+      "predicted_performance": 320963146016,
+      "held_out_prediction": 316559076228
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "귀염둥이제제",
+      "job_name": "팔라딘",
+      "actual_rank": 74,
+      "observed_performance": 286199940000,
+      "predicted_performance": 250069222218,
+      "held_out_prediction": 246870900664
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "우유냥",
+      "job_name": "비숍",
+      "actual_rank": 75,
+      "observed_performance": 285619670000,
+      "predicted_performance": 313034599010,
+      "held_out_prediction": 309440876893
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "정듄",
+      "job_name": "캡틴",
+      "actual_rank": 76,
+      "observed_performance": 281811810000,
+      "predicted_performance": 262668496525,
+      "held_out_prediction": 256995510532
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "막내비숍",
+      "job_name": "비숍",
+      "actual_rank": 77,
+      "observed_performance": 278004780000,
+      "predicted_performance": 266999503000,
+      "held_out_prediction": 266526836856
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을주의",
+      "job_name": "팔라딘",
+      "actual_rank": 78,
+      "observed_performance": 257466410000,
+      "predicted_performance": 234345649182,
+      "held_out_prediction": 234699149675
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "세아수호지호",
+      "job_name": "비숍",
+      "actual_rank": 79,
+      "observed_performance": 255060840000,
+      "predicted_performance": 364364261518,
+      "held_out_prediction": 361750552498
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "할게없다고",
+      "job_name": "비숍",
+      "actual_rank": 80,
+      "observed_performance": 251175780000,
+      "predicted_performance": 263621822095,
+      "held_out_prediction": 260216494827
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "정슌",
+      "job_name": "다크나이트",
+      "actual_rank": 81,
+      "observed_performance": 246100410000,
+      "predicted_performance": 248488533676,
+      "held_out_prediction": 246705068871
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "프리프리",
+      "job_name": "나이트로드",
+      "actual_rank": 82,
+      "observed_performance": 245613820000,
+      "predicted_performance": 315919796043,
+      "held_out_prediction": 315077068572
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "YooU",
+      "job_name": "나이트로드",
+      "actual_rank": 83,
+      "observed_performance": 242663380000,
+      "predicted_performance": 234846125492,
+      "held_out_prediction": 238474875702
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "루넨",
+      "job_name": "비숍",
+      "actual_rank": 84,
+      "observed_performance": 235991010000,
+      "predicted_performance": 270013993562,
+      "held_out_prediction": 268493173179
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "제로슈가",
+      "job_name": "비숍",
+      "actual_rank": 85,
+      "observed_performance": 213089770000,
+      "predicted_performance": 222223448834,
+      "held_out_prediction": 221090603686
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "charon",
+      "job_name": "비숍",
+      "actual_rank": 86,
+      "observed_performance": 212288150000,
+      "predicted_performance": 271415051526,
+      "held_out_prediction": 271140688466
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "피타입",
+      "job_name": "나이트로드",
+      "actual_rank": 87,
+      "observed_performance": 210875310000,
+      "predicted_performance": 256311607838,
+      "held_out_prediction": 260682950558
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "즐처드셈",
+      "job_name": "비숍",
+      "actual_rank": 88,
+      "observed_performance": 210444390000,
+      "predicted_performance": 323420110084,
+      "held_out_prediction": 332077524872
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "힐나눔",
+      "job_name": "비숍",
+      "actual_rank": 89,
+      "observed_performance": 208853610000,
+      "predicted_performance": 141849780637,
+      "held_out_prediction": 141909173613
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "강남무자본",
+      "job_name": "아크메이지(불,독)",
+      "actual_rank": 90,
+      "observed_performance": 205197800000,
+      "predicted_performance": 289740164338,
+      "held_out_prediction": 291345443372
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "ADELL",
+      "job_name": "히어로",
+      "actual_rank": 91,
+      "observed_performance": 202237120000,
+      "predicted_performance": 249243502668,
+      "held_out_prediction": 254615100271
+    },
+    {
+      "match": "셀린느",
+      "guild": "셀린느",
+      "nickname": "혜영",
+      "job_name": "비숍",
+      "actual_rank": 92,
+      "observed_performance": 198253420000,
+      "predicted_performance": 201474764471,
+      "held_out_prediction": 200367816499
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "zi존동길",
+      "job_name": "비숍",
+      "actual_rank": 93,
+      "observed_performance": 194867880000,
+      "predicted_performance": 190501541635,
+      "held_out_prediction": 188528022784
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "대전월클",
+      "job_name": "바이퍼",
+      "actual_rank": 94,
+      "observed_performance": 190666320000,
+      "predicted_performance": 210420675908,
+      "held_out_prediction": 214440644931
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "반서님",
+      "job_name": "바이퍼",
+      "actual_rank": 95,
+      "observed_performance": 180649370000,
+      "predicted_performance": 253113159143,
+      "held_out_prediction": 253552329386
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "유디티기찬",
+      "job_name": "팔라딘",
+      "actual_rank": 96,
+      "observed_performance": 178183080000,
+      "predicted_performance": 192200137698,
+      "held_out_prediction": 194892851683
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "한도100",
+      "job_name": "팔라딘",
+      "actual_rank": 97,
+      "observed_performance": 176730700000,
+      "predicted_performance": 186651647834,
+      "held_out_prediction": 184294781992
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "뜨람프",
+      "job_name": "신궁",
+      "actual_rank": 98,
+      "observed_performance": 176192440000,
+      "predicted_performance": 203251093715,
+      "held_out_prediction": 202020997458
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "원순철",
+      "job_name": "바이퍼",
+      "actual_rank": 99,
+      "observed_performance": 175226660000,
+      "predicted_performance": 207902188308,
+      "held_out_prediction": 211828033177
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "표창빌런",
+      "job_name": "나이트로드",
+      "actual_rank": 100,
+      "observed_performance": 174302300000,
+      "predicted_performance": 218248660626,
+      "held_out_prediction": 220646419691
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "앙음",
+      "job_name": "바이퍼",
+      "actual_rank": 101,
+      "observed_performance": 173120350000,
+      "predicted_performance": 156095106522,
+      "held_out_prediction": 158625458577
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "악갱",
+      "job_name": "섀도어",
+      "actual_rank": 102,
+      "observed_performance": 166008310000,
+      "predicted_performance": 183219802468,
+      "held_out_prediction": 185035885004
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "고래털",
+      "job_name": "비숍",
+      "actual_rank": 103,
+      "observed_performance": 165886130000,
+      "predicted_performance": 212618625986,
+      "held_out_prediction": 217754852251
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을푸링",
+      "job_name": "비숍",
+      "actual_rank": 104,
+      "observed_performance": 163817900000,
+      "predicted_performance": 123319175125,
+      "held_out_prediction": 123881856287
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "Or이유",
+      "job_name": "비숍",
+      "actual_rank": 105,
+      "observed_performance": 159887270000,
+      "predicted_performance": 196273531192,
+      "held_out_prediction": 200725100049
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "초쓰",
+      "job_name": "비숍",
+      "actual_rank": 106,
+      "observed_performance": 151134150000,
+      "predicted_performance": 245982024908,
+      "held_out_prediction": 245883973374
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "꼼맹",
+      "job_name": "비숍",
+      "actual_rank": 107,
+      "observed_performance": 148133520000,
+      "predicted_performance": 153116418435,
+      "held_out_prediction": 151694445497
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "기요코",
+      "job_name": "히어로",
+      "actual_rank": 108,
+      "observed_performance": 147008790000,
+      "predicted_performance": 164841764736,
+      "held_out_prediction": 167991697484
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "천닼나",
+      "job_name": "팔라딘",
+      "actual_rank": 109,
+      "observed_performance": 145617640000,
+      "predicted_performance": 146618024959,
+      "held_out_prediction": 145256087126
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "끽코",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 110,
+      "observed_performance": 144656110000,
+      "predicted_performance": 170902425629,
+      "held_out_prediction": 175514407214
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을구름",
+      "job_name": "캡틴",
+      "actual_rank": 111,
+      "observed_performance": 143851730000,
+      "predicted_performance": 219319085221,
+      "held_out_prediction": 224883656081
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "Ragus",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 112,
+      "observed_performance": 138823890000,
+      "predicted_performance": 165732480374,
+      "held_out_prediction": 170543749333
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "악전",
+      "job_name": "신궁",
+      "actual_rank": 113,
+      "observed_performance": 137623460000,
+      "predicted_performance": 161873169494,
+      "held_out_prediction": 163850424801
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "모르도아",
+      "job_name": "비숍",
+      "actual_rank": 114,
+      "observed_performance": 137200960000,
+      "predicted_performance": 151250245004,
+      "held_out_prediction": 151253125753
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "아테나1",
+      "job_name": "비숍",
+      "actual_rank": 115,
+      "observed_performance": 129541720000,
+      "predicted_performance": 130663764967,
+      "held_out_prediction": 131293595493
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "박미쯔",
+      "job_name": "비숍",
+      "actual_rank": 116,
+      "observed_performance": 126535180000,
+      "predicted_performance": 160118930188,
+      "held_out_prediction": 163150286077
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "미나별",
+      "job_name": "비숍",
+      "actual_rank": 117,
+      "observed_performance": 124185600000,
+      "predicted_performance": 174968748294,
+      "held_out_prediction": 174966958235
+    },
+    {
+      "match": "셀린느",
+      "guild": "호러",
+      "nickname": "강띵띵",
+      "job_name": "팔라딘",
+      "actual_rank": 118,
+      "observed_performance": 123004050000,
+      "predicted_performance": 165359183727,
+      "held_out_prediction": 167647288561
+    },
+    {
+      "match": "셀린느",
+      "guild": "알콜클럽",
+      "nickname": "묘냥잉",
+      "job_name": "비숍",
+      "actual_rank": 119,
+      "observed_performance": 122436520000,
+      "predicted_performance": 99651369917,
+      "held_out_prediction": 99390717219
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을새벽",
+      "job_name": "비숍",
+      "actual_rank": 120,
+      "observed_performance": 120407610000,
+      "predicted_performance": 87214800643,
+      "held_out_prediction": 87534043339
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "스큐류바",
+      "job_name": "히어로",
+      "actual_rank": 121,
+      "observed_performance": 119405760000,
+      "predicted_performance": 131738763816,
+      "held_out_prediction": 130197465376
+    },
+    {
+      "match": "셀린느",
+      "guild": "헤라클레스",
+      "nickname": "백정Hero",
+      "job_name": "바이퍼",
+      "actual_rank": 122,
+      "observed_performance": 106960250000,
+      "predicted_performance": 110135160900,
+      "held_out_prediction": 110959207803
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을이즈",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 123,
+      "observed_performance": 101496580000,
+      "predicted_performance": 81971083498,
+      "held_out_prediction": 82136709301
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을치누",
+      "job_name": "다크나이트",
+      "actual_rank": 124,
+      "observed_performance": 92408150000,
+      "predicted_performance": 101146638545,
+      "held_out_prediction": 101703251712
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을승용",
+      "job_name": "바이퍼",
+      "actual_rank": 125,
+      "observed_performance": 92158670000,
+      "predicted_performance": 117837270155,
+      "held_out_prediction": 118971961051
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을시아",
+      "job_name": "비숍",
+      "actual_rank": 126,
+      "observed_performance": 89427470000,
+      "predicted_performance": 75561178986,
+      "held_out_prediction": 75789601627
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을짭식",
+      "job_name": "비숍",
+      "actual_rank": 127,
+      "observed_performance": 89344580000,
+      "predicted_performance": 93043462150,
+      "held_out_prediction": 93351450711
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "이웡삥",
+      "job_name": "바이퍼",
+      "actual_rank": 128,
+      "observed_performance": 88870480000,
+      "predicted_performance": 69048206821,
+      "held_out_prediction": 68881090501
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을주크",
+      "job_name": "팔라딘",
+      "actual_rank": 129,
+      "observed_performance": 62796030000,
+      "predicted_performance": 62976264405,
+      "held_out_prediction": 62864169023
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을고래",
+      "job_name": "비숍",
+      "actual_rank": 130,
+      "observed_performance": 62312020000,
+      "predicted_performance": 55595038946,
+      "held_out_prediction": 55723093993
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을망령",
+      "job_name": "다크나이트",
+      "actual_rank": 131,
+      "observed_performance": 54165260000,
+      "predicted_performance": 49491449518,
+      "held_out_prediction": 49670467750
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을하온",
+      "job_name": "아크메이지(썬,콜)",
+      "actual_rank": 132,
+      "observed_performance": 50874870000,
+      "predicted_performance": 46188921522,
+      "held_out_prediction": 46224331346
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "속초피바다",
+      "job_name": "비숍",
+      "actual_rank": 133,
+      "observed_performance": 50395400000,
+      "predicted_performance": 62735105013,
+      "held_out_prediction": 62913265976
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을비츠",
+      "job_name": "바이퍼",
+      "actual_rank": 134,
+      "observed_performance": 49945170000,
+      "predicted_performance": 48358243333,
+      "held_out_prediction": 48725335277
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을둥이",
+      "job_name": "나이트로드",
+      "actual_rank": 135,
+      "observed_performance": 49694420000,
+      "predicted_performance": 44953874507,
+      "held_out_prediction": 44827548176
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을밍",
+      "job_name": "보우마스터",
+      "actual_rank": 136,
+      "observed_performance": 49419700000,
+      "predicted_performance": 62267512551,
+      "held_out_prediction": 63444621014
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을결빛",
+      "job_name": "히어로",
+      "actual_rank": 137,
+      "observed_performance": 42707900000,
+      "predicted_performance": 32488418283,
+      "held_out_prediction": 32478628994
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "사자탈",
+      "job_name": "보우마스터",
+      "actual_rank": 138,
+      "observed_performance": 39346430000,
+      "predicted_performance": 58799738571,
+      "held_out_prediction": 59896088409
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "Matter2",
+      "job_name": "비숍",
+      "actual_rank": 139,
+      "observed_performance": 32766380000,
+      "predicted_performance": 32562232534,
+      "held_out_prediction": 32727852674
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "햄숍",
+      "job_name": "비숍",
+      "actual_rank": 140,
+      "observed_performance": 32660400000,
+      "predicted_performance": 52660485079,
+      "held_out_prediction": 52769104837
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을도아",
+      "job_name": "비숍",
+      "actual_rank": 141,
+      "observed_performance": 31740910000,
+      "predicted_performance": 33414440433,
+      "held_out_prediction": 33459451078
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을달빛",
+      "job_name": "캡틴",
+      "actual_rank": 142,
+      "observed_performance": 29837220000,
+      "predicted_performance": 42972539073,
+      "held_out_prediction": 43885142245
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을쁨",
+      "job_name": "비숍",
+      "actual_rank": 143,
+      "observed_performance": 26648860000,
+      "predicted_performance": 47562504709,
+      "held_out_prediction": 47669961450
+    },
+    {
+      "match": "셀린느",
+      "guild": "노을이",
+      "nickname": "노을쿠키",
+      "job_name": "히어로",
+      "actual_rank": 144,
+      "observed_performance": 24978790000,
+      "predicted_performance": 34196761373,
+      "held_out_prediction": 34194217929
+    },
+    {
+      "match": "셀린느",
+      "guild": "리안",
+      "nickname": "캐랑",
+      "job_name": "바이퍼",
+      "actual_rank": 145,
+      "observed_performance": 13162250000,
+      "predicted_performance": 14612814241,
+      "held_out_prediction": 14651030744
+    }
+  ],
+  "training_fit": {
+    "count": 280,
+    "log_rmse": 0.21972496348231726,
+    "median_abs_percent_error": 14.103804641564698,
+    "mean_abs_percent_error": 18.289976260345504,
+    "p90_abs_percent_error": 38.341512382030345
+  },
+  "training_rank_comparison": {
+    "빅딜": {
+      "count": 137,
+      "raw_power_rank_mae": 13.021897810218977,
+      "calibrated_rank_mae": 10.992700729927007
+    },
+    "셀린느": {
+      "count": 143,
+      "raw_power_rank_mae": 6.027972027972028,
+      "calibrated_rank_mae": 5.300699300699301
+    }
+  }
+}

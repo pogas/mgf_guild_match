@@ -1,4 +1,5 @@
 import argparse
+import copy
 import json
 import math
 import os
@@ -15,6 +16,8 @@ from xlsxwriter import Workbook
 from xlsxwriter.exceptions import FileCreateError
 from xlsxwriter.worksheet import Worksheet
 from bs4 import BeautifulSoup, Tag
+from league_calibration import estimate_league_performance, load_league_model, canonical_job, DEFAULT_JOB_FACTORS
+from training_calibration import estimate_training_performance, load_training_model
 
 
 BASE_URL = "https://mgf.gg"
@@ -25,7 +28,9 @@ REPORT_MODE_LABELS = {
     "league": "대항전",
     "training": "수련장",
 }
-# 수련장 점수 추정 모델 (셀린느/빅딜 수련장 샘플 OCR + 최신 snapshot 전투력 매칭, 2026-04-13)
+# 기존 수련장 모델: 3차 fallback 및 새 모델과의 비교용으로 보존.
+# 4차 예측은 training_calibration.py의 2026-09-17 실측 보정식을 사용한다.
+# 기존 모델 출처: 셀린느/빅딜 수련장 샘플 OCR + snapshot 전투력 매칭, 2026-04-13.
 # 공식: 예상점수 = job_scale × (level ** 0.5) × ((combat_power / 1억) ** 0.23)
 # 확정 샘플 96건 기준 참고용 추정치
 # 직업 계수: MGF.GG 커뮤니티 밸런스 분석(2026-04-09) 기반
@@ -723,7 +728,7 @@ def get_training_job_adjustment(coefficient_label: str) -> float:
     return TRAINING_JOB_ADJUSTMENTS.get(coefficient_label, 1.0)
 
 
-def estimate_training_score(level: int, combat_power_value: int, job_name: str) -> int:
+def estimate_training_score_legacy(level: int, combat_power_value: int, job_name: str) -> int:
     """레벨 + 전투력 + 직업 기반 수련장 예상 점수 추정.
     3차(Lv.60~99) / 4차(Lv.100+) 계수 자동 선택.
     """
@@ -735,6 +740,14 @@ def estimate_training_score(level: int, combat_power_value: int, job_name: str) 
     tier_multiplier = TRAINING_TIER_MULTIPLIERS[get_training_tier_label(level)]
     job_adjustment = get_training_job_adjustment(coefficient_label)
     return round(raw_score * TRAINING_SCORE_GLOBAL_MULTIPLIER * bucket_multiplier * tier_multiplier * job_adjustment)
+
+
+def estimate_training_score(level: int, combat_power_value: int, job_name: str) -> int:
+    if level <= 0 or combat_power_value <= 0:
+        return 0
+    if level < 100 and canonical_job(job_name) not in DEFAULT_JOB_FACTORS:
+        return estimate_training_score_legacy(level, combat_power_value, job_name)
+    return int(estimate_training_performance(level, combat_power_value, job_name)['value'])
 
 
 def next_available_path(path: Path) -> Path:
@@ -827,9 +840,22 @@ def build_guild_war_simulation(
         for guild_members in members_by_guild.values()
         for member in guild_members
     ]
+    projected_members = []
+    for member in all_members:
+        projection = estimate_league_performance(
+            _safe_int(member.get("level")),
+            power_to_man_units(str(member.get("combat_power", ""))),
+            str(member.get("job_name", "")),
+        )
+        projected_members.append({
+            **member,
+            "estimated_performance_value": projection["value"],
+            "calibration_status": projection["status"],
+        })
     sorted_members = sorted(
-        all_members,
+        projected_members,
         key=lambda member: (
+            -int(member["estimated_performance_value"]),
             -power_to_man_units(str(member.get("combat_power", ""))),
             str(member.get("guild_name", "")),
             str(member.get("nickname", "")),
@@ -860,6 +886,9 @@ def build_guild_war_simulation(
             "job_name": str(member.get("job_name", "")),
             "character_url": str(member.get("character_url", "")),
             "score": score,
+            "level": _safe_int(member.get("level")),
+            "estimated_performance_value": int(member["estimated_performance_value"]),
+            "calibration_status": str(member["calibration_status"]),
         }
         ranked_members.append(ranked_member)
 
@@ -881,11 +910,8 @@ def build_guild_war_simulation(
         guild_row["total_score_text"] = format_score(int(guild_row["total_score"]))
 
     score_table_preview = [
-        {"label": "1~10위", "range": "1,000,000 → 410,000"},
-        {"label": "11~30위", "range": "380,000 → 160,000"},
-        {"label": "31~60위", "range": "157,000 → 100,000"},
-        {"label": "61~100위", "range": "99,000 → 60,300"},
-        {"label": "101~150위", "range": "59,600 → 25,300"},
+        {"label": f"{start}~{end}위", "range": f"{score_by_rank.get(start, 0):,} → {score_by_rank.get(end, 0):,}"}
+        for start, end in [(1, 10), (11, 30), (31, 60), (61, 100), (101, 150)]
     ]
 
     return {
@@ -893,10 +919,12 @@ def build_guild_war_simulation(
         "guild_rankings": guild_rankings,
         "score_table": score_table,
         "score_table_preview": score_table_preview,
+        "calibration": load_league_model(),
     }
 
 
 def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    model = load_training_model()
     ranked_members: list[dict[str, Any]] = []
     all_members = [
         member
@@ -927,14 +955,17 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
         except (ValueError, TypeError):
             level = 0
         coefficient, coefficient_label = get_training_job_coefficient_by_tier(job_name, level if level > 0 else None)
+        calibration_status = 'legacy_third_job'
+        if level >= 100 or canonical_job(job_name) in DEFAULT_JOB_FACTORS:
+            projection = estimate_training_performance(level, combat_power_value, job_name)
+            calibration_status = projection['status']
+            coefficient = 255000.0 * projection['job_factor'] / model['job_factors']['비숍']
+            coefficient_label = job_name or '공통 기준'
         if level > 0:
             estimated_metric_value = estimate_training_score(level, combat_power_value, job_name)
         else:
-            # 레벨 정보 없을 때 점수 규모를 맞춘 전투력 기반 fallback
-            bucket_multiplier = get_training_bucket_multiplier(combat_power_value)
-            tier_multiplier = TRAINING_TIER_MULTIPLIERS[get_training_tier_label(None)]
-            job_adjustment = get_training_job_adjustment(coefficient_label)
-            estimated_metric_value = round((max(combat_power_value / 100_000_000, 1) ** TRAINING_POWER_EXPONENT) * coefficient * TRAINING_SCORE_GLOBAL_MULTIPLIER * bucket_multiplier * tier_multiplier * job_adjustment)
+            estimated_metric_value = 0
+            calibration_status = 'missing_input'
         projected_members.append(
             {
                 "guild_name": guild_name,
@@ -947,9 +978,10 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
                 "character_url": str(member.get("character_url", "")),
                 "coefficient": coefficient,
                 "coefficient_label": coefficient_label,
+                "calibration_status": calibration_status,
                 "score": estimated_metric_value,
                 "estimated_metric_value": estimated_metric_value,
-                "estimated_metric_text": format_score(estimated_metric_value),
+                "estimated_metric_text": format_score(estimated_metric_value) + (" · 참고 추정" if calibration_status != "calibrated" else ""),
             }
         )
 
@@ -973,7 +1005,7 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
         guild_total = guild_totals[str(member["guild_name"])]
         guild_total["member_count"] += 1
         guild_total["total_score"] += int(member["estimated_metric_value"])
-        normalized_job_ratio = float(member["coefficient"]) / 800000.0
+        normalized_job_ratio = float(member["coefficient"]) / 255000.0
         guild_total["job_ratio_sum"] += normalized_job_ratio
         coefficient_label = str(member["coefficient_label"])
         guild_total["job_count_map"][coefficient_label] = int(guild_total["job_count_map"].get(coefficient_label, 0)) + 1
@@ -996,10 +1028,10 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
         guild_row["job_mix_text"] = ", ".join(f"{name} {count}명" for name, count in top_jobs) or "집계 없음"
 
     coefficient_preview = [
-        {"label": "레벨 영향", "range": "level^0.2"},
-        {"label": "전투력 영향", "range": "power^0.2"},
+        {"label": "레벨 영향", "range": f"(level/110)^{model['level_exponent']}"},
+        {"label": "전투력 영향", "range": f"(power/1000조)^{model['power_exponent']:.4f}"},
         {"label": "직업 보정", "range": "3차/4차 전직별 계수"},
-        {"label": "평균 오차", "range": "약 12.1%"},
+        {"label": "평균 오차", "range": f"{model['validation']['new']['mean_abs_percent_error']:.1f}%"},
     ]
 
     def _make_coeff_cards(coeff_dict: dict[str, float]) -> list[dict[str, str]]:
@@ -1010,7 +1042,7 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
 
     job_coefficient_cards = {
         "3rd": _make_coeff_cards(TRAINING_JOB_COEFFICIENTS_3RD),
-        "4th": _make_coeff_cards(TRAINING_JOB_COEFFICIENTS_4TH),
+        "4th": _make_coeff_cards({job:255000.0*factor/model['job_factors']['비숍'] for job,factor in {**model['job_factors'], **DEFAULT_JOB_FACTORS}.items()}),
     }
 
     return {
@@ -1019,6 +1051,7 @@ def build_training_simulation(members_by_guild: dict[str, list[dict[str, Any]]])
         "score_table": [],
         "score_table_preview": coefficient_preview,
         "job_coefficient_cards": job_coefficient_cards,
+        "calibration": model,
     }
 
 
@@ -1084,6 +1117,11 @@ def build_snapshot_data(
         "report_mode": report_mode,
         "snapshot_date": snapshot_date,
         "guilds": guilds,
+        **({"league_calibration_date": load_league_model()["sample_date"],
+            "league_profile_date": load_league_model()["profile_date"],
+            "league_score_table_date": "2026-09-14"} if report_mode == "league" else {}),
+        **({"training_calibration_date": load_training_model()["model_date"],
+            "training_sample_date": load_training_model()["sample_date"]} if report_mode == "training" else {}),
     }
 
 
@@ -1140,8 +1178,40 @@ def build_sparkline(values: list[int], width: int = 120, height: int = 36) -> st
     return f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="{" ".join(points)}" /></svg>'
 
 
+def rebase_league_snapshot(snapshot: dict[str, Any]) -> dict[str, Any]:
+    """Compare historical rosters under today's model/rules without rewriting history."""
+    if _safe_snapshot_mode(snapshot) != "league":
+        return snapshot
+    rebased = copy.deepcopy(snapshot)
+    simulation = build_guild_war_simulation(
+        build_members_by_guild_from_snapshot(snapshot), parse_score_table(SCORE_TABLE_PATH),
+    )
+    for row in simulation["guild_rankings"]:
+        guild = rebased["guilds"][row["guild_name"]]
+        guild["simulation_score"] = row["total_score"]
+        guild["simulation_rank"] = row["simulation_rank"]
+    return rebased
+
+
+def rebase_training_snapshot(snapshot: dict[str, Any]) -> dict[str, Any]:
+    if _safe_snapshot_mode(snapshot) != "training":
+        return snapshot
+    rebased = copy.deepcopy(snapshot)
+    simulation = build_training_simulation(build_members_by_guild_from_snapshot(snapshot))
+    for row in simulation['guild_rankings']:
+        rebased['guilds'][row['guild_name']]['simulation_score'] = row['total_score']
+        rebased['guilds'][row['guild_name']]['simulation_rank'] = row['simulation_rank']
+    return rebased
+
+
 def build_history_analysis(current_snapshot: dict[str, Any], history_snapshots: list[dict[str, Any]]) -> dict[str, Any]:
     report_mode = str(current_snapshot.get("report_mode", "league"))
+    if report_mode == "league":
+        current_snapshot = rebase_league_snapshot(current_snapshot)
+        history_snapshots = [rebase_league_snapshot(s) for s in history_snapshots]
+    elif report_mode == "training":
+        current_snapshot = rebase_training_snapshot(current_snapshot)
+        history_snapshots = [rebase_training_snapshot(s) for s in history_snapshots]
     current_date = str(current_snapshot.get("snapshot_date", ""))
     compatible_history = [
         snapshot
@@ -1649,6 +1719,12 @@ def build_snapshot_analytics(
     simulation: dict[str, Any],
 ) -> dict[str, Any]:
     report_mode = str(current_snapshot.get("report_mode", "league"))
+    if report_mode == "league":
+        current_snapshot = rebase_league_snapshot(current_snapshot)
+        history_snapshots = [rebase_league_snapshot(s) for s in history_snapshots]
+    elif report_mode == "training":
+        current_snapshot = rebase_training_snapshot(current_snapshot)
+        history_snapshots = [rebase_training_snapshot(s) for s in history_snapshots]
     guild_seed_name = str(current_snapshot.get("guild_seed_name", ""))
     current_date = str(current_snapshot.get("snapshot_date", ""))
     history_analysis = build_history_analysis(current_snapshot, history_snapshots)
@@ -2493,6 +2569,22 @@ def render_detail_comparison_section(
 
 
 def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analysis: dict[str, Any]) -> str:
+    model = simulation["calibration"]
+    coefficient_cards = "".join(
+        f'<article class="score-rule-card"><span>{escape(job)} · {model["job_sample_counts"][job]}건</span><strong>×{factor:.3f}</strong></article>'
+        for job, factor in sorted(model["job_factors"].items())
+    )
+    coefficient_cards += "".join(
+        f'<article class="score-rule-card"><span>{escape(job)} · 기본</span><strong>×{factor:.3f}</strong></article>'
+        for job, factor in DEFAULT_JOB_FACTORS.items()
+    )
+    uncertain_count = sum(member["calibration_status"] != "calibrated" for member in simulation["ranked_members"])
+
+    def performance_text(member: dict[str, Any]) -> str:
+        value = format_man_units(int(member["estimated_performance_value"]) // 10000)
+        suffix = " · 참고 추정" if member["calibration_status"] != "calibrated" else ""
+        return escape(value + suffix)
+
     simulation_rank_changes = history_analysis.get("simulation_rank_changes", {})
     guild_filter_options = "".join(
         f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
@@ -2537,7 +2629,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analys
           <td>{escape(str(member['guild_name']))}</td>
           <td><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">{escape(str(member['nickname']))}</a></td>
           <td>{escape(str(member['job_name']))}</td>
-          <td>{escape(str(member['combat_power']))}</td>
+          <td>{escape(str(member['combat_power']))}<br><span class="hint">예상 기록 {performance_text(member)}</span></td>
           <td class="simulation-rank-change-cell">{render_simulation_rank_change_badge(simulation_rank_changes.get(build_member_key(member)), compact=True)}</td>
           <td class="simulation-score-cell">{format_score(int(member['score']))}</td>
         </tr>
@@ -2559,7 +2651,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analys
                 </div>
               </div>
               <div class="simulation-member-score">
-                <span>예상 점수</span>
+                <span>예상 기여도</span>
                 <strong>{format_score(int(member['score']))}</strong>
               </div>
             </div>
@@ -2570,6 +2662,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analys
               <div><dt>길드</dt><dd>{escape(str(member['guild_name']))}</dd></div>
               <div><dt>직업</dt><dd><strong class="job-name">{escape(str(member['job_name']))}</strong></dd></div>
               <div><dt>순위</dt><dd>{int(member['overall_rank'])}위</dd></div>
+              <div><dt>예상 기록</dt><dd>{performance_text(member)}</dd></div>
               <div><dt>직전 변동</dt><dd>{render_simulation_rank_change_badge(simulation_rank_changes.get(build_member_key(member)), compact=True)}</dd></div>
               <div><dt>프로필</dt><dd><a href="{escape(str(member['character_url']))}" target="_blank" rel="noreferrer">캐릭터 보기</a></dd></div>
             </dl>
@@ -2587,16 +2680,31 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analys
             <div>
               <p class="eyebrow">Guild War Projection</p>
               <h3>대항전 예상 시뮬레이터</h3>
-              <p class="simulation-copy">모든 길드원을 전투력 순으로 다시 정렬한 뒤, 제공된 순위별 점수표를 적용해 길드별 총합 점수를 계산했다.</p>
+              <p class="simulation-copy">직업·레벨·전투력으로 대항전 기록을 예측하고, 예상 개인 순위에 새 배점을 적용해 길드 기여도를 합산했다.</p>
             </div>
           </div>
+          <section class="job-coefficient-section simulation-preview-section">
+            <button type="button" class="job-coefficient-toggle" aria-expanded="false">
+              <div class="job-coefficient-head">
+                <div><h3>9월 14일 실측 보정식</h3><p class="simulation-copy">{model['sample_count']}건 학습 · 길드 분리 검증 평균 오차 {model['validation']['nested']['mean_abs_percent_error']:.1f}%</p></div>
+                <div class="job-coefficient-summary">학습 {len(model['job_factors'])}개 · 기본 {len(DEFAULT_JOB_FACTORS)}개</div>
+              </div>
+              <span class="simulation-section-toggle-label">상세 보기</span>
+            </button>
+            <div class="job-coefficient-details" hidden>
+              <p class="simulation-copy">9월 14일 실측 기록에 9월 16일 조회한 캐릭터 정보를 연결했다. 성장·장비 변경과 실제 참여 상태에 따라 오차가 생길 수 있다. 검증은 같은 날짜의 다른 길드를 대상으로 했다.</p>
+              <p class="simulation-copy">직업 계수는 공통 기준 대비 배율이다. 윈드브레이커·나이트워커는 공통 기본 계수 ×1을 적용한다. 나이트워커 실측은 1건뿐이며 두 직업의 개별 계수는 미학습이다. 학습 범위 Lv.{model['level_range'][0]}~{model['level_range'][1]} 밖이거나 정보가 부족한 {uncertain_count}명은 ‘참고 추정’으로 표시한다.</p>
+              <div class="score-rule-grid">{coefficient_cards}</div>
+              <p class="simulation-copy">과거 비교도 같은 보정식과 새 배점으로 재계산했다. 과거 명단이 불완전하면 변동 폭이 커질 수 있다.</p>
+            </div>
+          </section>
           <section class="job-coefficient-section simulation-preview-section">
             <button type="button" class="job-coefficient-toggle" aria-expanded="false">
               <div class="job-coefficient-head">
                 <div>
                   <p class="eyebrow">Guild War Score Table</p>
                   <h3>대항전 점수표 미리보기</h3>
-                  <p class="simulation-copy">순위별 배점을 기준으로 전원을 다시 합산한 결과다.</p>
+                  <p class="simulation-copy">9월 14일 자료로 1~147위 배점을 확인했다. 148~150위는 샘플이 없어 기존 배점을 유지했다.</p>
                 </div>
                 <div class="job-coefficient-summary">{preview_count}개 구간</div>
               </div>
@@ -2618,7 +2726,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analys
                     {guild_filter_options}
                   </select>
                 </label>
-                <span class="hint">전투력 기준 정렬 · 점수표 자동 반영</span>
+                <span class="hint">보정 기록 기준 정렬 · 순위별 기여도 합산</span>
               </div>
             </div>
             <div class="simulation-mobile-card-list" data-target="guild-war-simulation-table">{ranked_cards}</div>
@@ -2631,7 +2739,7 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analys
                   <th>직업</th>
                   <th data-sort="power">전투력</th>
                   <th>변동</th>
-                  <th>예상 점수</th>
+                  <th>예상 기여도</th>
                 </tr>
               </thead>
               <tbody>{ranked_rows}</tbody>
@@ -2644,6 +2752,8 @@ def render_guild_war_simulation_modal(simulation: dict[str, Any], history_analys
 
 
 def render_training_simulation_modal(simulation: dict[str, Any], history_analysis: dict[str, Any]) -> str:
+    model = simulation['calibration']
+    uncertain_count = sum(m['calibration_status'] != 'calibrated' for m in simulation['ranked_members'])
     simulation_rank_changes = history_analysis.get("simulation_rank_changes", {})
     guild_filter_options = "".join(
         f'<option value="{escape(str(guild_row["guild_name"]))}">{escape(str(guild_row["guild_name"]))}</option>'
@@ -2726,7 +2836,7 @@ def render_training_simulation_modal(simulation: dict[str, Any], history_analysi
               </div>
               <div class="simulation-member-score">
                 <span>예상 점수</span>
-                <strong>{format_score(int(member['score']))}</strong>
+                <strong>{escape(str(member['estimated_metric_text']))}</strong>
               </div>
             </div>
             <span class="simulation-member-toggle-label">상세 보기</span>
@@ -2754,7 +2864,8 @@ def render_training_simulation_modal(simulation: dict[str, Any], history_analysi
             <div>
               <p class="eyebrow">Training Simulator</p>
               <h3>수련장 예상 시뮬레이터</h3>
-              <p class="simulation-copy">레벨 + 전투력 + 직업 기반 수련장 예상 점수 (실제 70명 데이터 역산 모델). 평균 오차 ~12.1% — 참고용 추정치.</p>
+              <p class="simulation-copy">직업·레벨·전투력으로 수련장 점수를 예측했다. 4차 직업 {model['sample_count']}건 학습 · 길드 분리 검증 평균 오차 {model['validation']['new']['mean_abs_percent_error']:.1f}%.</p>
+              <p class="simulation-copy">9월 17일 조회한 전투력을 사용했다. 샘플 실측일은 미확인이며, 성장·장비 변경에 따른 오차가 있을 수 있다. 학습 범위 밖·미학습 직업·3차 기존식 적용 등 {uncertain_count}명은 참고 추정이다.</p>
             </div>
           </div>
           <section class="job-coefficient-section">
@@ -2763,7 +2874,7 @@ def render_training_simulation_modal(simulation: dict[str, Any], history_analysi
                 <div>
                   <p class="eyebrow">Job Coefficients</p>
                   <h3>직업 보정 계수</h3>
-                  <p class="simulation-copy">커뮤니티 밸런스 분석 기준 (MGF.GG 2026-04-09). 비숍 = 1.000 기준, 3차/4차 전직별 별도 적용.</p>
+                  <p class="simulation-copy">4차는 새 실측 보정식, 기존 직업의 3차는 기존식을 유지했다. 윈드브레이커·나이트워커는 레벨 구간과 관계없이 새 공식의 공통 기본 계수 ×1을 적용한다. 아래 배율은 비숍 = 1.000 기준으로 환산되어 두 신규 직업은 ×{1/model['job_factors']['비숍']:.3f}이다. 두 직업의 개별 계수는 미학습이다.</p>
                 </div>
                 <div class="job-coefficient-summary">{coefficient_count}개 직업</div>
               </div>
@@ -2771,15 +2882,16 @@ def render_training_simulation_modal(simulation: dict[str, Any], history_analysi
             </button>
             <div class="job-coefficient-details" hidden>
               <div class="coeff-tier-tabs" role="tablist">
-                <button type="button" class="coeff-tier-tab active" role="tab" data-tier="3rd">3차 전직 (Lv.60~99)</button>
-                <button type="button" class="coeff-tier-tab" role="tab" data-tier="4th">4차 전직 (Lv.100+)</button>
+                <button type="button" class="coeff-tier-tab" role="tab" data-tier="3rd">3차 전직 · 기존식</button>
+                <button type="button" class="coeff-tier-tab active" role="tab" data-tier="4th">4차 전직 · 실측 보정</button>
               </div>
-              <div class="coeff-tier-panel" data-tier="3rd">
+              <div class="coeff-tier-panel" data-tier="3rd" hidden>
                 <div class="job-coefficient-grid">{filtered_coefficient_cards_3rd}</div>
               </div>
-              <div class="coeff-tier-panel" data-tier="4th" hidden>
+              <div class="coeff-tier-panel" data-tier="4th">
                 <div class="job-coefficient-grid">{filtered_coefficient_cards_4th}</div>
               </div>
+              <p class="simulation-copy">학습 범위는 Lv.{model['level_range'][0]}~{model['level_range'][1]}이다. 과거 비교도 동일한 새 공식으로 재계산했다. 표본이 상위권 이미지와 별도 길드 Excel로 나뉘어 있어 다른 구간으로의 예측에는 오차가 커질 수 있다.</p>
             </div>
           </section>
           <div class="simulation-rank-grid">{guild_cards}</div>
@@ -2794,7 +2906,7 @@ def render_training_simulation_modal(simulation: dict[str, Any], history_analysi
                     {guild_filter_options}
                   </select>
                 </label>
-                <span class="hint">예상 점수 = 직업 기준값 × 레벨^0.2 × 전투력^0.2</span>
+                <span class="hint">직업 보정 × (레벨/110)^{model['level_exponent']} × (전투력/1000조)^{model['power_exponent']:.4f}</span>
               </div>
             </div>
             <div class="simulation-mobile-card-list" data-target="training-simulation-table">{ranked_cards}</div>

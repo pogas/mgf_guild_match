@@ -1,0 +1,93 @@
+{
+  "intercept_log": 24.943609799486286,
+  "power_exponent": 0.255401219858737,
+  "level_exponent": 16,
+  "job_factors": {
+    "나이트로드": 1.0003320367947637,
+    "다크나이트": 0.9915244611374556,
+    "바이퍼": 1.0057330178896922,
+    "보우마스터": 1.0774932066458067,
+    "비숍": 0.9552749135432388,
+    "섀도어": 1.0154408042348615,
+    "신궁": 1.0027522901759034,
+    "아크메이지(불,독)": 0.9825911095563687,
+    "아크메이지(썬,콜)": 0.9747084238661131,
+    "캡틴": 1.0065774834605599,
+    "팔라딘": 1.0411215786413135,
+    "히어로": 0.9529767060557269
+  },
+  "regularization": 15,
+  "schema_version": 1,
+  "sample_date": "2026-09-14",
+  "profile_date": "2026-09-16",
+  "power_unit": "man",
+  "performance_unit": "absolute",
+  "power_reference_man": 100000000000,
+  "level_reference": 110,
+  "sample_count": 280,
+  "extracted_count": 293,
+  "job_sample_counts": {
+    "바이퍼": 24,
+    "섀도어": 16,
+    "히어로": 21,
+    "비숍": 104,
+    "아크메이지(썬,콜)": 13,
+    "나이트로드": 27,
+    "팔라딘": 24,
+    "아크메이지(불,독)": 6,
+    "보우마스터": 20,
+    "캡틴": 15,
+    "다크나이트": 5,
+    "신궁": 5,
+    "나이트워커": 1
+  },
+  "pooled_jobs": [
+    "나이트워커"
+  ],
+  "minimum_job_samples": 3,
+  "level_range": [
+    105,
+    125
+  ],
+  "power_range_man": [
+    4364327914,
+    867005765801416
+  ],
+  "source_sha256": "10c0896e798624aa07daf11e979adf0c7369b44f7103c71018faf29e0aa40fd1",
+  "formula": "exp(intercept_log) * (power_man / power_reference_man)^power_exponent * (level / level_reference)^level_exponent * job_factor",
+  "limitations": [
+    "9/14 performance paired with 9/16 profiles; growth/equipment/job changes may bias estimates.",
+    "At least 3 matching samples required for a job factor; other jobs use pooled factor 1.",
+    "Displayed performance is rounded; scores are predictions, not actual results.",
+    "Validation holds out guilds from the same measurement date; no future-date validation yet."
+  ],
+  "validation": {
+    "method": "nested leave-one-guild-out",
+    "nested": {
+      "count": 280,
+      "log_rmse": 0.22903615173048925,
+      "median_abs_percent_error": 14.870203249650466,
+      "mean_abs_percent_error": 19.12360165702477,
+      "p90_abs_percent_error": 40.409599926078556
+    },
+    "power_only": {
+      "count": 280,
+      "log_rmse": 0.2631116849750082,
+      "median_abs_percent_error": 17.41931795946032,
+      "mean_abs_percent_error": 22.112644408690755,
+      "p90_abs_percent_error": 44.457975013561644
+    },
+    "rank_comparison": {
+      "빅딜": {
+        "count": 137,
+        "raw_power_rank_mae": 13.021897810218977,
+        "calibrated_rank_mae": 11.678832116788321
+      },
+      "셀린느": {
+        "count": 143,
+        "raw_power_rank_mae": 6.027972027972028,
+        "calibrated_rank_mae": 5.4825174825174825
+      }
+    }
+  }
+}
