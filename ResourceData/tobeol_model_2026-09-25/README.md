@@ -21,3 +21,17 @@
 .venv/bin/python mgf_guild_export.py --guild-name 빅딜 --tobeol-source reports/빅딜/tobeol_source.json
 .venv/bin/python mgf_guild_export.py --guild-name 셀린느 --tobeol-source reports/셀린느/tobeol_source.json
 ```
+
+## 자동 갱신
+
+- 매일 00:00 KST 예약 실행에서 대항전·수련장·토벌전 스냅샷의 닉네임을 합쳐 중복 없이 MGF 캐릭터 갱신을 요청한다.
+- 매일 12:05 KST 예약 실행에서 세 리포트를 갱신한다. GitHub Actions 실행 및 MGF 원본 갱신은 지연될 수 있다.
+- 토벌전은 각 대상 길드 페이지를 한 번 조회해 실제 점수와 능력치로 시뮬레이션을 다시 계산한다. 같은 원자료로 최신 리포트와 날짜별 기록을 저장한다.
+- 대항전·수련장 상대 길드 조회가 실패해도 성공한 토벌전 리포트는 커밋한다. 실패한 단계는 Actions에서 실패로 남는다. 대상 길드 조회 실패나 공개 점수 누락 시 기존 토벌전 리포트를 유지한다.
+- 자동화에서는 대항전·수련장에 `--skip-tobeol`을 전달해 토벌전 중복 생성과 덮어쓰기를 방지한다.
+
+토벌전만 최신 자료로 갱신하려면 다음 명령을 사용한다.
+
+```sh
+.venv/bin/python mgf_guild_export.py --guild-name 빅딜 --report-mode tobeol
+```

@@ -4441,6 +4441,17 @@ def build_workbook(
                     pass
 
 
+def build_tobeol_source(guild: dict[str, Any], members: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "guild_name": guild["guild_name"],
+        "members": members,
+        "official_member_count": get_official_member_count(guild, members),
+        "server_display": guild.get("server_display", ""),
+        "source_url": guild.get("guild_url", ""),
+        "fetched_at": max((str(member.get("source_fetched_at", "")) for member in members), default=""),
+    }
+
+
 def generate_tobeol_from_source(
     source: dict[str, Any],
     html_path: Path,
@@ -4475,9 +4486,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--report-mode",
-        choices=["league", "training"],
+        choices=["league", "training", "tobeol"],
         default="league",
-        help="리포트 종류 (league=대항전, training=수련장)",
+        help="리포트 종류 (league=대항전, training=수련장, tobeol=토벌전)",
     )
     parser.add_argument(
         "--snapshot-mode",
@@ -4504,6 +4515,10 @@ def parse_args() -> argparse.Namespace:
         "--tobeol-source", type=Path,
         help="저장된 공개 길드 기록으로 토벌전 페이지만 재생성 (네트워크 조회 없음)",
     )
+    parser.add_argument(
+        "--skip-tobeol", action="store_true",
+        help="대항전·수련장 생성 시 토벌전 동시 생성을 생략 (별도 토벌전 갱신 단계가 있는 자동화용)",
+    )
     return parser.parse_args()
 
 
@@ -4521,9 +4536,6 @@ def main() -> None:
         for path in paths:
             print(f"Created: {path}")
         return
-    league_url = build_match_url(guild_name, report_mode)
-    output_path, html_output_path, snapshot_output_path = build_output_paths(guild_name, report_mode, args.snapshot_mode, args.snapshot_date)
-
     session = requests.Session()
     session.headers.update(
         {
@@ -4535,6 +4547,25 @@ def main() -> None:
         }
     )
 
+    if report_mode == "tobeol":
+        guild_url = f"{BASE_URL}/contents/guild_info.php?g_name={quote(guild_name)}"
+        guild, members = parse_guild_page(session, guild_url)
+        if guild.get("guild_name") != guild_name or not members:
+            raise ValueError(f"토벌전 길드·멤버 자료를 확인할 수 없습니다: {guild_name}")
+        if not any(member.get("tobeol_score_value") is not None for member in members):
+            raise ValueError(f"공개 토벌전 점수가 없어 기존 리포트를 유지합니다: {guild_name}")
+        snapshot_date = resolve_snapshot_date(args.snapshot_date)
+        snapshot_path = build_tobeol_snapshot_path(guild_name, args.snapshot_mode, snapshot_date)
+        paths = generate_tobeol_from_source(
+            build_tobeol_source(guild, members), snapshot_path.parent / "index.html", snapshot_path, snapshot_date,
+        )
+        cleanup_old_history(guild_name, report_mode, args.retain_history_days)
+        for path in paths:
+            print(f"Created: {path}")
+        return
+
+    league_url = build_match_url(guild_name, report_mode)
+    output_path, html_output_path, snapshot_output_path = build_output_paths(guild_name, report_mode, args.snapshot_mode, args.snapshot_date)
     guild_links = collect_guild_links(session, league_url)
     guild_rows: list[dict[str, Any]] = []
     members_by_guild: dict[str, list[dict[str, Any]]] = OrderedDict()
@@ -4564,17 +4595,14 @@ def main() -> None:
     history_analysis["snapshot_analytics"] = build_snapshot_analytics(snapshot_data, history_snapshots, simulation)
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
     html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
-    own_members = members_by_guild.get(guild_name, [])
-    own_guild = next((g for g in guild_rows if g["guild_name"] == guild_name), {})
-    tobeol_source = {"guild_name": guild_name, "members": own_members,
-                     "official_member_count": get_official_member_count(own_guild, own_members),
-                     "server_display": own_guild.get("server_display", ""),
-                     "source_url": own_guild.get("guild_url", ""),
-                     "fetched_at": max((str(m.get("source_fetched_at", "")) for m in own_members), default="")}
-    tobeol_html_path, tobeol_snapshot_path = generate_tobeol_from_source(
-        tobeol_source, html_output_path.parent / "index.html",
-        build_tobeol_snapshot_path(guild_name, args.snapshot_mode, args.snapshot_date), snapshot_date,
-    )
+    tobeol_paths = ()
+    if not args.skip_tobeol:
+        own_members = members_by_guild.get(guild_name, [])
+        own_guild = next((g for g in guild_rows if g["guild_name"] == guild_name), {"guild_name": guild_name})
+        tobeol_paths = generate_tobeol_from_source(
+            build_tobeol_source(own_guild, own_members), html_output_path.parent / "index.html",
+            build_tobeol_snapshot_path(guild_name, args.snapshot_mode, args.snapshot_date), snapshot_date,
+        )
     snapshot_path = write_snapshot_json(snapshot_data, snapshot_output_path)
 
     total_members = sum(get_official_member_count(row, members_by_guild.get(str(row.get("guild_name", "")), [])) for row in guild_rows)
@@ -4585,9 +4613,9 @@ def main() -> None:
     print(f"Snapshot mode: {args.snapshot_mode}")
     print(f"Created: {workbook_path}")
     print(f"Created: {html_report_path}")
-    print(f"Created: {tobeol_html_path}")
     print(f"Created: {snapshot_path}")
-    print(f"Created: {tobeol_snapshot_path}")
+    for path in tobeol_paths:
+        print(f"Created: {path}")
     print(f"Guild sheets: {1 + len(members_by_guild)}")
     print(f"Guild count: {len(guild_rows)}")
     print(f"Member count: {total_members}")

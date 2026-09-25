@@ -41,7 +41,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Queue mgf.gg character refresh requests
+      - name: Queue mgf.gg character refresh requests for league, training and tobeol
         env:
           REFRESH_LIMIT: ${{ github.event.inputs.limit || '0' }}
           REFRESH_DELAY: ${{ github.event.inputs.delay || '1.25' }}

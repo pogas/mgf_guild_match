@@ -1,11 +1,15 @@
 import copy
+from contextlib import redirect_stdout
+import io
 import json
 from pathlib import Path
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
 
 from bs4 import BeautifulSoup
+from requests import HTTPError
 
 import mgf_guild_export as report
 
@@ -96,6 +100,87 @@ class TobeolReportTests(unittest.TestCase):
         old['snapshot_date'] = '2026-09-24'
         old['rank_scope'] = 'server_2'
         self.assertFalse(report.build_tobeol_history_analysis(current, [old])['has_previous'])
+
+    def test_live_refresh_and_history_share_one_fetch_without_match_pages(self):
+        for guild_name in ('빅딜', '셀린느'):
+            with self.subTest(guild=guild_name), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                guild = {'guild_name': guild_name, 'member_count': '2', 'server_display': '스카니아 2',
+                         'guild_url': f'https://mgf.gg/contents/guild_info.php?g_name={guild_name}'}
+                member = self.member(tobeol_score_value=0)
+                args = ['mgf_guild_export.py', '--guild-name', guild_name, '--report-mode', 'tobeol',
+                        '--snapshot-date', '2026-09-25']
+                with patch.object(report, '_HERE', root), redirect_stdout(io.StringIO()), \
+                     patch.object(report, 'parse_guild_page', return_value=(guild, [member])) as fetch, \
+                     patch.object(report, 'collect_guild_links', side_effect=AssertionError('opponent lookup')), \
+                     patch.object(report, 'fetch_tobeol_ranking', side_effect=AssertionError('ranking lookup')):
+                    with patch.object(sys, 'argv', args):
+                        report.main()
+                    latest_dir = root / 'reports' / guild_name
+                    with patch.object(sys, 'argv', args + ['--snapshot-mode', 'history', '--tobeol-source',
+                                                         str(latest_dir / 'tobeol_source.json')]):
+                        report.main()
+                    self.assertEqual(fetch.call_count, 1)
+                    self.assertEqual(report.extract_query_value(fetch.call_args.args[1], 'g_name'), guild_name)
+                    snapshots = [json.loads((directory / 'tobeol_snapshot.json').read_text())
+                                 for directory in (latest_dir, latest_dir / 'history' / '2026-09-25')]
+                    self.assertEqual(snapshots[0], snapshots[1])
+                    self.assertEqual(snapshots[0]['guilds'][guild_name]['actual_score_total'], 0)
+                    self.assertGreater(snapshots[0]['guilds'][guild_name]['simulation_score_total'], 0)
+                    self.assertEqual(snapshots[0]['source_fetched_at'], member['source_fetched_at'])
+                    for directory in (latest_dir, latest_dir / 'history' / '2026-09-25'):
+                        html = (directory / 'index.html').read_text()
+                        self.assertIn('시뮬레이션 점수 합계', html)
+                        self.assertTrue((directory / 'tobeol_source.json').exists())
+
+    def test_live_refresh_failure_preserves_existing_report(self):
+        cases = [
+            HTTPError('403 Forbidden'),
+            ({'guild_name': '길드'}, []),
+            ({'guild_name': '다른길드'}, [self.member()]),
+            ({'guild_name': '길드'}, [self.member(tobeol_score_value=None)]),
+        ]
+        for result in cases:
+            with self.subTest(result=result), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                directory = root / 'reports' / '길드'
+                directory.mkdir(parents=True)
+                for name in ('index.html', 'tobeol_snapshot.json', 'tobeol_source.json'):
+                    (directory / name).write_text('previous')
+                kwargs = {'side_effect': result} if isinstance(result, Exception) else {'return_value': result}
+                with patch.object(report, '_HERE', root), patch.object(report, 'parse_guild_page', **kwargs), \
+                     patch.object(sys, 'argv', ['mgf_guild_export.py', '--guild-name', '길드', '--report-mode', 'tobeol']):
+                    with self.assertRaises((HTTPError, ValueError)):
+                        report.main()
+                self.assertTrue(all(path.read_text() == 'previous' for path in directory.iterdir()))
+
+    def test_league_and_training_can_preserve_separately_refreshed_tobeol(self):
+        guilds = ['길드', '상대1', '상대2', '상대3', '상대4']
+        pages = {}
+        for name in guilds:
+            guild = {'guild_name': name, 'guild_url': name, 'server_display': '스카니아 2',
+                     'server_name': '스카니아', 'guild_key': name, 'global_rank': '1', 'server_rank': '1',
+                     'guild_level': '10', 'guild_notice': '', 'guild_master_name': name,
+                     'member_count': '1', 'guild_power': '1경', 'data_date': '2026.09.25'}
+            member = self.member(name, guild_name=name, member_rank_in_guild='1',
+                                 character_key=name, character_url='', level='120', is_master='N')
+            pages[name] = (guild, [member])
+        for mode in ('league', 'training'):
+            with self.subTest(mode=mode), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                directory = root / 'reports' / '길드'
+                directory.mkdir(parents=True)
+                boss_files = [directory / name for name in ('index.html', 'tobeol_snapshot.json', 'tobeol_source.json')]
+                for path in boss_files:
+                    path.write_text('separately refreshed')
+                with patch.object(report, '_HERE', root), redirect_stdout(io.StringIO()), \
+                     patch.object(report, 'collect_guild_links', return_value=guilds), \
+                     patch.object(report, 'parse_guild_page', side_effect=lambda session, url: pages[url]), \
+                     patch.object(sys, 'argv', ['mgf_guild_export.py', '--guild-name', '길드', '--report-mode', mode,
+                                               '--skip-tobeol', '--fail-on-invalid-data']):
+                    report.main()
+                self.assertTrue((directory / f'{mode}.html').exists())
+                self.assertTrue(all(path.read_text() == 'separately refreshed' for path in boss_files))
 
 
 if __name__ == '__main__':

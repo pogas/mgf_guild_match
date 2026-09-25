@@ -9,6 +9,13 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: auto-refresh-guild-reports
+  cancel-in-progress: false
+
+env:
+  TZ: Asia/Seoul
+
 jobs:
   refresh-reports:
     runs-on: ubuntu-latest
@@ -27,31 +34,61 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 xlsxwriter
 
-      - name: Generate latest reports
-        run: |
-          python mgf_guild_export.py --guild-name "빅딜" --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data
-          python mgf_guild_export.py --guild-name "셀린느" --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data
-          python mgf_guild_export.py --guild-name "빅딜" --report-mode training --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data
-          python mgf_guild_export.py --guild-name "셀린느" --report-mode training --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data
+      - name: Test report generation and refresh targets
+        id: tests
+        run: python -m unittest test_tobeol_report.py test_queue_character_refresh.py test_league_calibration.py test_training_calibration.py
 
-      - name: Generate daily history snapshots
+      # Fetch each target guild once; reuse the same source for its daily history.
+      # This step does not depend on league/training opponents being accessible.
+      - name: Generate latest and daily tobeol reports
         run: |
-          SNAPSHOT_DATE=$(TZ='Asia/Seoul' date +%F)
-          python mgf_guild_export.py --guild-name "빅딜" --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data
-          python mgf_guild_export.py --guild-name "셀린느" --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data
-          python mgf_guild_export.py --guild-name "빅딜" --report-mode training --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data
-          python mgf_guild_export.py --guild-name "셀린느" --report-mode training --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data
+          SNAPSHOT_DATE=$(date +%F)
+          result=0
+          for guild in "빅딜" "셀린느"; do
+            if python mgf_guild_export.py --guild-name "$guild" --report-mode tobeol --snapshot-mode latest --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7; then
+              python mgf_guild_export.py --guild-name "$guild" --tobeol-source "reports/$guild/tobeol_source.json" --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" || result=1
+            else
+              result=1
+            fi
+          done
+          exit "$result"
 
+      - name: Generate latest league and training reports
+        if: ${{ !cancelled() && steps.tests.outcome == 'success' }}
+        run: |
+          result=0
+          for mode in league training; do
+            for guild in "빅딜" "셀린느"; do
+              python mgf_guild_export.py --guild-name "$guild" --report-mode "$mode" --snapshot-mode latest --retain-history-days 7 --fail-on-invalid-data --skip-tobeol || result=1
+            done
+          done
+          exit "$result"
+
+      - name: Generate daily league and training history snapshots
+        if: ${{ !cancelled() && steps.tests.outcome == 'success' }}
+        run: |
+          SNAPSHOT_DATE=$(date +%F)
+          result=0
+          for mode in league training; do
+            for guild in "빅딜" "셀린느"; do
+              python mgf_guild_export.py --guild-name "$guild" --report-mode "$mode" --snapshot-mode history --snapshot-date "$SNAPSHOT_DATE" --retain-history-days 7 --fail-on-invalid-data --skip-tobeol || result=1
+            done
+          done
+          exit "$result"
+
+      # Keep successful report updates even when another guild/mode fails.
+      # The failed generation step still makes the workflow fail visibly.
       - name: Commit and push if changed
+        if: ${{ !cancelled() && steps.tests.outcome == 'success' }}
         env:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_COMMITTER_NAME: github-actions[bot]
           GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git add reports
-            git commit -m "build: 빅딜 셀린느 자동 최신 리포트 갱신"
+          git add reports
+          if ! git diff --cached --quiet; then
+            git commit -m "build: 빅딜 셀린느 대항전 수련장 토벌전 자동 갱신"
             git push
           else
             echo "No changes to commit"

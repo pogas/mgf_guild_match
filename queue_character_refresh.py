@@ -12,7 +12,7 @@ from urllib.request import Request, urlopen
 
 API_URL = "https://mgf.gg/mgf/api/api_search_request.php"
 DEFAULT_GUILDS = ("빅딜", "셀린느")
-DEFAULT_SNAPSHOTS = ("snapshot.json", "training_snapshot.json")
+DEFAULT_SNAPSHOTS = ("snapshot.json", "training_snapshot.json", "tobeol_snapshot.json")
 USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0 Safari/537.36"
