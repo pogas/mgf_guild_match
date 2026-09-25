@@ -2120,7 +2120,7 @@ def parse_guild_page(session: requests.Session, guild_url: str) -> tuple[dict[st
     }
 
     member_rows: list[dict[str, Any]] = []
-    source_fetched_at = datetime.now().astimezone().isoformat()
+    source_fetched_at = getattr(session, "last_fetched_at", "") or datetime.now().astimezone().isoformat()
     for member_row in soup.select(".members-list .member-row"):
         rank_el = member_row.select_one(".member-rank")
         nick_el = member_row.select_one(".nick-link")
@@ -4529,13 +4529,20 @@ def parse_args() -> argparse.Namespace:
         "--skip-tobeol", action="store_true",
         help="대항전·수련장 생성 시 토벌전 동시 생성을 생략 (별도 토벌전 갱신 단계가 있는 자동화용)",
     )
+    parser.add_argument("--fetch-backend", choices=["requests", "browser"],
+                        default=os.environ.get("MGF_FETCH_BACKEND", "requests"),
+                        help="공개 페이지 수집 방식 (browser는 Playwright Chromium 사용)")
+    parser.add_argument("--fetch-cache-dir", type=Path, default=os.environ.get("MGF_FETCH_CACHE_DIR"),
+                        help="이번 실행에서만 공유할 브라우저 원자료 캐시 폴더")
+    parser.add_argument("--browser-headed", action="store_true",
+                        default=os.environ.get("MGF_BROWSER_HEADED") == "1",
+                        help="화면이 있는 Chromium 사용 (Linux CI에서는 xvfb-run 필요)")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
     guild_name = clean_text(args.guild_name)
-    report_mode = args.report_mode
     if args.tobeol_source:
         source = json.loads(args.tobeol_source.read_text(encoding="utf-8"))
         if source.get("guild_name") != guild_name:
@@ -4546,16 +4553,27 @@ def main() -> None:
         for path in paths:
             print(f"Created: {path}")
         return
-    session = requests.Session()
-    session.headers.update(
-        {
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/135.0 Safari/537.36"
-            )
-        }
-    )
+    if args.fetch_backend == "browser":
+        from mgf_browser_fetch import BrowserSession
+        session = BrowserSession(args.fetch_cache_dir, args.browser_headed)
+    else:
+        session = requests.Session()
+        session.headers.update(
+            {
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/135.0 Safari/537.36"
+                )
+            }
+        )
+    with session:
+        generate_live_report(args, session)
+
+
+def generate_live_report(args: argparse.Namespace, session) -> None:
+    guild_name = clean_text(args.guild_name)
+    report_mode = args.report_mode
 
     if report_mode == "tobeol":
         guild_url = f"{BASE_URL}/contents/guild_info.php?g_name={quote(guild_name)}"
