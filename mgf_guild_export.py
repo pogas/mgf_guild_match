@@ -18,6 +18,7 @@ from xlsxwriter.worksheet import Worksheet
 from bs4 import BeautifulSoup, Tag
 from league_calibration import estimate_league_performance, load_league_model, canonical_job, DEFAULT_JOB_FACTORS
 from training_calibration import estimate_training_performance, load_training_model
+from tobeol_calibration import DEFAULT_MODEL as TOBEOL_MODEL_PATH, korean_number, predict as predict_tobeol
 
 
 BASE_URL = "https://mgf.gg"
@@ -1423,8 +1424,28 @@ def fetch_tobeol_ranking(
     )
 
 
-def _build_tobeol_ranking_analytics(guild_names: list[str]) -> dict[str, Any]:
-    rows = fetch_tobeol_ranking(guild_names)
+def _build_tobeol_ranking_analytics(
+    guild_names: list[str],
+    members_by_guild: dict[str, list[dict[str, Any]]] | None = None,
+) -> dict[str, Any]:
+    # The guild page exposes both metrics for the same public character. Prefer
+    # those records to a server-specific ranking cache that may omit the guild.
+    direct = members_by_guild is not None
+    rows = []
+    if direct:
+        for name in guild_names:
+            members = sorted(
+                [m for m in members_by_guild.get(name, []) if m.get("tobeol_score_value") is not None],
+                key=lambda m: (-int(m["tobeol_score_value"]), str(m.get("nickname", ""))),
+            )
+            for rank, member in enumerate(members, 1):
+                rows.append({"rank": rank, "nickname": member["nickname"], "guild": name,
+                             "level": f"Lv.{member['level']}", "job": member.get("job_name", ""),
+                             "score": str(member["tobeol_score_value"]), "likes": "", "page": None,
+                             "source_fetched_at": member.get("source_fetched_at", ""),
+                             "source_url": member.get("source_url", "")})
+    else:
+        rows = fetch_tobeol_ranking(guild_names)
     by_guild: dict[str, list[dict[str, Any]]] = {}
     for row in rows:
         by_guild.setdefault(str(row.get("guild", "")), []).append(row)
@@ -1442,13 +1463,26 @@ def _build_tobeol_ranking_analytics(guild_names: list[str]) -> dict[str, Any]:
         "guild_summaries": guild_summaries,
         "total_found": len(rows),
         "all_rows": rows,
+        "rank_scope": "guild_public" if direct else "server_2",
+        "source_fetched_at": max((str(r.get("source_fetched_at", "")) for r in rows), default=""),
     }
+
+
+def format_tobeol_score(value: int | None) -> str:
+    if value is None:
+        return "확인 불가"
+    if value < 100_000_000:
+        return f"{value:,}"
+    jo, remainder = divmod(value, 10**12)
+    eok = remainder // 10**8
+    return f"{jo:,}조 {eok:,}억" if jo else f"{eok:,}억"
 
 
 def build_tobeol_display_ranking(
     guild_seed_name: str,
     tobeol_ranking: dict[str, Any],
     guild_members: list[dict[str, Any]],
+    official_member_count: int | None = None,
 ) -> dict[str, Any]:
     ranked_rows = list(tobeol_ranking.get("all_rows", []))
     ranked_lookup = {clean_text(str(row.get("nickname", ""))): row for row in ranked_rows}
@@ -1482,16 +1516,67 @@ def build_tobeol_display_ranking(
         )
     )
 
+    model = json.loads(TOBEOL_MODEL_PATH.read_text(encoding="utf-8"))
+    members_by_name = {clean_text(str(m.get("nickname", ""))): m for m in guild_members}
+    enriched_rows = []
+    for original in display_rows:
+        row = dict(original)
+        member = members_by_name.get(clean_text(str(row.get("nickname", ""))), {}) if row.get("guild") == guild_seed_name else {}
+        actual_value = member.get("tobeol_score_value")
+        if actual_value is None:
+            try:
+                actual_value = korean_number(str(row.get("score", "")))
+            except ValueError:
+                actual_value = None
+        power = member.get("combat_power_raw")
+        try:
+            # Existing combat_power_value is in 만 units. Never pass it to the
+            # new raw-unit predictor without converting explicitly.
+            if power is None:
+                power_text = str(member.get("combat_power", "")).strip()
+                power = korean_number(power_text) if power_text else int(member.get("combat_power_value", 0)) * 10**4
+            level_text = str(member.get("level", row.get("level", "")))
+            level_match = re.search(r"\d+", level_text)
+            level = int(level_match.group()) if level_match else 0
+            projection = predict_tobeol(level, int(power), str(member.get("job_name", row.get("job", ""))), model)
+        except (ValueError, TypeError, OverflowError):
+            power = None
+            projection = {"score": None, "flags": ["missing_prediction_input"]}
+        if member:
+            row["level"] = f"Lv.{member.get('level', '')}"
+            row["job"] = str(member.get("job_name", row.get("job", "")))
+        row.update({
+            "actual_score_value": int(actual_value) if actual_value is not None else None,
+            "score": format_tobeol_score(int(actual_value) if actual_value is not None else None),
+            "simulation_score_value": projection["score"],
+            "simulation_score": format_tobeol_score(projection["score"]) if projection["score"] is not None else "예측 불가",
+            "simulation_flags": projection["flags"],
+            "combat_power_raw": int(power) if power else None,
+            "source_fetched_at": member.get("source_fetched_at", row.get("source_fetched_at", "")),
+        })
+        enriched_rows.append(row)
+    display_rows = enriched_rows
+
     guild_summaries = []
     for card in tobeol_ranking.get("guild_summaries", []):
         guild_name = str(card.get("guild_name", ""))
         total_members = len([member for member in guild_members if guild_name == guild_seed_name]) if guild_name == guild_seed_name else int(card.get("count", 0))
         ranked_count = int(card.get("count", 0))
+        comparable = [r for r in display_rows if r.get("guild") == guild_name
+                      and r.get("actual_score_value") is not None and r.get("simulation_score_value") is not None]
+        matched_rows = [r for r in display_rows if r.get("guild") == guild_name]
         guild_summaries.append(
             {
                 **card,
                 "total_members": total_members,
                 "unranked_count": max(total_members - ranked_count, 0),
+                "official_member_count": official_member_count if official_member_count is not None else card.get("official_member_count", total_members),
+                "comparison_count": len(comparable),
+                "actual_record_count": sum(r.get("actual_score_value") is not None for r in matched_rows),
+                "simulation_count": sum(r.get("simulation_score_value") is not None for r in matched_rows),
+                "actual_score_total": sum(r["actual_score_value"] for r in comparable) if comparable else None,
+                "simulation_score_total": sum(r["simulation_score_value"] for r in comparable) if comparable else None,
+                "best_score": next((r["score"] for r in matched_rows if r.get("nickname") == card.get("best_nickname")), card.get("best_score")),
             }
         )
 
@@ -1499,6 +1584,8 @@ def build_tobeol_display_ranking(
         **tobeol_ranking,
         "all_rows": display_rows,
         "guild_summaries": guild_summaries,
+        "model_date": model["created_at"],
+        "source_fetched_at": max((str(r.get("source_fetched_at", "")) for r in display_rows), default=""),
     }
 
 
@@ -1509,9 +1596,10 @@ def build_tobeol_snapshot_data(
 ) -> dict[str, Any]:
     rows = sorted(
         list(tobeol_ranking.get("all_rows", [])),
-        key=lambda row: _safe_int(row.get("rank", 999999)),
+        key=lambda row: _safe_int(row.get("rank"), 999999),
     )
     member_map: dict[str, Any] = {}
+    summary = next(iter(tobeol_ranking.get("guild_summaries", [])), {})
     top10_keys: list[str] = []
     for index, row in enumerate(rows):
         member_key = "::".join(
@@ -1521,6 +1609,8 @@ def build_tobeol_snapshot_data(
                 clean_text(str(row.get("level", ""))),
             ]
         )
+        if tobeol_ranking.get("rank_scope") == "guild_public":
+            member_key = clean_text(str(row.get("nickname", "")))
         member_map[member_key] = {
             "nickname": str(row.get("nickname", "")),
             "job": str(row.get("job", "")),
@@ -1528,27 +1618,41 @@ def build_tobeol_snapshot_data(
             "rank": _safe_int(row.get("rank", 0)),
             "score": str(row.get("score", "")),
             "likes": str(row.get("likes", "")),
+            "combat_power_raw": row.get("combat_power_raw"),
+            "actual_score_value": row.get("actual_score_value"),
+            "simulation_score_value": row.get("simulation_score_value"),
+            "simulation_score": row.get("simulation_score"),
+            "simulation_flags": row.get("simulation_flags", []),
+            "source_fetched_at": row.get("source_fetched_at", ""),
         }
-        if index < 10:
+        if _safe_int(row.get("rank", 0)) > 0 and len(top10_keys) < 10:
             top10_keys.append(member_key)
 
-    best_row = rows[0] if rows else {}
+    best_row = next((row for row in rows if _safe_int(row.get("rank", 0)) > 0), {})
     rank_values = [_safe_int(row.get("rank", 0)) for row in rows if _safe_int(row.get("rank", 0)) > 0]
 
     return {
         "guild_seed_name": guild_seed_name,
         "report_mode": "tobeol",
         "snapshot_date": snapshot_date,
+        "rank_scope": tobeol_ranking.get("rank_scope", "server_2"),
+        "model_date": tobeol_ranking.get("model_date", ""),
+        "source_fetched_at": tobeol_ranking.get("source_fetched_at", ""),
         "guilds": {
             guild_seed_name: {
                 "guild_name": guild_seed_name,
-                "count": len(rows),
+                "count": summary.get("actual_record_count", len(rows)),
                 "best_rank": _safe_int(best_row.get("rank", 0)),
                 "best_nickname": str(best_row.get("nickname", "")),
                 "best_score": str(best_row.get("score", "")),
                 "avg_rank": round(sum(rank_values) / len(rank_values), 1) if rank_values else 0,
                 "members": member_map,
                 "top10_keys": top10_keys,
+                "public_member_count": summary.get("total_members", len(rows)),
+                "official_member_count": summary.get("official_member_count", len(rows)),
+                "comparison_count": summary.get("comparison_count", 0),
+                "actual_score_total": summary.get("actual_score_total"),
+                "simulation_score_total": summary.get("simulation_score_total"),
             }
         },
     }
@@ -1561,6 +1665,7 @@ def build_tobeol_history_analysis(current_snapshot: dict[str, Any], history_snap
         snapshot
         for snapshot in history_snapshots
         if _safe_snapshot_mode(snapshot, "tobeol") == "tobeol"
+        and snapshot.get("rank_scope", "server_2") == current_snapshot.get("rank_scope", "server_2")
         and (not current_date or str(snapshot.get("snapshot_date", "")) < current_date)
     ]
     previous_snapshot = compatible_history[-1] if compatible_history else None
@@ -2005,14 +2110,15 @@ def parse_guild_page(session: requests.Session, guild_url: str) -> tuple[dict[st
     }
 
     member_rows: list[dict[str, Any]] = []
+    source_fetched_at = datetime.now().astimezone().isoformat()
     for member_row in soup.select(".members-list .member-row"):
         rank_el = member_row.select_one(".member-rank")
         nick_el = member_row.select_one(".nick-link")
         detail_el = member_row.select_one(".detail-btn")
         job_icon = member_row.select_one(".member-sub img")
         member_sub = member_row.select_one(".member-sub")
-        power_tooltip = member_row.select_one(".member-power .power-tooltip")
-        power_text = member_row.select_one(".member-power .power-text")
+        power_tooltip = member_row.select_one(".only-bp .power-tooltip") or member_row.select_one(".member-power .power-tooltip")
+        power_text = member_row.select_one(".only-bp .power-text") or member_row.select_one(".member-power .power-text")
 
         if not nick_el or not rank_el:
             continue
@@ -2038,6 +2144,10 @@ def parse_guild_page(session: requests.Session, guild_url: str) -> tuple[dict[st
                 "level": level_match.group(1) if level_match else "",
                 "combat_power": clean_text(power_tooltip.get_text()) if power_tooltip else clean_text(power_text.get_text()) if power_text else "",
                 "data_date": guild_row["data_date"],
+                "combat_power_raw": int(member_row["data-bp"]) if re.fullmatch(r"\d+", str(member_row.get("data-bp", ""))) else None,
+                "tobeol_score_value": int(member_row["data-gb"]) if re.fullmatch(r"\d+", str(member_row.get("data-gb", ""))) else None,
+                "source_url": guild_url,
+                "source_fetched_at": source_fetched_at,
             }
         )
 
@@ -2130,14 +2240,17 @@ def _render_tobeol_ranking_html(tobeol_ranking: dict[str, Any]) -> str:
     all_rows: list[dict[str, Any]] = tobeol_ranking.get("all_rows", [])
     if not all_rows:
         return '<p class="simulation-copy">토벌전 랭킹 데이터가 없습니다. 리포트를 다시 생성하면 자동 수집됩니다.</p>'
+    public_ranking = tobeol_ranking.get("rank_scope") == "guild_public"
+    rank_label = "공개 멤버 순위" if public_ranking else "서버 순위"
+    missing_rank = "확인 불가" if public_ranking else TOBEOL_UNRANKED_LABEL
 
     summary_html = '<div class="analytics-grid analytics-grid-2">' + "".join(
         f"""
         <article class="info-panel analytics-stat-card">
           <h5>{escape(str(card["guild_name"]))}</h5>
           <div class="analytics-mini-grid">
-            <span>랭커 {int(card["count"])}명 / 전체 {int(card.get("total_members", card["count"]))}명</span>
-            <span>최고 순위 {"#" + str(int(card["best_rank"])) if card.get("best_rank") else "-"}</span>
+            <span>공개 멤버 {int(card.get("total_members", card["count"]))}명 / 길드원 {int(card.get("official_member_count", card.get("total_members", card["count"])))}명</span>
+            <span>실제 점수 확인 {int(card.get("actual_record_count", card["count"]))}명 · 비교 가능 {int(card.get("comparison_count", 0))}명</span>
           </div>
           {"<p class='simulation-copy'>" + escape(str(card["best_nickname"])) + " · " + escape(str(card["best_score"])) + (" · " + TOBEOL_UNRANKED_MEMBER_SUFFIX + " " + str(int(card.get("unranked_count", 0))) + "명" if int(card.get("unranked_count", 0)) > 0 else "") + "</p>" if card.get("best_nickname") else "<p class='simulation-copy'>해당 없음</p>"}
         </article>
@@ -2153,10 +2266,11 @@ def _render_tobeol_ranking_html(tobeol_ranking: dict[str, Any]) -> str:
 
     rows_html = "".join(
         f"""<tr data-tobeol-guild="{escape(str(row["guild"]))}"{' class="tobeol-unranked-row"' if row.get("is_unranked") else ''}>
-          <td><span class="tobeol-rank-chip{' tobeol-rank-chip-muted' if row.get("is_unranked") else ''}">{'#' + str(int(row['rank'])) if row.get('rank') is not None else TOBEOL_UNRANKED_LABEL}</span></td>
+          <td data-label="{rank_label}"><span class="tobeol-rank-chip{' tobeol-rank-chip-muted' if row.get("is_unranked") else ''}">{'#' + str(int(row['rank'])) if row.get('rank') is not None else missing_rank}</span></td>
           <td class="tobeol-guild-cell">{escape(str(row["guild"]))}</td>
           <td><strong>{escape(str(row["nickname"]))}</strong><div class="tobeol-row-copy">{escape(str(row["level"]))} · {escape(str(row["job"]))}</div></td>
-          <td>{escape(str(row["score"]))}</td>
+          <td data-label="실제 점수" title="{row['actual_score_value'] if row.get('actual_score_value') is not None else '확인 불가'}">{escape(str(row["score"]))}</td>
+          <td data-label="시뮬레이션 점수" class="tobeol-simulation-score" title="{row['simulation_score_value'] if row.get('simulation_score_value') is not None else '예측 불가'}">{escape(str(row.get("simulation_score", "예측 불가")))}{'<div class="tobeol-row-copy">학습 범위 밖 · 참고값</div>' if any('extrapolation' in flag for flag in row.get('simulation_flags', [])) and row.get('simulation_score_value') is not None else ''}</td>
           <td>{TOBEOL_LIKE_PREFIX + escape(str(row['likes'])) if str(row.get('likes', '')).strip() else '-'}</td>
         </tr>"""
         for row in all_rows
@@ -2167,11 +2281,12 @@ def _render_tobeol_ranking_html(tobeol_ranking: dict[str, Any]) -> str:
     <div class="tobeol-ranking-tabs">{tab_buttons}</div>
     <div class="tobeol-ranking-table-wrap">
       <table class="tobeol-ranking-table">
-        <thead><tr><th>순위</th><th>길드</th><th>닉네임</th><th>토벌전 점수</th><th>좋아요</th></tr></thead>
+        <thead><tr><th>{rank_label}</th><th>길드</th><th>닉네임</th><th>실제 점수</th><th>시뮬레이션 점수</th><th>좋아요</th></tr></thead>
         <tbody id="tobeol-ranking-tbody">{rows_html}</tbody>
       </table>
     </div>
-    <p class="simulation-copy simulation-copy-muted">mgf.gg 서버 2 기준 · 캐시 12시간</p>
+    <p class="simulation-copy simulation-copy-muted">실제 점수는 MGF 공개 기록, 시뮬레이션은 해당 멤버의 레벨·전투력과 전직 구간을 반영한 참고 추정치입니다. 실제 점수와 능력치의 기록 시점은 다를 수 있습니다.</p>
+    <p class="simulation-copy simulation-copy-muted">합계는 실제·시뮬레이션 점수를 모두 확인할 수 있는 같은 멤버 기준이며, 공개되지 않은 멤버는 포함하지 않습니다. {'순위는 공개 멤버의 실제 점수 순서입니다.' if public_ranking else '순위는 서버 2 랭킹 기준입니다.'}</p>
     """
 
 
@@ -3090,6 +3205,14 @@ def build_tobeol_html_report(
     display_ranking = build_tobeol_display_ranking(guild_seed_name, tobeol_ranking, guild_members)
     ranking_html = _render_tobeol_ranking_html(display_ranking)
     primary_summary = next(iter(display_ranking.get("guild_summaries", [])), {})
+    comparison_count = int(primary_summary.get("comparison_count", 0))
+    public_count = int(primary_summary.get("total_members", len(guild_members)))
+    official_count = int(primary_summary.get("official_member_count", public_count))
+    source_copy = "MGF 공개 길드 기록" if display_ranking.get("rank_scope") == "guild_public" else "MGF 서버 2 랭킹 기록"
+    fetched_at = str(display_ranking.get("source_fetched_at", ""))
+    if fetched_at:
+        fetched_label = datetime.fromisoformat(fetched_at.replace("Z", "+00:00")).astimezone().strftime("%Y-%m-%d %H:%M %Z")
+        source_copy += f" · 조회 {fetched_label}"
     hero_meta_html = "".join(
         f"""
         <article class="hero-meta-card">
@@ -3099,9 +3222,9 @@ def build_tobeol_html_report(
         </article>
         """
         for label, value, help_text in [
-            ("길드 기준", guild_seed_name, f"랭커 {int(primary_summary.get('count', 0))}명 / 전체 {int(primary_summary.get('total_members', len(guild_members)))}명"),
-            ("최고 순위", f"#{int(primary_summary.get('best_rank', 0))}" if primary_summary.get('best_rank') else "-", str(primary_summary.get('best_nickname', '해당 없음'))),
-            ("히스토리 기준", str(tobeol_history_analysis.get('previous_date', '') or '첫 비교 전'), "직전 토벌전 기록과 비교"),
+            ("공개 멤버", f"{public_count}명 / 길드원 {official_count}명", "공개된 멤버만 비교합니다"),
+            ("실제 점수 합계", format_tobeol_score(primary_summary.get("actual_score_total")), f"비교 가능한 공개 멤버 {comparison_count}명 기준"),
+            ("시뮬레이션 점수 합계", format_tobeol_score(primary_summary.get("simulation_score_total")), f"동일한 {comparison_count}명의 예측값 합계"),
         ]
     )
     html = f"""<!DOCTYPE html>
@@ -3109,7 +3232,7 @@ def build_tobeol_html_report(
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{escape(guild_seed_name)} 길드 토벌전 랭킹</title>
+  <title>{escape(guild_seed_name)} 길드 토벌전 · 실제와 시뮬레이션</title>
   <style>
     @font-face {{
       font-family: "Maplestory";
@@ -3221,9 +3344,19 @@ def build_tobeol_html_report(
     .tobeol-unranked-row td {{ background: rgba(255,252,247,0.82); }}
     .tobeol-guild-cell {{ font-weight: 700; }}
     .tobeol-row-copy {{ color: var(--muted); font-size: 11px; margin-top: 2px; }}
+    .tobeol-simulation-score {{ color: var(--accent-3); font-weight: 700; }}
     .footer {{ margin-top: 28px; color: var(--muted); font-size: 13px; text-align: right; }}
     @media (max-width: 980px) {{ .hero {{ grid-template-columns:1fr; }} }}
-    @media (max-width: 720px) {{ .hero {{ padding: 20px; border-radius: 28px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 28px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .analytics-grid-2, .trend-chart-grid, .analytics-list-split {{ grid-template-columns: 1fr; }} }}
+    @media (max-width: 720px) {{ .hero {{ padding: 20px; border-radius: 28px; }} .hero h1 {{ font-size: clamp(20px, 5.2vw, 28px); white-space: normal; }} .hero-title-mark {{ width: 48px; height: 48px; }} .analytics-grid-2, .trend-chart-grid, .analytics-list-split {{ grid-template-columns: 1fr; }}
+      .tobeol-ranking-table {{ min-width: 0; }}
+      .tobeol-ranking-table thead {{ display: none; }}
+      .tobeol-ranking-table tbody {{ display: block; padding: 10px; }}
+      .tobeol-ranking-table tbody tr {{ display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-bottom: 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; }}
+      .tobeol-ranking-table td {{ border: 0; min-width: 0; overflow-wrap: anywhere; }}
+      .tobeol-ranking-table td:first-child, .tobeol-ranking-table td:nth-child(3) {{ grid-column: 1 / -1; }}
+      .tobeol-ranking-table td:nth-child(2), .tobeol-ranking-table td:nth-child(6) {{ display: none; }}
+      .tobeol-ranking-table td[data-label]::before {{ content: attr(data-label); display: block; margin-bottom: 5px; font-size: 11px; color: var(--muted); font-weight: 400; }}
+    }}
   </style>
 </head>
 <body>
@@ -3238,18 +3371,18 @@ def build_tobeol_html_report(
         <p class="eyebrow">✦ MAPLE GUILD REPORT CONCEPT</p>
         <div class="hero-title-row">
           {hero_guild_mark_html}
-          <h1>{escape(guild_seed_name)} 길드 토벌전 랭킹</h1>
+          <h1>{escape(guild_seed_name)} 길드 토벌전</h1>
         </div>
-        <p class="lead">mgf.gg 서버 2 토벌전 랭킹에서 {escape(guild_seed_name)} 멤버를 확인합니다.</p>
+        <p class="lead">{escape(guild_seed_name)} 공개 멤버의 실제 토벌전 점수와 시뮬레이션 점수를 함께 비교합니다.</p>
       </div>
       <aside class="hero-side">{hero_meta_html}</aside>
     </header>
     <div class="tobeol-body">
       {history_html}
-      <p class="tobeol-section-head">서버 2 토벌전 랭킹</p>
+      <p class="tobeol-section-head">실제 점수 · 시뮬레이션 비교</p>
       {ranking_html}
     </div>
-    <footer class="footer">mgf.gg 서버 2 기준 · 캐시 12시간</footer>
+    <footer class="footer">{escape(source_copy)} · 예측 모델 {escape(str(display_ranking.get('model_date', ''))[:10])}</footer>
   </div>
   <script>
     document.querySelectorAll('.tobeol-ranking-tab').forEach((btn) => {{
@@ -4308,6 +4441,31 @@ def build_workbook(
                     pass
 
 
+def generate_tobeol_from_source(
+    source: dict[str, Any],
+    html_path: Path,
+    snapshot_path: Path,
+    snapshot_date: str,
+) -> tuple[Path, Path]:
+    guild_name = clean_text(str(source["guild_name"]))
+    members = [dict(member) for member in source["members"]]
+    for member in members:
+        member.setdefault("source_fetched_at", source.get("fetched_at", ""))
+        member.setdefault("source_url", source.get("source_url", ""))
+    ranking = _build_tobeol_ranking_analytics([guild_name], {guild_name: members})
+    ranking = build_tobeol_display_ranking(
+        guild_name, ranking, members, int(source.get("official_member_count", len(members))),
+    )
+    snapshot = build_tobeol_snapshot_data(guild_name, snapshot_date, ranking)
+    history = build_tobeol_history_analysis(snapshot, load_tobeol_history_snapshots(guild_name))
+    build_tobeol_html_report(guild_name, html_path, ranking, history, members)
+    write_snapshot_json(snapshot, snapshot_path)
+    (html_path.parent / "tobeol_source.json").write_text(
+        json.dumps(source, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
+    )
+    return html_path, snapshot_path
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="MGF 매칭 길드 리포트 생성기")
     parser.add_argument(
@@ -4342,6 +4500,10 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="매칭 결과가 비정상일 때 종료 코드 1로 실패 처리",
     )
+    parser.add_argument(
+        "--tobeol-source", type=Path,
+        help="저장된 공개 길드 기록으로 토벌전 페이지만 재생성 (네트워크 조회 없음)",
+    )
     return parser.parse_args()
 
 
@@ -4349,6 +4511,16 @@ def main() -> None:
     args = parse_args()
     guild_name = clean_text(args.guild_name)
     report_mode = args.report_mode
+    if args.tobeol_source:
+        source = json.loads(args.tobeol_source.read_text(encoding="utf-8"))
+        if source.get("guild_name") != guild_name:
+            raise ValueError("토벌전 원자료의 길드명과 --guild-name이 다릅니다")
+        date = args.snapshot_date or str(source.get("fetched_at", ""))[:10] or datetime.now().strftime("%Y-%m-%d")
+        snapshot_path = build_tobeol_snapshot_path(guild_name, args.snapshot_mode, date)
+        paths = generate_tobeol_from_source(source, snapshot_path.parent / "index.html", snapshot_path, date)
+        for path in paths:
+            print(f"Created: {path}")
+        return
     league_url = build_match_url(guild_name, report_mode)
     output_path, html_output_path, snapshot_output_path = build_output_paths(guild_name, report_mode, args.snapshot_mode, args.snapshot_date)
 
@@ -4390,25 +4562,20 @@ def main() -> None:
     history_snapshots = load_history_snapshots(guild_name, report_mode)
     history_analysis = build_history_analysis(snapshot_data, history_snapshots)
     history_analysis["snapshot_analytics"] = build_snapshot_analytics(snapshot_data, history_snapshots, simulation)
-    tobeol_ranking = _build_tobeol_ranking_analytics([guild_name])
-    tobeol_snapshot_data = build_tobeol_snapshot_data(guild_name, snapshot_date, tobeol_ranking)
-    tobeol_history_snapshots = load_tobeol_history_snapshots(guild_name)
-    tobeol_history_analysis = build_tobeol_history_analysis(tobeol_snapshot_data, tobeol_history_snapshots)
-
     workbook_path = build_workbook(guild_rows, members_by_guild, output_path)
     html_report_path = build_html_report(guild_name, report_mode, guild_rows, members_by_guild, history_analysis, html_output_path)
-    tobeol_html_path = build_tobeol_html_report(
-        guild_name,
-        html_output_path.parent / "index.html",
-        tobeol_ranking,
-        tobeol_history_analysis,
-        members_by_guild.get(guild_name, []),
+    own_members = members_by_guild.get(guild_name, [])
+    own_guild = next((g for g in guild_rows if g["guild_name"] == guild_name), {})
+    tobeol_source = {"guild_name": guild_name, "members": own_members,
+                     "official_member_count": get_official_member_count(own_guild, own_members),
+                     "server_display": own_guild.get("server_display", ""),
+                     "source_url": own_guild.get("guild_url", ""),
+                     "fetched_at": max((str(m.get("source_fetched_at", "")) for m in own_members), default="")}
+    tobeol_html_path, tobeol_snapshot_path = generate_tobeol_from_source(
+        tobeol_source, html_output_path.parent / "index.html",
+        build_tobeol_snapshot_path(guild_name, args.snapshot_mode, args.snapshot_date), snapshot_date,
     )
     snapshot_path = write_snapshot_json(snapshot_data, snapshot_output_path)
-    tobeol_snapshot_path = write_snapshot_json(
-        tobeol_snapshot_data,
-        build_tobeol_snapshot_path(guild_name, args.snapshot_mode, args.snapshot_date),
-    )
 
     total_members = sum(get_official_member_count(row, members_by_guild.get(str(row.get("guild_name", "")), [])) for row in guild_rows)
     deleted_history_paths = cleanup_old_history(guild_name, report_mode, args.retain_history_days)

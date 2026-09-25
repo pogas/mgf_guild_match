@@ -1,0 +1,685 @@
+{
+  "schema_version": 2,
+  "features": [
+    {
+      "type": "intercept"
+    },
+    {
+      "type": "log_power"
+    },
+    {
+      "type": "level",
+      "reference": 110,
+      "scale": 10
+    },
+    {
+      "type": "hinge_below",
+      "boundary": 100,
+      "scale": 10
+    },
+    {
+      "type": "hinge_above",
+      "boundary": 120,
+      "scale": 10
+    }
+  ],
+  "advancement": {
+    "thresholds": [
+      10,
+      30,
+      70,
+      100
+    ],
+    "stages": {
+      "0": {
+        "level_min": 1,
+        "level_max": 9,
+        "total": 0,
+        "train": 0,
+        "calibration": 0,
+        "test": 0
+      },
+      "1": {
+        "level_min": 10,
+        "level_max": 29,
+        "total": 0,
+        "train": 0,
+        "calibration": 0,
+        "test": 0
+      },
+      "2": {
+        "level_min": 30,
+        "level_max": 69,
+        "total": 78,
+        "train": 51,
+        "calibration": 13,
+        "test": 14
+      },
+      "3": {
+        "level_min": 70,
+        "level_max": 99,
+        "total": 1209,
+        "train": 795,
+        "calibration": 185,
+        "test": 229
+      },
+      "4": {
+        "level_min": 100,
+        "level_max": null,
+        "total": 10754,
+        "train": 6989,
+        "calibration": 1638,
+        "test": 2127
+      }
+    },
+    "source": "User-provided level thresholds; actual completed advancement is unobserved.",
+    "unsupported_thresholds": [
+      10,
+      30
+    ],
+    "estimable_thresholds": [
+      70,
+      100
+    ]
+  },
+  "created_at": "2026-09-25T08:00:40.216086+00:00",
+  "evaluation_note": "Same character holdout as v1, re-evaluated after user-provided domain revision; not fresh prospective validation.",
+  "kind": "level_hinge",
+  "job_correction_selected": false,
+  "job_power_slopes_selected": false,
+  "reference_job": "히어로",
+  "coefficients": [
+    -1.322641089237581,
+    0.3250725855955051,
+    1.4955734771288847,
+    0.6602387389416684,
+    -0.5936593856794041
+  ],
+  "power_unit": "raw",
+  "power_reference": 10000000000000000,
+  "score_unit": "jo",
+  "level_reference": 110,
+  "jobs": {
+    "나이트로드": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 740,
+      "total_count": 1122,
+      "guild_count": 342,
+      "level_range": [
+        67,
+        126
+      ],
+      "power_range": [
+        122796682,
+        8737529592996804608
+      ]
+    },
+    "나이트워커": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 63,
+      "total_count": 96,
+      "guild_count": 43,
+      "level_range": [
+        56,
+        105
+      ],
+      "power_range": [
+        16802569,
+        178059930644320
+      ]
+    },
+    "다크나이트": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 230,
+      "total_count": 340,
+      "guild_count": 182,
+      "level_range": [
+        51,
+        125
+      ],
+      "power_range": [
+        6108988,
+        3056994415338424832
+      ]
+    },
+    "바이퍼": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 835,
+      "total_count": 1272,
+      "guild_count": 378,
+      "level_range": [
+        67,
+        126
+      ],
+      "power_range": [
+        186295424,
+        6262082848531838976
+      ]
+    },
+    "보우마스터": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 516,
+      "total_count": 782,
+      "guild_count": 307,
+      "level_range": [
+        56,
+        124
+      ],
+      "power_range": [
+        16382823,
+        2803220640461225984
+      ]
+    },
+    "비숍": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 2576,
+      "total_count": 4035,
+      "guild_count": 457,
+      "level_range": [
+        47,
+        130
+      ],
+      "power_range": [
+        6430230,
+        115665520541199548416
+      ]
+    },
+    "섀도어": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 577,
+      "total_count": 906,
+      "guild_count": 299,
+      "level_range": [
+        45,
+        127
+      ],
+      "power_range": [
+        3581115,
+        12770208671405703168
+      ]
+    },
+    "신궁": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 236,
+      "total_count": 351,
+      "guild_count": 179,
+      "level_range": [
+        59,
+        131
+      ],
+      "power_range": [
+        32995747,
+        1129929182134819618816
+      ]
+    },
+    "아크메이지(불,독)": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 159,
+      "total_count": 234,
+      "guild_count": 137,
+      "level_range": [
+        52,
+        127
+      ],
+      "power_range": [
+        9339717,
+        5356402009722207232
+      ]
+    },
+    "아크메이지(썬,콜)": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 394,
+      "total_count": 615,
+      "guild_count": 244,
+      "level_range": [
+        49,
+        127
+      ],
+      "power_range": [
+        5172498,
+        21470176390343192576
+      ]
+    },
+    "윈드브레이커": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 47,
+      "total_count": 67,
+      "guild_count": 35,
+      "level_range": [
+        62,
+        113
+      ],
+      "power_range": [
+        85477858,
+        35670700972731304
+      ]
+    },
+    "캡틴": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 491,
+      "total_count": 769,
+      "guild_count": 296,
+      "level_range": [
+        55,
+        125
+      ],
+      "power_range": [
+        19960798,
+        3979870174222569984
+      ]
+    },
+    "팔라딘": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 577,
+      "total_count": 864,
+      "guild_count": 297,
+      "level_range": [
+        67,
+        129
+      ],
+      "power_range": [
+        155756129,
+        42955324395474427904
+      ]
+    },
+    "히어로": {
+      "factor": 1.0,
+      "power_exponent_delta": 0.0,
+      "count": 394,
+      "total_count": 588,
+      "guild_count": 255,
+      "level_range": [
+        47,
+        132
+      ],
+      "power_range": [
+        7523664,
+        311406111579840512000
+      ]
+    }
+  },
+  "prediction_interval_log_radius": 0.527921572233832,
+  "domain": {
+    "level": [
+      45,
+      132
+    ],
+    "power": [
+      3581115,
+      1129929182134819618816
+    ]
+  },
+  "split_counts": {
+    "train": 7835,
+    "test": 2370,
+    "calibration": 1836
+  },
+  "audit": {
+    "pages": {
+      "power": 46,
+      "boss": 35,
+      "guild": 483
+    },
+    "guild_public_rows": 12690,
+    "guild_request_pages": 313,
+    "guild_unique_nicknames": 12690,
+    "guild_header_server_conflicts": 1209,
+    "source_kind_counts": {
+      "guild_same_page": 12036,
+      "ranking_join": 5
+    },
+    "unique_rows": {
+      "power": 1350,
+      "boss": 1050
+    },
+    "duplicates": {
+      "power": 30,
+      "boss": 0
+    },
+    "usable": 12041,
+    "boss_without_power": 156,
+    "excluded": {
+      "no_boss_match": 45,
+      "guild_nonpositive_power_or_score": 654
+    },
+    "repaired_new_job_labels": 148,
+    "level_difference_one": 0,
+    "first_fetch": "2026-09-25T06:27:06.365059+00:00",
+    "last_fetch": "2026-09-25T07:53:10.437Z"
+  },
+  "validation": {
+    "n": 2370,
+    "median_ape_pct": 18.492684061184917,
+    "mean_ape_pct": 72.00096130135375,
+    "within_30_pct": 72.32067510548524,
+    "within_factor_2_pct": 95.8649789029536,
+    "log_mae": 0.2770141466884437,
+    "log_rmse": 0.5073662737033777,
+    "log_r2": 0.9599826345206133,
+    "wape_pct": 21.514948188784178,
+    "median_prediction_actual_ratio": 0.9989744342617637,
+    "interval_90_coverage_pct": 91.01265822784809
+  },
+  "candidates": [
+    {
+      "kind": "power",
+      "use_jobs": false,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 21.73699133595015,
+        "mean_ape_pct": 193.090392816517,
+        "within_30_pct": 65.92214422463306,
+        "within_factor_2_pct": 94.48627951499681,
+        "log_mae": 0.3124921845604435,
+        "log_rmse": 0.5536760089798649,
+        "log_r2": 0.9565087979422232,
+        "wape_pct": 38.007879014336105,
+        "median_prediction_actual_ratio": 0.9864379979987843
+      },
+      "n_parameters": 2
+    },
+    {
+      "kind": "linear",
+      "use_jobs": false,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 20.715059470432216,
+        "mean_ape_pct": 198.74664004486792,
+        "within_30_pct": 67.51754945756223,
+        "within_factor_2_pct": 95.1372048500319,
+        "log_mae": 0.301758324294946,
+        "log_rmse": 0.5468163747293098,
+        "log_r2": 0.9575797696577152,
+        "wape_pct": 27.81897084550212,
+        "median_prediction_actual_ratio": 0.9849052821197416
+      },
+      "n_parameters": 3
+    },
+    {
+      "kind": "linear",
+      "use_jobs": true,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 20.355148396072863,
+        "mean_ape_pct": 196.44649927018546,
+        "within_30_pct": 67.86215698787493,
+        "within_factor_2_pct": 95.18825781748565,
+        "log_mae": 0.2984043027585892,
+        "log_rmse": 0.5445262018228888,
+        "log_r2": 0.9579343538504781,
+        "wape_pct": 26.825612941086106,
+        "median_prediction_actual_ratio": 0.9853953511179587
+      },
+      "n_parameters": 16
+    },
+    {
+      "kind": "level_step",
+      "use_jobs": true,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 20.036528127580855,
+        "mean_ape_pct": 201.5221538381554,
+        "within_30_pct": 68.66624122527122,
+        "within_factor_2_pct": 95.2903637523931,
+        "log_mae": 0.29495524764311787,
+        "log_rmse": 0.5403770383976617,
+        "log_r2": 0.9585729724264974,
+        "wape_pct": 28.881443570518083,
+        "median_prediction_actual_ratio": 0.9859799586674194
+      },
+      "n_parameters": 17
+    },
+    {
+      "kind": "level_hinge",
+      "use_jobs": true,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 18.581994775066267,
+        "mean_ape_pct": 178.0851100919737,
+        "within_30_pct": 70.96362476068921,
+        "within_factor_2_pct": 95.80089342693044,
+        "log_mae": 0.2801318745552964,
+        "log_rmse": 0.5254023196532513,
+        "log_r2": 0.9608371786440445,
+        "wape_pct": 19.828947921978767,
+        "median_prediction_actual_ratio": 0.9896948686512343
+      },
+      "n_parameters": 18
+    },
+    {
+      "kind": "power_hinge",
+      "use_jobs": true,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 20.312137340642167,
+        "mean_ape_pct": 195.3699505777518,
+        "within_30_pct": 68.15571155073388,
+        "within_factor_2_pct": 95.21378430121251,
+        "log_mae": 0.29813024018115397,
+        "log_rmse": 0.5438294848360551,
+        "log_r2": 0.958041930310728,
+        "wape_pct": 24.37636328808396,
+        "median_prediction_actual_ratio": 0.9843086212363218
+      },
+      "n_parameters": 17
+    },
+    {
+      "kind": "linear",
+      "use_jobs": true,
+      "job_slopes": true,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 20.29441812317486,
+        "mean_ape_pct": 196.04473434406796,
+        "within_30_pct": 67.87492022973835,
+        "within_factor_2_pct": 95.26483726866624,
+        "log_mae": 0.29855292040248493,
+        "log_rmse": 0.5449399671433113,
+        "log_r2": 0.9578704013048577,
+        "wape_pct": 28.40646538677361,
+        "median_prediction_actual_ratio": 0.9848599898108548
+      },
+      "n_parameters": 29
+    },
+    {
+      "kind": "level_step",
+      "use_jobs": true,
+      "job_slopes": true,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 20.04925706060572,
+        "mean_ape_pct": 201.68750926084553,
+        "within_30_pct": 68.69176770899809,
+        "within_factor_2_pct": 95.32865347798341,
+        "log_mae": 0.29505259915112364,
+        "log_rmse": 0.5407460459190969,
+        "log_r2": 0.9585163745211099,
+        "wape_pct": 30.486237530450705,
+        "median_prediction_actual_ratio": 0.985229771814372
+      },
+      "n_parameters": 30
+    },
+    {
+      "kind": "level_hinge",
+      "use_jobs": false,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 18.781885453974233,
+        "mean_ape_pct": 180.41512686664214,
+        "within_30_pct": 71.00191448627952,
+        "within_factor_2_pct": 95.76260370134014,
+        "log_mae": 0.28221492669108406,
+        "log_rmse": 0.526583292807476,
+        "log_r2": 0.9606609243017004,
+        "wape_pct": 20.342438915788524,
+        "median_prediction_actual_ratio": 0.99291655222288
+      },
+      "n_parameters": 5
+    },
+    {
+      "kind": "advancement_steps",
+      "use_jobs": false,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 20.288351398779668,
+        "mean_ape_pct": 204.10694354599448,
+        "within_30_pct": 68.52584556477346,
+        "within_factor_2_pct": 95.21378430121251,
+        "log_mae": 0.2973252309183288,
+        "log_rmse": 0.5423555506948388,
+        "log_r2": 0.9582690589471978,
+        "wape_pct": 29.686052592624197,
+        "median_prediction_actual_ratio": 0.9863349601159451
+      },
+      "n_parameters": 5
+    },
+    {
+      "kind": "advancement_steps",
+      "use_jobs": true,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 19.924469572480184,
+        "mean_ape_pct": 201.58013873120103,
+        "within_30_pct": 68.93426930440332,
+        "within_factor_2_pct": 95.37970644543714,
+        "log_mae": 0.2945444387040467,
+        "log_rmse": 0.540495469845329,
+        "log_r2": 0.9585548117714782,
+        "wape_pct": 28.5289155022375,
+        "median_prediction_actual_ratio": 0.9866908602239246
+      },
+      "n_parameters": 18
+    },
+    {
+      "kind": "advancement_hinges",
+      "use_jobs": false,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 19.015338694902127,
+        "mean_ape_pct": 182.32592434846876,
+        "within_30_pct": 70.65730695596682,
+        "within_factor_2_pct": 95.69878749202297,
+        "log_mae": 0.28406170038912254,
+        "log_rmse": 0.5284826438579509,
+        "log_r2": 0.9603766256218841,
+        "wape_pct": 28.033250686481765,
+        "median_prediction_actual_ratio": 0.9926418337139657
+      },
+      "n_parameters": 5
+    },
+    {
+      "kind": "advancement_hinges",
+      "use_jobs": true,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 18.845567820556354,
+        "mean_ape_pct": 180.06804827351166,
+        "within_30_pct": 70.8487555839183,
+        "within_factor_2_pct": 95.82641991065731,
+        "log_mae": 0.2820875354202969,
+        "log_rmse": 0.5272853980675336,
+        "log_r2": 0.9605559510310059,
+        "wape_pct": 27.049474176098233,
+        "median_prediction_actual_ratio": 0.9902452016748713
+      },
+      "n_parameters": 18
+    },
+    {
+      "kind": "advancement_piecewise",
+      "use_jobs": false,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 18.999755240336658,
+        "mean_ape_pct": 183.88526498264088,
+        "within_30_pct": 70.68283343969368,
+        "within_factor_2_pct": 95.74984045947672,
+        "log_mae": 0.28398859001195387,
+        "log_rmse": 0.5282503533071615,
+        "log_r2": 0.9604114502760569,
+        "wape_pct": 28.606581267248686,
+        "median_prediction_actual_ratio": 0.9926363392510595
+      },
+      "n_parameters": 7
+    },
+    {
+      "kind": "advancement_piecewise",
+      "use_jobs": true,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 18.80817237082154,
+        "mean_ape_pct": 181.33378958183306,
+        "within_30_pct": 70.87428206764518,
+        "within_factor_2_pct": 95.83918315252073,
+        "log_mae": 0.28202406705336613,
+        "log_rmse": 0.5270398664836831,
+        "log_r2": 0.9605926768913755,
+        "wape_pct": 27.564635525128732,
+        "median_prediction_actual_ratio": 0.9902412211874363
+      },
+      "n_parameters": 20
+    },
+    {
+      "kind": "advancement_extended",
+      "use_jobs": false,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 18.93228602954111,
+        "mean_ape_pct": 182.1651599052592,
+        "within_30_pct": 70.96362476068921,
+        "within_factor_2_pct": 95.788130185067,
+        "log_mae": 0.28163297615053473,
+        "log_rmse": 0.5249937839737375,
+        "log_r2": 0.9608980584267439,
+        "wape_pct": 20.5473750022224,
+        "median_prediction_actual_ratio": 0.9911940046489691
+      },
+      "n_parameters": 8
+    },
+    {
+      "kind": "advancement_extended",
+      "use_jobs": true,
+      "job_slopes": false,
+      "cv": {
+        "n": 7835,
+        "median_ape_pct": 18.489574470068547,
+        "mean_ape_pct": 179.62192411431786,
+        "within_30_pct": 71.16783663050414,
+        "within_factor_2_pct": 95.92852584556478,
+        "log_mae": 0.27958265376934477,
+        "log_rmse": 0.5239073730196462,
+        "log_r2": 0.961059724429423,
+        "wape_pct": 20.016501324941196,
+        "median_prediction_actual_ratio": 0.9916462975358801
+      },
+      "n_parameters": 21
+    }
+  ],
+  "interpretation": "Cross-sectional public recorded score; not causal job balance or synchronized battle state."
+}
