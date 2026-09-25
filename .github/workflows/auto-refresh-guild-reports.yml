@@ -36,7 +36,7 @@ jobs:
 
       - name: Test report generation and refresh targets
         id: tests
-        run: python -m unittest test_tobeol_report.py test_queue_character_refresh.py test_league_calibration.py test_training_calibration.py
+        run: python -m unittest test_guild_report_validation.py test_tobeol_report.py test_queue_character_refresh.py test_league_calibration.py test_training_calibration.py
 
       # Fetch each target guild once; reuse the same source for its daily history.
       # This step does not depend on league/training opponents being accessible.

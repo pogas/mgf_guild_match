@@ -382,13 +382,16 @@ def validate_report_data(
     guild_seed_name: str,
     guild_rows: list[dict[str, Any]],
     members_by_guild: dict[str, list[dict[str, Any]]],
+    expected_guild_count: int | None = None,
 ) -> list[str]:
     errors: list[str] = []
     guild_names = {str(row.get("guild_name", "")) for row in guild_rows}
 
     if guild_seed_name not in guild_names:
         errors.append(f"seed guild missing from matched set: {guild_seed_name}")
-    if len(guild_rows) < 5:
+    if expected_guild_count is not None and len(guild_rows) != expected_guild_count:
+        errors.append(f"matched guild count mismatch: expected {expected_guild_count}, got {len(guild_rows)}")
+    elif expected_guild_count is None and len(guild_rows) < 5:
         errors.append(f"matched guild count too low: {len(guild_rows)}")
 
     empty_guilds = [name for name, rows in members_by_guild.items() if not rows]
@@ -2055,6 +2058,13 @@ def collect_guild_links(session: requests.Session, league_url: str) -> list[str]
         absolute_url = urljoin(BASE_URL, href)
         deduped.setdefault(absolute_url, None)
 
+    declared_count = re.search(r"총\s*([\d,]+)개\s*길드가\s*매칭되었습니다", soup.get_text(" ", strip=True))
+    if declared_count:
+        expected_count = int(declared_count.group(1).replace(",", ""))
+        if expected_count <= 0 or len(deduped) != expected_count:
+            raise ValueError(f"matched guild links mismatch: expected {expected_count}, got {len(deduped)}")
+    elif len(deduped) < 5:
+        raise ValueError(f"matched guild count cannot be verified: {len(deduped)}")
     return list(deduped.keys())
 
 
@@ -4575,7 +4585,7 @@ def main() -> None:
         guild_rows.append(guild_row)
         members_by_guild[guild_row["guild_name"]] = member_rows
 
-    validation_errors = validate_report_data(guild_name, guild_rows, members_by_guild)
+    validation_errors = validate_report_data(guild_name, guild_rows, members_by_guild, len(guild_links))
     if validation_errors:
         print("Validation failed:")
         for error in validation_errors:
