@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-10-27",
   "pending": [
-    "자유이용껀",
-    "채무조정",
-    "뽀송히",
     "따띠뚜",
     "불보독지",
     "우후",
@@ -135,16 +132,36 @@
       "position": 31101,
       "retry_after": 0.0,
       "attempted_at": 1793126388.1285522
+    },
+    "자유이용껀": {
+      "nickname": "자유이용껀",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "318002",
+      "position": 31126,
+      "retry_after": 0.0,
+      "attempted_at": 1793140772.114634
+    },
+    "채무조정": {
+      "nickname": "채무조정",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "318003",
+      "position": 31127,
+      "retry_after": 0.0,
+      "attempted_at": 1793140774.2588162
+    },
+    "뽀송히": {
+      "nickname": "뽀송히",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "318004",
+      "position": 31128,
+      "retry_after": 0.0,
+      "attempted_at": 1793140776.5316617
     }
   },
-  "not_before": 1793126988.1285522,
+  "not_before": 1793141376.5316617,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793140769.8344054,
-    "nicknames": [
-      "자유이용껀",
-      "채무조정",
-      "뽀송히"
-    ]
-  }
+  "in_flight": null
 }
