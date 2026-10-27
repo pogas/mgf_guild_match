@@ -1,5 +1,6 @@
 import argparse
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 import json
 import time
 from dataclasses import dataclass
@@ -9,10 +10,14 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
+from refresh_batch_state import FileState, GitState
 
 API_URL = "https://mgf.gg/mgf/api/api_search_request.php"
 DEFAULT_GUILDS = ("빅딜", "셀린느")
 DEFAULT_SNAPSHOTS = ("snapshot.json", "training_snapshot.json", "tobeol_snapshot.json")
+BATCH_SIZE = 3
+MIN_INTERVAL = 600
+KST = timezone(timedelta(hours=9))
 USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0 Safari/537.36"
@@ -26,234 +31,165 @@ class RefreshResult:
     message: str
     queue_id: str = ""
     position: Optional[int] = None
+    retry_after: float = 0.0
 
 
-def iter_snapshot_members(snapshot_path: Path) -> list[str]:
+def iter_snapshot_members(snapshot_path: Path, guild_name: str) -> list[str]:
     data = json.loads(snapshot_path.read_text(encoding="utf-8"))
-    names: list[str] = []
-    for guild in data.get("guilds", {}).values():
-        members = guild.get("members", {})
-        values = members.values() if isinstance(members, dict) else members
-        for member in values:
-            nickname = str(member.get("nickname", "")).strip()
-            if nickname:
-                names.append(nickname)
-    return names
+    # League and training snapshots also contain rivals. Only the directory's
+    # own guild is eligible, even if another requested guild appears as a rival.
+    guild = data.get("guilds", {}).get(guild_name)
+    if not isinstance(guild, dict):
+        raise ValueError(f"Own guild {guild_name!r} missing from {snapshot_path}")
+    members = guild.get("members", {})
+    values = members.values() if isinstance(members, dict) else members
+    return [name for member in values if (name := str(member.get("nickname", "")).strip())]
 
 
 def collect_nicknames(reports_dir: Path, guilds: list[str], snapshots: list[str]) -> list[str]:
-    seen: set[str] = set()
-    nicknames: list[str] = []
-    missing: list[Path] = []
-
-    for guild_name in guilds:
-        guild_dir = reports_dir / guild_name
-        for snapshot_name in snapshots:
-            snapshot_path = guild_dir / snapshot_name
-            if not snapshot_path.exists():
-                missing.append(snapshot_path)
-                continue
-            for nickname in iter_snapshot_members(snapshot_path):
-                if nickname in seen:
-                    continue
-                seen.add(nickname)
-                nicknames.append(nickname)
-
+    paths = [(reports_dir / guild / snapshot, guild) for guild in guilds for snapshot in snapshots]
+    missing = [path for path, _ in paths if not path.exists()]
     if missing:
-        joined = "\n".join(f"- {path}" for path in missing)
-        raise FileNotFoundError(f"Snapshot file not found:\n{joined}")
-    return nicknames
+        raise FileNotFoundError("Snapshot file not found:\n" + "\n".join(f"- {path}" for path in missing))
+    return list(dict.fromkeys(name for path, guild in paths for name in iter_snapshot_members(path, guild)))
+
+
+def retry_after_seconds(value: str | None, now: float | None = None) -> float:
+    if not value:
+        return 0.0
+    try:
+        return max(0, int(value))
+    except (ValueError, TypeError):
+        try:
+            return max(0, parsedate_to_datetime(value).timestamp() - (time.time() if now is None else now))
+        except (ValueError, TypeError, OverflowError):
+            return 0.0
 
 
 def request_refresh(nickname: str, timeout: float) -> RefreshResult:
     body = json.dumps({"nick": nickname}, ensure_ascii=False).encode("utf-8")
-    request = Request(
-        API_URL,
-        data=body,
-        method="POST",
-        headers={
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "User-Agent": USER_AGENT,
-            "Origin": "https://mgf.gg",
-            "Referer": f"https://mgf.gg/contents/character.php?n={quote(nickname)}",
-        },
-    )
-
+    request = Request(API_URL, data=body, method="POST", headers={
+        "Content-Type": "application/json", "Accept": "application/json",
+        "User-Agent": USER_AGENT, "Origin": "https://mgf.gg",
+        "Referer": f"https://mgf.gg/contents/character.php?n={quote(nickname)}",
+    })
+    http_status = 200
     try:
         with urlopen(request, timeout=timeout) as response:
-            payload = response.read().decode("utf-8")
+            payload = response.read().decode("utf-8", errors="replace")
     except HTTPError as exc:
         if exc.code == 429:
-            return RefreshResult(nickname, "rate_limited", "HTTP 429")
-        return RefreshResult(nickname, "error", f"HTTP {exc.code}")
+            return RefreshResult(nickname, "rate_limited", "HTTP 429",
+                                 retry_after=retry_after_seconds(exc.headers.get("Retry-After") if exc.headers else None))
+        http_status = exc.code
+        payload = exc.read().decode("utf-8", errors="replace")
     except URLError as exc:
         return RefreshResult(nickname, "error", f"network error: {exc.reason}")
-    except TimeoutError:
-        return RefreshResult(nickname, "error", "timeout")
-
+    except (TimeoutError, OSError) as exc:
+        return RefreshResult(nickname, "error", f"network error: {exc}")
     try:
         data: dict[str, Any] = json.loads(payload)
-    except json.JSONDecodeError:
-        return RefreshResult(nickname, "error", "invalid JSON response")
-
-    if data.get("success"):
-        return RefreshResult(
-            nickname=nickname,
-            status="queued",
-            message="queued",
-            queue_id=str(data.get("queue_id", "")),
-            position=int(data["position"]) if str(data.get("position", "")).isdigit() else None,
-        )
-
-    error = str(data.get("error", "request failed"))
+        if not isinstance(data, dict):
+            raise ValueError("response is not an object")
+    except ValueError:
+        return RefreshResult(nickname, "error", f"HTTP {http_status}: invalid JSON response")
+    if http_status == 200 and data.get("success"):
+        return RefreshResult(nickname, "queued", "request enqueued (refresh not yet confirmed)",
+                             queue_id=str(data.get("queue_id", "")),
+                             position=int(data["position"]) if str(data.get("position", "")).isdigit() else None)
+    error = str(data.get("error", "request failed"))[:500].replace("\n", " ")
     if "10분" in error or "최근" in error:
         return RefreshResult(nickname, "cooldown", error)
-    return RefreshResult(nickname, "error", error)
+    return RefreshResult(nickname, "error", f"HTTP {http_status}: {error}")
 
 
-def load_checkpoint(path: Path | None) -> dict[str, dict[str, Any]]:
-    if path is None or not path.exists():
-        return {}
-    data = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(data, dict):
-        raise ValueError(f"Checkpoint must be a JSON object: {path}")
-    return {str(key): dict(value) for key, value in data.items() if isinstance(value, dict)}
+def prepare_cycle(state, nicknames, now):
+    """Finish an old cycle before rolling over; preserve pacing across midnight."""
+    day = datetime.fromtimestamp(now, KST).date().isoformat()
+    if state is None:
+        state = {"version": 1, "cycle_day": day, "pending": list(nicknames), "records": {},
+                 "not_before": 0, "rate_limit_streak": 0, "in_flight": None}
+    current = set(nicknames)
+    state["pending"] = [name for name in state["pending"] if name in current]
+    if not state["pending"] and state["cycle_day"] < day:
+        state.update(cycle_day=day, pending=list(nicknames), records={})
+    else:
+        known = set(state["pending"]) | state["records"].keys()
+        state["pending"].extend(name for name in nicknames if name not in known)
+    return state
 
 
-def write_checkpoint(path: Path | None, records: dict[str, dict[str, Any]]) -> None:
-    if path is None:
-        return
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(records, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+def run_batch(store, nicknames, *, dry_run=False, timeout=20.0, delay=1.25,
+              clock=time.time, sleep=time.sleep, requester=request_refresh):
+    with store.lock():
+        state = store.load()
+        if state and state["in_flight"] is not None:
+            raise ValueError("Unfinished batch claim: request outcomes may be unknown. Inspect the prior run and state branch before manual recovery; no requests sent.")
+        now = clock()
+        state = prepare_cycle(state, nicknames, now)
+        if now < state["not_before"]:
+            print(f"DEFERRED: next batch allowed at {datetime.fromtimestamp(state['not_before'], timezone.utc).isoformat()}", flush=True)
+            return []
+        batch = state["pending"][:BATCH_SIZE]
+        if dry_run:
+            for name in batch:
+                print(f"DRY_RUN {name}", flush=True)
+            return []
+        if not batch:
+            print(f"Cycle {state['cycle_day']} finished; no refresh completion is implied.", flush=True)
+            return []
+        # Fail closed: this claim intentionally does not expire automatically.
+        # A crash or failed final save must not lose an unknown Retry-After or
+        # allow another runner to repeat requests with unknown outcomes.
+        state["in_flight"] = {"started_at": now, "nicknames": batch}
+        store.save(state)  # CAS must succeed before the first external request.
+        results = []
+        for index, name in enumerate(batch):
+            result = requester(name, timeout)
+            finished_at = clock()
+            results.append(result)
+            state["not_before"] = max(state["not_before"], finished_at + MIN_INTERVAL)
+            state["records"][name] = {**vars(result), "attempted_at": finished_at}
+            print(f"[{index + 1}/{len(batch)}] {result.status} {name}: {result.message} queue_id={result.queue_id}", flush=True)
+            if result.status == "rate_limited":
+                state["rate_limit_streak"] += 1
+                backoff = min(21600, MIN_INTERVAL * 2 ** min(state["rate_limit_streak"] - 1, 6))
+                state["not_before"] = max(state["not_before"], finished_at + backoff, finished_at + result.retry_after)
+                break  # Keep this character pending; no in-run retries or long sleep.
+            state["rate_limit_streak"] = 0
+            state["pending"].remove(name)  # Includes HTTP 400/errors: never starve later members.
+            if index + 1 < len(batch) and delay > 0:
+                sleep(delay)
+        state["in_flight"] = None
+        store.save(state)
+        print(f"Batch: attempted={len(results)} queued={sum(r.status == 'queued' for r in results)}; remaining={len(state['pending'])}. Queued means accepted, not refreshed.", flush=True)
+        return results
 
 
-def checkpoint_record(result: RefreshResult, attempts: int) -> dict[str, Any]:
-    return {
-        "status": result.status,
-        "message": result.message,
-        "queue_id": result.queue_id,
-        "position": result.position,
-        "attempts": attempts,
-        "updated_at": datetime.now().isoformat(timespec="seconds"),
-    }
-
-
-def request_refresh_with_retry(
-    nickname: str,
-    timeout: float,
-    retry_rate_limit: bool,
-    max_rate_limit_retries: int,
-    rate_limit_wait: float,
-) -> tuple[RefreshResult, int]:
-    attempts = 0
-    while True:
-        attempts += 1
-        result = request_refresh(nickname, timeout)
-        if result.status != "rate_limited":
-            return result, attempts
-        if not retry_rate_limit or attempts > max_rate_limit_retries:
-            return result, attempts
-        print(
-            f"RATE_LIMIT {nickname}: waiting {rate_limit_wait:.0f}s before retry "
-            f"({attempts}/{max_rate_limit_retries})",
-            flush=True,
-        )
-        time.sleep(rate_limit_wait)
-
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Queue mgf.gg character refresh requests from latest guild snapshots.")
-    parser.add_argument("--reports-dir", type=Path, default=Path("reports"), help="Report output directory.")
-    parser.add_argument("--guild", action="append", dest="guilds", help="Guild report directory to scan. Repeatable.")
-    parser.add_argument("--snapshot", action="append", dest="snapshots", help="Snapshot filename to scan. Repeatable.")
-    parser.add_argument("--delay", type=float, default=1.25, help="Delay between requests in seconds.")
-    parser.add_argument("--timeout", type=float, default=20.0, help="HTTP timeout in seconds.")
-    parser.add_argument("--limit", type=int, default=0, help="Limit request count. 0 means all.")
-    parser.add_argument("--dry-run", action="store_true", help="Print targets without sending refresh requests.")
-    parser.add_argument("--fail-error-rate", type=float, default=0.30, help="Fail when hard error rate exceeds this value.")
-    parser.add_argument("--checkpoint", type=Path, help="JSON file used to resume queued/cooldown characters.")
-    parser.add_argument(
-        "--retry-rate-limit",
-        action="store_true",
-        help="Treat HTTP 429 as a backoff signal and retry the same character.",
-    )
-    parser.add_argument(
-        "--max-rate-limit-retries",
-        type=int,
-        default=12,
-        help="Max HTTP 429 retries per character when --retry-rate-limit is enabled.",
-    )
-    parser.add_argument(
-        "--rate-limit-wait",
-        type=float,
-        default=600.0,
-        help="Seconds to wait after HTTP 429 before retrying the same character.",
-    )
-    return parser.parse_args()
-
-
-def main() -> None:
-    args = parse_args()
+def main():
+    parser = argparse.ArgumentParser(description="Queue at most 3 own-guild characters; persist progress between runs.")
+    parser.add_argument("--reports-dir", type=Path, default=Path("reports"))
+    parser.add_argument("--guild", action="append", dest="guilds")
+    parser.add_argument("--snapshot", action="append", dest="snapshots")
+    parser.add_argument("--timeout", type=float, default=20.0)
+    parser.add_argument("--delay", type=float, default=1.25, help="Short delay inside the 3-character batch.")
+    parser.add_argument("--dry-run", action="store_true")
+    stores = parser.add_mutually_exclusive_group(required=True)
+    stores.add_argument("--checkpoint", type=Path, help="Local JSON state; protected by a file lock.")
+    stores.add_argument("--state-branch", help="Durable state-only branch in origin; uses a compare-and-swap push.")
+    parser.add_argument("--initialize-state", action="store_true", help="Explicitly allow first creation of a missing state branch.")
+    args = parser.parse_args()
+    if not 0 < args.timeout <= 60 or not 0 <= args.delay <= 10:
+        parser.error("timeout must be in (0, 60] and delay in [0, 10]")
     guilds = args.guilds or list(DEFAULT_GUILDS)
-    snapshots = args.snapshots or list(DEFAULT_SNAPSHOTS)
-    nicknames = collect_nicknames(args.reports_dir, guilds, snapshots)
-    if args.limit > 0:
-        nicknames = nicknames[: args.limit]
-    checkpoint = load_checkpoint(args.checkpoint)
-    completed_statuses = {"queued", "cooldown"}
-
-    print(f"Guilds: {', '.join(guilds)}", flush=True)
-    print(f"Snapshots: {', '.join(snapshots)}", flush=True)
-    print(f"Targets: {len(nicknames)} unique characters", flush=True)
-    if args.checkpoint:
-        completed = sum(1 for nickname in nicknames if checkpoint.get(nickname, {}).get("status") in completed_statuses)
-        print(f"Checkpoint: {args.checkpoint} ({completed} already complete)", flush=True)
-
-    if args.dry_run:
-        for nickname in nicknames:
-            print(f"DRY_RUN {nickname}", flush=True)
-        return
-
-    counts = {"queued": 0, "cooldown": 0, "rate_limited": 0, "error": 0, "skipped": 0}
-    for index, nickname in enumerate(nicknames, start=1):
-        checkpoint_status = checkpoint.get(nickname, {}).get("status")
-        if checkpoint_status in completed_statuses:
-            counts["skipped"] += 1
-            print(f"[{index}/{len(nicknames)}] skipped {nickname}: checkpoint {checkpoint_status}", flush=True)
-            continue
-
-        result, attempts = request_refresh_with_retry(
-            nickname=nickname,
-            timeout=args.timeout,
-            retry_rate_limit=args.retry_rate_limit,
-            max_rate_limit_retries=args.max_rate_limit_retries,
-            rate_limit_wait=args.rate_limit_wait,
-        )
-        counts[result.status] = counts.get(result.status, 0) + 1
-        checkpoint[nickname] = checkpoint_record(result, attempts)
-        write_checkpoint(args.checkpoint, checkpoint)
-        suffix = f" queue_id={result.queue_id}" if result.queue_id else ""
-        position = f" position={result.position}" if result.position is not None else ""
-        attempt_text = f" attempts={attempts}" if attempts > 1 else ""
-        print(f"[{index}/{len(nicknames)}] {result.status} {nickname}: {result.message}{suffix}{position}{attempt_text}", flush=True)
-        if index < len(nicknames) and args.delay > 0:
-            time.sleep(args.delay)
-
-    print(
-        "Summary: "
-        f"queued={counts['queued']} cooldown={counts['cooldown']} "
-        f"rate_limited={counts['rate_limited']} error={counts['error']} skipped={counts['skipped']}",
-        flush=True,
-    )
-    attempted_count = max(0, len(nicknames) - counts["skipped"])
-    if attempted_count == 0:
-        return
-    hard_error_rate = (counts["error"] + counts["rate_limited"]) / max(1, attempted_count)
-    if counts["queued"] == 0 and counts["cooldown"] == 0:
-        raise SystemExit("No refresh request was accepted or treated as cooldown.")
-    if hard_error_rate > args.fail_error_rate:
-        raise SystemExit(f"Hard error rate {hard_error_rate:.1%} exceeds limit {args.fail_error_rate:.1%}.")
+    if set(guilds) - set(DEFAULT_GUILDS):
+        parser.error("Only 빅딜 and 셀린느 are authorized refresh targets.")
+    names = collect_nicknames(args.reports_dir, guilds, args.snapshots or list(DEFAULT_SNAPSHOTS))
+    print(f"Guilds: {', '.join(guilds)}; targets: {len(names)}; batch: at most {BATCH_SIZE}", flush=True)
+    store = GitState(args.state_branch, initialize=args.initialize_state) if args.state_branch else FileState(args.checkpoint)
+    results = run_batch(store, names, dry_run=args.dry_run, timeout=args.timeout, delay=args.delay)
+    if any(result.status == "error" for result in results):
+        raise SystemExit("One or more requests failed; results and progress were saved. Later characters continue next run.")
 
 
 if __name__ == "__main__":

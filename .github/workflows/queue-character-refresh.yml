@@ -2,20 +2,18 @@ name: Queue Character Refresh
 
 on:
   schedule:
-    # 00:00 KST = 15:00 UTC, run every day before the 12:05 KST report refresh.
-    - cron: '0 15 * * *'
+    # Check every 10 minutes. Persisted state enforces >=10 minutes after the
+    # previous batch's last response, even for delayed/manual/rerun jobs.
+    - cron: '7,17,27,37,47,57 * * * *'
   workflow_dispatch:
     inputs:
-      limit:
-        description: 'Optional max character count. 0 means all.'
-        required: false
-        default: '0'
-      delay:
-        description: 'Delay between mgf.gg queue requests in seconds.'
-        required: false
-        default: '1.25'
       dry_run:
-        description: 'Print targets without sending requests.'
+        description: 'Print the next eligible batch without sending requests or writing state.'
+        required: false
+        type: boolean
+        default: false
+      initialize_state:
+        description: 'First setup only: allow creation of the dedicated state branch.'
         required: false
         type: boolean
         default: false
@@ -29,29 +27,43 @@ concurrency:
 
 jobs:
   queue-refresh:
+    # Do not let a manual dispatch from another code branch share live state.
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 5
+    permissions:
+      # Needed only to persist state on character-refresh-state. The script
+      # never commits/pushes the report/code branch or dispatches another run.
+      contents: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout current default branch
         uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
-      - name: Queue mgf.gg character refresh requests for league, training and tobeol
+      - name: Test bounded refresh batches (mocked HTTP)
+        run: python -m unittest test_queue_character_refresh.py
+
+      - name: Queue at most 3 characters from 빅딜 and 셀린느
         env:
-          REFRESH_LIMIT: ${{ github.event.inputs.limit || '0' }}
-          REFRESH_DELAY: ${{ github.event.inputs.delay || '1.25' }}
           REFRESH_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          REFRESH_INITIALIZE_STATE: ${{ github.event.inputs.initialize_state || 'false' }}
         run: |
           args=(
-            --limit "$REFRESH_LIMIT"
-            --delay "$REFRESH_DELAY"
+            --guild '빅딜'
+            --guild '셀린느'
+            --state-branch character-refresh-state
           )
           if [ "$REFRESH_DRY_RUN" = "true" ]; then
             args+=(--dry-run)
+          fi
+          if [ "$REFRESH_INITIALIZE_STATE" = "true" ]; then
+            args+=(--initialize-state)
           fi
           python queue_character_refresh.py "${args[@]}"
