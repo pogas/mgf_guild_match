@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-10-27",
   "pending": [
-    "관리",
-    "호날두",
-    "쌉새",
     "망겜감별사",
     "라똥이",
     "오곤",
@@ -447,16 +444,36 @@
       "position": 32525,
       "retry_after": 0.0,
       "attempted_at": 1793373750.8932004
+    },
+    "관리": {
+      "nickname": "관리",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319455",
+      "position": 32579,
+      "retry_after": 0.0,
+      "attempted_at": 1793390355.5092363
+    },
+    "호날두": {
+      "nickname": "호날두",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319456",
+      "position": 32580,
+      "retry_after": 0.0,
+      "attempted_at": 1793390357.6589484
+    },
+    "쌉새": {
+      "nickname": "쌉새",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319457",
+      "position": 32581,
+      "retry_after": 0.0,
+      "attempted_at": 1793390360.1690974
     }
   },
-  "not_before": 1793374350.8932004,
+  "not_before": 1793390960.1690974,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793390353.1286433,
-    "nicknames": [
-      "관리",
-      "호날두",
-      "쌉새"
-    ]
-  }
+  "in_flight": null
 }
