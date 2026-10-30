@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-10-27",
   "pending": [
-    "잼포즈",
-    "쾌감",
-    "할룽",
     "반가성",
     "세아수호지호",
     "프리프리",
@@ -374,16 +371,36 @@
       "position": 32171,
       "retry_after": 0.0,
       "attempted_at": 1793313757.442378
+    },
+    "잼포즈": {
+      "nickname": "잼포즈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319117",
+      "position": 32241,
+      "retry_after": 0.0,
+      "attempted_at": 1793326248.3297033
+    },
+    "쾌감": {
+      "nickname": "쾌감",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319118",
+      "position": 32242,
+      "retry_after": 0.0,
+      "attempted_at": 1793326250.6317465
+    },
+    "할룽": {
+      "nickname": "할룽",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319119",
+      "position": 32243,
+      "retry_after": 0.0,
+      "attempted_at": 1793326253.0591946
     }
   },
-  "not_before": 1793314357.442378,
+  "not_before": 1793326853.0591946,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793326246.0797706,
-    "nicknames": [
-      "잼포즈",
-      "쾌감",
-      "할룽"
-    ]
-  }
+  "in_flight": null
 }
