@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-10-27",
   "pending": [
-    "망겜감별사",
-    "라똥이",
-    "오곤",
     "미쳤냥",
     "초식왕",
     "제로슈가",
@@ -471,16 +468,36 @@
       "position": 32581,
       "retry_after": 0.0,
       "attempted_at": 1793390360.1690974
+    },
+    "망겜감별사": {
+      "nickname": "망겜감별사",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319468",
+      "position": 32592,
+      "retry_after": 0.0,
+      "attempted_at": 1793403698.187604
+    },
+    "라똥이": {
+      "nickname": "라똥이",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319469",
+      "position": 32593,
+      "retry_after": 0.0,
+      "attempted_at": 1793403700.2208467
+    },
+    "오곤": {
+      "nickname": "오곤",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319470",
+      "position": 32594,
+      "retry_after": 0.0,
+      "attempted_at": 1793403702.945683
     }
   },
-  "not_before": 1793390960.1690974,
+  "not_before": 1793404302.945683,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793403695.4681852,
-    "nicknames": [
-      "망겜감별사",
-      "라똥이",
-      "오곤"
-    ]
-  }
+  "in_flight": null
 }
