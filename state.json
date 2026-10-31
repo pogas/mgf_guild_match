@@ -1,550 +1,77 @@
 {
   "version": 1,
-  "cycle_day": "2026-10-27",
-  "pending": [],
-  "records": {
-    "루넨": {
-      "nickname": "루넨",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "317684",
-      "position": 30808,
-      "retry_after": 0.0,
-      "attempted_at": 1793083945.087871
-    },
-    "굴러가는일상": {
-      "nickname": "굴러가는일상",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "317685",
-      "position": 30809,
-      "retry_after": 0.0,
-      "attempted_at": 1793083947.647183
-    },
-    "엘라임": {
-      "nickname": "엘라임",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "317686",
-      "position": 30810,
-      "retry_after": 0.0,
-      "attempted_at": 1793083949.640029
-    },
-    "대방어조아": {
-      "nickname": "대방어조아",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "317860",
-      "position": 30984,
-      "retry_after": 0.0,
-      "attempted_at": 1793105860.3904674
-    },
-    "흑두부": {
-      "nickname": "흑두부",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "317861",
-      "position": 30985,
-      "retry_after": 0.0,
-      "attempted_at": 1793105862.5087693
-    },
-    "서포터즈": {
-      "nickname": "서포터즈",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "317862",
-      "position": 30986,
-      "retry_after": 0.0,
-      "attempted_at": 1793105864.589417
-    },
-    "KR#TAKIN9CP37": {
-      "nickname": "KR#TAKIN9CP37",
-      "status": "error",
-      "message": "HTTP 400: 사용할 수 없는 특수문자가 포함되어 있습니다",
-      "queue_id": "",
-      "position": null,
-      "retry_after": 0.0,
-      "attempted_at": 1793126383.8354707
-    },
-    "뻥뻥": {
-      "nickname": "뻥뻥",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "317976",
-      "position": 31100,
-      "retry_after": 0.0,
-      "attempted_at": 1793126386.094569
-    },
-    "야가다": {
-      "nickname": "야가다",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "317977",
-      "position": 31101,
-      "retry_after": 0.0,
-      "attempted_at": 1793126388.1285522
-    },
-    "자유이용껀": {
-      "nickname": "자유이용껀",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318002",
-      "position": 31126,
-      "retry_after": 0.0,
-      "attempted_at": 1793140772.114634
-    },
-    "채무조정": {
-      "nickname": "채무조정",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318003",
-      "position": 31127,
-      "retry_after": 0.0,
-      "attempted_at": 1793140774.2588162
-    },
-    "뽀송히": {
-      "nickname": "뽀송히",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318004",
-      "position": 31128,
-      "retry_after": 0.0,
-      "attempted_at": 1793140776.5316617
-    },
-    "따띠뚜": {
-      "nickname": "따띠뚜",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318076",
-      "position": 31200,
-      "retry_after": 0.0,
-      "attempted_at": 1793152122.9581437
-    },
-    "불보독지": {
-      "nickname": "불보독지",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318077",
-      "position": 31201,
-      "retry_after": 0.0,
-      "attempted_at": 1793152125.2829597
-    },
-    "우후": {
-      "nickname": "우후",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318078",
-      "position": 31202,
-      "retry_after": 0.0,
-      "attempted_at": 1793152127.373756
-    },
-    "좀치는형님": {
-      "nickname": "좀치는형님",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318228",
-      "position": 31352,
-      "retry_after": 0.0,
-      "attempted_at": 1793174052.2998528
-    },
-    "호우기": {
-      "nickname": "호우기",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318229",
-      "position": 31353,
-      "retry_after": 0.0,
-      "attempted_at": 1793174054.592991
-    },
-    "비스밤": {
-      "nickname": "비스밤",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318230",
-      "position": 31354,
-      "retry_after": 0.0,
-      "attempted_at": 1793174057.0562444
-    },
-    "솔인": {
-      "nickname": "솔인",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318416",
-      "position": 31540,
-      "retry_after": 0.0,
-      "attempted_at": 1793199328.7289524
-    },
-    "킹왕짱": {
-      "nickname": "킹왕짱",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318417",
-      "position": 31541,
-      "retry_after": 0.0,
-      "attempted_at": 1793199330.8434186
-    },
-    "박준우2": {
-      "nickname": "박준우2",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318418",
-      "position": 31542,
-      "retry_after": 0.0,
-      "attempted_at": 1793199333.1904495
-    },
-    "정태준": {
-      "nickname": "정태준",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318492",
-      "position": 31616,
-      "retry_after": 0.0,
-      "attempted_at": 1793218204.674746
-    },
-    "민들레꽃": {
-      "nickname": "민들레꽃",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318493",
-      "position": 31617,
-      "retry_after": 0.0,
-      "attempted_at": 1793218207.1539369
-    },
-    "웅도환": {
-      "nickname": "웅도환",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318494",
-      "position": 31618,
-      "retry_after": 0.0,
-      "attempted_at": 1793218209.2850652
-    },
-    "팡대지": {
-      "nickname": "팡대지",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318534",
-      "position": 31658,
-      "retry_after": 0.0,
-      "attempted_at": 1793232157.6441698
-    },
-    "컨덱": {
-      "nickname": "컨덱",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318536",
-      "position": 31660,
-      "retry_after": 0.0,
-      "attempted_at": 1793232159.7989979
-    },
-    "여눈": {
-      "nickname": "여눈",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318537",
-      "position": 31661,
-      "retry_after": 0.0,
-      "attempted_at": 1793232161.9346054
-    },
-    "버드텐": {
-      "nickname": "버드텐",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318679",
-      "position": 31803,
-      "retry_after": 0.0,
-      "attempted_at": 1793252375.7937288
-    },
-    "아르미느": {
-      "nickname": "아르미느",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318680",
-      "position": 31804,
-      "retry_after": 0.0,
-      "attempted_at": 1793252378.0280805
-    },
-    "꼬북빵야": {
-      "nickname": "꼬북빵야",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318681",
-      "position": 31805,
-      "retry_after": 0.0,
-      "attempted_at": 1793252380.384981
-    },
-    "돈스": {
-      "nickname": "돈스",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318843",
-      "position": 31967,
-      "retry_after": 0.0,
-      "attempted_at": 1793274555.5597644
-    },
-    "말레이히어로": {
-      "nickname": "말레이히어로",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318844",
-      "position": 31968,
-      "retry_after": 0.0,
-      "attempted_at": 1793274557.7364507
-    },
-    "부엉이형": {
-      "nickname": "부엉이형",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "318845",
-      "position": 31969,
-      "retry_after": 0.0,
-      "attempted_at": 1793274559.739485
-    },
-    "국의": {
-      "nickname": "국의",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319012",
-      "position": 32136,
-      "retry_after": 0.0,
-      "attempted_at": 1793296805.2922122
-    },
-    "꽃을든남자": {
-      "nickname": "꽃을든남자",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319013",
-      "position": 32137,
-      "retry_after": 0.0,
-      "attempted_at": 1793296808.3156826
-    },
-    "걸음": {
-      "nickname": "걸음",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319014",
-      "position": 32138,
-      "retry_after": 0.0,
-      "attempted_at": 1793296810.8353057
-    },
-    "캣오랜턴": {
-      "nickname": "캣오랜턴",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319045",
-      "position": 32169,
-      "retry_after": 0.0,
-      "attempted_at": 1793313752.5542288
-    },
-    "약어": {
-      "nickname": "약어",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319046",
-      "position": 32170,
-      "retry_after": 0.0,
-      "attempted_at": 1793313754.743287
-    },
-    "니달리신": {
-      "nickname": "니달리신",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319047",
-      "position": 32171,
-      "retry_after": 0.0,
-      "attempted_at": 1793313757.442378
-    },
-    "잼포즈": {
-      "nickname": "잼포즈",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319117",
-      "position": 32241,
-      "retry_after": 0.0,
-      "attempted_at": 1793326248.3297033
-    },
-    "쾌감": {
-      "nickname": "쾌감",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319118",
-      "position": 32242,
-      "retry_after": 0.0,
-      "attempted_at": 1793326250.6317465
-    },
-    "할룽": {
-      "nickname": "할룽",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319119",
-      "position": 32243,
-      "retry_after": 0.0,
-      "attempted_at": 1793326253.0591946
-    },
-    "반가성": {
-      "nickname": "반가성",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319266",
-      "position": 32390,
-      "retry_after": 0.0,
-      "attempted_at": 1793349864.6273298
-    },
-    "세아수호지호": {
-      "nickname": "세아수호지호",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319267",
-      "position": 32391,
-      "retry_after": 0.0,
-      "attempted_at": 1793349866.857338
-    },
-    "프리프리": {
-      "nickname": "프리프리",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319268",
-      "position": 32392,
-      "retry_after": 0.0,
-      "attempted_at": 1793349869.2345927
-    },
-    "혜영": {
-      "nickname": "혜영",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319399",
-      "position": 32523,
-      "retry_after": 0.0,
-      "attempted_at": 1793373746.1300964
-    },
-    "아이스꾸임": {
-      "nickname": "아이스꾸임",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319400",
-      "position": 32524,
-      "retry_after": 0.0,
-      "attempted_at": 1793373748.381686
-    },
-    "니뚜": {
-      "nickname": "니뚜",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319401",
-      "position": 32525,
-      "retry_after": 0.0,
-      "attempted_at": 1793373750.8932004
-    },
-    "관리": {
-      "nickname": "관리",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319455",
-      "position": 32579,
-      "retry_after": 0.0,
-      "attempted_at": 1793390355.5092363
-    },
-    "호날두": {
-      "nickname": "호날두",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319456",
-      "position": 32580,
-      "retry_after": 0.0,
-      "attempted_at": 1793390357.6589484
-    },
-    "쌉새": {
-      "nickname": "쌉새",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319457",
-      "position": 32581,
-      "retry_after": 0.0,
-      "attempted_at": 1793390360.1690974
-    },
-    "망겜감별사": {
-      "nickname": "망겜감별사",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319468",
-      "position": 32592,
-      "retry_after": 0.0,
-      "attempted_at": 1793403698.187604
-    },
-    "라똥이": {
-      "nickname": "라똥이",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319469",
-      "position": 32593,
-      "retry_after": 0.0,
-      "attempted_at": 1793403700.2208467
-    },
-    "오곤": {
-      "nickname": "오곤",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319470",
-      "position": 32594,
-      "retry_after": 0.0,
-      "attempted_at": 1793403702.945683
-    },
-    "미쳤냥": {
-      "nickname": "미쳤냥",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319508",
-      "position": 32632,
-      "retry_after": 0.0,
-      "attempted_at": 1793414774.2496169
-    },
-    "초식왕": {
-      "nickname": "초식왕",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319509",
-      "position": 32633,
-      "retry_after": 0.0,
-      "attempted_at": 1793414776.4260194
-    },
-    "제로슈가": {
-      "nickname": "제로슈가",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319510",
-      "position": 32634,
-      "retry_after": 0.0,
-      "attempted_at": 1793414778.6914048
-    },
-    "러너": {
-      "nickname": "러너",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319657",
-      "position": 32781,
-      "retry_after": 0.0,
-      "attempted_at": 1793437094.3482778
-    },
-    "큐샤프": {
-      "nickname": "큐샤프",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319658",
-      "position": 32782,
-      "retry_after": 0.0,
-      "attempted_at": 1793437096.6545107
-    },
-    "예원냥": {
-      "nickname": "예원냥",
-      "status": "queued",
-      "message": "request enqueued (refresh not yet confirmed)",
-      "queue_id": "319659",
-      "position": 32783,
-      "retry_after": 0.0,
-      "attempted_at": 1793437099.0639243
-    }
-  },
+  "cycle_day": "2026-11-01",
+  "pending": [
+    "루넨",
+    "굴러가는일상",
+    "엘라임",
+    "대방어조아",
+    "흑두부",
+    "KR#TAKIN9CP37",
+    "서포터즈",
+    "뻥뻥",
+    "야가다",
+    "자유이용껀",
+    "따띠뚜",
+    "채무조정",
+    "불보독지",
+    "뽀송히",
+    "좀치는형님",
+    "우후",
+    "비스밤",
+    "솔인",
+    "박준우2",
+    "호우기",
+    "킹왕짱",
+    "민들레꽃",
+    "웅도환",
+    "정태준",
+    "팡대지",
+    "컨덱",
+    "버드텐",
+    "여눈",
+    "아르미느",
+    "꼬북빵야",
+    "돈스",
+    "말레이히어로",
+    "부엉이형",
+    "국의",
+    "꽃을든남자",
+    "걸음",
+    "잼포즈",
+    "캣오랜턴",
+    "약어",
+    "니달리신",
+    "쾌감",
+    "할룽",
+    "반가성",
+    "혜영",
+    "세아수호지호",
+    "프리프리",
+    "아이스꾸임",
+    "니뚜",
+    "관리",
+    "예원냥",
+    "호날두",
+    "쌉새",
+    "망겜감별사",
+    "미쳤냥",
+    "제로슈가",
+    "오곤",
+    "라똥이",
+    "초식왕",
+    "큐샤프",
+    "러너"
+  ],
+  "records": {},
   "not_before": 1793437699.0639243,
   "rate_limit_streak": 0,
-  "in_flight": null
+  "in_flight": {
+    "started_at": 1793459796.0597932,
+    "nicknames": [
+      "루넨",
+      "굴러가는일상",
+      "엘라임"
+    ]
+  }
 }
