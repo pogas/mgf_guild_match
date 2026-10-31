@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-01",
   "pending": [
-    "대방어조아",
-    "흑두부",
-    "KR#TAKIN9CP37",
     "서포터즈",
     "뻥뻥",
     "야가다",
@@ -87,16 +84,36 @@
       "position": 32899,
       "retry_after": 0.0,
       "attempted_at": 1793459803.3432462
+    },
+    "대방어조아": {
+      "nickname": "대방어조아",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319835",
+      "position": 32959,
+      "retry_after": 0.0,
+      "attempted_at": 1793474603.5458097
+    },
+    "흑두부": {
+      "nickname": "흑두부",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "319836",
+      "position": 32960,
+      "retry_after": 0.0,
+      "attempted_at": 1793474606.0466146
+    },
+    "KR#TAKIN9CP37": {
+      "nickname": "KR#TAKIN9CP37",
+      "status": "error",
+      "message": "HTTP 400: 사용할 수 없는 특수문자가 포함되어 있습니다",
+      "queue_id": "",
+      "position": null,
+      "retry_after": 0.0,
+      "attempted_at": 1793474607.9970381
     }
   },
-  "not_before": 1793460403.3432462,
+  "not_before": 1793475207.9970381,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793474601.2956228,
-    "nicknames": [
-      "대방어조아",
-      "흑두부",
-      "KR#TAKIN9CP37"
-    ]
-  }
+  "in_flight": null
 }
