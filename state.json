@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-01",
   "pending": [
-    "박준우2",
-    "호우기",
-    "킹왕짱",
     "민들레꽃",
     "웅도환",
     "정태준",
@@ -207,16 +204,36 @@
       "position": 33258,
       "retry_after": 0.0,
       "attempted_at": 1793545527.2274253
+    },
+    "박준우2": {
+      "nickname": "박준우2",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320202",
+      "position": 33326,
+      "retry_after": 0.0,
+      "attempted_at": 1793561875.5563226
+    },
+    "호우기": {
+      "nickname": "호우기",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320203",
+      "position": 33327,
+      "retry_after": 0.0,
+      "attempted_at": 1793561877.834378
+    },
+    "킹왕짱": {
+      "nickname": "킹왕짱",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320204",
+      "position": 33328,
+      "retry_after": 0.0,
+      "attempted_at": 1793561880.320324
     }
   },
-  "not_before": 1793546127.2274253,
+  "not_before": 1793562480.320324,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793561873.0010853,
-    "nicknames": [
-      "박준우2",
-      "호우기",
-      "킹왕짱"
-    ]
-  }
+  "in_flight": null
 }
