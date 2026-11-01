@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-01",
   "pending": [
-    "민들레꽃",
-    "웅도환",
-    "정태준",
     "팡대지",
     "컨덱",
     "버드텐",
@@ -231,16 +228,36 @@
       "position": 33328,
       "retry_after": 0.0,
       "attempted_at": 1793561880.320324
+    },
+    "민들레꽃": {
+      "nickname": "민들레꽃",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320236",
+      "position": 33360,
+      "retry_after": 0.0,
+      "attempted_at": 1793574502.628711
+    },
+    "웅도환": {
+      "nickname": "웅도환",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320237",
+      "position": 33361,
+      "retry_after": 0.0,
+      "attempted_at": 1793574504.673122
+    },
+    "정태준": {
+      "nickname": "정태준",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320238",
+      "position": 33362,
+      "retry_after": 0.0,
+      "attempted_at": 1793574507.0787494
     }
   },
-  "not_before": 1793562480.320324,
+  "not_before": 1793575107.0787494,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793574499.8985667,
-    "nicknames": [
-      "민들레꽃",
-      "웅도환",
-      "정태준"
-    ]
-  }
+  "in_flight": null
 }
