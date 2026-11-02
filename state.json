@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-01",
   "pending": [
-    "돈스",
-    "말레이히어로",
-    "부엉이형",
     "국의",
     "꽃을든남자",
     "걸음",
@@ -303,16 +300,36 @@
       "position": 33674,
       "retry_after": 0.0,
       "attempted_at": 1793613428.5752008
+    },
+    "돈스": {
+      "nickname": "돈스",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320804",
+      "position": 33928,
+      "retry_after": 0.0,
+      "attempted_at": 1793650394.062378
+    },
+    "말레이히어로": {
+      "nickname": "말레이히어로",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320805",
+      "position": 33929,
+      "retry_after": 0.0,
+      "attempted_at": 1793650396.697439
+    },
+    "부엉이형": {
+      "nickname": "부엉이형",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "320806",
+      "position": 33930,
+      "retry_after": 0.0,
+      "attempted_at": 1793650398.6678214
     }
   },
-  "not_before": 1793614028.5752008,
+  "not_before": 1793650998.6678214,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793650390.8548372,
-    "nicknames": [
-      "돈스",
-      "말레이히어로",
-      "부엉이형"
-    ]
-  }
+  "in_flight": null
 }
