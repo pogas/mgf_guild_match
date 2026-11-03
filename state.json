@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-01",
   "pending": [
-    "니달리신",
-    "쾌감",
-    "할룽",
     "반가성",
     "혜영",
     "세아수호지호",
@@ -375,16 +372,36 @@
       "position": 34253,
       "retry_after": 0.0,
       "attempted_at": 1793699821.783609
+    },
+    "니달리신": {
+      "nickname": "니달리신",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321278",
+      "position": 34402,
+      "retry_after": 0.0,
+      "attempted_at": 1793727775.534163
+    },
+    "쾌감": {
+      "nickname": "쾌감",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321279",
+      "position": 34403,
+      "retry_after": 0.0,
+      "attempted_at": 1793727777.7271862
+    },
+    "할룽": {
+      "nickname": "할룽",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321280",
+      "position": 34404,
+      "retry_after": 0.0,
+      "attempted_at": 1793727779.920875
     }
   },
-  "not_before": 1793700421.783609,
+  "not_before": 1793728379.920875,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793727769.1601667,
-    "nicknames": [
-      "니달리신",
-      "쾌감",
-      "할룽"
-    ]
-  }
+  "in_flight": null
 }
