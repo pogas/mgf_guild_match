@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-01",
   "pending": [
-    "프리프리",
-    "아이스꾸임",
-    "니뚜",
     "관리",
     "예원냥",
     "호날두",
@@ -423,16 +420,36 @@
       "position": 34434,
       "retry_after": 0.0,
       "attempted_at": 1793745278.978152
+    },
+    "프리프리": {
+      "nickname": "프리프리",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321400",
+      "position": 34524,
+      "retry_after": 0.0,
+      "attempted_at": 1793760079.3853836
+    },
+    "아이스꾸임": {
+      "nickname": "아이스꾸임",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321401",
+      "position": 34525,
+      "retry_after": 0.0,
+      "attempted_at": 1793760081.3306365
+    },
+    "니뚜": {
+      "nickname": "니뚜",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321402",
+      "position": 34526,
+      "retry_after": 0.0,
+      "attempted_at": 1793760083.2024286
     }
   },
-  "not_before": 1793745878.978152,
+  "not_before": 1793760683.2024286,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793760077.1062303,
-    "nicknames": [
-      "프리프리",
-      "아이스꾸임",
-      "니뚜"
-    ]
-  }
+  "in_flight": null
 }
