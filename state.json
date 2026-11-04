@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-01",
   "pending": [
-    "쌉새",
-    "망겜감별사",
-    "미쳤냥",
     "제로슈가",
     "오곤",
     "라똥이",
@@ -471,16 +468,36 @@
       "position": 34968,
       "retry_after": 0.0,
       "attempted_at": 1793814932.0085588
+    },
+    "쌉새": {
+      "nickname": "쌉새",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321885",
+      "position": 35009,
+      "retry_after": 0.0,
+      "attempted_at": 1793834852.261648
+    },
+    "망겜감별사": {
+      "nickname": "망겜감별사",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321886",
+      "position": 35010,
+      "retry_after": 0.0,
+      "attempted_at": 1793834854.644758
+    },
+    "미쳤냥": {
+      "nickname": "미쳤냥",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321887",
+      "position": 35011,
+      "retry_after": 0.0,
+      "attempted_at": 1793834857.1882424
     }
   },
-  "not_before": 1793815532.0085588,
+  "not_before": 1793835457.1882424,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793834848.5450528,
-    "nicknames": [
-      "쌉새",
-      "망겜감별사",
-      "미쳤냥"
-    ]
-  }
+  "in_flight": null
 }
