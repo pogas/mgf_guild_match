@@ -1,11 +1,7 @@
 {
   "version": 1,
   "cycle_day": "2026-11-01",
-  "pending": [
-    "초식왕",
-    "큐샤프",
-    "러너"
-  ],
+  "pending": [],
   "records": {
     "루넨": {
       "nickname": "루넨",
@@ -519,16 +515,36 @@
       "position": 35119,
       "retry_after": 0.0,
       "attempted_at": 1793850202.076381
+    },
+    "초식왕": {
+      "nickname": "초식왕",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322293",
+      "position": 35417,
+      "retry_after": 0.0,
+      "attempted_at": 1793878658.723467
+    },
+    "큐샤프": {
+      "nickname": "큐샤프",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322294",
+      "position": 35418,
+      "retry_after": 0.0,
+      "attempted_at": 1793878661.6768205
+    },
+    "러너": {
+      "nickname": "러너",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322295",
+      "position": 35419,
+      "retry_after": 0.0,
+      "attempted_at": 1793878664.233981
     }
   },
-  "not_before": 1793850802.076381,
+  "not_before": 1793879264.233981,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793878656.0928345,
-    "nicknames": [
-      "초식왕",
-      "큐샤프",
-      "러너"
-    ]
-  }
+  "in_flight": null
 }
