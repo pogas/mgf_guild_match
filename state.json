@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-06",
   "pending": [
-    "루넨",
-    "굴러가는일상",
-    "엘라임",
     "대방어조아",
     "흑두부",
     "채무조정",
@@ -63,15 +60,36 @@
     "라똥이",
     "러너"
   ],
-  "records": {},
-  "not_before": 1793879264.233981,
+  "records": {
+    "루넨": {
+      "nickname": "루넨",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322440",
+      "position": 35564,
+      "retry_after": 0.0,
+      "attempted_at": 1793905413.5387979
+    },
+    "굴러가는일상": {
+      "nickname": "굴러가는일상",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322441",
+      "position": 35565,
+      "retry_after": 0.0,
+      "attempted_at": 1793905415.929781
+    },
+    "엘라임": {
+      "nickname": "엘라임",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322442",
+      "position": 35566,
+      "retry_after": 0.0,
+      "attempted_at": 1793905418.1905913
+    }
+  },
+  "not_before": 1793906018.1905913,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793905411.2564857,
-    "nicknames": [
-      "루넨",
-      "굴러가는일상",
-      "엘라임"
-    ]
-  }
+  "in_flight": null
 }
