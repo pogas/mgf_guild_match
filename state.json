@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-01",
   "pending": [
-    "제로슈가",
-    "오곤",
-    "라똥이",
     "초식왕",
     "큐샤프",
     "러너"
@@ -495,16 +492,36 @@
       "position": 35011,
       "retry_after": 0.0,
       "attempted_at": 1793834857.1882424
+    },
+    "제로슈가": {
+      "nickname": "제로슈가",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321992",
+      "position": 35116,
+      "retry_after": 0.0,
+      "attempted_at": 1793850197.5651567
+    },
+    "오곤": {
+      "nickname": "오곤",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321994",
+      "position": 35118,
+      "retry_after": 0.0,
+      "attempted_at": 1793850199.795293
+    },
+    "라똥이": {
+      "nickname": "라똥이",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "321995",
+      "position": 35119,
+      "retry_after": 0.0,
+      "attempted_at": 1793850202.076381
     }
   },
-  "not_before": 1793835457.1882424,
+  "not_before": 1793850802.076381,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793850195.4539557,
-    "nicknames": [
-      "제로슈가",
-      "오곤",
-      "라똥이"
-    ]
-  }
+  "in_flight": null
 }
