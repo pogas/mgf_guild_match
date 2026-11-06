@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-06",
   "pending": [
-    "따띠뚜",
-    "뽀송히",
-    "좀치는형님",
     "우후",
     "비스밤",
     "솔인",
@@ -159,16 +156,36 @@
       "position": 36097,
       "retry_after": 0.0,
       "attempted_at": 1793976959.8236032
+    },
+    "따띠뚜": {
+      "nickname": "따띠뚜",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323039",
+      "position": 36163,
+      "retry_after": 0.0,
+      "attempted_at": 1793998067.2600565
+    },
+    "뽀송히": {
+      "nickname": "뽀송히",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323040",
+      "position": 36164,
+      "retry_after": 0.0,
+      "attempted_at": 1793998069.4442546
+    },
+    "좀치는형님": {
+      "nickname": "좀치는형님",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323041",
+      "position": 36165,
+      "retry_after": 0.0,
+      "attempted_at": 1793998071.630903
     }
   },
-  "not_before": 1793977559.8236032,
+  "not_before": 1793998671.630903,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793998064.8152583,
-    "nicknames": [
-      "따띠뚜",
-      "뽀송히",
-      "좀치는형님"
-    ]
-  }
+  "in_flight": null
 }
