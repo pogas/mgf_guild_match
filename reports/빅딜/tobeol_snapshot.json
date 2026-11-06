@@ -1,10 +1,10 @@
 {
   "guild_seed_name": "빅딜",
   "report_mode": "tobeol",
-  "snapshot_date": "2026-11-05",
+  "snapshot_date": "2026-11-06",
   "rank_scope": "guild_public",
   "model_date": "2026-09-25T08:00:40.216086+00:00",
-  "source_fetched_at": "2026-11-05T19:44:36.915716+09:00",
+  "source_fetched_at": "2026-11-06T19:50:33.041554+09:00",
   "guilds": {
     "빅딜": {
       "guild_name": "빅딜",
@@ -16,17 +16,19 @@
       "members": {
         "루넨": {
           "nickname": "루넨",
-          "job": "비숍",
+          "job": "",
           "level": "Lv.118",
           "rank": 1,
           "score": "7,321억",
           "likes": "",
-          "combat_power_raw": 25200746830185704,
+          "combat_power_raw": 28650727903785572,
           "actual_score_value": 732159717379,
-          "simulation_score_value": 1190387110411,
-          "simulation_score": "1조 1,903억",
-          "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "simulation_score_value": 1241086327316,
+          "simulation_score": "1조 2,410억",
+          "simulation_flags": [
+            "unknown_job_reference"
+          ],
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "대방어조아": {
           "nickname": "대방어조아",
@@ -35,68 +37,68 @@
           "rank": 2,
           "score": "5,333억",
           "likes": "",
-          "combat_power_raw": 9682383862243636,
+          "combat_power_raw": 11110345479676482,
           "actual_score_value": 533334850793,
-          "simulation_score_value": 556912744474,
-          "simulation_score": "5,569억",
+          "simulation_score_value": 582383021062,
+          "simulation_score": "5,823억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "굴러가는일상": {
           "nickname": "굴러가는일상",
           "job": "비숍",
-          "level": "Lv.115",
+          "level": "Lv.116",
           "rank": 3,
           "score": "5,196억",
           "likes": "",
-          "combat_power_raw": 13005968086285368,
+          "combat_power_raw": 16098350126222922,
           "actual_score_value": 519618894327,
-          "simulation_score_value": 612983218390,
-          "simulation_score": "6,129억",
+          "simulation_score_value": 762982914029,
+          "simulation_score": "7,629억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
+        },
+        "엘라임": {
+          "nickname": "엘라임",
+          "job": "히어로",
+          "level": "Lv.115",
+          "rank": 4,
+          "score": "4,045억",
+          "likes": "",
+          "combat_power_raw": 15376355535656194,
+          "actual_score_value": 404534614225,
+          "simulation_score_value": 647269062372,
+          "simulation_score": "6,472억",
+          "simulation_flags": [],
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "자유이용껀": {
           "nickname": "자유이용껀",
           "job": "섀도어",
           "level": "Lv.113",
-          "rank": 4,
+          "rank": 5,
           "score": "4,042억",
           "likes": "",
-          "combat_power_raw": 3041429232540048,
+          "combat_power_raw": 3692562789180523,
           "actual_score_value": 404208508907,
-          "simulation_score_value": 283401929308,
-          "simulation_score": "2,834억",
+          "simulation_score_value": 301849335451,
+          "simulation_score": "3,018억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "서포터즈": {
           "nickname": "서포터즈",
           "job": "나이트로드",
           "level": "Lv.114",
-          "rank": 5,
+          "rank": 6,
           "score": "3,229억",
           "likes": "",
-          "combat_power_raw": 4374391605832823,
+          "combat_power_raw": 4544616559031333,
           "actual_score_value": 322960167820,
-          "simulation_score_value": 370394195266,
-          "simulation_score": "3,703억",
+          "simulation_score_value": 375019405599,
+          "simulation_score": "3,750억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
-        },
-        "엘라임": {
-          "nickname": "엘라임",
-          "job": "히어로",
-          "level": "Lv.114",
-          "rank": 6,
-          "score": "3,168억",
-          "likes": "",
-          "combat_power_raw": 10292702914799952,
-          "actual_score_value": 316833395944,
-          "simulation_score_value": 489175810725,
-          "simulation_score": "4,891억",
-          "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "따띠뚜": {
           "nickname": "따띠뚜",
@@ -105,138 +107,138 @@
           "rank": 7,
           "score": "3,092억",
           "likes": "",
-          "combat_power_raw": 2984444118000082,
+          "combat_power_raw": 3434058964851733,
           "actual_score_value": 309215785921,
-          "simulation_score_value": 281664796252,
-          "simulation_score": "2,816억",
+          "simulation_score_value": 294811140142,
+          "simulation_score": "2,948억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
-        },
-        "흑두부": {
-          "nickname": "흑두부",
-          "job": "비숍",
-          "level": "Lv.114",
-          "rank": 8,
-          "score": "2,743억",
-          "likes": "",
-          "combat_power_raw": 8038194213631316,
-          "actual_score_value": 274344550178,
-          "simulation_score_value": 451400071522,
-          "simulation_score": "4,514억",
-          "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "KR#TAKIN9CP37": {
           "nickname": "KR#TAKIN9CP37",
           "job": "나이트로드",
           "level": "Lv.114",
-          "rank": 9,
+          "rank": 8,
           "score": "2,719억",
           "likes": "",
-          "combat_power_raw": 4541918489292323,
+          "combat_power_raw": 4678595712120707,
           "actual_score_value": 271912867006,
-          "simulation_score_value": 374947015855,
-          "simulation_score": "3,749억",
+          "simulation_score_value": 378578194259,
+          "simulation_score": "3,785억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "채무조정": {
           "nickname": "채무조정",
           "job": "비숍",
-          "level": "Lv.113",
-          "rank": 10,
+          "level": "Lv.114",
+          "rank": 9,
           "score": "2,555억",
           "likes": "",
           "combat_power_raw": 4810889112794668,
           "actual_score_value": 255518764973,
-          "simulation_score_value": 328957837325,
-          "simulation_score": "3,289억",
+          "simulation_score_value": 382025337995,
+          "simulation_score": "3,820억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "뻥뻥": {
           "nickname": "뻥뻥",
           "job": "보우마스터",
           "level": "Lv.113",
-          "rank": 11,
+          "rank": 10,
           "score": "2,433억",
           "likes": "",
-          "combat_power_raw": 4444988781469730,
+          "combat_power_raw": 4817452016219222,
           "actual_score_value": 243374785782,
-          "simulation_score_value": 320606611379,
-          "simulation_score": "3,206억",
+          "simulation_score_value": 329103648706,
+          "simulation_score": "3,291억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
+        },
+        "흑두부": {
+          "nickname": "흑두부",
+          "job": "비숍",
+          "level": "Lv.114",
+          "rank": 11,
+          "score": "2,236억",
+          "likes": "",
+          "combat_power_raw": 10137668221263190,
+          "actual_score_value": 223675032947,
+          "simulation_score_value": 486768315719,
+          "simulation_score": "4,867억",
+          "simulation_flags": [],
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "웅도환": {
           "nickname": "웅도환",
           "job": "나이트로드",
           "level": "Lv.113",
           "rank": 12,
-          "score": "2,055억",
+          "score": "2,186억",
           "likes": "",
-          "combat_power_raw": 1454922700839484,
-          "actual_score_value": 205514337209,
-          "simulation_score_value": 222998670694,
-          "simulation_score": "2,229억",
+          "combat_power_raw": 1580708088637129,
+          "actual_score_value": 218696261558,
+          "simulation_score_value": 229091359077,
+          "simulation_score": "2,290억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
-        },
-        "호우기": {
-          "nickname": "호우기",
-          "job": "나이트로드",
-          "level": "Lv.114",
-          "rank": 13,
-          "score": "1,840억",
-          "likes": "",
-          "combat_power_raw": 1558257883044747,
-          "actual_score_value": 184042165334,
-          "simulation_score_value": 264814143757,
-          "simulation_score": "2,648억",
-          "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
-        },
-        "킹왕짱": {
-          "nickname": "킹왕짱",
-          "job": "바이퍼",
-          "level": "Lv.112",
-          "rank": 14,
-          "score": "1,785억",
-          "likes": "",
-          "combat_power_raw": 1544401183569237,
-          "actual_score_value": 178554808794,
-          "simulation_score_value": 195783591766,
-          "simulation_score": "1,957억",
-          "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
-        },
-        "야가다": {
-          "nickname": "야가다",
-          "job": "보우마스터",
-          "level": "Lv.114",
-          "rank": 15,
-          "score": "1,775억",
-          "likes": "",
-          "combat_power_raw": 3408738069111043,
-          "actual_score_value": 177548456495,
-          "simulation_score_value": 341547412723,
-          "simulation_score": "3,415억",
-          "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "정태준": {
           "nickname": "정태준",
           "job": "비숍",
           "level": "Lv.112",
+          "rank": 13,
+          "score": "1,864억",
+          "likes": "",
+          "combat_power_raw": 1677067262030815,
+          "actual_score_value": 186453100416,
+          "simulation_score_value": 201099390815,
+          "simulation_score": "2,010억",
+          "simulation_flags": [],
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
+        },
+        "호우기": {
+          "nickname": "호우기",
+          "job": "나이트로드",
+          "level": "Lv.114",
+          "rank": 14,
+          "score": "1,840억",
+          "likes": "",
+          "combat_power_raw": 1880591265600590,
+          "actual_score_value": 184042165334,
+          "simulation_score_value": 281504282272,
+          "simulation_score": "2,815억",
+          "simulation_flags": [],
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
+        },
+        "킹왕짱": {
+          "nickname": "킹왕짱",
+          "job": "바이퍼",
+          "level": "Lv.112",
+          "rank": 15,
+          "score": "1,785억",
+          "likes": "",
+          "combat_power_raw": 1873554629140598,
+          "actual_score_value": 178554808794,
+          "simulation_score_value": 208474004362,
+          "simulation_score": "2,084억",
+          "simulation_flags": [],
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
+        },
+        "야가다": {
+          "nickname": "야가다",
+          "job": "보우마스터",
+          "level": "Lv.114",
           "rank": 16,
           "score": "1,775억",
           "likes": "",
-          "combat_power_raw": 1355313312403337,
-          "actual_score_value": 177511712597,
-          "simulation_score_value": 187645449721,
-          "simulation_score": "1,876억",
+          "combat_power_raw": 4564409818792480,
+          "actual_score_value": 177548456495,
+          "simulation_score_value": 375549577779,
+          "simulation_score": "3,755억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "뽀송히": {
           "nickname": "뽀송히",
@@ -250,7 +252,7 @@
           "simulation_score_value": 203114247602,
           "simulation_score": "2,031억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "비스밤": {
           "nickname": "비스밤",
@@ -259,12 +261,12 @@
           "rank": 18,
           "score": "1,677억",
           "likes": "",
-          "combat_power_raw": 1797525713906641,
+          "combat_power_raw": 1852943115969922,
           "actual_score_value": 167714182480,
-          "simulation_score_value": 205685390973,
-          "simulation_score": "2,056억",
+          "simulation_score_value": 207725671087,
+          "simulation_score": "2,077억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "우후": {
           "nickname": "우후",
@@ -273,12 +275,12 @@
           "rank": 19,
           "score": "1,567억",
           "likes": "",
-          "combat_power_raw": 2007850329670040,
+          "combat_power_raw": 2114257070144072,
           "actual_score_value": 156740672045,
-          "simulation_score_value": 213218659049,
-          "simulation_score": "2,132억",
+          "simulation_score_value": 216828034739,
+          "simulation_score": "2,168억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "컨덱": {
           "nickname": "컨덱",
@@ -287,12 +289,12 @@
           "rank": 20,
           "score": "1,503억",
           "likes": "",
-          "combat_power_raw": 914437795913318,
+          "combat_power_raw": 1159214685263476,
           "actual_score_value": 150301835677,
-          "simulation_score_value": 165115496390,
-          "simulation_score": "1,651억",
+          "simulation_score_value": 178350144688,
+          "simulation_score": "1,783억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "버드텐": {
           "nickname": "버드텐",
@@ -301,26 +303,26 @@
           "rank": 21,
           "score": "1,476억",
           "likes": "",
-          "combat_power_raw": 763810991267492,
+          "combat_power_raw": 859453896440779,
           "actual_score_value": 147655180085,
-          "simulation_score_value": 134099001398,
-          "simulation_score": "1,340억",
+          "simulation_score_value": 139341725512,
+          "simulation_score": "1,393억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "박준우2": {
           "nickname": "박준우2",
           "job": "비숍",
-          "level": "Lv.111",
+          "level": "Lv.112",
           "rank": 22,
           "score": "1,463억",
           "likes": "",
-          "combat_power_raw": 1510783232697686,
+          "combat_power_raw": 1974584017134723,
           "actual_score_value": 146392297118,
-          "simulation_score_value": 167385304586,
-          "simulation_score": "1,673억",
+          "simulation_score_value": 212063816158,
+          "simulation_score": "2,120억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "여눈": {
           "nickname": "여눈",
@@ -329,12 +331,12 @@
           "rank": 23,
           "score": "1,445억",
           "likes": "",
-          "combat_power_raw": 818021646241933,
+          "combat_power_raw": 843627298961107,
           "actual_score_value": 144543893289,
-          "simulation_score_value": 137121591527,
-          "simulation_score": "1,371억",
+          "simulation_score_value": 138502372013,
+          "simulation_score": "1,385억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "민들레꽃": {
           "nickname": "민들레꽃",
@@ -343,12 +345,12 @@
           "rank": 24,
           "score": "1,401억",
           "likes": "",
-          "combat_power_raw": 1349131798914836,
+          "combat_power_raw": 1481136326610498,
           "actual_score_value": 140152611380,
-          "simulation_score_value": 187366809929,
-          "simulation_score": "1,873억",
+          "simulation_score_value": 193139595793,
+          "simulation_score": "1,931억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "불보독지": {
           "nickname": "불보독지",
@@ -357,12 +359,12 @@
           "rank": 25,
           "score": "1,389억",
           "likes": "",
-          "combat_power_raw": 3105173215211465,
+          "combat_power_raw": 3707546567944595,
           "actual_score_value": 138969904514,
-          "simulation_score_value": 285319263212,
-          "simulation_score": "2,853억",
+          "simulation_score_value": 302246957319,
+          "simulation_score": "3,022억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "솔인": {
           "nickname": "솔인",
@@ -376,7 +378,7 @@
           "simulation_score_value": 170653860323,
           "simulation_score": "1,706억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "좀치는형님": {
           "nickname": "좀치는형님",
@@ -385,12 +387,12 @@
           "rank": 27,
           "score": "1,197억",
           "likes": "",
-          "combat_power_raw": 2012427012546032,
+          "combat_power_raw": 2118210663981140,
           "actual_score_value": 119703834608,
-          "simulation_score_value": 213376526017,
-          "simulation_score": "2,133억",
+          "simulation_score_value": 216959756091,
+          "simulation_score": "2,169억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "팡대지": {
           "nickname": "팡대지",
@@ -399,26 +401,26 @@
           "rank": 28,
           "score": "1,161억",
           "likes": "",
-          "combat_power_raw": 1044542215839756,
+          "combat_power_raw": 1192185975551796,
           "actual_score_value": 116129809997,
-          "simulation_score_value": 172412151852,
-          "simulation_score": "1,724억",
+          "simulation_score_value": 179983583226,
+          "simulation_score": "1,799억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "아르미느": {
           "nickname": "아르미느",
           "job": "히어로",
           "level": "Lv.110",
           "rank": 29,
-          "score": "715억",
+          "score": "1,059억",
           "likes": "",
-          "combat_power_raw": 591368514752938,
-          "actual_score_value": 71524089066,
-          "simulation_score_value": 106254918491,
-          "simulation_score": "1,062억",
+          "combat_power_raw": 707957418813075,
+          "actual_score_value": 105903495779,
+          "simulation_score_value": 112655686929,
+          "simulation_score": "1,126억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         },
         "꼬북빵야": {
           "nickname": "꼬북빵야",
@@ -427,31 +429,31 @@
           "rank": 30,
           "score": "651억",
           "likes": "",
-          "combat_power_raw": 388307375061907,
+          "combat_power_raw": 393613008149307,
           "actual_score_value": 65170930116,
-          "simulation_score_value": 107625673310,
-          "simulation_score": "1,076억",
+          "simulation_score_value": 108101518710,
+          "simulation_score": "1,081억",
           "simulation_flags": [],
-          "source_fetched_at": "2026-11-05T19:44:36.915716+09:00"
+          "source_fetched_at": "2026-11-06T19:50:33.041554+09:00"
         }
       },
       "top10_keys": [
         "루넨",
         "대방어조아",
         "굴러가는일상",
+        "엘라임",
         "자유이용껀",
         "서포터즈",
-        "엘라임",
         "따띠뚜",
-        "흑두부",
         "KR#TAKIN9CP37",
-        "채무조정"
+        "채무조정",
+        "뻥뻥"
       ],
       "public_member_count": 30,
       "official_member_count": 30,
       "comparison_count": 30,
-      "actual_score_total": 6967543196862,
-      "simulation_score_total": 8942369504227
+      "actual_score_total": 7061077616793,
+      "simulation_score_total": 9657262287145
     }
   }
 }
