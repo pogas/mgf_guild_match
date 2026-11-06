@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-06",
   "pending": [
-    "야가다",
-    "불보독지",
-    "자유이용껀",
     "따띠뚜",
     "뽀송히",
     "좀치는형님",
@@ -135,16 +132,36 @@
       "position": 35840,
       "retry_after": 0.0,
       "attempted_at": 1793948200.2121437
+    },
+    "야가다": {
+      "nickname": "야가다",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322971",
+      "position": 36095,
+      "retry_after": 0.0,
+      "attempted_at": 1793976954.5066805
+    },
+    "불보독지": {
+      "nickname": "불보독지",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322972",
+      "position": 36096,
+      "retry_after": 0.0,
+      "attempted_at": 1793976957.0929637
+    },
+    "자유이용껀": {
+      "nickname": "자유이용껀",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "322973",
+      "position": 36097,
+      "retry_after": 0.0,
+      "attempted_at": 1793976959.8236032
     }
   },
-  "not_before": 1793948800.2121437,
+  "not_before": 1793977559.8236032,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1793976952.433409,
-    "nicknames": [
-      "야가다",
-      "불보독지",
-      "자유이용껀"
-    ]
-  }
+  "in_flight": null
 }
