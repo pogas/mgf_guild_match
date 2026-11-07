@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-06",
   "pending": [
-    "팡대지",
-    "컨덱",
-    "여눈",
     "버드텐",
     "아르미느",
     "꼬북빵야",
@@ -255,16 +252,36 @@
       "position": 36415,
       "retry_after": 0.0,
       "attempted_at": 1794058409.6418414
+    },
+    "팡대지": {
+      "nickname": "팡대지",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323365",
+      "position": 36489,
+      "retry_after": 0.0,
+      "attempted_at": 1794075453.4726107
+    },
+    "컨덱": {
+      "nickname": "컨덱",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323366",
+      "position": 36490,
+      "retry_after": 0.0,
+      "attempted_at": 1794075456.411252
+    },
+    "여눈": {
+      "nickname": "여눈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323367",
+      "position": 36491,
+      "retry_after": 0.0,
+      "attempted_at": 1794075459.0099578
     }
   },
-  "not_before": 1794059009.6418414,
+  "not_before": 1794076059.0099578,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794075450.721064,
-    "nicknames": [
-      "팡대지",
-      "컨덱",
-      "여눈"
-    ]
-  }
+  "in_flight": null
 }
