@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-06",
   "pending": [
-    "버드텐",
-    "아르미느",
-    "꼬북빵야",
     "돈스",
     "말레이히어로",
     "부엉이형",
@@ -279,16 +276,36 @@
       "position": 36491,
       "retry_after": 0.0,
       "attempted_at": 1794075459.0099578
+    },
+    "버드텐": {
+      "nickname": "버드텐",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323387",
+      "position": 36511,
+      "retry_after": 0.0,
+      "attempted_at": 1794089424.0386238
+    },
+    "아르미느": {
+      "nickname": "아르미느",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323388",
+      "position": 36512,
+      "retry_after": 0.0,
+      "attempted_at": 1794089426.389741
+    },
+    "꼬북빵야": {
+      "nickname": "꼬북빵야",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323389",
+      "position": 36513,
+      "retry_after": 0.0,
+      "attempted_at": 1794089428.6738935
     }
   },
-  "not_before": 1794076059.0099578,
+  "not_before": 1794090028.6738935,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794089421.1025012,
-    "nicknames": [
-      "버드텐",
-      "아르미느",
-      "꼬북빵야"
-    ]
-  }
+  "in_flight": null
 }
