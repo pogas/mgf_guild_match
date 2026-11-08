@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-06",
   "pending": [
-    "혜영",
-    "반가성",
-    "세아수호지호",
     "아이스꾸임",
     "프리프리",
     "니뚜",
@@ -399,16 +396,36 @@
       "position": 36796,
       "retry_after": 0.0,
       "attempted_at": 1794166102.4079556
+    },
+    "혜영": {
+      "nickname": "혜영",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323688",
+      "position": 36812,
+      "retry_after": 0.0,
+      "attempted_at": 1794179252.016395
+    },
+    "반가성": {
+      "nickname": "반가성",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323689",
+      "position": 36813,
+      "retry_after": 0.0,
+      "attempted_at": 1794179254.3640337
+    },
+    "세아수호지호": {
+      "nickname": "세아수호지호",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323690",
+      "position": 36814,
+      "retry_after": 0.0,
+      "attempted_at": 1794179256.417405
     }
   },
-  "not_before": 1794166702.4079556,
+  "not_before": 1794179856.417405,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794179249.7537198,
-    "nicknames": [
-      "혜영",
-      "반가성",
-      "세아수호지호"
-    ]
-  }
+  "in_flight": null
 }
