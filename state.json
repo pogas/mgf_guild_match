@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-06",
   "pending": [
-    "잼포즈",
-    "캣오랜턴",
-    "약어",
     "니달리신",
     "쾌감",
     "할룽",
@@ -351,16 +348,36 @@
       "position": 36638,
       "retry_after": 0.0,
       "attempted_at": 1794124555.9029512
+    },
+    "잼포즈": {
+      "nickname": "잼포즈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323620",
+      "position": 36744,
+      "retry_after": 0.0,
+      "attempted_at": 1794149786.544396
+    },
+    "캣오랜턴": {
+      "nickname": "캣오랜턴",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323621",
+      "position": 36745,
+      "retry_after": 0.0,
+      "attempted_at": 1794149788.8702142
+    },
+    "약어": {
+      "nickname": "약어",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "323622",
+      "position": 36746,
+      "retry_after": 0.0,
+      "attempted_at": 1794149790.910233
     }
   },
-  "not_before": 1794125155.9029512,
+  "not_before": 1794150390.910233,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794149784.2923717,
-    "nicknames": [
-      "잼포즈",
-      "캣오랜턴",
-      "약어"
-    ]
-  }
+  "in_flight": null
 }
