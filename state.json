@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-06",
   "pending": [
-    "제로슈가",
-    "미쳤냥",
-    "초식왕",
     "큐샤프",
     "라똥이",
     "러너"
@@ -495,16 +492,36 @@
       "position": 37233,
       "retry_after": 0.0,
       "attempted_at": 1794257943.6471093
+    },
+    "제로슈가": {
+      "nickname": "제로슈가",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324206",
+      "position": 37330,
+      "retry_after": 0.0,
+      "attempted_at": 1794281346.255932
+    },
+    "미쳤냥": {
+      "nickname": "미쳤냥",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324207",
+      "position": 37331,
+      "retry_after": 0.0,
+      "attempted_at": 1794281348.3839574
+    },
+    "초식왕": {
+      "nickname": "초식왕",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324208",
+      "position": 37332,
+      "retry_after": 0.0,
+      "attempted_at": 1794281350.7587354
     }
   },
-  "not_before": 1794258543.6471093,
+  "not_before": 1794281950.7587354,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794281343.9453928,
-    "nicknames": [
-      "제로슈가",
-      "미쳤냥",
-      "초식왕"
-    ]
-  }
+  "in_flight": null
 }
