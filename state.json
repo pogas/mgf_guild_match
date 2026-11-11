@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-11",
   "pending": [
-    "흑두부",
-    "대방어조아",
-    "서포터즈",
     "KR#TAKIN9CP37",
     "뻥뻥",
     "자유이용껀",
@@ -85,16 +82,36 @@
       "position": 37669,
       "retry_after": 0.0,
       "attempted_at": 1794354930.5303087
+    },
+    "흑두부": {
+      "nickname": "흑두부",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324638",
+      "position": 37762,
+      "retry_after": 0.0,
+      "attempted_at": 1794375364.9479334
+    },
+    "대방어조아": {
+      "nickname": "대방어조아",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324639",
+      "position": 37763,
+      "retry_after": 0.0,
+      "attempted_at": 1794375367.3815799
+    },
+    "서포터즈": {
+      "nickname": "서포터즈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324640",
+      "position": 37764,
+      "retry_after": 0.0,
+      "attempted_at": 1794375369.6278975
     }
   },
-  "not_before": 1794355530.5303087,
+  "not_before": 1794375969.6278975,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794375362.8368156,
-    "nicknames": [
-      "흑두부",
-      "대방어조아",
-      "서포터즈"
-    ]
-  }
+  "in_flight": null
 }
