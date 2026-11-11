@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-11",
   "pending": [
-    "채무조정",
-    "야가다",
-    "불보독지",
     "따띠뚜",
     "뽀송히",
     "킹왕짱",
@@ -133,16 +130,36 @@
       "position": 37897,
       "retry_after": 0.0,
       "attempted_at": 1794401843.4318979
+    },
+    "채무조정": {
+      "nickname": "채무조정",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324892",
+      "position": 38016,
+      "retry_after": 0.0,
+      "attempted_at": 1794427797.9453666
+    },
+    "야가다": {
+      "nickname": "야가다",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324893",
+      "position": 38017,
+      "retry_after": 0.0,
+      "attempted_at": 1794427800.1553206
+    },
+    "불보독지": {
+      "nickname": "불보독지",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324894",
+      "position": 38018,
+      "retry_after": 0.0,
+      "attempted_at": 1794427802.6669428
     }
   },
-  "not_before": 1794402443.4318979,
+  "not_before": 1794428402.6669428,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794427795.553531,
-    "nicknames": [
-      "채무조정",
-      "야가다",
-      "불보독지"
-    ]
-  }
+  "in_flight": null
 }
