@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-11",
   "pending": [
-    "웅도환",
-    "우후",
-    "비스밤",
     "정태준",
     "민들레꽃",
     "솔인",
@@ -206,16 +203,36 @@
       "position": 38291,
       "retry_after": 0.0,
       "attempted_at": 1794476155.968931
+    },
+    "웅도환": {
+      "nickname": "웅도환",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325318",
+      "position": 38442,
+      "retry_after": 0.0,
+      "attempted_at": 1794505476.4170547
+    },
+    "우후": {
+      "nickname": "우후",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325319",
+      "position": 38443,
+      "retry_after": 0.0,
+      "attempted_at": 1794505478.6766825
+    },
+    "비스밤": {
+      "nickname": "비스밤",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325320",
+      "position": 38444,
+      "retry_after": 0.0,
+      "attempted_at": 1794505481.5052605
     }
   },
-  "not_before": 1794476755.968931,
+  "not_before": 1794506081.5052605,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794505474.0204475,
-    "nicknames": [
-      "웅도환",
-      "우후",
-      "비스밤"
-    ]
-  }
+  "in_flight": null
 }
