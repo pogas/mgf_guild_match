@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-11",
   "pending": [
-    "따띠뚜",
-    "뽀송히",
-    "킹왕짱",
     "박준우2",
     "좀치는형님",
     "호우기",
@@ -157,16 +154,36 @@
       "position": 38018,
       "retry_after": 0.0,
       "attempted_at": 1794427802.6669428
+    },
+    "따띠뚜": {
+      "nickname": "따띠뚜",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324977",
+      "position": 38101,
+      "retry_after": 0.0,
+      "attempted_at": 1794448551.2368104
+    },
+    "뽀송히": {
+      "nickname": "뽀송히",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324978",
+      "position": 38102,
+      "retry_after": 0.0,
+      "attempted_at": 1794448553.5092206
+    },
+    "킹왕짱": {
+      "nickname": "킹왕짱",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "324979",
+      "position": 38103,
+      "retry_after": 0.0,
+      "attempted_at": 1794448555.4565907
     }
   },
-  "not_before": 1794428402.6669428,
+  "not_before": 1794449155.4565907,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794448548.998022,
-    "nicknames": [
-      "따띠뚜",
-      "뽀송히",
-      "킹왕짱"
-    ]
-  }
+  "in_flight": null
 }
