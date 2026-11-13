@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-11",
   "pending": [
-    "여눈",
-    "아르미느",
-    "돈스",
     "말레이히어로",
     "부엉이형",
     "국의",
@@ -278,16 +275,36 @@
       "position": 38520,
       "retry_after": 0.0,
       "attempted_at": 1794539657.5481248
+    },
+    "여눈": {
+      "nickname": "여눈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325553",
+      "position": 38677,
+      "retry_after": 0.0,
+      "attempted_at": 1794568456.6288016
+    },
+    "아르미느": {
+      "nickname": "아르미느",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325554",
+      "position": 38678,
+      "retry_after": 0.0,
+      "attempted_at": 1794568459.5557582
+    },
+    "돈스": {
+      "nickname": "돈스",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325555",
+      "position": 38679,
+      "retry_after": 0.0,
+      "attempted_at": 1794568461.7931018
     }
   },
-  "not_before": 1794540257.5481248,
+  "not_before": 1794569061.7931018,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794568454.1672695,
-    "nicknames": [
-      "여눈",
-      "아르미느",
-      "돈스"
-    ]
-  }
+  "in_flight": null
 }
