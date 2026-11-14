@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-11",
   "pending": [
-    "망겜감별사",
-    "세아수호지호",
-    "니뚜",
     "예원냥",
     "족제비",
     "아이스꾸임",
@@ -422,16 +419,36 @@
       "position": 39055,
       "retry_after": 0.0,
       "attempted_at": 1794678663.379686
+    },
+    "망겜감별사": {
+      "nickname": "망겜감별사",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325939",
+      "position": 39063,
+      "retry_after": 0.0,
+      "attempted_at": 1794693398.603462
+    },
+    "세아수호지호": {
+      "nickname": "세아수호지호",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325940",
+      "position": 39064,
+      "retry_after": 0.0,
+      "attempted_at": 1794693400.6834414
+    },
+    "니뚜": {
+      "nickname": "니뚜",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325941",
+      "position": 39065,
+      "retry_after": 0.0,
+      "attempted_at": 1794693402.811486
     }
   },
-  "not_before": 1794679263.379686,
+  "not_before": 1794694002.811486,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794693396.0755103,
-    "nicknames": [
-      "망겜감별사",
-      "세아수호지호",
-      "니뚜"
-    ]
-  }
+  "in_flight": null
 }
