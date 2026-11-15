@@ -1,10 +1,7 @@
 {
   "version": 1,
   "cycle_day": "2026-11-11",
-  "pending": [
-    "바위게조림",
-    "맴매"
-  ],
+  "pending": [],
   "records": {
     "루넨": {
       "nickname": "루넨",
@@ -518,15 +515,27 @@
       "position": 39294,
       "retry_after": 0.0,
       "attempted_at": 1794757910.4276497
+    },
+    "바위게조림": {
+      "nickname": "바위게조림",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326218",
+      "position": 39342,
+      "retry_after": 0.0,
+      "attempted_at": 1794775604.947435
+    },
+    "맴매": {
+      "nickname": "맴매",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326219",
+      "position": 39343,
+      "retry_after": 0.0,
+      "attempted_at": 1794775607.342591
     }
   },
-  "not_before": 1794758510.4276497,
+  "not_before": 1794776207.342591,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794775602.2336621,
-    "nicknames": [
-      "바위게조림",
-      "맴매"
-    ]
-  }
+  "in_flight": null
 }
