@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-11",
   "pending": [
-    "예원냥",
-    "족제비",
-    "아이스꾸임",
     "호날두",
     "큐샤프",
     "오곤",
@@ -446,16 +443,36 @@
       "position": 39065,
       "retry_after": 0.0,
       "attempted_at": 1794693402.811486
+    },
+    "예원냥": {
+      "nickname": "예원냥",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325970",
+      "position": 39094,
+      "retry_after": 0.0,
+      "attempted_at": 1794707057.0056849
+    },
+    "족제비": {
+      "nickname": "족제비",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325971",
+      "position": 39095,
+      "retry_after": 0.0,
+      "attempted_at": 1794707059.279904
+    },
+    "아이스꾸임": {
+      "nickname": "아이스꾸임",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "325972",
+      "position": 39096,
+      "retry_after": 0.0,
+      "attempted_at": 1794707061.655257
     }
   },
-  "not_before": 1794694002.811486,
+  "not_before": 1794707661.655257,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794707054.1236148,
-    "nicknames": [
-      "예원냥",
-      "족제비",
-      "아이스꾸임"
-    ]
-  }
+  "in_flight": null
 }
