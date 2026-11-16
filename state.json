@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "루넨",
-    "굴러가는일상",
-    "엘라임",
     "대방어조아",
     "흑두부",
     "KR#TAKIN9CP37",
@@ -61,15 +58,36 @@
     "슬흥민",
     "미쳤냥"
   ],
-  "records": {},
-  "not_before": 1794776207.342591,
+  "records": {
+    "루넨": {
+      "nickname": "루넨",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326252",
+      "position": 39376,
+      "retry_after": 0.0,
+      "attempted_at": 1794788769.755111
+    },
+    "굴러가는일상": {
+      "nickname": "굴러가는일상",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326253",
+      "position": 39377,
+      "retry_after": 0.0,
+      "attempted_at": 1794788771.9209793
+    },
+    "엘라임": {
+      "nickname": "엘라임",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326254",
+      "position": 39378,
+      "retry_after": 0.0,
+      "attempted_at": 1794788774.1569803
+    }
+  },
+  "not_before": 1794789374.1569803,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794788767.6274426,
-    "nicknames": [
-      "루넨",
-      "굴러가는일상",
-      "엘라임"
-    ]
-  }
+  "in_flight": null
 }
