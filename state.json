@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "서포터즈",
-    "뻥뻥",
-    "자유이용껀",
     "불보독지",
     "따띠뚜",
     "야가다",
@@ -109,16 +106,36 @@
       "position": null,
       "retry_after": 0.0,
       "attempted_at": 1794812990.999772
+    },
+    "서포터즈": {
+      "nickname": "서포터즈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326517",
+      "position": 39641,
+      "retry_after": 0.0,
+      "attempted_at": 1794848832.9777133
+    },
+    "뻥뻥": {
+      "nickname": "뻥뻥",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326518",
+      "position": 39642,
+      "retry_after": 0.0,
+      "attempted_at": 1794848835.2964973
+    },
+    "자유이용껀": {
+      "nickname": "자유이용껀",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326519",
+      "position": 39643,
+      "retry_after": 0.0,
+      "attempted_at": 1794848837.3763914
     }
   },
-  "not_before": 1794813590.999772,
+  "not_before": 1794849437.3763914,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794848829.9367416,
-    "nicknames": [
-      "서포터즈",
-      "뻥뻥",
-      "자유이용껀"
-    ]
-  }
+  "in_flight": null
 }
