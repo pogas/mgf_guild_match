@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "박준우2",
-    "웅도환",
-    "호우기",
     "좀치는형님",
     "정태준",
     "솔인",
@@ -182,16 +179,36 @@
       "position": 39835,
       "retry_after": 0.0,
       "attempted_at": 1794905224.6263466
+    },
+    "박준우2": {
+      "nickname": "박준우2",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326860",
+      "position": 39984,
+      "retry_after": 0.0,
+      "attempted_at": 1794938176.775537
+    },
+    "웅도환": {
+      "nickname": "웅도환",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326861",
+      "position": 39985,
+      "retry_after": 0.0,
+      "attempted_at": 1794938179.0460808
+    },
+    "호우기": {
+      "nickname": "호우기",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326862",
+      "position": 39986,
+      "retry_after": 0.0,
+      "attempted_at": 1794938181.0634737
     }
   },
-  "not_before": 1794905824.6263466,
+  "not_before": 1794938781.0634737,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794938174.008549,
-    "nicknames": [
-      "박준우2",
-      "웅도환",
-      "호우기"
-    ]
-  }
+  "in_flight": null
 }
