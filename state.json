@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "불보독지",
-    "따띠뚜",
-    "야가다",
     "뽀송히",
     "비스밤",
     "킹왕짱",
@@ -133,16 +130,36 @@
       "position": 39643,
       "retry_after": 0.0,
       "attempted_at": 1794848837.3763914
+    },
+    "불보독지": {
+      "nickname": "불보독지",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326559",
+      "position": 39683,
+      "retry_after": 0.0,
+      "attempted_at": 1794876471.8175874
+    },
+    "따띠뚜": {
+      "nickname": "따띠뚜",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326560",
+      "position": 39684,
+      "retry_after": 0.0,
+      "attempted_at": 1794876474.0218709
+    },
+    "야가다": {
+      "nickname": "야가다",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "326561",
+      "position": 39685,
+      "retry_after": 0.0,
+      "attempted_at": 1794876476.1585233
     }
   },
-  "not_before": 1794849437.3763914,
+  "not_before": 1794877076.1585233,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794876469.4437318,
-    "nicknames": [
-      "불보독지",
-      "따띠뚜",
-      "야가다"
-    ]
-  }
+  "in_flight": null
 }
