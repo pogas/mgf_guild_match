@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "우후",
-    "컨덱",
-    "민들레꽃",
     "팡대지",
     "버드텐",
     "여눈",
@@ -230,16 +227,36 @@
       "position": 40028,
       "retry_after": 0.0,
       "attempted_at": 1794963175.6990798
+    },
+    "우후": {
+      "nickname": "우후",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327016",
+      "position": 40140,
+      "retry_after": 0.0,
+      "attempted_at": 1794989576.5359173
+    },
+    "컨덱": {
+      "nickname": "컨덱",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327017",
+      "position": 40141,
+      "retry_after": 0.0,
+      "attempted_at": 1794989578.4086604
+    },
+    "민들레꽃": {
+      "nickname": "민들레꽃",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327018",
+      "position": 40142,
+      "retry_after": 0.0,
+      "attempted_at": 1794989580.2946272
     }
   },
-  "not_before": 1794963775.6990798,
+  "not_before": 1794990180.2946272,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1794989574.1712222,
-    "nicknames": [
-      "우후",
-      "컨덱",
-      "민들레꽃"
-    ]
-  }
+  "in_flight": null
 }
