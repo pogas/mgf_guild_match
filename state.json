@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "아르미느",
-    "돈스",
-    "바위게조림",
     "말레이히어로",
     "부엉이형",
     "국의",
@@ -279,16 +276,36 @@
       "position": 40319,
       "retry_after": 0.0,
       "attempted_at": 1795022398.7722988
+    },
+    "아르미느": {
+      "nickname": "아르미느",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327223",
+      "position": 40347,
+      "retry_after": 0.0,
+      "attempted_at": 1795044561.65949
+    },
+    "돈스": {
+      "nickname": "돈스",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327224",
+      "position": 40348,
+      "retry_after": 0.0,
+      "attempted_at": 1795044564.175254
+    },
+    "바위게조림": {
+      "nickname": "바위게조림",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327225",
+      "position": 40349,
+      "retry_after": 0.0,
+      "attempted_at": 1795044566.4841719
     }
   },
-  "not_before": 1795022998.7722988,
+  "not_before": 1795045166.4841719,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795044559.1242306,
-    "nicknames": [
-      "아르미느",
-      "돈스",
-      "바위게조림"
-    ]
-  }
+  "in_flight": null
 }
