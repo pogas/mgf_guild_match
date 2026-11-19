@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "꽃을든남자",
-    "잼포즈",
-    "니달리신",
     "쾌감",
     "할룽",
     "맴매",
@@ -351,16 +348,36 @@
       "position": 40610,
       "retry_after": 0.0,
       "attempted_at": 1795096265.4479833
+    },
+    "꽃을든남자": {
+      "nickname": "꽃을든남자",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327563",
+      "position": 40687,
+      "retry_after": 0.0,
+      "attempted_at": 1795125453.3675756
+    },
+    "잼포즈": {
+      "nickname": "잼포즈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327564",
+      "position": 40688,
+      "retry_after": 0.0,
+      "attempted_at": 1795125455.5332756
+    },
+    "니달리신": {
+      "nickname": "니달리신",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327565",
+      "position": 40689,
+      "retry_after": 0.0,
+      "attempted_at": 1795125457.7442696
     }
   },
-  "not_before": 1795096865.4479833,
+  "not_before": 1795126057.7442696,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795125451.0444548,
-    "nicknames": [
-      "꽃을든남자",
-      "잼포즈",
-      "니달리신"
-    ]
-  }
+  "in_flight": null
 }
