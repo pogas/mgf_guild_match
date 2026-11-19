@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "말레이히어로",
-    "부엉이형",
-    "국의",
     "약어",
     "캣오랜턴",
     "걸음",
@@ -303,16 +300,36 @@
       "position": 40349,
       "retry_after": 0.0,
       "attempted_at": 1795044566.4841719
+    },
+    "말레이히어로": {
+      "nickname": "말레이히어로",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327300",
+      "position": 40424,
+      "retry_after": 0.0,
+      "attempted_at": 1795062565.6656716
+    },
+    "부엉이형": {
+      "nickname": "부엉이형",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327301",
+      "position": 40425,
+      "retry_after": 0.0,
+      "attempted_at": 1795062568.0419118
+    },
+    "국의": {
+      "nickname": "국의",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327302",
+      "position": 40426,
+      "retry_after": 0.0,
+      "attempted_at": 1795062570.2815907
     }
   },
-  "not_before": 1795045166.4841719,
+  "not_before": 1795063170.2815907,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795062563.0079513,
-    "nicknames": [
-      "말레이히어로",
-      "부엉이형",
-      "국의"
-    ]
-  }
+  "in_flight": null
 }
