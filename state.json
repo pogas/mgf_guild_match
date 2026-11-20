@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "혜영",
-    "프리프리",
-    "반가성",
     "메키용",
     "니뚜",
     "망겜감별사",
@@ -399,16 +396,36 @@
       "position": 40759,
       "retry_after": 0.0,
       "attempted_at": 1795143869.4609895
+    },
+    "혜영": {
+      "nickname": "혜영",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327772",
+      "position": 40896,
+      "retry_after": 0.0,
+      "attempted_at": 1795174031.0468488
+    },
+    "프리프리": {
+      "nickname": "프리프리",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327773",
+      "position": 40897,
+      "retry_after": 0.0,
+      "attempted_at": 1795174032.9260166
+    },
+    "반가성": {
+      "nickname": "반가성",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327774",
+      "position": 40898,
+      "retry_after": 0.0,
+      "attempted_at": 1795174034.7991138
     }
   },
-  "not_before": 1795144469.4609895,
+  "not_before": 1795174634.7991138,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795174028.5425391,
-    "nicknames": [
-      "혜영",
-      "프리프리",
-      "반가성"
-    ]
-  }
+  "in_flight": null
 }
