@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "세아수호지호",
-    "큐샤프",
-    "예원냥",
     "족제비",
     "아이스꾸임",
     "오곤",
@@ -447,16 +444,36 @@
       "position": 40993,
       "retry_after": 0.0,
       "attempted_at": 1795202104.4019258
+    },
+    "세아수호지호": {
+      "nickname": "세아수호지호",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327887",
+      "position": 41011,
+      "retry_after": 0.0,
+      "attempted_at": 1795222296.220257
+    },
+    "큐샤프": {
+      "nickname": "큐샤프",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327888",
+      "position": 41012,
+      "retry_after": 0.0,
+      "attempted_at": 1795222298.603829
+    },
+    "예원냥": {
+      "nickname": "예원냥",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "327889",
+      "position": 41013,
+      "retry_after": 0.0,
+      "attempted_at": 1795222301.2576458
     }
   },
-  "not_before": 1795202704.4019258,
+  "not_before": 1795222901.2576458,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795222293.5073516,
-    "nicknames": [
-      "세아수호지호",
-      "큐샤프",
-      "예원냥"
-    ]
-  }
+  "in_flight": null
 }
