@@ -1,11 +1,7 @@
 {
   "version": 1,
   "cycle_day": "2026-11-16",
-  "pending": [
-    "미쳤냥",
-    "지지유아",
-    "데졍"
-  ],
+  "pending": [],
   "records": {
     "루넨": {
       "nickname": "루넨",
@@ -519,16 +515,36 @@
       "position": 41165,
       "retry_after": 0.0,
       "attempted_at": 1795277073.967573
+    },
+    "미쳤냥": {
+      "nickname": "미쳤냥",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328067",
+      "position": 41191,
+      "retry_after": 0.0,
+      "attempted_at": 1795297059.9983263
+    },
+    "지지유아": {
+      "nickname": "지지유아",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328068",
+      "position": 41192,
+      "retry_after": 0.0,
+      "attempted_at": 1795297062.7426312
+    },
+    "데졍": {
+      "nickname": "데졍",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328069",
+      "position": 41193,
+      "retry_after": 0.0,
+      "attempted_at": 1795297064.977944
     }
   },
-  "not_before": 1795277673.967573,
+  "not_before": 1795297664.977944,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795297056.7173035,
-    "nicknames": [
-      "미쳤냥",
-      "지지유아",
-      "데졍"
-    ]
-  }
+  "in_flight": null
 }
