@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-16",
   "pending": [
-    "쌉새",
-    "호날두",
-    "슬흥민",
     "미쳤냥",
     "지지유아",
     "데졍"
@@ -495,16 +492,36 @@
       "position": 41074,
       "retry_after": 0.0,
       "attempted_at": 1795247834.6426797
+    },
+    "쌉새": {
+      "nickname": "쌉새",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328039",
+      "position": 41163,
+      "retry_after": 0.0,
+      "attempted_at": 1795277069.7464895
+    },
+    "호날두": {
+      "nickname": "호날두",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328040",
+      "position": 41164,
+      "retry_after": 0.0,
+      "attempted_at": 1795277071.8782423
+    },
+    "슬흥민": {
+      "nickname": "슬흥민",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328041",
+      "position": 41165,
+      "retry_after": 0.0,
+      "attempted_at": 1795277073.967573
     }
   },
-  "not_before": 1795248434.6426797,
+  "not_before": 1795277673.967573,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795277067.645264,
-    "nicknames": [
-      "쌉새",
-      "호날두",
-      "슬흥민"
-    ]
-  }
+  "in_flight": null
 }
