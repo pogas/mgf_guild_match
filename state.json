@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "서포터즈",
-    "뻥뻥",
-    "KR#TAKIN9CP37",
     "자유이용껀",
     "불보독지",
     "따띠뚜",
@@ -111,16 +108,36 @@
       "position": 41314,
       "retry_after": 0.0,
       "attempted_at": 1795337633.611591
+    },
+    "서포터즈": {
+      "nickname": "서포터즈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328290",
+      "position": 41414,
+      "retry_after": 0.0,
+      "attempted_at": 1795366545.8105981
+    },
+    "뻥뻥": {
+      "nickname": "뻥뻥",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328291",
+      "position": 41415,
+      "retry_after": 0.0,
+      "attempted_at": 1795366548.0579648
+    },
+    "KR#TAKIN9CP37": {
+      "nickname": "KR#TAKIN9CP37",
+      "status": "error",
+      "message": "HTTP 400: 사용할 수 없는 특수문자가 포함되어 있습니다",
+      "queue_id": "",
+      "position": null,
+      "retry_after": 0.0,
+      "attempted_at": 1795366549.776112
     }
   },
-  "not_before": 1795338233.611591,
+  "not_before": 1795367149.776112,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795366543.060156,
-    "nicknames": [
-      "서포터즈",
-      "뻥뻥",
-      "KR#TAKIN9CP37"
-    ]
-  }
+  "in_flight": null
 }
