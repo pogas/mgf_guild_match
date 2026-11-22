@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "자유이용껀",
-    "불보독지",
-    "따띠뚜",
     "야가다",
     "뽀송히",
     "박준우2",
@@ -135,16 +132,36 @@
       "position": null,
       "retry_after": 0.0,
       "attempted_at": 1795366549.776112
+    },
+    "자유이용껀": {
+      "nickname": "자유이용껀",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328316",
+      "position": 41440,
+      "retry_after": 0.0,
+      "attempted_at": 1795386149.2362947
+    },
+    "불보독지": {
+      "nickname": "불보독지",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328317",
+      "position": 41441,
+      "retry_after": 0.0,
+      "attempted_at": 1795386151.3703399
+    },
+    "따띠뚜": {
+      "nickname": "따띠뚜",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328318",
+      "position": 41442,
+      "retry_after": 0.0,
+      "attempted_at": 1795386153.442447
     }
   },
-  "not_before": 1795367149.776112,
+  "not_before": 1795386753.442447,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795386146.804381,
-    "nicknames": [
-      "자유이용껀",
-      "불보독지",
-      "따띠뚜"
-    ]
-  }
+  "in_flight": null
 }
