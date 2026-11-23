@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "야가다",
-    "뽀송히",
-    "박준우2",
     "비스밤",
     "정태준",
     "좀치는형님",
@@ -159,16 +156,36 @@
       "position": 41442,
       "retry_after": 0.0,
       "attempted_at": 1795386153.442447
+    },
+    "야가다": {
+      "nickname": "야가다",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328357",
+      "position": 41481,
+      "retry_after": 0.0,
+      "attempted_at": 1795402629.2854004
+    },
+    "뽀송히": {
+      "nickname": "뽀송히",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328358",
+      "position": 41482,
+      "retry_after": 0.0,
+      "attempted_at": 1795402631.3900025
+    },
+    "박준우2": {
+      "nickname": "박준우2",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328359",
+      "position": 41483,
+      "retry_after": 0.0,
+      "attempted_at": 1795402633.5661273
     }
   },
-  "not_before": 1795386753.442447,
+  "not_before": 1795403233.5661273,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795402626.7969944,
-    "nicknames": [
-      "야가다",
-      "뽀송히",
-      "박준우2"
-    ]
-  }
+  "in_flight": null
 }
