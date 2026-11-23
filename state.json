@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "비스밤",
-    "정태준",
-    "좀치는형님",
     "킹왕짱",
     "웅도환",
     "호우기",
@@ -183,16 +180,36 @@
       "position": 41483,
       "retry_after": 0.0,
       "attempted_at": 1795402633.5661273
+    },
+    "비스밤": {
+      "nickname": "비스밤",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328510",
+      "position": 41634,
+      "retry_after": 0.0,
+      "attempted_at": 1795435954.649546
+    },
+    "정태준": {
+      "nickname": "정태준",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328511",
+      "position": 41635,
+      "retry_after": 0.0,
+      "attempted_at": 1795435957.4700963
+    },
+    "좀치는형님": {
+      "nickname": "좀치는형님",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328512",
+      "position": 41636,
+      "retry_after": 0.0,
+      "attempted_at": 1795435959.5935407
     }
   },
-  "not_before": 1795403233.5661273,
+  "not_before": 1795436559.5935407,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795435951.8524685,
-    "nicknames": [
-      "비스밤",
-      "정태준",
-      "좀치는형님"
-    ]
-  }
+  "in_flight": null
 }
