@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "컨덱",
-    "솔인",
-    "우후",
     "민들레꽃",
     "팡대지",
     "데졍",
@@ -231,16 +228,36 @@
       "position": 41739,
       "retry_after": 0.0,
       "attempted_at": 1795478407.5372763
+    },
+    "컨덱": {
+      "nickname": "컨덱",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328757",
+      "position": 41881,
+      "retry_after": 0.0,
+      "attempted_at": 1795513499.9811783
+    },
+    "솔인": {
+      "nickname": "솔인",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328758",
+      "position": 41882,
+      "retry_after": 0.0,
+      "attempted_at": 1795513502.8585675
+    },
+    "우후": {
+      "nickname": "우후",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328759",
+      "position": 41883,
+      "retry_after": 0.0,
+      "attempted_at": 1795513504.969043
     }
   },
-  "not_before": 1795479007.5372763,
+  "not_before": 1795514104.969043,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795513497.405394,
-    "nicknames": [
-      "컨덱",
-      "솔인",
-      "우후"
-    ]
-  }
+  "in_flight": null
 }
