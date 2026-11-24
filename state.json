@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "민들레꽃",
-    "팡대지",
-    "데졍",
     "버드텐",
     "여눈",
     "아르미느",
@@ -255,16 +252,36 @@
       "position": 41883,
       "retry_after": 0.0,
       "attempted_at": 1795513504.969043
+    },
+    "민들레꽃": {
+      "nickname": "민들레꽃",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328877",
+      "position": 42001,
+      "retry_after": 0.0,
+      "attempted_at": 1795551827.5928326
+    },
+    "팡대지": {
+      "nickname": "팡대지",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328878",
+      "position": 42002,
+      "retry_after": 0.0,
+      "attempted_at": 1795551829.738584
+    },
+    "데졍": {
+      "nickname": "데졍",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328879",
+      "position": 42003,
+      "retry_after": 0.0,
+      "attempted_at": 1795551831.896442
     }
   },
-  "not_before": 1795514104.969043,
+  "not_before": 1795552431.896442,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795551824.8505182,
-    "nicknames": [
-      "민들레꽃",
-      "팡대지",
-      "데졍"
-    ]
-  }
+  "in_flight": null
 }
