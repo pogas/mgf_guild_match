@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "부엉이형",
-    "국의",
-    "꽃을든남자",
     "캣오랜턴",
     "약어",
     "걸음",
@@ -327,16 +324,36 @@
       "position": 42182,
       "retry_after": 0.0,
       "attempted_at": 1795613732.8876944
+    },
+    "부엉이형": {
+      "nickname": "부엉이형",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329109",
+      "position": 42233,
+      "retry_after": 0.0,
+      "attempted_at": 1795646735.5330439
+    },
+    "국의": {
+      "nickname": "국의",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329110",
+      "position": 42234,
+      "retry_after": 0.0,
+      "attempted_at": 1795646738.260666
+    },
+    "꽃을든남자": {
+      "nickname": "꽃을든남자",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329111",
+      "position": 42235,
+      "retry_after": 0.0,
+      "attempted_at": 1795646740.9603472
     }
   },
-  "not_before": 1795614332.8876944,
+  "not_before": 1795647340.9603472,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795646732.6924062,
-    "nicknames": [
-      "부엉이형",
-      "국의",
-      "꽃을든남자"
-    ]
-  }
+  "in_flight": null
 }
