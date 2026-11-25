@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "버드텐",
-    "여눈",
-    "아르미느",
     "돈스",
     "바위게조림",
     "말레이히어로",
@@ -279,16 +276,36 @@
       "position": 42003,
       "retry_after": 0.0,
       "attempted_at": 1795551831.896442
+    },
+    "버드텐": {
+      "nickname": "버드텐",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328934",
+      "position": 42058,
+      "retry_after": 0.0,
+      "attempted_at": 1795577994.0498824
+    },
+    "여눈": {
+      "nickname": "여눈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328935",
+      "position": 42059,
+      "retry_after": 0.0,
+      "attempted_at": 1795577996.1234884
+    },
+    "아르미느": {
+      "nickname": "아르미느",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "328936",
+      "position": 42060,
+      "retry_after": 0.0,
+      "attempted_at": 1795577998.2109802
     }
   },
-  "not_before": 1795552431.896442,
+  "not_before": 1795578598.2109802,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795577991.7971177,
-    "nicknames": [
-      "버드텐",
-      "여눈",
-      "아르미느"
-    ]
-  }
+  "in_flight": null
 }
