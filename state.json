@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "니달리신",
-    "잼포즈",
-    "쾌감",
     "혜영",
     "맴매",
     "할룽",
@@ -375,16 +372,36 @@
       "position": 42279,
       "retry_after": 0.0,
       "attempted_at": 1795667504.5359957
+    },
+    "니달리신": {
+      "nickname": "니달리신",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329270",
+      "position": 42394,
+      "retry_after": 0.0,
+      "attempted_at": 1795703021.9385421
+    },
+    "잼포즈": {
+      "nickname": "잼포즈",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329271",
+      "position": 42395,
+      "retry_after": 0.0,
+      "attempted_at": 1795703023.8332505
+    },
+    "쾌감": {
+      "nickname": "쾌감",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329272",
+      "position": 42396,
+      "retry_after": 0.0,
+      "attempted_at": 1795703025.719465
     }
   },
-  "not_before": 1795668104.5359957,
+  "not_before": 1795703625.719465,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795703019.3398027,
-    "nicknames": [
-      "니달리신",
-      "잼포즈",
-      "쾌감"
-    ]
-  }
+  "in_flight": null
 }
