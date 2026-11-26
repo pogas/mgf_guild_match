@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "혜영",
-    "맴매",
-    "할룽",
     "반가성",
     "메키용",
     "프리프리",
@@ -399,16 +396,36 @@
       "position": 42396,
       "retry_after": 0.0,
       "attempted_at": 1795703025.719465
+    },
+    "혜영": {
+      "nickname": "혜영",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329314",
+      "position": 42438,
+      "retry_after": 0.0,
+      "attempted_at": 1795734717.54196
+    },
+    "맴매": {
+      "nickname": "맴매",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329315",
+      "position": 42439,
+      "retry_after": 0.0,
+      "attempted_at": 1795734719.6229537
+    },
+    "할룽": {
+      "nickname": "할룽",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329316",
+      "position": 42440,
+      "retry_after": 0.0,
+      "attempted_at": 1795734721.7267208
     }
   },
-  "not_before": 1795703625.719465,
+  "not_before": 1795735321.7267208,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795734715.3765976,
-    "nicknames": [
-      "혜영",
-      "맴매",
-      "할룽"
-    ]
-  }
+  "in_flight": null
 }
