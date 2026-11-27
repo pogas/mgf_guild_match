@@ -2,9 +2,6 @@
   "version": 1,
   "cycle_day": "2026-11-22",
   "pending": [
-    "니뚜",
-    "망겜감별사",
-    "세아수호지호",
     "족제비",
     "호날두",
     "큐샤프",
@@ -447,16 +444,36 @@
       "position": 42514,
       "retry_after": 0.0,
       "attempted_at": 1795755965.8351707
+    },
+    "니뚜": {
+      "nickname": "니뚜",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329513",
+      "position": 42637,
+      "retry_after": 0.0,
+      "attempted_at": 1795791589.171634
+    },
+    "망겜감별사": {
+      "nickname": "망겜감별사",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329514",
+      "position": 42638,
+      "retry_after": 0.0,
+      "attempted_at": 1795791591.66987
+    },
+    "세아수호지호": {
+      "nickname": "세아수호지호",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329515",
+      "position": 42639,
+      "retry_after": 0.0,
+      "attempted_at": 1795791593.8975375
     }
   },
-  "not_before": 1795756565.8351707,
+  "not_before": 1795792193.8975375,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795791586.822345,
-    "nicknames": [
-      "니뚜",
-      "망겜감별사",
-      "세아수호지호"
-    ]
-  }
+  "in_flight": null
 }
