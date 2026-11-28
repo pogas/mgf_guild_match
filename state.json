@@ -1,11 +1,7 @@
 {
   "version": 1,
   "cycle_day": "2026-11-22",
-  "pending": [
-    "슬흥민",
-    "쌉새",
-    "미쳤냥"
-  ],
+  "pending": [],
   "records": {
     "루넨": {
       "nickname": "루넨",
@@ -519,16 +515,36 @@
       "position": 42720,
       "retry_after": 0.0,
       "attempted_at": 1795841577.1022995
+    },
+    "슬흥민": {
+      "nickname": "슬흥민",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329664",
+      "position": 42788,
+      "retry_after": 0.0,
+      "attempted_at": 1795874037.872197
+    },
+    "쌉새": {
+      "nickname": "쌉새",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329665",
+      "position": 42789,
+      "retry_after": 0.0,
+      "attempted_at": 1795874039.7582107
+    },
+    "미쳤냥": {
+      "nickname": "미쳤냥",
+      "status": "queued",
+      "message": "request enqueued (refresh not yet confirmed)",
+      "queue_id": "329666",
+      "position": 42790,
+      "retry_after": 0.0,
+      "attempted_at": 1795874041.6295512
     }
   },
-  "not_before": 1795842177.1022995,
+  "not_before": 1795874641.6295512,
   "rate_limit_streak": 0,
-  "in_flight": {
-    "started_at": 1795874035.467923,
-    "nicknames": [
-      "슬흥민",
-      "쌉새",
-      "미쳤냥"
-    ]
-  }
+  "in_flight": null
 }
